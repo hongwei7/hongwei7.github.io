@@ -2,7 +2,7 @@
     <channel>
         <title>hongwei7 的博客</title>
         <link>https://hongwei7.github.io/</link>
-        <description>这是我的全新 Hugo 网站</description>
+        <description>这是hongwei7的个人网站</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1216869567@qq.com (hongwei)</managingEditor>
             <webMaster>1216869567@qq.com (hongwei)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 08 Jun 2021 06:22:02 &#43;0800</lastBuildDate>
             <atom:link href="https://hongwei7.github.io/index.xml" rel="self" type="application/rss+xml" />
