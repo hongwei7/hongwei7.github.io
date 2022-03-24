@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Linux Shell 笔记 - Hongwei 的博客</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="Linux Shell 笔记" />
+<meta property="og:description" content="此为做操作系统课程作业时,对shell语言的一些记录." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://brucemarkdown.top/linuxshellnote/" /><meta property="og:image" content="https://brucemarkdown.top/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-03-06T17:23:48&#43;00:00" />
+<meta property="article:modified_time" content="2020-03-06T17:23:48&#43;00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://brucemarkdown.top/logo.png"/>
+
+<meta name="twitter:title" content="Linux Shell 笔记"/>
+<meta name="twitter:description" content="此为做操作系统课程作业时,对shell语言的一些记录."/>
+<meta name="application-name" content="Hongwei&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Hongwei&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://brucemarkdown.top/linuxshellnote/" /><link rel="next" href="https://brucemarkdown.top/ipc%E4%B8%AD%E7%9A%84%E4%BF%A1%E5%8F%B7%E9%87%8F%E6%8E%A2%E7%A9%B6/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Linux Shell 笔记",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/brucemarkdown.top\/linuxshellnote\/"
+        },"genre": "posts","keywords": "Linux, OS","wordcount":  4474 ,
+        "url": "https:\/\/brucemarkdown.top\/linuxshellnote\/","datePublished": "2020-03-06T17:23:48+00:00","dateModified": "2020-03-06T17:23:48+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Hongwei"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Hongwei 的博客">Hongwei&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/linuxshellnote/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Hongwei 的博客">Hongwei&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/categories/documentation/" title="">文档</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/linuxshellnote/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Linux Shell 笔记</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/Hongwei7" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Hongwei</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-03-06">2020-03-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4474 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 9 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#常用命令">常用命令</a></li>
+    <li><a href="#进程命令">进程命令</a></li>
+    <li><a href="#环境变量">环境变量</a>
+      <ul>
+        <li><a href="#全局变量vs局部变量">全局变量VS局部变量</a></li>
+        <li><a href="#变量设置">变量设置</a>
+          <ul>
+            <li><a href="#设置用户变量">设置用户变量</a></li>
+            <li><a href="#设置全局变量">设置全局变量</a></li>
+            <li><a href="#删除环境变量">删除环境变量</a></li>
+            <li><a href="#设置path环境变量">设置PATH环境变量</a></li>
+            <li><a href="#使得环境变量持久化">使得环境变量持久化</a></li>
+          </ul>
+        </li>
+        <li><a href="#数组变量">数组变量</a></li>
+      </ul>
+    </li>
+    <li><a href="#vim编辑器">Vim编辑器</a>
+      <ul>
+        <li><a href="#基础操作">基础操作</a>
+          <ul>
+            <li><a href="#普通模式下">普通模式下</a>
+              <ul>
+                <li><a href="#光标的移动">光标的移动</a></li>
+                <li><a href="#翻页">翻页</a></li>
+                <li><a href="#命令行模式">命令行模式</a></li>
+                <li><a href="#编辑数据">编辑数据</a></li>
+                <li><a href="#复制粘贴">复制粘贴</a></li>
+                <li><a href="#查找与替换">查找与替换</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#构建脚本">构建脚本</a>
+      <ul>
+        <li><a href="#基础">基础</a>
+          <ul>
+            <li><a href="#脚本权限">脚本权限</a></li>
+            <li><a href="#显示消息">显示消息</a></li>
+            <li><a href="#变量的使用">变量的使用</a>
+              <ul>
+                <li><a href="#环境变量-1">环境变量</a></li>
+                <li><a href="#用户变量">用户变量</a></li>
+              </ul>
+            </li>
+            <li><a href="#命令替换">命令替换</a>
+              <ul>
+                <li><a href="#警告">警告</a></li>
+              </ul>
+            </li>
+            <li><a href="#重定向输入输出">重定向输入输出</a>
+              <ul>
+                <li><a href="#输出重定向">输出重定向</a></li>
+                <li><a href="#输入重定向">输入重定向</a></li>
+                <li><a href="#内联输入重定向">内联输入重定向</a></li>
+              </ul>
+            </li>
+            <li><a href="#管道pipe">管道(Pipe)</a></li>
+            <li><a href="#数学运算">数学运算</a>
+              <ul>
+                <li><a href="#expr命令">expr命令</a></li>
+                <li><a href="#使用方括号">使用方括号</a></li>
+              </ul>
+            </li>
+            <li><a href="#退出脚本">退出脚本</a>
+              <ul>
+                <li><a href="#查看退出状态码">查看退出状态码</a></li>
+                <li><a href="#exit-命令">exit 命令</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#结构化命令">结构化命令</a>
+          <ul>
+            <li><a href="#if-then">if-then</a></li>
+            <li><a href="#test-命令">test 命令</a>
+              <ul>
+                <li><a href="#检查变量是否有内容">检查变量是否有内容</a></li>
+                <li><a href="#数值比较">数值比较</a></li>
+                <li><a href="#字符串比较">字符串比较</a></li>
+                <li><a href="#文件比较">文件比较</a></li>
+              </ul>
+            </li>
+            <li><a href="#复合条件">复合条件</a></li>
+            <li><a href="#if-then-高级特性">If-then 高级特性</a></li>
+            <li><a href="#case-命令">case 命令</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>此为做操作系统课程作业时,对shell语言的一些记录.<!-- more--></p>
+<h2 id="常用命令">常用命令</h2>
+<ul>
+<li><code>ls</code> 列出文件
+<ul>
+<li><code>-F</code>  区分文件类型</li>
+<li><code>-a</code> 显示隐藏文件</li>
+<li><code>-R</code> 显示文件夹子文件夹</li>
+<li><code>-l</code> 显示更多信息，按行排列</li>
+<li>过滤器：通配符筛选文件</li>
+</ul>
+</li>
+<li><code>touch</code> 创建文件
+<ul>
+<li><code>-a</code> 改变修改时间</li>
+</ul>
+</li>
+<li><code>cp</code> 复制文件 <code>mv</code> 移动文件（重命名）
+<ul>
+<li><code>cp</code> <code> source</code>  <code>destination</code></li>
+<li><code>-i</code> 提醒是否覆盖</li>
+<li><code>-R</code> 复制并创建目录</li>
+</ul>
+</li>
+<li><code>ln</code> 链接文件
+<ul>
+<li>符号链接 <code>ln -s data_file s1_data_file</code> 是两个独立的文件</li>
+<li>硬链接 <code>ln datafile linkfile</code> 两个相同的文件</li>
+<li>修改一个文件的时候，其硬链接和符号链接都会被修改</li>
+</ul>
+</li>
+<li><code>rm</code> 删除文件
+<ul>
+<li><code>-i</code> 提示是否要删除</li>
+<li><code>-f</code> force删除</li>
+<li><code>-r</code> 递归删除子文件</li>
+</ul>
+</li>
+<li><code>mkdir</code> 创建目录
+<ul>
+<li><code>-p</code> 同时创建多个目录和子目录</li>
+</ul>
+</li>
+<li><code>rmdir</code> 删除目录 只删除空目录</li>
+<li><code>tree</code> 显示目录树</li>
+<li><code>file</code> 查看文件类型</li>
+<li><code>cat</code> 显示文本数据
+<ul>
+<li><code>-n</code> 加上行号</li>
+<li><code>-b</code> 给有文字的加上行号</li>
+<li><code>-T</code> 不让制表符出现</li>
+</ul>
+</li>
+<li><code>more</code> 显示长文本</li>
+<li><code>less</code> 更多功能的显示长文本工具</li>
+<li><code>tail</code> 查看文件尾部 head 查看文件头部</li>
+<li><code>ps</code> 查看进程
+<ul>
+<li><code>-A</code> <code>-e</code> 显示所有进程</li>
+<li><code>-a</code> 显示除控制进程以外的和无终端进程外的所有进程</li>
+<li><code>-d</code> 显示除控制进程以外的所有进程</li>
+<li><code>-L</code> 显示进程中的线程</li>
+<li><code>-f</code> 完整输出</li>
+<li><code>--forest</code> 树状显示父子关系(linux)</li>
+</ul>
+</li>
+<li><code>top</code> 实时显示运行情况 检测资源使用</li>
+<li><code>kill</code> 结束进程
+<ul>
+<li><code>-s</code> 指定信号 <code>kill -s HUP 3940</code></li>
+<li><code>killall</code> 通过进程名结束进程</li>
+</ul>
+</li>
+<li><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxShell/image-20200312193753491.png"
+        data-srcset="/images/LinuxShell/image-20200312193753491.png, /images/LinuxShell/image-20200312193753491.png 1.5x, /images/LinuxShell/image-20200312193753491.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxShell/image-20200312193753491.png"
+        title="image-20200312193753491" /></li>
+<li>挂载存储媒体 <code>mount</code>
+<ul>
+<li>类型:<code>vfat ntfs ios9660</code></li>
+<li><code>mount -t vfat /dev/sdb1 /media/disk</code></li>
+<li>卸载 <code>umount</code></li>
+</ul>
+</li>
+<li><code>df</code> 查看挂载硬盘情况</li>
+<li><code>du</code>显示该目录下所有文件
+<ul>
+<li><code>-c</code> 显示文件大小</li>
+<li><code>-h</code> 用易读格式输出</li>
+</ul>
+</li>
+<li>排序数据 <code>sort XXfile</code>
+<ul>
+<li><code>-n</code> 按照数值方式排序</li>
+<li><code>-M</code> 识别月份名排序</li>
+</ul>
+</li>
+<li><code>grep [option] pattern [file]</code> 在文件中查询某字符或模式
+<ul>
+<li><code>-v</code> 反向搜索</li>
+<li><code>-c</code> 计行数</li>
+<li><code>-e</code> 多个模式</li>
+</ul>
+</li>
+<li>压缩单个文件<code>gzip</code>
+<ul>
+<li><code>gzip</code> 压缩文件</li>
+<li><code>gzcat</code> 查看压缩文件内容</li>
+<li><code>gunzip</code> 解压文件</li>
+</ul>
+</li>
+<li><code>tar</code> 归档压缩数据
+<ul>
+<li><code>-c</code> 创建一个新的tar文件</li>
+<li><code>-r</code> 追加文件</li>
+<li><code>-t</code> 显示文件内容</li>
+<li><code>-f</code> 输出结果到什么目录或什么文件</li>
+<li><code>-x</code> 提取文件</li>
+<li><code>-z</code> 将输出重定向给gzip解压内容</li>
+<li>下载了开源软件之后，你会经常看到文件名以.tgz结尾。这些是gzip压缩过的tar文件可以 用命令<code>tar -zxvf filename.tgz</code>来解压。</li>
+</ul>
+</li>
+<li><code>bash</code>
+<ul>
+<li><code>-c string</code> 运行某个命令</li>
+<li><code>-i</code> 启动交互bash</li>
+<li><code>-l</code> 登陆shell形式启动</li>
+<li><code>-r</code> 目录受限制的bash</li>
+<li><code>-s</code> 从标准输入中获取命令</li>
+</ul>
+</li>
+</ul>
+<h2 id="进程命令">进程命令</h2>
+<ul>
+<li>在一行中加分号依次运行一系列命令
+<ul>
+<li><code>pwd; ls; cd /etc; pwd</code></li>
+</ul>
+</li>
+<li>加上括号会使其成为进程列表,生成一个子shell来只执行命令
+<ul>
+<li><code>(pwd ; ls ; cd /etc ; pwd ; cd ; pwd ; ls ; echo $BASH_SUBSHELL)</code></li>
+</ul>
+</li>
+<li>后台模式
+<ul>
+<li>将命令在后面加上<code>&amp;</code> 进入后台模式运行</li>
+<li>使用<code>ps</code> 或者<code> jobs</code>来查看后台作业</li>
+<li>也可以讲进程列表置入后台</li>
+</ul>
+</li>
+<li>协程
+<ul>
+<li><code>coproc sleep 10</code></li>
+<li>给进程起名字 <code>coproc MyJob { sleep 10; } </code>  (Linux) 可用于通信</li>
+</ul>
+</li>
+<li>内建命令与外部命令 可以使用<code>type</code>分辨
+<ul>
+<li>外部命令会占据大量资源</li>
+</ul>
+</li>
+<li><code>history</code> 记录之前输入的命令
+<ul>
+<li><code>!!</code> 上一条命令</li>
+<li><code>! num</code> 某一条命令</li>
+</ul>
+</li>
+<li><code>alias</code> 命令缩写输入工具
+<ul>
+<li>创建自己的命令 <code>alias name=cmd</code></li>
+<li>删除已有命名 <code>unalias name</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="环境变量">环境变量</h2>
+<h3 id="全局变量vs局部变量">全局变量VS局部变量</h3>
+<p>全局环境变量对所有的Shell及子Shell都可见;而局部环境变量仅对创建其的Shell可见.在变量名前加<code>$</code>来调用变量的值.</p>
+<ul>
+<li><code>env</code>或<code>printenv</code>查看全局变量,可用<code>echo $HOME</code> 查看某个变量的值</li>
+<li><code>set</code>可以显示为某个进程设定的所有环境变量,包括全局变量、局部变量和用户定义变量.</li>
+</ul>
+<h3 id="变量设置">变量设置</h3>
+<h4 id="设置用户变量">设置用户变量</h4>
+<p>可以通过等号来对变量进行赋值</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">my_variable</span><span class="o">=</span>hello
+<span class="nb">echo</span> <span class="nv">$my_variable</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>尽量遵循系统定义的变量使用大写,用户变量使用小写的规则.</p>
+<h4 id="设置全局变量">设置全局变量</h4>
+<p>通过<code>export</code>将用户变量导出到全局变量中(不需要加<code>$</code>)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">my_variable</span><span class="o">=</span>hello
+<span class="nb">export</span> my_variable
+</code></pre></td></tr></table>
+</div>
+</div><p>此时<code>my_variable</code>将成为一个全局变量.修改子shell中的全局变量不会影响父shell中的值.</p>
+<h4 id="删除环境变量">删除环境变量</h4>
+<p>使用<code>unset</code>删除变量</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">unset</span> my_variable
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>$规则:使用变量时要加$,操作变量时不需要用</strong>.</p>
+<p>除自之外,Bash有一些自带的环境变量.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxShell/image-20200410214152339.png"
+        data-srcset="/images/LinuxShell/image-20200410214152339.png, /images/LinuxShell/image-20200410214152339.png 1.5x, /images/LinuxShell/image-20200410214152339.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxShell/image-20200410214152339.png"
+        title="image-20200410214152339" /></p>
+<h4 id="设置path环境变量">设置PATH环境变量</h4>
+<p>在shell输入一个外部命令时,shell会查找<code>PATH</code>环境变量中的命令和程序来执行.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="nv">$PATH</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>添加目录进入环境变量</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">PATH</span> <span class="o">=</span> <span class="nv">$PATH</span>:/myfolder <span class="c1">#添加/myfloder路径进入环境变量</span>
+<span class="nv">PATH</span> <span class="o">=</span> <span class="nv">$PATH</span>:. <span class="c1">#添加当前目录进入环境变量</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这种修改只能保持到本次关机或者退出之前.</p>
+<h4 id="使得环境变量持久化">使得环境变量持久化</h4>
+<p>各个发行版下的shell有类似于<code>/etc/bash.bashrc</code>的配置文件,最常见的四种为</p>
+<ul>
+<li><code>$HOME/.bash_profile</code></li>
+<li><code>$HOME/.bashrc</code></li>
+<li><code>$HOME/.bash_login</code></li>
+<li><code>$HOME/.profile</code></li>
+</ul>
+<p>这些是Bash的启动脚本,在之中加入自己的环境变量即可以使得变量持久化</p>
+<h3 id="数组变量">数组变量</h3>
+<p>同样可以定义数组环境变量,例如</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">mytest</span><span class="o">=(</span>one two three four five<span class="o">)</span>
+<span class="nb">echo</span> <span class="nv">$mytest</span> <span class="c1">#输出整个数组(或者是第一个)</span>
+<span class="nb">echo</span> <span class="nv">$mytest</span><span class="o">[</span>*<span class="o">]</span> <span class="c1">#输出整个数组</span>
+<span class="nb">echo</span> <span class="nv">$mytest</span><span class="o">[</span>3<span class="o">]</span> <span class="c1">#输出第四个值</span>
+<span class="nb">unset</span> mytest<span class="o">[</span>2<span class="o">]</span> <span class="c1">#删除第三个值</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="vim编辑器">Vim编辑器</h2>
+<h3 id="基础操作">基础操作</h3>
+<h4 id="普通模式下">普通模式下</h4>
+<h5 id="光标的移动">光标的移动</h5>
+<p><code>h</code> 左移动光标</p>
+<p><code>j</code> 下移动光标</p>
+<p><code>k</code> 上移动光标</p>
+<p><code>l</code> 右移动光标</p>
+<h5 id="翻页">翻页</h5>
+<p><code>PageDown</code> 或 <code>Ctrl+F</code>  下翻一页</p>
+<p><code>PageUp</code> 或 <code>Ctrl+B</code> 上翻一页</p>
+<p><code>G</code> 移到缓冲区最后一行</p>
+<p><code>num G</code> 移动到缓冲区第num行</p>
+<p><code>gg</code> 移到缓冲区第一行</p>
+<h5 id="命令行模式">命令行模式</h5>
+<p><code>q</code> 未修改且退出</p>
+<p><code>q!</code> 取消修改并退出</p>
+<p><code>w </code>filename 保存到其他文件中</p>
+<p><code>wq</code> 保存并退出</p>
+<h5 id="编辑数据">编辑数据</h5>
+<p><code>x</code> 删除当前字符</p>
+<p><code>dd</code> 删除当前行</p>
+<p><code>dw</code> 删除当前单词</p>
+<p><code>d$</code> 删除至行尾</p>
+<p><code>J</code> 删除行尾的换行符</p>
+<p><code>u</code> 撤销</p>
+<p><code>a</code> 追加数据</p>
+<p><code>A</code> 在行尾追加数据</p>
+<p><code>r char</code> 用<code>char</code>替换光标当前字符</p>
+<p><code>R text</code> 用<code>text</code>覆盖当前位置数据 直到按下ESC</p>
+<h5 id="复制粘贴">复制粘贴</h5>
+<p><code>y</code> 复制</p>
+<p><code>p</code> 粘贴</p>
+<h5 id="查找与替换">查找与替换</h5>
+<p><code>/ text</code> 查找某文本</p>
+<p><code>/+Enter</code> 或 <code>n</code> 查找下一个</p>
+<p><code>:s/old/new/g</code> 替换所有old</p>
+<p><code> :n,ms/old/new/g</code> 替换n行到m行之间的所有old</p>
+<p><code>:%s/old/new/g</code> 替换整个文件中的所有old</p>
+<p><code> :%s/old/new/gc</code> 替换整个文件中的所有old，但在每次出现时提示。</p>
+<h2 id="构建脚本">构建脚本</h2>
+<h3 id="基础">基础</h3>
+<h4 id="脚本权限">脚本权限</h4>
+<p>对脚本赋予文件属主执行文件的权限 <code>chmod u+x test</code></p>
+<p>将脚本路径加入环境变量可以直接调用脚本</p>
+<h4 id="显示消息">显示消息</h4>
+<p><code>echo</code> 输出字符串</p>
+<p><code>echo -n</code> 将字符串输出在同一行(仅限于Bash)  Mac可以通过<code>\c</code>实现</p>
+<h4 id="变量的使用">变量的使用</h4>
+<h5 id="环境变量-1">环境变量</h5>
+<p>在环境变量前加上<code>$</code>来使用环境变量,可以使用<code>${variable}</code>来严格规定变量名</p>
+<h5 id="用户变量">用户变量</h5>
+<p>使用等号赋值,在变量、等号和值之间不能出现空格.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">var1</span><span class="o">=</span><span class="m">10</span>
+<span class="nv">var2</span><span class="o">=</span><span class="m">20</span>
+<span class="nv">var3</span><span class="o">=</span>testing
+<span class="nv">var4</span><span class="o">=</span><span class="s2">&#34;strill more testing&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="命令替换">命令替换</h4>
+<p>使用反引号字符``或者$()来获取命令输出</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">debug</span><span class="o">=</span><span class="sb">`</span>date<span class="sb">`</span>
+<span class="nv">debug1</span><span class="o">=</span><span class="k">$(</span>who<span class="k">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>命令替换获得日期并生成文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+</span><span class="cp"></span><span class="c1"># copy the /usr/bin directory listing to a log file</span>
+<span class="nv">today</span><span class="o">=</span><span class="k">$(</span>date +%y%m%d<span class="k">)</span>
+ls /usr/bin -al &gt; log.<span class="nv">$today</span>
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="警告">警告</h5>
+<p>命令替换会创建一个子shell来运行对应的命令。子shell(subshell)是由运行该脚本的shell 所创建出来的一个独立的子shell(child shell)。正因如此，<strong>由该子shell所执行命令是无法 使用脚本中所创建的变量的</strong>。 在命令行提示符下使用路径./运行命令的话，也会创建出子shell;要是运行命令的时候 <strong>不加入路径，就不会创建子shell</strong>。如果你使用的是内建的shell命令，并不会涉及子shell。 在命令行提示符下运行脚本时一定要留心!</p>
+<h4 id="重定向输入输出">重定向输入输出</h4>
+<h5 id="输出重定向">输出重定向</h5>
+<p><code>&gt;</code>完成将命令的输出发送到一个文件中,<code>&gt;&gt;</code>表示将内容追加到文件中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ who &gt; test6
+$ cat test6
+user     pts/0    Feb <span class="m">10</span> 17:55
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="输入重定向">输入重定向</h5>
+<p>输入重定向恰好相反 <code>command &lt; inputfile</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ wc &lt; test6 <span class="c1"># wc : wordcount</span>
+<span class="m">2</span> <span class="m">11</span> <span class="m">60</span>
+$
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="内联输入重定向">内联输入重定向</h5>
+<p><code>command &lt;&lt; marker</code></p>
+<p>在命令行上使用内联输入重定向时，shell会用PS2环境变量中定义的次提示符(参见第6章) 来提示输入数据。下面是它的使用情况。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ wc <span class="s">&lt;&lt; EOF
+</span><span class="s">&gt; test string 1
+</span><span class="s">&gt; test string 2
+</span><span class="s">&gt; test string 3
+</span><span class="s">&gt; EOF</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="管道pipe">管道(Pipe)</h4>
+<p>有时需要<strong>将一个命令的输出作为另一个命令的输入</strong>。这可以用重定向来实现，只是有些笨拙。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ rpm -qa &gt; rpm.list
+$ sort &lt; rpm.list 
+abrt-1.1.14-1.fc14.i686 
+abrt-addon-ccpp-1.1.14-1.fc14.i686 
+abrt-addon-kerneloops-1.1.14-1.fc14.i686 
+abrt-addon-python-1.1.14-1.fc14.i686 
+abrt-desktop-1.1.14-1.fc14.i686 
+abrt-gui-1.1.14-1.fc14.i686 
+abrt-libs-1.1.14-1.fc14.i686 
+abrt-plugin-bugzilla-1.1.14-1.fc14.i686 
+abrt-plugin-logger-1.1.14-1.fc14.i686 
+abrt-plugin-runapp-1.1.14-1.fc14.i686 
+acl-2.2.49-8.fc14.i686
+...
+</code></pre></td></tr></table>
+</div>
+</div><p>管道连接可以解决这个问题,<code>|</code>将一个命令的输出重定向到另一个命令中.</p>
+<p><code>command1 | command2</code></p>
+<p>Linux会同时运行两个命令,在系统内部连接起来,在第一个命令产生输出的同时，输出会被立即送给第二个命令。<strong>数据传输不会用到任何中间文件或缓冲区</strong>。</p>
+<p><code>$ rpm -qa | sort | more</code></p>
+<p>到目前为止，管道最流行的用法之一是将命令产生的大量输出通过管道传送给more命令。 这对ls命令来说尤为常见.</p>
+<p><img src="/images/LinuxShell/image-20200424121839819.png" alt="image-20200424121839819" style="zoom:80%;" /></p>
+<h4 id="数学运算">数学运算</h4>
+<h5 id="expr命令">expr命令</h5>
+<p>使用expr命令可以进行一些简单的数学运算</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">$expr</span> <span class="m">1</span> + <span class="m">5</span>
+<span class="m">6</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="/images/LinuxShell/image-20200424122302385.png" alt="image-20200424122302385" style="zoom:80%;" /></p>
+<p>尽管标准操作符在expr命令中工作得很好，但在脚本或命令行上使用它们时仍有问题出现。 许多expr命令操作符在shell中另有含义(比如星号)。当它们出现在在expr命令中时，会得到一 些诡异的结果。</p>
+<h5 id="使用方括号">使用方括号</h5>
+<p>使用<code>$[]</code>处理数学表达式会更加方便</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ cat test8
+    <span class="c1">#!/bin/bash</span>
+    <span class="nv">var1</span><span class="o">=</span><span class="m">100</span>
+    <span class="nv">var2</span><span class="o">=</span><span class="m">45</span>
+    <span class="nv">var3</span><span class="o">=</span>$<span class="o">[</span><span class="nv">$var1</span> / <span class="nv">$var2</span><span class="o">]</span>
+    <span class="nb">echo</span> The final result is <span class="nv">$var3</span>
+$ chmod u+x test8
+$ ./test8
+The final result is <span class="m">2</span> 
+$
+</code></pre></td></tr></table>
+</div>
+</div><p>但是bash仅支持整数运算,zshell(zsh)提供了完整的浮点数算术操作,或者也可以使用bc来进行浮点运算.</p>
+<h4 id="退出脚本">退出脚本</h4>
+<h5 id="查看退出状态码">查看退出状态码</h5>
+<p>shell中运行的每个命令都使用退出状态码(exit status)告诉shell它已经运行完毕。退出状态 码是一个0~255的整数值，在命令结束运行时由命令传给shell。可以捕获这个值并在脚本中使用。</p>
+<p>Linux提供了一个专门的变量<code>$?</code>来保存上个已执行命令的退出状态码。对于需要进行检查的 命令，必须在其运行完毕后立刻查看或使用<code>$?</code>变量。它的值会变成由shell所执行的最后一条命令的退出状态码。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ date
+Sat Jan <span class="m">15</span> 10:01:30 EDT <span class="m">2014</span>
+$ <span class="nb">echo</span> <span class="nv">$?</span>
+<span class="m">0</span>
+$
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="/images/LinuxShell/image-20200424123347544.png" alt="image-20200424123347544" style="zoom:80%;" /></p>
+<h5 id="exit-命令">exit 命令</h5>
+<p>使用<code>exit</code>可以自行返回状态码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">exit</span> <span class="m">127</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="结构化命令">结构化命令</h3>
+<h4 id="if-then">if-then</h4>
+<p>bash中最基本的结构化语句为</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">if</span> <span class="nb">command</span>
+<span class="k">then</span>
+		commands
+<span class="k">fi</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>若<code>if</code>后的<em>command</em>返回状态码为0,则<em>commands</em>会运行,若返回状态码非0,则会跳过<code>then</code>中的内容.</p>
+<p>同时,也有<code>else</code>语句,也有<code>elif</code>语句</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">if</span> <span class="nb">command</span> <span class="k">then</span>
+commands
+<span class="k">else</span>
+commands
+<span class="k">fi</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">if</span> command1 <span class="k">then</span>
+commands 
+<span class="k">elif</span> command2 
+<span class="k">then</span>
+more commands 
+<span class="k">fi</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="test-命令">test 命令</h4>
+<h5 id="检查变量是否有内容">检查变量是否有内容</h5>
+<p>在if语句中看到的都是普通shell命令。你可能想问，if-then语句是否能测试 命令退出状态码之外的条件。</p>
+<p>答案是不能。但在bash shell中有个好用的工具可以帮你通过<code>if-then</code>语句测试其他条件。 test命令提供了在<code>if-then</code>语句中测试不同条件的途径。如果<code>test</code>命令中列出的条件成立， <code>test</code>命令就会退出并返回退出状态码0。这样if-then语句就与其他编程语言中的<code>if-then</code>语句</p>
+<p>以类似的方式工作了。如果条件不成立，<code>test</code>命令就会退出并返回非零的退出状态码，这使得 if-then语句不会再被执行。</p>
+<p><code>test</code>命令的格式非常简单。<code> test condition</code></p>
+<p><code>condition</code>是<code>test</code>命令要测试的一系列参数和值。当用在<code>if-then</code>语句中时，<code>test</code>命令看 起来是这样的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">if</span> <span class="nb">test</span> condition
+<span class="k">then</span> 
+		commands
+<span class="k">fi</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>用<code>test</code>可以确定变量中是否有内容</p>
+<p>也可以用<code>[]</code>替代<code>test</code>.</p>
+<h5 id="数值比较">数值比较</h5>
+<p><img src="/images/LinuxShell/image-20200425010537599.png" alt="image-20200425010537599" style="zoom:80%;" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">value1</span><span class="o">=</span><span class="m">10</span>
+<span class="nv">value2</span><span class="o">=</span><span class="m">2</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$value1</span> -lt <span class="nv">$value2</span> <span class="o">]</span>
+<span class="k">then</span> <span class="nb">echo</span> <span class="s2">&#34; </span><span class="nv">$value1</span><span class="s2"> &lt; </span><span class="nv">$value2</span><span class="s2"> &#34;</span> 
+<span class="k">else</span> <span class="nb">echo</span> <span class="s2">&#34; </span><span class="nv">$value1</span><span class="s2"> &gt;= </span><span class="nv">$value2</span><span class="s2"> &#34;</span> 
+<span class="k">fi</span>
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="字符串比较">字符串比较</h5>
+<p>通常需要添加转义字符</p>
+<p><img src="/images/LinuxShell/image-20200425011431504.png" alt="image-20200425011431504" style="zoom:80%;" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">if</span> <span class="o">[</span> <span class="nv">$value1</span> <span class="se">\&lt;</span> <span class="nv">$value2</span> <span class="o">]</span>
+<span class="k">then</span> <span class="nb">echo</span> <span class="s2">&#34; </span><span class="nv">$value1</span><span class="s2"> &lt; </span><span class="nv">$value2</span><span class="s2"> &#34;</span> 
+<span class="k">else</span> <span class="nb">echo</span> <span class="s2">&#34; </span><span class="nv">$value1</span><span class="s2"> &gt;= </span><span class="nv">$value2</span><span class="s2"> &#34;</span> 
+<span class="k">fi</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>在比较测试中，大写字母被认为是小于小写字母的。但sort命令恰好相反。当你将同样的 字符串放进文件中并用sort命令排序时，小写字母会先出现。这是由各个命令使用的排序技术 不同造成的。</p>
+<h5 id="文件比较">文件比较</h5>
+<p>文件比较是最常用,功能最强大的比较形式.</p>
+<p><img src="/images/LinuxShell/image-20200425011634167.png" alt="image-20200425011634167" style="zoom:80%;" /></p>
+<h4 id="复合条件">复合条件</h4>
+<p>可以用布尔逻辑<code>&amp;&amp;</code> <code>||</code>来组合条件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ cat test22.sh
+<span class="c1">#!/bin/bash</span>
+<span class="c1"># testing compound comparisons</span>
+<span class="c1">#</span>
+<span class="k">if</span> <span class="o">[</span> -d <span class="nv">$HOME</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> -w <span class="nv">$HOME</span>/testing <span class="o">]</span> <span class="k">then</span>
+   <span class="nb">echo</span> <span class="s2">&#34;The file exists and you can write to it&#34;</span>
+<span class="k">else</span>
+   <span class="nb">echo</span> <span class="s2">&#34;I cannot write to the file&#34;</span>
+<span class="k">fi</span>
+$
+$ ./test22.sh
+I cannot write to the file $
+$ touch <span class="nv">$HOME</span>/testing $
+$ ./test22.sh
+The file exists and you can write to it $
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="if-then-高级特性">If-then 高级特性</h4>
+<p><code>(())</code> 双括号命令允许在比较过程中使用高级数学表达式.</p>
+<p><img src="/images/LinuxShell/image-20200425012126938.png" alt="image-20200425012126938" style="zoom:80%;" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ cat test23.sh
+<span class="c1">#!/bin/bash</span>
+<span class="c1"># using double parenthesis #</span>
+<span class="nv">val1</span><span class="o">=</span><span class="m">10</span>
+<span class="c1">#</span>
+<span class="k">if</span> <span class="o">((</span> <span class="nv">$val1</span> ** <span class="m">2</span> &gt; <span class="m">90</span> <span class="o">))</span> <span class="k">then</span>
+       <span class="o">((</span> <span class="nv">val2</span> <span class="o">=</span> <span class="nv">$val1</span> ** <span class="m">2</span> <span class="o">))</span>
+       <span class="nb">echo</span> <span class="s2">&#34;The square of </span><span class="nv">$val1</span><span class="s2"> is </span><span class="nv">$val2</span><span class="s2">&#34;</span>
+<span class="k">fi</span>
+$
+$ ./test23.sh
+The square of <span class="m">10</span> is <span class="m">100</span> 
+</code></pre></td></tr></table>
+</div>
+</div><p><code>[[]]</code> 双方括号允许在比较过程中使用字符串的高级特性.可以利用正则表达式来匹配模式.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ cat test24.sh
+<span class="c1">#!/bin/bash</span>
+<span class="c1"># using pattern matching </span>
+<span class="k">if</span> <span class="o">[[</span> <span class="nv">$USER</span> <span class="o">=</span>~ r* <span class="o">]]</span>
+<span class="k">then</span>
+<span class="nb">echo</span> <span class="s2">&#34;Hello </span><span class="nv">$USER</span><span class="s2">&#34;</span>
+<span class="k">else</span> 
+   <span class="nb">echo</span> <span class="s2">&#34;Sorry, I do not know you&#34;</span>
+<span class="k">fi</span>
+$ ./test24.sh 
+Hello rich
+$
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="case-命令">case 命令</h4>
+<p><code>case</code>命令在bash中格式为</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">case</span> variable in
+pattern1 <span class="p">|</span> pattern2<span class="o">)</span> commands1<span class="p">;;</span>
+pattern3<span class="o">)</span> commands2<span class="p">;;</span>
+*<span class="o">)</span> default commands<span class="p">;;</span>
+<span class="k">esac</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>也类似于其他语言中的<code>case</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ cat test26.sh <span class="c1">#!/bin/bash</span>
+<span class="c1"># using the case command #</span>
+<span class="k">case</span> <span class="nv">$USER</span> in
+rich <span class="p">|</span> barbara<span class="o">)</span>
+       <span class="nb">echo</span> <span class="s2">&#34;Welcome, </span><span class="nv">$USER</span><span class="s2">&#34;</span>
+       <span class="nb">echo</span> <span class="s2">&#34;Please enjoy your visit&#34;</span><span class="p">;;</span>
+testing<span class="o">)</span>
+       <span class="nb">echo</span> <span class="s2">&#34;Special testing account&#34;</span><span class="p">;;</span>
+jessica<span class="o">)</span>
+       <span class="nb">echo</span> <span class="s2">&#34;Do not forget to log off when you&#39;re done&#34;</span><span class="p">;;</span>
+*<span class="o">)</span>
+       <span class="nb">echo</span> <span class="s2">&#34;Sorry, you are not allowed here&#34;</span><span class="p">;;</span>
+<span class="k">esac</span>
+$
+$ ./test26.sh
+Welcome, rich
+Please enjoy your visit 
+$
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-03-06</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/linuxshellnote/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://brucemarkdown.top/linuxshellnote/" data-title="Linux Shell 笔记" data-hashtags="Linux,OS"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://brucemarkdown.top/linuxshellnote/" data-hashtag="Linux"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://brucemarkdown.top/linuxshellnote/" data-title="Linux Shell 笔记" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://brucemarkdown.top/linuxshellnote/" data-title="Linux Shell 笔记"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://brucemarkdown.top/linuxshellnote/" data-title="Linux Shell 笔记"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://brucemarkdown.top/linuxshellnote/" data-title="Linux Shell 笔记" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://brucemarkdown.top/linuxshellnote/" data-title="Linux Shell 笔记" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://brucemarkdown.top/linuxshellnote/" data-title="Linux Shell 笔记"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/linux/">Linux</a>,&nbsp;<a href="/tags/os/">OS</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+            <a href="/ipc%E4%B8%AD%E7%9A%84%E4%BF%A1%E5%8F%B7%E9%87%8F%E6%8E%A2%E7%A9%B6/" class="next" rel="next" title="IPC中的信号量探究">IPC中的信号量探究<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/Hongwei7" target="_blank">Hongwei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":300},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

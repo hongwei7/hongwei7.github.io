@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>数据链路层复习 - Hongwei 的博客</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="数据链路层复习" />
+<meta property="og:description" content="🙊逻辑链路层和 MAC 子层的复习。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://brucemarkdown.top/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/" /><meta property="og:image" content="https://brucemarkdown.top/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-05-10T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2021-05-10T00:00:00&#43;00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://brucemarkdown.top/logo.png"/>
+
+<meta name="twitter:title" content="数据链路层复习"/>
+<meta name="twitter:description" content="🙊逻辑链路层和 MAC 子层的复习。"/>
+<meta name="application-name" content="Hongwei&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Hongwei&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://brucemarkdown.top/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/" /><link rel="prev" href="https://brucemarkdown.top/mysql%E5%8E%9F%E7%90%86/" /><link rel="next" href="https://brucemarkdown.top/c-%E5%81%8F%E7%89%B9%E5%8C%96%E7%9A%84%E4%BD%BF%E7%94%A8/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "数据链路层复习",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/brucemarkdown.top\/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82\/"
+        },"genre": "posts","keywords": "Networks","wordcount":  1839 ,
+        "url": "https:\/\/brucemarkdown.top\/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82\/","datePublished": "2021-05-10T00:00:00+00:00","dateModified": "2021-05-10T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Hongwei"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Hongwei 的博客">Hongwei&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Hongwei 的博客">Hongwei&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/categories/documentation/" title="">文档</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">数据链路层复习</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/Hongwei7" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Hongwei</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-05-10">2021-05-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1839 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://brucemarkdown.top/images/Network.jpg"
+        data-srcset="https://brucemarkdown.top/images/Network.jpg, https://brucemarkdown.top/images/Network.jpg 1.5x, https://brucemarkdown.top/images/Network.jpg 2x"
+        data-sizes="auto"
+        alt="https://brucemarkdown.top/images/Network.jpg"
+        title="https://brucemarkdown.top/images/Network.jpg" /></div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#数据链路层的流量控制">数据链路层的流量控制</a></li>
+    <li><a href="#数据结构帧">数据结构（帧）</a>
+      <ul>
+        <li><a href="#帧头">帧头</a></li>
+        <li><a href="#帧尾">帧尾</a></li>
+      </ul>
+    </li>
+    <li><a href="#成帧的方法">成帧的方法</a></li>
+    <li><a href="#差错处理纠错检错">差错处理（纠错、检错）</a>
+      <ul>
+        <li><a href="#海明距离">海明距离</a></li>
+        <li><a href="#海明距离的意义">海明距离的意义</a></li>
+        <li><a href="#海明距离与检错">海明距离与检错</a></li>
+        <li><a href="#海明距离与纠错">海明距离与纠错</a></li>
+        <li><a href="#纠一位错的海明码">纠一位错的海明码</a></li>
+        <li><a href="#检一位错的海明码">检一位错的海明码</a></li>
+      </ul>
+    </li>
+    <li><a href="#基本协议">基本协议</a></li>
+    <li><a href="#滑动窗口">滑动窗口</a>
+      <ul>
+        <li><a href="#协议-4滑动窗口协议">协议 4：滑动窗口协议</a></li>
+        <li><a href="#协议-5回退-n-帧">协议 5：回退 n 帧</a></li>
+        <li><a href="#协议-6选择重传">协议 6：选择重传</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#介质的多路访问控制">介质的多路访问控制</a>
+      <ul>
+        <li><a href="#多路访问协议">多路访问协议</a></li>
+        <li><a href="#aloha">ALOHA</a></li>
+        <li><a href="#csma改进的-aloha">CSMA（改进的 ALOHA）</a></li>
+        <li><a href="#冲突窗口-rtt">冲突窗口 RTT</a></li>
+        <li><a href="#csmacd带冲突检测的-csma">CSMA/CD（带冲突检测的 CSMA）</a></li>
+        <li><a href="#冲突检测">冲突检测</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#ieee">IEEE</a></li>
+    <li><a href="#以太网采用曼彻斯特编码的csmacd-技术">以太网采用曼彻斯特编码的CSMA/CD 技术</a></li>
+    <li><a href="#ieee8023-以太网帧区别于-dix-以太网帧">IEEE802.3 以太网帧（区别于 DIX 以太网帧）</a>
+      <ul>
+        <li><a href="#为什么帧长度要大于-64bytes">为什么帧长度要大于 64bytes</a></li>
+      </ul>
+    </li>
+    <li><a href="#二层交换的原理">二层交换的原理</a>
+      <ul>
+        <li><a href="#生成树算法-stp">生成树算法 STP</a></li>
+        <li><a href="#两层交换设备">两层交换设备</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="数据链路层逻辑链路层">数据链路层（逻辑链路层）</h1>
+<p>数据链路层包含逻辑链路层和 MAC 子层.</p>
+<h2 id="数据链路层的流量控制">数据链路层的流量控制</h2>
+<ul>
+<li>差错检测和控制</li>
+<li>流量控制
+<ul>
+<li>基于速率</li>
+<li>基于反馈（由接收方反馈信息给发送方）</li>
+</ul>
+</li>
+</ul>
+<h2 id="数据结构帧">数据结构（帧）</h2>
+<p>帧=帧头+载荷+帧尾</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Network-1/Untitled.png"
+        data-srcset="/images/Network-1/Untitled.png, /images/Network-1/Untitled.png 1.5x, /images/Network-1/Untitled.png 2x"
+        data-sizes="auto"
+        alt="/images/Network-1/Untitled.png"
+        title="/images/Network-1/Untitled.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Network-1/Untitled%201.png"
+        data-srcset="/images/Network-1/Untitled%201.png, /images/Network-1/Untitled%201.png 1.5x, /images/Network-1/Untitled%201.png 2x"
+        data-sizes="auto"
+        alt="/images/Network-1/Untitled%201.png"
+        title="/images/Network-1/Untitled%201.png" /></p>
+<h3 id="帧头">帧头</h3>
+<ul>
+<li>物理地址信息</li>
+</ul>
+<h3 id="帧尾">帧尾</h3>
+<ul>
+<li>校验和</li>
+</ul>
+<h2 id="成帧的方法">成帧的方法</h2>
+<ul>
+<li>
+<p>字符计数法（头部添加帧长）</p>
+</li>
+<li>
+<p>字节填充的标志字节法（每一帧采用特殊的字符作为帧界 flag byte）</p>
+<p>使用转义符解决标志字节法的问题，实际用于PPP 协议中</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Network-1/Untitled%202.png"
+        data-srcset="/images/Network-1/Untitled%202.png, /images/Network-1/Untitled%202.png 1.5x, /images/Network-1/Untitled%202.png 2x"
+        data-sizes="auto"
+        alt="/images/Network-1/Untitled%202.png"
+        title="/images/Network-1/Untitled%202.png" /></p>
+</li>
+<li>
+<p>比特填充的比特标记法解决这个问题。（5 个 1 后面加一个 0）</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Network-1/Untitled%203.png"
+        data-srcset="/images/Network-1/Untitled%203.png, /images/Network-1/Untitled%203.png 1.5x, /images/Network-1/Untitled%203.png 2x"
+        data-sizes="auto"
+        alt="/images/Network-1/Untitled%203.png"
+        title="/images/Network-1/Untitled%203.png" /></p>
+</li>
+<li>
+<p>或者使用冗余的信号作为帧界</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Network-1/Untitled%204.png"
+        data-srcset="/images/Network-1/Untitled%204.png, /images/Network-1/Untitled%204.png 1.5x, /images/Network-1/Untitled%204.png 2x"
+        data-sizes="auto"
+        alt="/images/Network-1/Untitled%204.png"
+        title="/images/Network-1/Untitled%204.png" /></p>
+</li>
+</ul>
+<h2 id="差错处理纠错检错">差错处理（纠错、检错）</h2>
+<p>纠错码主要用于无线网络（冗余开销大）</p>
+<p>检错码可以发现错误，使用在局域网中，使用重传恢复。</p>
+<h3 id="海明距离">海明距离</h3>
+<p>两个码字之间的海明距离为不同位的个数。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Network-1/Untitled%205.png"
+        data-srcset="/images/Network-1/Untitled%205.png, /images/Network-1/Untitled%205.png 1.5x, /images/Network-1/Untitled%205.png 2x"
+        data-sizes="auto"
+        alt="/images/Network-1/Untitled%205.png"
+        title="/images/Network-1/Untitled%205.png" /></p>
+<p>可以使用异或计算，再统计 1 的个数。</p>
+<blockquote>
+<p>全部码字的海明距离定义为任意两个码字之间海明距离的最小值。</p>
+</blockquote>
+<h3 id="海明距离的意义">海明距离的意义</h3>
+<p>如果海明距离为 d，则一个码字需要发生 $d$ 个 1 位错误才能变成另外一个码字。</p>
+<h3 id="海明距离与检错">海明距离与检错</h3>
+<blockquote>
+<p>海明距离为 $d+1$ 的编码可以检测出 d 位差错。</p>
+</blockquote>
+<p>一个码字至少要变 $d+1$ 次才能变为另外一个码字。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Network-1/Untitled%206.png"
+        data-srcset="/images/Network-1/Untitled%206.png, /images/Network-1/Untitled%206.png 1.5x, /images/Network-1/Untitled%206.png 2x"
+        data-sizes="auto"
+        alt="/images/Network-1/Untitled%206.png"
+        title="/images/Network-1/Untitled%206.png" /></p>
+<p>海明距离代表了需要检错的数据位的成本开销。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Network-1/Untitled%207.png"
+        data-srcset="/images/Network-1/Untitled%207.png, /images/Network-1/Untitled%207.png 1.5x, /images/Network-1/Untitled%207.png 2x"
+        data-sizes="auto"
+        alt="/images/Network-1/Untitled%207.png"
+        title="/images/Network-1/Untitled%207.png" /></p>
+<h3 id="海明距离与纠错">海明距离与纠错</h3>
+<blockquote>
+<p>海明距离为 $2d+1$ 的编码，可以纠错 $d$ 位差错。</p>
+</blockquote>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Network-1/Untitled%208.png"
+        data-srcset="/images/Network-1/Untitled%208.png, /images/Network-1/Untitled%208.png 1.5x, /images/Network-1/Untitled%208.png 2x"
+        data-sizes="auto"
+        alt="/images/Network-1/Untitled%208.png"
+        title="/images/Network-1/Untitled%208.png" /></p>
+<p>它可以选择海明距离最低的码字进行纠正。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Network-1/Untitled%209.png"
+        data-srcset="/images/Network-1/Untitled%209.png, /images/Network-1/Untitled%209.png 1.5x, /images/Network-1/Untitled%209.png 2x"
+        data-sizes="auto"
+        alt="/images/Network-1/Untitled%209.png"
+        title="/images/Network-1/Untitled%209.png" /></p>
+<p>海明距离越大，纠错能力越强。</p>
+<h3 id="纠一位错的海明码">纠一位错的海明码</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Network-1/Untitled%2010.png"
+        data-srcset="/images/Network-1/Untitled%2010.png, /images/Network-1/Untitled%2010.png 1.5x, /images/Network-1/Untitled%2010.png 2x"
+        data-sizes="auto"
+        alt="/images/Network-1/Untitled%2010.png"
+        title="/images/Network-1/Untitled%2010.png" /></p>
+<h3 id="检一位错的海明码">检一位错的海明码</h3>
+<ul>
+<li>奇偶校验码（添加一位，保证 1 位奇数或者偶数个）</li>
+<li>互联网校验和（常见的 16 位补码互联网校验和）</li>
+<li>循环冗余校验码CRC（使用异或运算，检查多项式是否能被通用的生成多项式CRC32整除）</li>
+</ul>
+<h2 id="基本协议">基本协议</h2>
+<ul>
+<li>无限制的单工协议（乌托邦协议）</li>
+<li>半双工协议（有反馈机制，等待上一个帧的收到回应后，再发送下一个帧）</li>
+<li>肯定确认重传（确认正确帧，超时重发，添加序列号）</li>
+</ul>
+<h2 id="滑动窗口">滑动窗口</h2>
+<h3 id="协议-4滑动窗口协议">协议 4：滑动窗口协议</h3>
+<ul>
+<li>窗口大小为 1</li>
+<li>发送窗口：已经发送未被确认的序号</li>
+<li>接收窗口：期望接收的序列号</li>
+</ul>
+<p>seq 使用一个位来表示，0，1 交替出现。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Network-1/Untitled%2011.png"
+        data-srcset="/images/Network-1/Untitled%2011.png, /images/Network-1/Untitled%2011.png 1.5x, /images/Network-1/Untitled%2011.png 2x"
+        data-sizes="auto"
+        alt="/images/Network-1/Untitled%2011.png"
+        title="/images/Network-1/Untitled%2011.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Network-1/Untitled%2012.png"
+        data-srcset="/images/Network-1/Untitled%2012.png, /images/Network-1/Untitled%2012.png 1.5x, /images/Network-1/Untitled%2012.png 2x"
+        data-sizes="auto"
+        alt="/images/Network-1/Untitled%2012.png"
+        title="/images/Network-1/Untitled%2012.png" /></p>
+<p>存在问题：定时器设置过短的时候，会产生很多重复帧。</p>
+<h3 id="协议-5回退-n-帧">协议 5：回退 n 帧</h3>
+<p>当某一个帧出错时，重传从那个帧开始之后的所有帧。</p>
+<p>采用了累计确认。</p>
+<ul>
+<li>定义 seq 和滑动窗口</li>
+<li>发送方连续发送，直到发送窗口满</li>
+<li>接收窗口为 1，对出错帧不确认（引发超时）</li>
+<li>发送方超时重传，从未被确认的帧开始</li>
+</ul>
+<p>存在问题：maxSeq 的混搅</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Network-1/Untitled%2013.png"
+        data-srcset="/images/Network-1/Untitled%2013.png, /images/Network-1/Untitled%2013.png 1.5x, /images/Network-1/Untitled%2013.png 2x"
+        data-sizes="auto"
+        alt="/images/Network-1/Untitled%2013.png"
+        title="/images/Network-1/Untitled%2013.png" /></p>
+<p>解决方法：发送窗口小于 maxSeq。</p>
+<h3 id="协议-6选择重传">协议 6：选择重传</h3>
+<p>当某一个帧出错时，重传那个帧。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Network-1/Untitled%2014.png"
+        data-srcset="/images/Network-1/Untitled%2014.png, /images/Network-1/Untitled%2014.png 1.5x, /images/Network-1/Untitled%2014.png 2x"
+        data-sizes="auto"
+        alt="/images/Network-1/Untitled%2014.png"
+        title="/images/Network-1/Untitled%2014.png" /></p>
+<p>使用否定确认 NAK（告诉发送方某帧出错，而不是等超时）</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Network-1/Untitled%2015.png"
+        data-srcset="/images/Network-1/Untitled%2015.png, /images/Network-1/Untitled%2015.png 1.5x, /images/Network-1/Untitled%2015.png 2x"
+        data-sizes="auto"
+        alt="/images/Network-1/Untitled%2015.png"
+        title="/images/Network-1/Untitled%2015.png" /></p>
+<p>接收窗口：$W=(maxSeq+1)/2$。保证新老窗口不重复即可。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Network-1/Untitled%2016.png"
+        data-srcset="/images/Network-1/Untitled%2016.png, /images/Network-1/Untitled%2016.png 1.5x, /images/Network-1/Untitled%2016.png 2x"
+        data-sizes="auto"
+        alt="/images/Network-1/Untitled%2016.png"
+        title="/images/Network-1/Untitled%2016.png" /></p>
+<h1 id="数据链路层mac-子层">数据链路层（MAC 子层）</h1>
+<h2 id="介质的多路访问控制">介质的多路访问控制</h2>
+<ul>
+<li>静态分配：预先分配给各个用户。</li>
+<li>动态分配：信号是开放的。</li>
+</ul>
+<h3 id="多路访问协议">多路访问协议</h3>
+<ul>
+<li>随机访问协议
+<ul>
+<li>ALOHA</li>
+<li>CSMA</li>
+<li>CSMA/CD（以太网）</li>
+</ul>
+</li>
+<li>受控访问协议</li>
+</ul>
+<h3 id="aloha">ALOHA</h3>
+<ul>
+<li>纯 ALOHA（冲突后等待随机时间）</li>
+<li>分隙 ALOHA（把时间分成时隙，占用后发送）</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Network-1/Untitled%2017.png"
+        data-srcset="/images/Network-1/Untitled%2017.png, /images/Network-1/Untitled%2017.png 1.5x, /images/Network-1/Untitled%2017.png 2x"
+        data-sizes="auto"
+        alt="/images/Network-1/Untitled%2017.png"
+        title="/images/Network-1/Untitled%2017.png" /></p>
+<h3 id="csma改进的-aloha">CSMA（改进的 ALOHA）</h3>
+<ul>
+<li>非持续式（介质如果忙，等待一个随机分布时间后再询问）</li>
+<li>持续式（如果介质忙，持续侦听）
+<ul>
+<li>1-持续（如果空闲时，直接发送）</li>
+<li>p-持续（如果空闲时，以 $P$ 的概率发送）</li>
+</ul>
+</li>
+</ul>
+<h3 id="冲突窗口-rtt">冲突窗口 RTT</h3>
+<p>定义为两个最远工作站的传输时间（两个帧时）。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Network-1/Untitled%2018.png"
+        data-srcset="/images/Network-1/Untitled%2018.png, /images/Network-1/Untitled%2018.png 1.5x, /images/Network-1/Untitled%2018.png 2x"
+        data-sizes="auto"
+        alt="/images/Network-1/Untitled%2018.png"
+        title="/images/Network-1/Untitled%2018.png" /></p>
+<h3 id="csmacd带冲突检测的-csma">CSMA/CD（带冲突检测的 CSMA）</h3>
+<p>实际上是一个 1 持续的 CSMA。</p>
+<blockquote>
+<p>先听后发，边发边听。</p>
+</blockquote>
+<ul>
+<li>若介质忙，持续监听，空闲立即发送。</li>
+<li>发送的同时监听自己的信号，若不一致，停止帧的发送，并发出一个拥塞信号。</li>
+</ul>
+<h3 id="冲突检测">冲突检测</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Network-1/Untitled%2019.png"
+        data-srcset="/images/Network-1/Untitled%2019.png, /images/Network-1/Untitled%2019.png 1.5x, /images/Network-1/Untitled%2019.png 2x"
+        data-sizes="auto"
+        alt="/images/Network-1/Untitled%2019.png"
+        title="/images/Network-1/Untitled%2019.png" /></p>
+<h1 id="以太网">以太网</h1>
+<p>以太网位于数据链路层和物理层。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Network-1/Untitled%2020.png"
+        data-srcset="/images/Network-1/Untitled%2020.png, /images/Network-1/Untitled%2020.png 1.5x, /images/Network-1/Untitled%2020.png 2x"
+        data-sizes="auto"
+        alt="/images/Network-1/Untitled%2020.png"
+        title="/images/Network-1/Untitled%2020.png" /></p>
+<h2 id="ieee">IEEE</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Network-1/Untitled%2021.png"
+        data-srcset="/images/Network-1/Untitled%2021.png, /images/Network-1/Untitled%2021.png 1.5x, /images/Network-1/Untitled%2021.png 2x"
+        data-sizes="auto"
+        alt="/images/Network-1/Untitled%2021.png"
+        title="/images/Network-1/Untitled%2021.png" /></p>
+<h2 id="以太网采用曼彻斯特编码的csmacd-技术">以太网采用曼彻斯特编码的CSMA/CD 技术</h2>
+<h2 id="ieee8023-以太网帧区别于-dix-以太网帧">IEEE802.3 以太网帧（区别于 DIX 以太网帧）</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Network-1/Untitled%2022.png"
+        data-srcset="/images/Network-1/Untitled%2022.png, /images/Network-1/Untitled%2022.png 1.5x, /images/Network-1/Untitled%2022.png 2x"
+        data-sizes="auto"
+        alt="/images/Network-1/Untitled%2022.png"
+        title="/images/Network-1/Untitled%2022.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Network-1/Untitled%2023.png"
+        data-srcset="/images/Network-1/Untitled%2023.png, /images/Network-1/Untitled%2023.png 1.5x, /images/Network-1/Untitled%2023.png 2x"
+        data-sizes="auto"
+        alt="/images/Network-1/Untitled%2023.png"
+        title="/images/Network-1/Untitled%2023.png" /></p>
+<ul>
+<li>前导码+11 一共 64bit（8 bytes）</li>
+<li>目的地址和源地址都是 MAC 地址。</li>
+<li>以太网：类型（上层使用的协议）</li>
+<li>IEEE：数据长度（64 字节~1518 字节，只不包括前导码）</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Network-1/Untitled%2024.png"
+        data-srcset="/images/Network-1/Untitled%2024.png, /images/Network-1/Untitled%2024.png 1.5x, /images/Network-1/Untitled%2024.png 2x"
+        data-sizes="auto"
+        alt="/images/Network-1/Untitled%2024.png"
+        title="/images/Network-1/Untitled%2024.png" /></p>
+<ul>
+<li>数据（46~1500 字节）</li>
+<li>校验和（CRC 冗余校验，除了前导码以外的校验。4 个字节）</li>
+</ul>
+<h3 id="为什么帧长度要大于-64bytes">为什么帧长度要大于 64bytes</h3>
+<p>CSMA/CD 要求最短帧的发送时间大于等于争用时隙。</p>
+<h2 id="二层交换的原理">二层交换的原理</h2>
+<p>网桥（交换机）负责二层交换，不会检查网络层，只做转发。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Network-1/Untitled%2025.png"
+        data-srcset="/images/Network-1/Untitled%2025.png, /images/Network-1/Untitled%2025.png 1.5x, /images/Network-1/Untitled%2025.png 2x"
+        data-sizes="auto"
+        alt="/images/Network-1/Untitled%2025.png"
+        title="/images/Network-1/Untitled%2025.png" /></p>
+<ul>
+<li>通过透明网桥把多个 LAN 连接起来。</li>
+<li>透明网桥接收所有的帧，并决定丢弃还是转发。</li>
+<li>决策是通过网桥内部的地址表的目的 MAC 地址来做出的。</li>
+<li>当找不到地址时，<strong>广播这个帧</strong>。</li>
+<li>收到一个帧，会学习帧的源地址。</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Network-1/Untitled%2026.png"
+        data-srcset="/images/Network-1/Untitled%2026.png, /images/Network-1/Untitled%2026.png 1.5x, /images/Network-1/Untitled%2026.png 2x"
+        data-sizes="auto"
+        alt="/images/Network-1/Untitled%2026.png"
+        title="/images/Network-1/Untitled%2026.png" /></p>
+<p>网桥分割了区域，又提高了性能。</p>
+<h3 id="生成树算法-stp">生成树算法 STP</h3>
+<p>生成无环的树，防止网络风暴、多帧传送、MAC 地址库不稳定。</p>
+<h3 id="两层交换设备">两层交换设备</h3>
+<ul>
+<li>以太网卡（具有发送和监听的功能）</li>
+<li>网桥（连接不同的 LAN）</li>
+<li>交换机（多端口的网桥）</li>
+</ul>
+<p>工作原理：</p>
+<ul>
+<li>flooding：泛洪</li>
+<li>forwarding: 转发</li>
+<li>filtering：过滤</li>
+<li>learning：学习</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Network-1/Untitled%2027.png"
+        data-srcset="/images/Network-1/Untitled%2027.png, /images/Network-1/Untitled%2027.png 1.5x, /images/Network-1/Untitled%2027.png 2x"
+        data-sizes="auto"
+        alt="/images/Network-1/Untitled%2027.png"
+        title="/images/Network-1/Untitled%2027.png" /></p>
+<ul>
+<li>存储转发（来得及校验）</li>
+<li>直接转发（来不及校验）</li>
+<li>无分片交换（读够 64 个字节后再转发）</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/Network-1/Untitled%2028.png"
+        data-srcset="/images/Network-1/Untitled%2028.png, /images/Network-1/Untitled%2028.png 1.5x, /images/Network-1/Untitled%2028.png 2x"
+        data-sizes="auto"
+        alt="/images/Network-1/Untitled%2028.png"
+        title="/images/Network-1/Untitled%2028.png" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-05-10</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://brucemarkdown.top/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/" data-title="数据链路层复习" data-hashtags="Networks"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://brucemarkdown.top/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/" data-hashtag="Networks"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://brucemarkdown.top/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/" data-title="数据链路层复习" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://brucemarkdown.top/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/" data-title="数据链路层复习"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://brucemarkdown.top/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/" data-title="数据链路层复习" data-image="https://brucemarkdown.top/images/Network.jpg"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://brucemarkdown.top/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/" data-title="数据链路层复习" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://brucemarkdown.top/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/" data-title="数据链路层复习" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://brucemarkdown.top/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/" data-title="数据链路层复习"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/networks/">Networks</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/mysql%E5%8E%9F%E7%90%86/" class="prev" rel="prev" title="MySQL 原理总结"><i class="fas fa-angle-left fa-fw"></i>MySQL 原理总结</a>
+            <a href="/c-%E5%81%8F%E7%89%B9%E5%8C%96%E7%9A%84%E4%BD%BF%E7%94%A8/" class="next" rel="next" title="C&#43;&#43;偏特化的使用">C&#43;&#43;偏特化的使用<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/Hongwei7" target="_blank">Hongwei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":300},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

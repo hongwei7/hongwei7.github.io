@@ -1,0 +1,2691 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Linux 系统编程 - Hongwei 的博客</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="Linux 系统编程" />
+<meta property="og:description" content="🍮Linux系统级编程笔记。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://brucemarkdown.top/linuxsystem/" /><meta property="og:image" content="https://brucemarkdown.top/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-02-08T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2021-02-08T00:00:00&#43;00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://brucemarkdown.top/logo.png"/>
+
+<meta name="twitter:title" content="Linux 系统编程"/>
+<meta name="twitter:description" content="🍮Linux系统级编程笔记。"/>
+<meta name="application-name" content="Hongwei&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Hongwei&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://brucemarkdown.top/linuxsystem/" /><link rel="prev" href="https://brucemarkdown.top/%E4%B8%80%E4%BA%9B%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" /><link rel="next" href="https://brucemarkdown.top/mysql%E5%8E%9F%E7%90%86/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Linux 系统编程",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/brucemarkdown.top\/linuxsystem\/"
+        },"genre": "posts","keywords": "Coding, Linux","wordcount":  8067 ,
+        "url": "https:\/\/brucemarkdown.top\/linuxsystem\/","datePublished": "2021-02-08T00:00:00+00:00","dateModified": "2021-02-08T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Hongwei"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Hongwei 的博客">Hongwei&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/linuxsystem/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Hongwei 的博客">Hongwei&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/categories/documentation/" title="">文档</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/linuxsystem/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Linux 系统编程</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/Hongwei7" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Hongwei</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-02-08">2021-02-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 8067 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 17 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#mmu">MMU</a></li>
+    <li><a href="#进程控制块pcb">进程控制块PCB</a></li>
+    <li><a href="#环境变量">环境变量</a>
+      <ul>
+        <li><a href="#getenv-获取环境变量">getenv 获取环境变量</a></li>
+        <li><a href="#setenv设置环境变量">setenv设置环境变量</a></li>
+        <li><a href="#unsetenv取消环境变量">unsetenv取消环境变量</a></li>
+      </ul>
+    </li>
+    <li><a href="#进程控制">进程控制</a>
+      <ul>
+        <li><a href="#fork">fork()</a></li>
+        <li><a href="#getpid-获取-pid">getpid 获取 pid</a></li>
+        <li><a href="#getppid-获取父亲-pid">getppid 获取父亲 pid</a></li>
+        <li><a href="#创建n个进程">创建N个进程</a></li>
+      </ul>
+    </li>
+    <li><a href="#进程共享">进程共享</a></li>
+    <li><a href="#gdb调试多进程程序">gdb调试多进程程序</a></li>
+    <li><a href="#exec类函数">exec类函数</a></li>
+    <li><a href="#保存-ps-结果到-out">保存 ps 结果到 out</a></li>
+    <li><a href="#回收子进程">回收子进程</a>
+      <ul>
+        <li><a href="#孤儿进程">孤儿进程</a></li>
+        <li><a href="#僵尸进程">僵尸进程</a></li>
+        <li><a href="#wait-waitpid-解决僵尸函数">wait waitpid 解决僵尸函数</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#管道-pipe">管道 pipe</a>
+      <ul>
+        <li><a href="#简单的管道示例">简单的管道示例：</a></li>
+      </ul>
+    </li>
+    <li><a href="#mmap-共享内存">mmap 共享内存</a>
+      <ul>
+        <li><a href="#mmap-父子之间通信">mmap 父子之间通信</a></li>
+        <li><a href="#mmap匿名映射">mmap匿名映射</a></li>
+        <li><a href="#strace命令">strace命令</a></li>
+      </ul>
+    </li>
+    <li><a href="#阶段性练习">阶段性练习</a>
+      <ul>
+        <li><a href="#多文件拷贝">多文件拷贝</a></li>
+        <li><a href="#简单-shell">简单 shell</a></li>
+        <li><a href="#本地聊天室功能">本地聊天室功能</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#信号的传输过程">信号的传输过程</a></li>
+    <li><a href="#信号的产生">信号的产生</a>
+      <ul>
+        <li><a href="#kill-函数">kill 函数</a></li>
+        <li><a href="#raise-与-abort-函数">raise 与 abort 函数</a></li>
+        <li><a href="#alarm-函数">alarm 函数</a></li>
+        <li><a href="#setitimer">setitimer</a></li>
+      </ul>
+    </li>
+    <li><a href="#信号集操作">信号集操作</a>
+      <ul>
+        <li><a href="#信号集设定">信号集设定</a></li>
+        <li><a href="#sigprocmask-函数">sigprocmask 函数</a></li>
+        <li><a href="#sigpending-函数">sigpending 函数</a></li>
+        <li><a href="#示例打印未决信号集">示例：打印未决信号集</a></li>
+      </ul>
+    </li>
+    <li><a href="#信号的捕捉">信号的捕捉</a>
+      <ul>
+        <li><a href="#signal-函数">signal 函数</a></li>
+        <li><a href="#sigaction-函数">sigaction 函数</a></li>
+        <li><a href="#捕捉原理">捕捉原理</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#pause函数">pause函数：</a></li>
+    <li><a href="#时序竞态">时序竞态</a>
+      <ul>
+        <li><a href="#一个会出问题的例子">一个会出问题的例子</a></li>
+        <li><a href="#sigsuspend-函数">sigsuspend 函数</a></li>
+        <li><a href="#全局变量异步io问题">全局变量异步IO问题</a></li>
+        <li><a href="#可重入函数">可重入函数</a></li>
+      </ul>
+    </li>
+    <li><a href="#sigchld回收子进程">SIGCHLD回收子进程</a></li>
+    <li><a href="#信号传参">信号传参</a>
+      <ul>
+        <li><a href="#发送参数">发送参数</a></li>
+        <li><a href="#接收参数">接收参数</a></li>
+      </ul>
+    </li>
+    <li><a href="#中断系统调用">中断系统调用</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#终端">终端</a>
+      <ul>
+        <li><a href="#启动流程">启动流程</a></li>
+        <li><a href="#ttyname函数">ttyname函数</a></li>
+        <li><a href="#网络终端">网络终端</a></li>
+      </ul>
+    </li>
+    <li><a href="#进程组-ps-ajx">进程组 ps ajx</a>
+      <ul>
+        <li><a href="#getpgrp-获取进程组id">getpgrp 获取进程组ID</a></li>
+        <li><a href="#getpgid-获取指定进程的进程组id">getpgid 获取指定进程的进程组id</a></li>
+        <li><a href="#setpgid-设定指定进程的进程组id">setpgid 设定指定进程的进程组id</a></li>
+      </ul>
+    </li>
+    <li><a href="#会话">会话</a>
+      <ul>
+        <li><a href="#创建会话">创建会话</a></li>
+        <li><a href="#getsid-查看会话id">getsid 查看会话id</a></li>
+        <li><a href="#setsid-设置会话id">setsid 设置会话id</a></li>
+      </ul>
+    </li>
+    <li><a href="#守护进程">守护进程</a>
+      <ul>
+        <li><a href="#创建方式">创建方式</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#概念">概念</a>
+      <ul>
+        <li><a href="#linux线程实现原理">Linux线程实现原理</a></li>
+        <li><a href="#线程共享资源">线程共享资源</a></li>
+        <li><a href="#非共享资源">非共享资源</a></li>
+        <li><a href="#优缺点">优缺点</a></li>
+      </ul>
+    </li>
+    <li><a href="#控制原语">控制原语</a>
+      <ul>
+        <li><a href="#pthread_self">pthread_self</a></li>
+        <li><a href="#pthread_create">pthread_create</a></li>
+        <li><a href="#pthread_exit">pthread_exit</a></li>
+        <li><a href="#pthread_join">pthread_join</a></li>
+        <li><a href="#pthread_detach">pthread_detach</a></li>
+        <li><a href="#pthread_cancel">pthread_cancel</a></li>
+        <li><a href="#原语对比">原语对比</a></li>
+      </ul>
+    </li>
+    <li><a href="#线程属性">线程属性</a></li>
+    <li><a href="#nptl-线程库版本">NPTL 线程库版本</a></li>
+    <li><a href="#注意事项">注意事项</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#概念-1">概念</a></li>
+    <li><a href="#互斥量-mutex">互斥量 mutex</a>
+      <ul>
+        <li><a href="#pthread_mutex_initdestory">pthread_mutex_init（destory）</a></li>
+        <li><a href="#pthread_mutex_lock">pthread_mutex_lock</a></li>
+        <li><a href="#pthread_mutex_trylock">pthread_mutex_trylock</a></li>
+        <li><a href="#pthread_mutex_unlock">pthread_mutex_unlock</a></li>
+        <li><a href="#死锁">死锁</a></li>
+      </ul>
+    </li>
+    <li><a href="#读写锁">读写锁</a></li>
+    <li><a href="#条件变量">条件变量</a>
+      <ul>
+        <li><a href="#pthread_cond_wait">pthread_cond_wait</a></li>
+        <li><a href="#pthread_cond_timedwait">pthread_cond_timedwait</a></li>
+        <li><a href="#使用条件变量解决生产者消费者模型">使用条件变量解决生产者消费者模型</a></li>
+      </ul>
+    </li>
+    <li><a href="#信号量也可以应用于进程间同步">信号量（也可以应用于进程间同步）</a>
+      <ul>
+        <li><a href="#sem_init">sem_init</a></li>
+        <li><a href="#sem_destroy">sem_destroy</a></li>
+        <li><a href="#sem_wait">sem_wait</a></li>
+        <li><a href="#sem_trywait">sem_trywait</a></li>
+        <li><a href="#sem_timedwait">sem_timedwait</a></li>
+        <li><a href="#sem_post">sem_post</a></li>
+        <li><a href="#生产者消费者">生产者消费者</a></li>
+      </ul>
+    </li>
+    <li><a href="#进程间同步">进程间同步</a>
+      <ul>
+        <li><a href="#互斥量">互斥量</a></li>
+      </ul>
+    </li>
+    <li><a href="#文件锁">文件锁</a>
+      <ul>
+        <li><a href="#fcntl函数">fcntl函数</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="进程">进程</h1>
+<h2 id="mmu">MMU</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled.png"
+        data-srcset="/images/LinuxSystem/Untitled.png, /images/LinuxSystem/Untitled.png 1.5x, /images/LinuxSystem/Untitled.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled.png"
+        title="/images/LinuxSystem/Untitled.png" /></p>
+<h2 id="进程控制块pcb">进程控制块PCB</h2>
+<p>进程控制块PCB的结构体形式：task_struct。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%201.png"
+        data-srcset="/images/LinuxSystem/Untitled%201.png, /images/LinuxSystem/Untitled%201.png 1.5x, /images/LinuxSystem/Untitled%201.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%201.png"
+        title="/images/LinuxSystem/Untitled%201.png" /></p>
+<p>虚拟地址空间的信息描述为虚拟地址到物理地址的映射。MMU来维护。</p>
+<p>umask掩码：保护文件权限。</p>
+<p>ulimit -a 能查看linux资源上限</p>
+<h2 id="环境变量">环境变量</h2>
+<p>以用户为单位设置环境变量。</p>
+<ul>
+<li>PATH</li>
+<li>SHELL 当前SHELL</li>
+<li>TERM 当前终端类型</li>
+<li>HOME</li>
+<li>LANG</li>
+</ul>
+<p>类似于命令行参数。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%202.png"
+        data-srcset="/images/LinuxSystem/Untitled%202.png, /images/LinuxSystem/Untitled%202.png 1.5x, /images/LinuxSystem/Untitled%202.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%202.png"
+        title="/images/LinuxSystem/Untitled%202.png" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="k">extern</span> <span class="kt">char</span><span class="o">**</span> <span class="n">eniron</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="getenv-获取环境变量">getenv 获取环境变量</h3>
+<h3 id="setenv设置环境变量">setenv设置环境变量</h3>
+<h3 id="unsetenv取消环境变量">unsetenv取消环境变量</h3>
+<h2 id="进程控制">进程控制</h2>
+<h3 id="fork">fork()</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%203.png"
+        data-srcset="/images/LinuxSystem/Untitled%203.png, /images/LinuxSystem/Untitled%203.png 1.5x, /images/LinuxSystem/Untitled%203.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%203.png"
+        title="/images/LinuxSystem/Untitled%203.png" /></p>
+<p>创建的是子进程。通过返回的pid来判断是否在子进程中。返回0时为子进程，父进程中返回子进程的pid。</p>
+<h3 id="getpid-获取-pid">getpid 获取 pid</h3>
+<h3 id="getppid-获取父亲-pid">getppid 获取父亲 pid</h3>
+<h3 id="创建n个进程">创建N个进程</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="kt">int</span> <span class="nf">forkN</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;I am the father %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">getpid</span><span class="p">());</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+                <span class="kt">int</span> <span class="n">pid</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+                        <span class="n">perror</span><span class="p">(</span><span class="s">&#34;fork error!&#34;</span><span class="p">);</span>
+                        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+                <span class="p">}</span>
+                <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+                        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;I am the %d child %u, my father is %u</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">getpid</span><span class="p">(),</span> <span class="n">getppid</span><span class="p">());</span>
+                        <span class="k">break</span><span class="p">;</span>
+                <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="进程共享">进程共享</h2>
+<p>刚fork完时，父子进程中</p>
+<p>全局变量、data、.text、栈、堆、环境变量、用户ID、目录、信号处理方式都是相同的。（0-3G地址相同）</p>
+<p>不同在于进程id、fork返回值、父进程id、进程运行时间、定时器（一个进程有一个）、未决信号集。（PCB不一样）</p>
+<p>fork完之后，父子进程之间遵循<strong>读时共享，写时复制</strong>的原则，节省内存开销。</p>
+<p>注意父子进程之间不能通过全局变量共享数据。（写时复制）</p>
+<p>父子进程间共享的点：</p>
+<ul>
+<li>文件描述符（多个进程对同一个文件操作）</li>
+<li>mmap建立的映射区（进程间通信）</li>
+</ul>
+<h2 id="gdb调试多进程程序">gdb调试多进程程序</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="n">set</span> <span class="n">follow</span><span class="o">-</span><span class="n">fork</span><span class="o">-</span><span class="n">mod</span> <span class="n">child</span>
+<span class="n">set</span> <span class="n">follow</span><span class="o">-</span><span class="n">fork</span><span class="o">-</span><span class="n">mod</span> <span class="n">parent</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="exec类函数">exec类函数</h2>
+<p>让程序执行一个进程（原进程的用户空间和代码完全被新程序替换）。</p>
+<p>注意此时并不是创建一个新进程，而是原进程的用户空间和代码全部被替换。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%204.png"
+        data-srcset="/images/LinuxSystem/Untitled%204.png, /images/LinuxSystem/Untitled%204.png 1.5x, /images/LinuxSystem/Untitled%204.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%204.png"
+        title="/images/LinuxSystem/Untitled%204.png" /></p>
+<p>重点execl和execlp。</p>
+<ul>
+<li>
+<p>execlp：（list path）加载一个进程，借助环境变量</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="n">execlp</span><span class="p">(</span><span class="s">&#34;ls&#34;</span><span class="p">,</span> <span class="s">&#34;ls&#34;</span><span class="p">,</span> <span class="s">&#34;-l&#34;</span><span class="p">,</span> <span class="s">&#34;-a&#34;</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+<span class="c1">//第二个参数相当于argv[0] 一般可能不使用
+</span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>execl：通过路径+程序名来加载。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="n">execl</span><span class="p">(</span><span class="s">&#34;/bin/ls&#34;</span><span class="p">,</span> <span class="s">&#34;ls&#34;</span><span class="p">,</span> <span class="s">&#34;-l&#34;</span><span class="p">,</span> <span class="s">&#34;-a&#34;</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>execle:借助环境变量表</p>
+</li>
+<li>
+<p>execv：不含argv[0]，但是参数先要包装成字符数组。</p>
+</li>
+</ul>
+<h2 id="保存-ps-结果到-out">保存 ps 结果到 out</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="kt">int</span> <span class="nf">ps</span><span class="p">()</span>
+<span class="p">{</span>
+        <span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">&#34;out&#34;</span><span class="p">,</span> <span class="n">O_WRONLY</span> <span class="o">|</span> <span class="n">O_CREAT</span> <span class="o">|</span> <span class="n">O_TRUNC</span><span class="p">,</span> <span class="mo">0644</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">fd</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+                <span class="n">perror</span><span class="p">(</span><span class="s">&#34;open file:&#34;</span><span class="p">);</span>
+                <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">dup2</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">STDOUT_FILENO</span><span class="p">);</span> <span class="c1">//把out文件的描述符复制到std::out
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">execlp</span><span class="p">(</span><span class="s">&#34;ps&#34;</span><span class="p">,</span> <span class="s">&#34;ps&#34;</span><span class="p">,</span> <span class="s">&#34;aux&#34;</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+				<span class="k">if</span><span class="p">(</span><span class="n">res</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="n">perror</span><span class="p">(</span><span class="s">&#34;exec error:&#34;</span><span class="p">);</span>
+				<span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+        <span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>exec函数只在出错的时候返回-1。</p>
+<h2 id="回收子进程">回收子进程</h2>
+<h3 id="孤儿进程">孤儿进程</h3>
+<p>父进程先于子进程结束，子进程则为孤儿进程，子进程父进程变为init进程（孤儿院），父进程的pid变为1。</p>
+<h3 id="僵尸进程">僵尸进程</h3>
+<p>进程终止了，但是父进程没有回收。子进程PCB残留在内核中，成为僵尸进程。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%205.png"
+        data-srcset="/images/LinuxSystem/Untitled%205.png, /images/LinuxSystem/Untitled%205.png 1.5x, /images/LinuxSystem/Untitled%205.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%205.png"
+        title="/images/LinuxSystem/Untitled%205.png" /></p>
+<p>这里的父进程一直不停止，但是子进程的PCB一直不回收。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%206.png"
+        data-srcset="/images/LinuxSystem/Untitled%206.png, /images/LinuxSystem/Untitled%206.png 1.5x, /images/LinuxSystem/Untitled%206.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%206.png"
+        title="/images/LinuxSystem/Untitled%206.png" /></p>
+<h3 id="wait-waitpid-解决僵尸函数">wait waitpid 解决僵尸函数</h3>
+<p>wait有三个功能</p>
+<ul>
+<li>阻塞等待子进程退出。</li>
+<li>回收子进程残留资源。</li>
+<li>获取子进程结束状态。</li>
+</ul>
+<p>一次wait只能回收一个进程，回收先结束的进程。</p>
+<p>返回为pid时，回收成功，-1时，没有子进程。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%207.png"
+        data-srcset="/images/LinuxSystem/Untitled%207.png, /images/LinuxSystem/Untitled%207.png 1.5x, /images/LinuxSystem/Untitled%207.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%207.png"
+        title="/images/LinuxSystem/Untitled%207.png" /></p>
+<p>wstatus为传出参数：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%208.png"
+        data-srcset="/images/LinuxSystem/Untitled%208.png, /images/LinuxSystem/Untitled%208.png 1.5x, /images/LinuxSystem/Untitled%208.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%208.png"
+        title="/images/LinuxSystem/Untitled%208.png" /></p>
+<p>kill -l可以查看信号结果。</p>
+<p>waitpid函数更灵活一些，指定pid回收，且可以不阻塞。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%209.png"
+        data-srcset="/images/LinuxSystem/Untitled%209.png, /images/LinuxSystem/Untitled%209.png 1.5x, /images/LinuxSystem/Untitled%209.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%209.png"
+        title="/images/LinuxSystem/Untitled%209.png" /></p>
+<p>pid为-1时，回收任意存在的子进程。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2010.png"
+        data-srcset="/images/LinuxSystem/Untitled%2010.png, /images/LinuxSystem/Untitled%2010.png 1.5x, /images/LinuxSystem/Untitled%2010.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2010.png"
+        title="/images/LinuxSystem/Untitled%2010.png" /></p>
+<p>0 阻塞 WNOHANG 非阻塞，需要轮询。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2011.png"
+        data-srcset="/images/LinuxSystem/Untitled%2011.png, /images/LinuxSystem/Untitled%2011.png 1.5x, /images/LinuxSystem/Untitled%2011.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2011.png"
+        title="/images/LinuxSystem/Untitled%2011.png" /></p>
+<p>总结：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2012.png"
+        data-srcset="/images/LinuxSystem/Untitled%2012.png, /images/LinuxSystem/Untitled%2012.png 1.5x, /images/LinuxSystem/Untitled%2012.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2012.png"
+        title="/images/LinuxSystem/Untitled%2012.png" /></p>
+<h1 id="ipc进程间通信">IPC进程间通信</h1>
+<p>常用方法：</p>
+<ul>
+<li>管道（最简单）</li>
+<li>信号（开销最小）</li>
+<li>共享映射区（无血缘关系）（mmap）</li>
+<li>本地套接字（最稳定）</li>
+</ul>
+<h2 id="管道-pipe">管道 pipe</h2>
+<p>fifo（有名管道，非血缘关系间），pipe（匿名管道）</p>
+<p>最简单的想法：通过文件实现进程间通信。抽象成为管道。</p>
+<p>管道实际上为内核缓冲区，为伪文件。</p>
+<p>一个管道有两个描述符，一个为读一个为写，默认为8k的缓冲区。</p>
+<p>内部采用的是循环队列。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2013.png"
+        data-srcset="/images/LinuxSystem/Untitled%2013.png, /images/LinuxSystem/Untitled%2013.png 1.5x, /images/LinuxSystem/Untitled%2013.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2013.png"
+        title="/images/LinuxSystem/Untitled%2013.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2014.png"
+        data-srcset="/images/LinuxSystem/Untitled%2014.png, /images/LinuxSystem/Untitled%2014.png 1.5x, /images/LinuxSystem/Untitled%2014.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2014.png"
+        title="/images/LinuxSystem/Untitled%2014.png" /></p>
+<p>返回两个文件描述符，读和写。</p>
+<h3 id="简单的管道示例">简单的管道示例：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="kt">int</span> <span class="nf">pipeTest</span><span class="p">(){</span>
+        <span class="kt">int</span> <span class="n">fd</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="c1">//两个文件描述符
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">pipe</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">ret</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+                <span class="n">perror</span><span class="p">(</span><span class="s">&#34;pipe error:&#34;</span><span class="p">);</span>
+                <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">pid_t</span> <span class="n">pid</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+                <span class="n">perror</span><span class="p">(</span><span class="s">&#34;fork&#34;</span><span class="p">);</span>
+                <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+        <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span> <span class="c1">//child read
+</span><span class="c1"></span>                <span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+                <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
+                <span class="n">ret</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">buf</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buf</span><span class="p">));</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">ret</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+                        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;read done</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+                <span class="p">}</span>
+                <span class="n">write</span><span class="p">(</span><span class="n">STDOUT_FILENO</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="n">ret</span><span class="p">);</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span> <span class="c1">//father write
+</span><span class="c1"></span>                <span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+                <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+                <span class="kt">char</span> <span class="o">*</span> <span class="n">str</span> <span class="o">=</span> <span class="s">&#34;hello pipe</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+                <span class="n">ret</span> <span class="o">=</span> <span class="n">write</span><span class="p">(</span><span class="n">fd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">str</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">str</span><span class="p">));</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="mmap-共享内存">mmap 共享内存</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2015.png"
+        data-srcset="/images/LinuxSystem/Untitled%2015.png, /images/LinuxSystem/Untitled%2015.png 1.5x, /images/LinuxSystem/Untitled%2015.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2015.png"
+        title="/images/LinuxSystem/Untitled%2015.png" /></p>
+<p>借助共享内存存放磁盘文件。这样可以通过指针访问磁盘文件。</p>
+<ul>
+<li>addr：映射区的首地址 ，内核自动指定（直接传NULL)</li>
+<li>length：映射区大小（文件大小）</li>
+<li>prot：映射区的权限
+<ul>
+<li>PROT_READ</li>
+<li>PROT_WRITE</li>
+<li>PROT_READ | PROTWRITE</li>
+</ul>
+</li>
+<li>flags：标志位参数</li>
+</ul>
+<p>返回创建映射区的首地址。失败时返回MAP_FIALED。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2016.png"
+        data-srcset="/images/LinuxSystem/Untitled%2016.png, /images/LinuxSystem/Untitled%2016.png 1.5x, /images/LinuxSystem/Untitled%2016.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2016.png"
+        title="/images/LinuxSystem/Untitled%2016.png" /></p>
+<ul>
+<li>fd：文件描述符</li>
+<li>offset：映射文件的偏移（截取文件一部分）</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2017.png"
+        data-srcset="/images/LinuxSystem/Untitled%2017.png, /images/LinuxSystem/Untitled%2017.png 1.5x, /images/LinuxSystem/Untitled%2017.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2017.png"
+        title="/images/LinuxSystem/Untitled%2017.png" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;sys/mman.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="kt">int</span> <span class="nf">mmapTest</span><span class="p">(){</span>
+	<span class="kt">char</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">&#34;text&#34;</span><span class="p">,</span> <span class="n">O_RDWR</span> <span class="o">|</span> <span class="n">O_CREAT</span><span class="p">,</span> <span class="mo">0644</span><span class="p">);</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">fd</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">){</span>
+		<span class="n">perror</span><span class="p">(</span><span class="s">&#34;open fail:&#34;</span><span class="p">);</span>
+		<span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> <span class="c1">//size
+</span><span class="c1"></span>	<span class="k">if</span><span class="p">(</span> <span class="n">ftruncate</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">len</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+		<span class="n">perror</span><span class="p">(</span><span class="s">&#34;ftruncate&#34;</span><span class="p">);</span> <span class="c1">//拓展文件
+</span><span class="c1"></span>		<span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="n">p</span> <span class="o">=</span> <span class="n">mmap</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="n">len</span><span class="p">,</span> <span class="n">PROT_READ</span> <span class="o">|</span> <span class="n">PROT_WRITE</span><span class="p">,</span> <span class="n">MAP_SHARED</span><span class="p">,</span> <span class="n">fd</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+       <span class="k">if</span><span class="p">(</span><span class="n">p</span> <span class="o">==</span> <span class="n">MAP_FAILED</span><span class="p">){</span>
+	       <span class="n">perror</span><span class="p">(</span><span class="s">&#34;MAP FAILED&#34;</span><span class="p">);</span>
+	       <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+       <span class="p">}</span>       
+       <span class="n">strcpy</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="s">&#34;abc&#34;</span><span class="p">);</span> <span class="c1">//write to mmap
+</span><span class="c1"></span>       <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">res</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+       		<span class="n">perror</span><span class="p">(</span><span class="s">&#34;close fail&#34;</span><span class="p">);</span>
+		<span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+       <span class="p">}</span>
+       <span class="n">res</span> <span class="o">=</span> <span class="n">munmap</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">len</span><span class="p">);</span>
+       <span class="k">if</span><span class="p">(</span><span class="n">res</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+       		<span class="n">perror</span><span class="p">(</span><span class="s">&#34;unmap fail&#34;</span><span class="p">);</span>
+		<span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+       <span class="p">}</span>
+       <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>注意事项：</p>
+<ul>
+<li>不能创建一个大小为0的映射区（malloc可以）</li>
+<li>注意munmap释放的必须是以前的首指针。</li>
+<li><strong>映射区的权限应小于等于实际文件。</strong></li>
+<li><strong>映射区创建的时候需要读取文件权限。</strong></li>
+<li>offset需要4k的整数倍（一个页的大小）。  ****</li>
+<li>文件描述符可以先关闭。</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2018.png"
+        data-srcset="/images/LinuxSystem/Untitled%2018.png, /images/LinuxSystem/Untitled%2018.png 1.5x, /images/LinuxSystem/Untitled%2018.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2018.png"
+        title="/images/LinuxSystem/Untitled%2018.png" /></p>
+<h3 id="mmap-父子之间通信">mmap 父子之间通信</h3>
+<p>参数应该为MAP_SHARED。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2019.png"
+        data-srcset="/images/LinuxSystem/Untitled%2019.png, /images/LinuxSystem/Untitled%2019.png 1.5x, /images/LinuxSystem/Untitled%2019.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2019.png"
+        title="/images/LinuxSystem/Untitled%2019.png" /></p>
+<p><strong>无血缘也相似</strong>，只要对同一个文件调用mmap就行。</p>
+<p>读写两边都munmap()。</p>
+<p>把映射区当数组看待。</p>
+<h3 id="mmap匿名映射">mmap匿名映射</h3>
+<p>第三个参数位或<code>MAP_ANONYMOUS(MAP_ANON)</code>。此时文件描述符填-1。注意仅在Linux下有，类Unix下无。</p>
+<p>类Unix下，应该打开/dev/zero文件来代替。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2020.png"
+        data-srcset="/images/LinuxSystem/Untitled%2020.png, /images/LinuxSystem/Untitled%2020.png 1.5x, /images/LinuxSystem/Untitled%2020.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2020.png"
+        title="/images/LinuxSystem/Untitled%2020.png" /></p>
+<p>fifo和匿名映射的区别：fifo不可以重复读。</p>
+<h3 id="strace命令">strace命令</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="n">strace</span> <span class="n">binfile</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以查看程序调用的资源。</p>
+<h2 id="阶段性练习">阶段性练习</h2>
+<p><a href="https://www.notion.so/Linux-13d606ad446947b8a677217dc9a41b3e" target="_blank" rel="noopener noreffer">Linux系统编程-实践练习</a></p>
+<h3 id="多文件拷贝">多文件拷贝</h3>
+<p>实现方法：文件分成多份，让多个进程去复制各个部分。</p>
+<h3 id="简单-shell">简单 shell</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2021.png"
+        data-srcset="/images/LinuxSystem/Untitled%2021.png, /images/LinuxSystem/Untitled%2021.png 1.5x, /images/LinuxSystem/Untitled%2021.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2021.png"
+        title="/images/LinuxSystem/Untitled%2021.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2022.png"
+        data-srcset="/images/LinuxSystem/Untitled%2022.png, /images/LinuxSystem/Untitled%2022.png 1.5x, /images/LinuxSystem/Untitled%2022.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2022.png"
+        title="/images/LinuxSystem/Untitled%2022.png" /></p>
+<h3 id="本地聊天室功能">本地聊天室功能</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2023.png"
+        data-srcset="/images/LinuxSystem/Untitled%2023.png, /images/LinuxSystem/Untitled%2023.png 1.5x, /images/LinuxSystem/Untitled%2023.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2023.png"
+        title="/images/LinuxSystem/Untitled%2023.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2024.png"
+        data-srcset="/images/LinuxSystem/Untitled%2024.png, /images/LinuxSystem/Untitled%2024.png 1.5x, /images/LinuxSystem/Untitled%2024.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2024.png"
+        title="/images/LinuxSystem/Untitled%2024.png" /></p>
+<p>使用fcntl()函数把输入改造为非阻塞的。</p>
+<p><a href="https://www.cnblogs.com/zhangxuan/p/6306326.html" target="_blank" rel="noopener noreffer">Linux fcntl函数设置阻塞与非阻塞</a></p>
+<h1 id="信号">信号</h1>
+<p><strong>区别于信号量。</strong></p>
+<p>简单，不能携带大量信息，满足某个条件才会发送。</p>
+<p>发送通过<strong>内核</strong>。程序收到信号后会停止下来处理信号（类似于时钟中断）。但是是通过软件来实现，也称为软中断。</p>
+<p>软中断的延时非常大，但是对于用户来说不易察觉。CPU可以察觉。</p>
+<p>四要素：</p>
+<ul>
+<li>编号</li>
+<li>名称</li>
+<li>事件</li>
+<li>默认处理动作</li>
+</ul>
+<h2 id="信号的传输过程">信号的传输过程</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2025.png"
+        data-srcset="/images/LinuxSystem/Untitled%2025.png, /images/LinuxSystem/Untitled%2025.png 1.5x, /images/LinuxSystem/Untitled%2025.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2025.png"
+        title="/images/LinuxSystem/Untitled%2025.png" /></p>
+<p>未决信号集代表了未处决的信号。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2026.png"
+        data-srcset="/images/LinuxSystem/Untitled%2026.png, /images/LinuxSystem/Untitled%2026.png 1.5x, /images/LinuxSystem/Untitled%2026.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2026.png"
+        title="/images/LinuxSystem/Untitled%2026.png" /></p>
+<p>阻塞信号集（信号屏蔽字）代表了处于阻塞态的信号。</p>
+<p>两者都处于PCB中。都是set。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2027.png"
+        data-srcset="/images/LinuxSystem/Untitled%2027.png, /images/LinuxSystem/Untitled%2027.png 1.5x, /images/LinuxSystem/Untitled%2027.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2027.png"
+        title="/images/LinuxSystem/Untitled%2027.png" /></p>
+<p>当信号屏蔽字为1时，该位的信号将会保留下来，不能被处理。</p>
+<p><strong>信号的处理动作：</strong></p>
+<ul>
+<li>默认处理动作</li>
+<li>忽略（丢弃）</li>
+<li>捕捉（捕捉后调用用户处理函数（发送方））</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2028.png"
+        data-srcset="/images/LinuxSystem/Untitled%2028.png, /images/LinuxSystem/Untitled%2028.png 1.5x, /images/LinuxSystem/Untitled%2028.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2028.png"
+        title="/images/LinuxSystem/Untitled%2028.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2029.png"
+        data-srcset="/images/LinuxSystem/Untitled%2029.png, /images/LinuxSystem/Untitled%2029.png 1.5x, /images/LinuxSystem/Untitled%2029.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2029.png"
+        title="/images/LinuxSystem/Untitled%2029.png" /></p>
+<p>信号编号：kill -l    man 7 signal</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2030.png"
+        data-srcset="/images/LinuxSystem/Untitled%2030.png, /images/LinuxSystem/Untitled%2030.png 1.5x, /images/LinuxSystem/Untitled%2030.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2030.png"
+        title="/images/LinuxSystem/Untitled%2030.png" /></p>
+<p>9和19号不允许被捕捉或阻塞。</p>
+<h2 id="信号的产生">信号的产生</h2>
+<p>产生方法：</p>
+<ul>
+<li>按键
+<ul>
+<li>Ctrl + c ： 2）SIGINT（终止） Interrupt</li>
+<li>Ctrl + z： 20）SIGTSTOP（终端程序暂停） Stop</li>
+<li>Ctrl + \： 3）SIGQUIT（退出） Quit</li>
+</ul>
+</li>
+<li>系统调用</li>
+<li>软件</li>
+<li>硬件异常
+<ul>
+<li>/0  (8)SIGFPE（浮点数例外）</li>
+<li>非法访问内存 (11)SIGSEGV(段错误）</li>
+<li>总线错误 （7）SIGBUS</li>
+</ul>
+</li>
+<li>命令调用
+<ul>
+<li>killl  <code>kill -19 pid</code> 发送19信号</li>
+<li>alarm</li>
+<li>setitimer，</li>
+</ul>
+</li>
+</ul>
+<h3 id="kill-函数">kill 函数</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2031.png"
+        data-srcset="/images/LinuxSystem/Untitled%2031.png, /images/LinuxSystem/Untitled%2031.png 1.5x, /images/LinuxSystem/Untitled%2031.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2031.png"
+        title="/images/LinuxSystem/Untitled%2031.png" /></p>
+<h3 id="raise-与-abort-函数">raise 与 abort 函数</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2032.png"
+        data-srcset="/images/LinuxSystem/Untitled%2032.png, /images/LinuxSystem/Untitled%2032.png 1.5x, /images/LinuxSystem/Untitled%2032.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2032.png"
+        title="/images/LinuxSystem/Untitled%2032.png" /></p>
+<h3 id="alarm-函数">alarm 函数</h3>
+<p>每个进程只有一个定时器。</p>
+<p>指定需要的second后，内核会给当前进程发送（14）SIGALRM，默认行为为终止进程。</p>
+<p><strong>返回值为上一次alarm的剩余时间</strong>。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2033.png"
+        data-srcset="/images/LinuxSystem/Untitled%2033.png, /images/LinuxSystem/Untitled%2033.png 1.5x, /images/LinuxSystem/Untitled%2033.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2033.png"
+        title="/images/LinuxSystem/Untitled%2033.png" /></p>
+<p>另外可以time ./app查看运行时间。</p>
+<h3 id="setitimer">setitimer</h3>
+<p>可以取代alarm，精确到微秒，也可以周期性定时。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2034.png"
+        data-srcset="/images/LinuxSystem/Untitled%2034.png, /images/LinuxSystem/Untitled%2034.png 1.5x, /images/LinuxSystem/Untitled%2034.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2034.png"
+        title="/images/LinuxSystem/Untitled%2034.png" /></p>
+<p>which函数代表如何定时（自然定时还是用户空间还是用户加内核）。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2035.png"
+        data-srcset="/images/LinuxSystem/Untitled%2035.png, /images/LinuxSystem/Untitled%2035.png 1.5x, /images/LinuxSystem/Untitled%2035.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2035.png"
+        title="/images/LinuxSystem/Untitled%2035.png" /></p>
+<p>结构体看man page。</p>
+<h2 id="信号集操作">信号集操作</h2>
+<h3 id="信号集设定">信号集设定</h3>
+<p>sigset_t 使用unsigned long构成的set（8字节）。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2036.png"
+        data-srcset="/images/LinuxSystem/Untitled%2036.png, /images/LinuxSystem/Untitled%2036.png 1.5x, /images/LinuxSystem/Untitled%2036.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2036.png"
+        title="/images/LinuxSystem/Untitled%2036.png" /></p>
+<h3 id="sigprocmask-函数">sigprocmask 函数</h3>
+<p>把自定义的信号set导入到阻塞集。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2037.png"
+        data-srcset="/images/LinuxSystem/Untitled%2037.png, /images/LinuxSystem/Untitled%2037.png 1.5x, /images/LinuxSystem/Untitled%2037.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2037.png"
+        title="/images/LinuxSystem/Untitled%2037.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2038.png"
+        data-srcset="/images/LinuxSystem/Untitled%2038.png, /images/LinuxSystem/Untitled%2038.png 1.5x, /images/LinuxSystem/Untitled%2038.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2038.png"
+        title="/images/LinuxSystem/Untitled%2038.png" /></p>
+<h3 id="sigpending-函数">sigpending 函数</h3>
+<p>读取当前进程的未决信号集。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2039.png"
+        data-srcset="/images/LinuxSystem/Untitled%2039.png, /images/LinuxSystem/Untitled%2039.png 1.5x, /images/LinuxSystem/Untitled%2039.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2039.png"
+        title="/images/LinuxSystem/Untitled%2039.png" /></p>
+<h3 id="示例打印未决信号集">示例：打印未决信号集</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;signal.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="kt">void</span> <span class="nf">printsig</span><span class="p">(</span><span class="n">sigset_t</span> <span class="o">*</span><span class="n">set</span><span class="p">){</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">32</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+                <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="n">sigismember</span><span class="p">(</span><span class="n">set</span><span class="p">,</span> <span class="n">i</span><span class="p">));</span>
+        <span class="p">}</span><span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+        <span class="n">sigset_t</span> <span class="n">myset</span><span class="p">,</span> <span class="n">oldset</span><span class="p">,</span> <span class="n">pend</span><span class="p">;</span>
+
+        <span class="n">sigemptyset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">myset</span><span class="p">);</span>
+        <span class="n">sigaddset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">myset</span><span class="p">,</span> <span class="n">SIGQUIT</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">sigprocmask</span><span class="p">(</span><span class="n">SIG_BLOCK</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">myset</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">oldset</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">res</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+                <span class="n">perror</span><span class="p">(</span><span class="s">&#34;sig error&#34;</span><span class="p">);</span>
+                <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="n">sigpending</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pend</span><span class="p">);</span>
+        <span class="n">printsig</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pend</span><span class="p">);</span>
+        <span class="n">raise</span><span class="p">(</span><span class="n">SIGQUIT</span><span class="p">);</span>
+        <span class="n">sigpending</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pend</span><span class="p">);</span>
+        <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
+                <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+                <span class="n">printsig</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pend</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="信号的捕捉">信号的捕捉</h2>
+<h3 id="signal-函数">signal 函数</h3>
+<p>使用signal函数可以捕捉到信号，调用自定义的处理函数。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2040.png"
+        data-srcset="/images/LinuxSystem/Untitled%2040.png, /images/LinuxSystem/Untitled%2040.png 1.5x, /images/LinuxSystem/Untitled%2040.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2040.png"
+        title="/images/LinuxSystem/Untitled%2040.png" /></p>
+<h3 id="sigaction-函数">sigaction 函数</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2041.png"
+        data-srcset="/images/LinuxSystem/Untitled%2041.png, /images/LinuxSystem/Untitled%2041.png 1.5x, /images/LinuxSystem/Untitled%2041.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2041.png"
+        title="/images/LinuxSystem/Untitled%2041.png" /></p>
+<p>其中sigaction结构为</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2042.png"
+        data-srcset="/images/LinuxSystem/Untitled%2042.png, /images/LinuxSystem/Untitled%2042.png 1.5x, /images/LinuxSystem/Untitled%2042.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2042.png"
+        title="/images/LinuxSystem/Untitled%2042.png" /></p>
+<p>第二个参数不管。</p>
+<p>sigset_t 定义handler运行期间的信号屏蔽字。</p>
+<p>sa_flags 0时为默认。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2043.png"
+        data-srcset="/images/LinuxSystem/Untitled%2043.png, /images/LinuxSystem/Untitled%2043.png 1.5x, /images/LinuxSystem/Untitled%2043.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2043.png"
+        title="/images/LinuxSystem/Untitled%2043.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2044.png"
+        data-srcset="/images/LinuxSystem/Untitled%2044.png, /images/LinuxSystem/Untitled%2044.png 1.5x, /images/LinuxSystem/Untitled%2044.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2044.png"
+        title="/images/LinuxSystem/Untitled%2044.png" /></p>
+<h3 id="捕捉原理">捕捉原理</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2045.png"
+        data-srcset="/images/LinuxSystem/Untitled%2045.png, /images/LinuxSystem/Untitled%2045.png 1.5x, /images/LinuxSystem/Untitled%2045.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2045.png"
+        title="/images/LinuxSystem/Untitled%2045.png" /></p>
+<h1 id="竞态条件">竞态条件</h1>
+<h2 id="pause函数">pause函数：</h2>
+<p>可以造成进程主动挂起，等待信号唤醒。注意先要对信号进行捕捉。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2046.png"
+        data-srcset="/images/LinuxSystem/Untitled%2046.png, /images/LinuxSystem/Untitled%2046.png 1.5x, /images/LinuxSystem/Untitled%2046.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2046.png"
+        title="/images/LinuxSystem/Untitled%2046.png" /></p>
+<p>注意这里返回的是-1。</p>
+<p><strong>使用sigaction和pause实现sleep：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;errno.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;signal.h&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="kt">void</span> <span class="nf">catchSignal</span><span class="p">(</span><span class="kt">int</span> <span class="n">signo</span><span class="p">){</span>
+	<span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">mySleep</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">seconds</span><span class="p">){</span>
+	<span class="k">struct</span> <span class="n">sigaction</span> <span class="n">act</span><span class="p">,</span> <span class="n">oldact</span><span class="p">;</span>
+	<span class="n">act</span><span class="p">.</span><span class="n">sa_handler</span> <span class="o">=</span> <span class="n">catchSignal</span><span class="p">;</span>
+	<span class="n">sigemptyset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">act</span><span class="p">.</span><span class="n">sa_mask</span><span class="p">);</span>
+	<span class="n">act</span><span class="p">.</span><span class="n">sa_flags</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+	<span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">sigaction</span><span class="p">(</span><span class="n">SIGALRM</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">act</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">oldact</span><span class="p">);</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">ret</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+		<span class="n">perror</span><span class="p">(</span><span class="s">&#34;sigaction&#34;</span><span class="p">);</span>
+		<span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="n">alarm</span><span class="p">(</span><span class="n">seconds</span><span class="p">);</span>
+	<span class="n">ret</span> <span class="o">=</span> <span class="n">pause</span><span class="p">();</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">ret</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">errno</span> <span class="o">==</span> <span class="n">EINTR</span><span class="p">){</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;signal caught!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+	<span class="p">}</span>
+
+	<span class="n">ret</span> <span class="o">=</span> <span class="n">alarm</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+	<span class="n">sigaction</span><span class="p">(</span><span class="n">SIGALRM</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">oldact</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+	<span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+	<span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="n">mySleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="时序竞态">时序竞态</h2>
+<h3 id="一个会出问题的例子">一个会出问题的例子</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2047.png"
+        data-srcset="/images/LinuxSystem/Untitled%2047.png, /images/LinuxSystem/Untitled%2047.png 1.5x, /images/LinuxSystem/Untitled%2047.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2047.png"
+        title="/images/LinuxSystem/Untitled%2047.png" /></p>
+<p>若CPU失去时间太长，pause将永远不会被唤醒。</p>
+<h3 id="sigsuspend-函数">sigsuspend 函数</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2048.png"
+        data-srcset="/images/LinuxSystem/Untitled%2048.png, /images/LinuxSystem/Untitled%2048.png 1.5x, /images/LinuxSystem/Untitled%2048.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2048.png"
+        title="/images/LinuxSystem/Untitled%2048.png" /></p>
+<p>相当于带有信号屏蔽字的pause函数，可以解决以上问题。（原子操作）</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2049.png"
+        data-srcset="/images/LinuxSystem/Untitled%2049.png, /images/LinuxSystem/Untitled%2049.png 1.5x, /images/LinuxSystem/Untitled%2049.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2049.png"
+        title="/images/LinuxSystem/Untitled%2049.png" /></p>
+<p>流程：</p>
+<ul>
+<li>注册SIGALRM处理函数</li>
+<li>阻塞SIGALRM</li>
+<li>alarm→sigsuspend【解除阻塞SIGALRM→pause→继续阻塞SIGALRM】</li>
+<li>解除SIGALRM处理函数</li>
+<li>解除阻塞SIGALRM。</li>
+</ul>
+<p>这样可以解决pause的时序问题。</p>
+<h3 id="全局变量异步io问题">全局变量异步IO问题</h3>
+<p>父子进程之间交替数数程序。运行一段时间后两者都永久等待。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;signal.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  <span class="c1">//定义两个全局变量（注意了）
+</span><span class="c1"></span> 
+<span class="kt">void</span> <span class="nf">sys_err</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">str</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">perror</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
+    <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+ 
+<span class="kt">void</span> <span class="nf">do_sig_child</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">)</span>  <span class="c1">//子进程的用户处理函数
+</span><span class="c1"></span><span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;I am child  %d</span><span class="se">\t</span><span class="s">%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">getpid</span><span class="p">(),</span> <span class="n">n</span><span class="p">);</span>
+    <span class="n">n</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="n">flag</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>  <span class="c1">//对全局变量的修改
+</span><span class="c1"></span><span class="p">}</span>
+ 
+<span class="kt">void</span> <span class="nf">do_sig_parent</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">)</span>   <span class="c1">//父进程的用户处理函数
+</span><span class="c1"></span><span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;I am parent %d</span><span class="se">\t</span><span class="s">%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">getpid</span><span class="p">(),</span> <span class="n">n</span><span class="p">);</span>
+    <span class="n">n</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="n">flag</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>  <span class="c1">//对全局变量的修改
+</span><span class="c1"></span><span class="p">}</span>
+ 
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">pid_t</span> <span class="n">pid</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">sigaction</span> <span class="n">act</span><span class="p">;</span>
+ 
+    <span class="k">if</span> <span class="p">((</span><span class="n">pid</span> <span class="o">=</span> <span class="n">fork</span><span class="p">())</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">sys_err</span><span class="p">(</span><span class="s">&#34;fork&#34;</span><span class="p">);</span>
+ 
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">pid</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>          <span class="c1">//父进程从1开始数
+</span><span class="c1"></span>        <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>       <span class="c1">//父进程睡眠1s确保在父进程向子进程发信号之前，子进程完成了对信号的注册
+</span><span class="c1"></span>        <span class="n">act</span><span class="p">.</span><span class="n">sa_handler</span> <span class="o">=</span> <span class="n">do_sig_parent</span><span class="p">;</span>
+        <span class="n">sigemptyset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">act</span><span class="p">.</span><span class="n">sa_mask</span><span class="p">);</span>
+        <span class="n">act</span><span class="p">.</span><span class="n">sa_flags</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="n">sigaction</span><span class="p">(</span><span class="n">SIGUSR2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">act</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>             <span class="c1">//注册自己的信号捕捉函数，父进程使用SIGUSR2信号
+</span><span class="c1"></span> 
+        <span class="n">do_sig_parent</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>   <span class="c1">//父进程先进行数数，从1开始
+</span><span class="c1"></span> 
+        <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="cm">/* wait for signal */</span><span class="p">;</span>
+           <span class="k">if</span> <span class="p">(</span><span class="n">flag</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>                         <span class="c1">//父进程数数完成
+</span><span class="c1"></span>                <span class="n">kill</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="n">SIGUSR1</span><span class="p">);</span>
+                <span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>                        <span class="c1">//标志已经给子进程发送完信号
+</span><span class="c1"></span>            <span class="p">}</span>
+        <span class="p">}</span>
+ 
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>      <span class="c1">//子进程从2开始数
+</span><span class="c1"></span>        <span class="n">act</span><span class="p">.</span><span class="n">sa_handler</span> <span class="o">=</span> <span class="n">do_sig_child</span><span class="p">;</span>
+        <span class="n">sigemptyset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">act</span><span class="p">.</span><span class="n">sa_mask</span><span class="p">);</span>
+        <span class="n">act</span><span class="p">.</span><span class="n">sa_flags</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="n">sigaction</span><span class="p">(</span><span class="n">SIGUSR1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">act</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+ 
+        <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="cm">/* wait for signal */</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">flag</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">kill</span><span class="p">(</span><span class="n">getppid</span><span class="p">(),</span> <span class="n">SIGUSR2</span><span class="p">);</span>
+                <span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+ 
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>问题在于flag的修改，若某一进程修改不及时，另一进程已经发送了信号，那么就会导致原进程在执行完信号后才修改flag为0，那么两者就会死锁。</p>
+<p>这里的全局是原程序和内核回调函数的并行。</p>
+<p>改进方法：直接不使用flag，把信号发送放到回调函数里面。</p>
+<h3 id="可重入函数">可重入函数</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2050.png"
+        data-srcset="/images/LinuxSystem/Untitled%2050.png, /images/LinuxSystem/Untitled%2050.png 1.5x, /images/LinuxSystem/Untitled%2050.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2050.png"
+        title="/images/LinuxSystem/Untitled%2050.png" /></p>
+<p>显然这个是不可重入的函数，主要原因是使用了全局变量。</p>
+<p>注意事项：</p>
+<ul>
+<li>可重入函数不能有全局变量以及static变量。不能有malloc和free。</li>
+<li>信号捕捉函数应该设计为可重入函数。</li>
+<li>信号处理程序可以调用的可重入函数可以参阅man 7 signal.</li>
+<li>没有在以上列表中的函数大多是不可重入的。
+<ul>
+<li>静态数据结构</li>
+<li>调用了malloc和free</li>
+<li>是标准的IO函数</li>
+</ul>
+</li>
+</ul>
+<h2 id="sigchld回收子进程">SIGCHLD回收子进程</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2051.png"
+        data-srcset="/images/LinuxSystem/Untitled%2051.png, /images/LinuxSystem/Untitled%2051.png 1.5x, /images/LinuxSystem/Untitled%2051.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2051.png"
+        title="/images/LinuxSystem/Untitled%2051.png" /></p>
+<p>对父进程发送信号。可以利用SIGCHLD信号回收子进程。</p>
+<p>为了避免信号的覆盖，需要在回收函数里面使用while来处理所有的子进程。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2052.png"
+        data-srcset="/images/LinuxSystem/Untitled%2052.png, /images/LinuxSystem/Untitled%2052.png 1.5x, /images/LinuxSystem/Untitled%2052.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2052.png"
+        title="/images/LinuxSystem/Untitled%2052.png" /></p>
+<p>这里使用if时，会使得一些进程没有回收。</p>
+<h2 id="信号传参">信号传参</h2>
+<h3 id="发送参数">发送参数</h3>
+<p>sigqueue函数对应kill函数，可以在发送信号的同时携带参数。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2053.png"
+        data-srcset="/images/LinuxSystem/Untitled%2053.png, /images/LinuxSystem/Untitled%2053.png 1.5x, /images/LinuxSystem/Untitled%2053.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2053.png"
+        title="/images/LinuxSystem/Untitled%2053.png" /></p>
+<p>但是注意传地址时，每个进程的虚拟地址空间独立，把虚拟地址传到另一进程没有实际意义。</p>
+<h3 id="接收参数">接收参数</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2054.png"
+        data-srcset="/images/LinuxSystem/Untitled%2054.png, /images/LinuxSystem/Untitled%2054.png 1.5x, /images/LinuxSystem/Untitled%2054.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2054.png"
+        title="/images/LinuxSystem/Untitled%2054.png" /></p>
+<h2 id="中断系统调用">中断系统调用</h2>
+<p>系统调用：</p>
+<ul>
+<li>慢速系统调用：可能会使得本进程永久阻塞。如pause、wait、waitpid、read</li>
+<li>其他系统调用。</li>
+</ul>
+<p>对于慢速系统调用，被信号打断后，按需求希望恢复操作或者跳过操作（read和pause）。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2055.png"
+        data-srcset="/images/LinuxSystem/Untitled%2055.png, /images/LinuxSystem/Untitled%2055.png 1.5x, /images/LinuxSystem/Untitled%2055.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2055.png"
+        title="/images/LinuxSystem/Untitled%2055.png" /></p>
+<p>发送信号时，sa_flags参数可以设置是否被信号中断后重启。也可以设置该信号不自动被屏蔽。</p>
+<h1 id="终端进程组会话守护进程">终端、进程组、会话、守护进程</h1>
+<h2 id="终端">终端</h2>
+<p>是所有输入输出设备的总称。所有的进程都有一个父进程init。每个进程都可以通过/dev/tty访问它的控制终端。</p>
+<h3 id="启动流程">启动流程</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2056.png"
+        data-srcset="/images/LinuxSystem/Untitled%2056.png, /images/LinuxSystem/Untitled%2056.png 1.5x, /images/LinuxSystem/Untitled%2056.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2056.png"
+        title="/images/LinuxSystem/Untitled%2056.png" /></p>
+<p>线路规程像一个过滤器，对某些字符进行特殊处理。如ctrl+c会被线路规程截获，而不是读到read中。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2057.png"
+        data-srcset="/images/LinuxSystem/Untitled%2057.png, /images/LinuxSystem/Untitled%2057.png 1.5x, /images/LinuxSystem/Untitled%2057.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2057.png"
+        title="/images/LinuxSystem/Untitled%2057.png" /></p>
+<h3 id="ttyname函数">ttyname函数</h3>
+<p>借助ttyname函数可以看到不同终端对应的设备文件名。</p>
+<h3 id="网络终端">网络终端</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2058.png"
+        data-srcset="/images/LinuxSystem/Untitled%2058.png, /images/LinuxSystem/Untitled%2058.png 1.5x, /images/LinuxSystem/Untitled%2058.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2058.png"
+        title="/images/LinuxSystem/Untitled%2058.png" /></p>
+<h2 id="进程组-ps-ajx">进程组 ps ajx</h2>
+<p>作业就是进程组，代表一个或多个进程的集合。</p>
+<p>当父进程创建子进程，默认子进程与父进程为同一个组，组ID为父进程的ID（组长）。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2059.png"
+        data-srcset="/images/LinuxSystem/Untitled%2059.png, /images/LinuxSystem/Untitled%2059.png 1.5x, /images/LinuxSystem/Untitled%2059.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2059.png"
+        title="/images/LinuxSystem/Untitled%2059.png" /></p>
+<h3 id="getpgrp-获取进程组id">getpgrp 获取进程组ID</h3>
+<h3 id="getpgid-获取指定进程的进程组id">getpgid 获取指定进程的进程组id</h3>
+<h3 id="setpgid-设定指定进程的进程组id">setpgid 设定指定进程的进程组id</h3>
+<p>注意非root进程只能改变自己的子进程。</p>
+<h2 id="会话">会话</h2>
+<p>一组进程组可以编号成一个会话。</p>
+<h3 id="创建会话">创建会话</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2060.png"
+        data-srcset="/images/LinuxSystem/Untitled%2060.png, /images/LinuxSystem/Untitled%2060.png 1.5x, /images/LinuxSystem/Untitled%2060.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2060.png"
+        title="/images/LinuxSystem/Untitled%2060.png" /></p>
+<h3 id="getsid-查看会话id">getsid 查看会话id</h3>
+<h3 id="setsid-设置会话id">setsid 设置会话id</h3>
+<p>会话可以做守护进程。</p>
+<h2 id="守护进程">守护进程</h2>
+<p>Daemon进程，是Linux中的后台服务进程，通常独立于控制终端且周期性执行某种任务或等待某个事件。通常以d结尾（httpd、sshd）。且不受用户登录退出的影响。</p>
+<p>最关键的一步：使用setsid创建一个新的session，并成为session leader。</p>
+<h3 id="创建方式">创建方式</h3>
+<ul>
+<li>
+<p>创建子进程，父进程退出 fork</p>
+</li>
+<li>
+<p>在子进程中创建新会话 setsid</p>
+</li>
+<li>
+<p>设置当前目录为根目录（防止被卸载） chdir</p>
+</li>
+<li>
+<p>重设文件权限掩码 umask函数（防止继承的文件创建屏蔽字拒绝某些权限）</p>
+</li>
+<li>
+<p>关闭文件描述符（不要浪费系统资源）</p>
+<p>通常重定向到/dev/null   dup2()</p>
+</li>
+<li>
+<p>开始守护核心工作</p>
+</li>
+<li>
+<p>守护进程退出模型（很少用到）</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="n">pid_t</span> <span class="n">pid</span><span class="p">,</span> <span class="n">spid</span><span class="p">;</span>
+
+	<span class="n">pid</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="c1">//child
+</span><span class="c1"></span>	<span class="p">{</span>
+		<span class="n">spid</span> <span class="o">=</span> <span class="n">setsid</span><span class="p">();</span>
+		<span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">chdir</span><span class="p">(</span><span class="s">&#34;/home/hongwei&#34;</span><span class="p">);</span>
+		<span class="k">if</span><span class="p">(</span><span class="n">ret</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+			<span class="n">perror</span><span class="p">(</span><span class="s">&#34;chdir&#34;</span><span class="p">);</span>
+			<span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+		<span class="p">}</span>
+		<span class="n">umask</span><span class="p">(</span><span class="mo">0002</span><span class="p">);</span>
+		
+		<span class="n">close</span><span class="p">(</span><span class="n">STDIN_FILENO</span><span class="p">);</span>
+		<span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">&#34;/dev/null&#34;</span><span class="p">,</span> <span class="n">O_RDWR</span><span class="p">);</span>
+		<span class="k">if</span><span class="p">(</span><span class="n">fd</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">){</span>
+			<span class="n">perror</span><span class="p">(</span><span class="s">&#34;open&#34;</span><span class="p">);</span>
+			<span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+		<span class="p">}</span>
+		<span class="n">dup2</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">STDOUT_FILENO</span><span class="p">);</span>
+		<span class="n">dup2</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">STDERR_FILENO</span><span class="p">);</span>
+		<span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
+			<span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>	
+		<span class="p">}</span>
+		
+	<span class="p">}</span>
+	<span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">){</span>
+		<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>在bashrc文件中加入运行命令，则可以保证每次开机自动启动。</p>
+<h1 id="线程">线程</h1>
+<h2 id="概念">概念</h2>
+<p>Linux下仍是轻量级的进程，差别不大。</p>
+<p>进程：独立的地址空间、PCB</p>
+<p>线程：也有PCB，但是没有独立的地址空间（共享）。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2061.png"
+        data-srcset="/images/LinuxSystem/Untitled%2061.png, /images/LinuxSystem/Untitled%2061.png 1.5x, /images/LinuxSystem/Untitled%2061.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2061.png"
+        title="/images/LinuxSystem/Untitled%2061.png" /></p>
+<p>进程（独居），线程（合租）</p>
+<p><strong>线程是最小的执行单位，进程是最小的资源分配的单位。</strong></p>
+<h3 id="linux线程实现原理">Linux线程实现原理</h3>
+<ul>
+<li>线程是由进程发展而来，底层实现类似。都是用clone()，也有PCB。</li>
+<li>从内核的角度来看，进程和线程都一样，有不同的PCB。但是PCB中指向内存的三级页表对于线程来说是相同的。</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2062.png"
+        data-srcset="/images/LinuxSystem/Untitled%2062.png, /images/LinuxSystem/Untitled%2062.png 1.5x, /images/LinuxSystem/Untitled%2062.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2062.png"
+        title="/images/LinuxSystem/Untitled%2062.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2063.png"
+        data-srcset="/images/LinuxSystem/Untitled%2063.png, /images/LinuxSystem/Untitled%2063.png 1.5x, /images/LinuxSystem/Untitled%2063.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2063.png"
+        title="/images/LinuxSystem/Untitled%2063.png" /></p>
+<ul>
+<li>线程可以看成是寄存器和栈的集合。</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2064.png"
+        data-srcset="/images/LinuxSystem/Untitled%2064.png, /images/LinuxSystem/Untitled%2064.png 1.5x, /images/LinuxSystem/Untitled%2064.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2064.png"
+        title="/images/LinuxSystem/Untitled%2064.png" /></p>
+<p>内核中的栈用于记录临时的寄存器值，便于恢复。</p>
+<p>LWP号（线程号，区分于线程id）   ps -Lf pid。</p>
+<p>线程号：CPU分配运行时间的依据。</p>
+<p>线程id：进程内部区分线程的方法。</p>
+<h3 id="线程共享资源">线程共享资源</h3>
+<ul>
+<li>文件描述符表</li>
+<li>每种信号的处理方式（尽量不要线程和信号一起使用）</li>
+<li>当前工作目录</li>
+<li>用户ID和组ID</li>
+<li>内存地址空间 .text .data .bss heap 共享库</li>
+</ul>
+<h3 id="非共享资源">非共享资源</h3>
+<ul>
+<li>线程id</li>
+<li>处理器现场和栈指针（内核栈）</li>
+<li>独立的栈空间（用户栈）</li>
+<li>errno变量</li>
+<li>信号屏蔽字</li>
+<li>调度优先级</li>
+</ul>
+<h3 id="优缺点">优缺点</h3>
+<p>优点：</p>
+<ul>
+<li>提高程序并发性</li>
+<li>开销小</li>
+<li>数据通信、共享数据方便</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>库函数不稳定（pthread）</li>
+<li>调试困难，gdb不支持</li>
+<li>对信号支持不好</li>
+</ul>
+<p>在Linux下，由于实现方法导致进程线程的差别不大。</p>
+<h2 id="控制原语">控制原语</h2>
+<h3 id="pthread_self">pthread_self</h3>
+<p>对应getpid（）获取线程id。</p>
+<h3 id="pthread_create">pthread_create</h3>
+<p>对应fork（）</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2065.png"
+        data-srcset="/images/LinuxSystem/Untitled%2065.png, /images/LinuxSystem/Untitled%2065.png 1.5x, /images/LinuxSystem/Untitled%2065.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2065.png"
+        title="/images/LinuxSystem/Untitled%2065.png" /></p>
+<p>传出线程id，传入属性（可以是NULL），主控函数，函数参数。</p>
+<p>注意返回值为错误编号（非-1）。</p>
+<p>存疑：注意传参时最好为值传递，内存地址情况可能会发生改变。</p>
+<h3 id="pthread_exit">pthread_exit</h3>
+<p>将单个线程退出。如果是主控线程，则可以使得子线程继续运行而非退出。exit函数会直接把进程结束。return作用为返回值到调用者处。</p>
+<h3 id="pthread_join">pthread_join</h3>
+<p>对应waitpid（）。回收线程。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2066.png"
+        data-srcset="/images/LinuxSystem/Untitled%2066.png, /images/LinuxSystem/Untitled%2066.png 1.5x, /images/LinuxSystem/Untitled%2066.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2066.png"
+        title="/images/LinuxSystem/Untitled%2066.png" /></p>
+<p>返回的retval若传指针则需要malloc。也可以在main中malloc。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2067.png"
+        data-srcset="/images/LinuxSystem/Untitled%2067.png, /images/LinuxSystem/Untitled%2067.png 1.5x, /images/LinuxSystem/Untitled%2067.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2067.png"
+        title="/images/LinuxSystem/Untitled%2067.png" /></p>
+<p>线程的回收不需要一定是主控线程。</p>
+<h3 id="pthread_detach">pthread_detach</h3>
+<p>实现线程分离，对线程在状态上实现分离，其退出状态不被获取，且自己释放，不会成为僵尸线程。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2068.png"
+        data-srcset="/images/LinuxSystem/Untitled%2068.png, /images/LinuxSystem/Untitled%2068.png 1.5x, /images/LinuxSystem/Untitled%2068.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2068.png"
+        title="/images/LinuxSystem/Untitled%2068.png" /></p>
+<h3 id="pthread_cancel">pthread_cancel</h3>
+<p>对应kill，直接杀死某线程。但是需要线程到达一定的检查点。</p>
+<p>使用man 7 pthreads 查看所有取消点。如read pause open creat close&hellip;</p>
+<p>也可以自定义取消点 pthread_testcancel()。</p>
+<h3 id="原语对比">原语对比</h3>
+<p>getpid : pthread_self</p>
+<p>fork:  pthread_create</p>
+<p>wait:  pthread_join(tid, void**)</p>
+<p>exit(): pthread_exit(void*)</p>
+<dl>
+<dt>kill():  pthread_cancel();  到达取消点</dt>
+<dd>
+<p>pthread_detach 自动清理pcb</p>
+</dd>
+</dl>
+<h2 id="线程属性">线程属性</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2069.png"
+        data-srcset="/images/LinuxSystem/Untitled%2069.png, /images/LinuxSystem/Untitled%2069.png 1.5x, /images/LinuxSystem/Untitled%2069.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2069.png"
+        title="/images/LinuxSystem/Untitled%2069.png" /></p>
+<p>pthread_attr_init/destroy 函数初始化和销毁这个属性结构体。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2070.png"
+        data-srcset="/images/LinuxSystem/Untitled%2070.png, /images/LinuxSystem/Untitled%2070.png 1.5x, /images/LinuxSystem/Untitled%2070.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2070.png"
+        title="/images/LinuxSystem/Untitled%2070.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2071.png"
+        data-srcset="/images/LinuxSystem/Untitled%2071.png, /images/LinuxSystem/Untitled%2071.png 1.5x, /images/LinuxSystem/Untitled%2071.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2071.png"
+        title="/images/LinuxSystem/Untitled%2071.png" /></p>
+<p>调整栈的大小使得能建立更多的线程。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2072.png"
+        data-srcset="/images/LinuxSystem/Untitled%2072.png, /images/LinuxSystem/Untitled%2072.png 1.5x, /images/LinuxSystem/Untitled%2072.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2072.png"
+        title="/images/LinuxSystem/Untitled%2072.png" /></p>
+<p>注意此时是在堆上创建线程。</p>
+<h2 id="nptl-线程库版本">NPTL 线程库版本</h2>
+<p>getconf GNU_LIBPTHREAD_VERSION</p>
+<h2 id="注意事项">注意事项</h2>
+<ul>
+<li>避免僵尸进程 join detach</li>
+<li>避免使用fork（）</li>
+<li>避免使用信号</li>
+</ul>
+<h1 id="线程同步">线程同步</h1>
+<h2 id="概念-1">概念</h2>
+<p>线程的同步是指协同，互相配合，线程按照一定的先后次序运行。</p>
+<p>一个线程发出某一功能调用时，直到这个功能调用结束为止，其他线程不调用这个功能。</p>
+<p>数据发生时间错误条件：</p>
+<ul>
+<li>数据共享。</li>
+<li>竞争。</li>
+<li>多个对象没有合理的同步机制。</li>
+</ul>
+<h2 id="互斥量-mutex">互斥量 mutex</h2>
+<p>结构体pthread_mutex_t(可以看做一个整数）。</p>
+<h3 id="pthread_mutex_initdestory">pthread_mutex_init（destory）</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2073.png"
+        data-srcset="/images/LinuxSystem/Untitled%2073.png, /images/LinuxSystem/Untitled%2073.png 1.5x, /images/LinuxSystem/Untitled%2073.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2073.png"
+        title="/images/LinuxSystem/Untitled%2073.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2074.png"
+        data-srcset="/images/LinuxSystem/Untitled%2074.png, /images/LinuxSystem/Untitled%2074.png 1.5x, /images/LinuxSystem/Untitled%2074.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2074.png"
+        title="/images/LinuxSystem/Untitled%2074.png" /></p>
+<p>restrict关键字：</p>
+<p><a href="https://www.zhihu.com/question/41653775" target="_blank" rel="noopener noreffer">如何理解C语言关键字restrict？</a></p>
+<p>restrict 是为了告诉编译器额外信息（两个指针不指向同一数据），从而生成更优化的机器码。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2075.png"
+        data-srcset="/images/LinuxSystem/Untitled%2075.png, /images/LinuxSystem/Untitled%2075.png 1.5x, /images/LinuxSystem/Untitled%2075.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2075.png"
+        title="/images/LinuxSystem/Untitled%2075.png" /></p>
+<h3 id="pthread_mutex_lock">pthread_mutex_lock</h3>
+<p>用阻塞等待方法加锁。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2076.png"
+        data-srcset="/images/LinuxSystem/Untitled%2076.png, /images/LinuxSystem/Untitled%2076.png 1.5x, /images/LinuxSystem/Untitled%2076.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2076.png"
+        title="/images/LinuxSystem/Untitled%2076.png" /></p>
+<h3 id="pthread_mutex_trylock">pthread_mutex_trylock</h3>
+<p>不阻塞方法加锁。（轮询）</p>
+<h3 id="pthread_mutex_unlock">pthread_mutex_unlock</h3>
+<p>解锁。</p>
+<p>锁的粒度应该越小越好。</p>
+<h3 id="死锁">死锁</h3>
+<p>1、线程尝试对锁加两次锁。</p>
+<p>2、多个线程互相等待。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2077.png"
+        data-srcset="/images/LinuxSystem/Untitled%2077.png, /images/LinuxSystem/Untitled%2077.png 1.5x, /images/LinuxSystem/Untitled%2077.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2077.png"
+        title="/images/LinuxSystem/Untitled%2077.png" /></p>
+<p>解决方法：</p>
+<ul>
+<li>使用pthread_mutex_trylock，若失败则放弃已有的锁，日后再加锁。</li>
+</ul>
+<h2 id="读写锁">读写锁</h2>
+<p>读写锁是一把锁。具备三种状态</p>
+<ul>
+<li>读锁</li>
+<li>写锁</li>
+<li>不加锁</li>
+</ul>
+<p>写独占，读共享，写锁优先度高。（写者优先）pthread_rwlock_t</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2078.png"
+        data-srcset="/images/LinuxSystem/Untitled%2078.png, /images/LinuxSystem/Untitled%2078.png 1.5x, /images/LinuxSystem/Untitled%2078.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2078.png"
+        title="/images/LinuxSystem/Untitled%2078.png" /></p>
+<h2 id="条件变量">条件变量</h2>
+<p>条件变量不是锁，但是可以造成线程阻塞，通常与互斥锁搭配使用。 pthread_cond_t</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2079.png"
+        data-srcset="/images/LinuxSystem/Untitled%2079.png, /images/LinuxSystem/Untitled%2079.png 1.5x, /images/LinuxSystem/Untitled%2079.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2079.png"
+        title="/images/LinuxSystem/Untitled%2079.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2080.png"
+        data-srcset="/images/LinuxSystem/Untitled%2080.png, /images/LinuxSystem/Untitled%2080.png 1.5x, /images/LinuxSystem/Untitled%2080.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2080.png"
+        title="/images/LinuxSystem/Untitled%2080.png" /></p>
+<h3 id="pthread_cond_wait">pthread_cond_wait</h3>
+<p>pthread_cond_wait函数有三个功能：</p>
+<ul>
+<li>阻塞等待一个条件变量满足。</li>
+<li>释放已经掌握的互斥锁。
+<ul>
+<li>以上两个为原子操作</li>
+</ul>
+</li>
+<li>当被唤醒，解除阻塞并重新申请获取互斥锁。</li>
+</ul>
+<p>使用pthread_cond_signal唤醒一个线程。pthead_cond_boardcast唤醒所有线程。</p>
+<h3 id="pthread_cond_timedwait">pthread_cond_timedwait</h3>
+<p>在指定时间内等待。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2081.png"
+        data-srcset="/images/LinuxSystem/Untitled%2081.png, /images/LinuxSystem/Untitled%2081.png 1.5x, /images/LinuxSystem/Untitled%2081.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2081.png"
+        title="/images/LinuxSystem/Untitled%2081.png" /></p>
+<p>这里的abstime为timespec结构体：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2082.png"
+        data-srcset="/images/LinuxSystem/Untitled%2082.png, /images/LinuxSystem/Untitled%2082.png 1.5x, /images/LinuxSystem/Untitled%2082.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2082.png"
+        title="/images/LinuxSystem/Untitled%2082.png" /></p>
+<p>abstime是绝对时间(相对于unix诞生时间):</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="n">time_t</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">time</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+<span class="k">struct</span> <span class="n">timespec</span> <span class="n">t</span><span class="p">;</span>
+<span class="n">t</span><span class="p">.</span><span class="n">tv_sec</span> <span class="o">=</span> <span class="n">cur</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">pthread_cond_timedwait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cond</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">mutex</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="使用条件变量解决生产者消费者模型">使用条件变量解决生产者消费者模型</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2083.png"
+        data-srcset="/images/LinuxSystem/Untitled%2083.png, /images/LinuxSystem/Untitled%2083.png 1.5x, /images/LinuxSystem/Untitled%2083.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2083.png"
+        title="/images/LinuxSystem/Untitled%2083.png" /></p>
+<p>条件变量代表是否缓冲区有产品。</p>
+<p>条件变量的优点在于减少了竞争，消费者之间在生产时不再需要竞争互斥锁。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span><span class="cpf">&lt;pthread.h&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="n">pthread_mutex_t</span> <span class="n">mutex</span> <span class="o">=</span> <span class="n">PTHREAD_MUTEX_INITIALIZER</span><span class="p">;</span>
+<span class="n">pthread_cond_t</span> <span class="n">has_product</span> <span class="o">=</span> <span class="n">PTHREAD_COND_INITIALIZER</span><span class="p">;</span>
+
+<span class="k">struct</span> <span class="n">msg</span><span class="p">{</span>
+	<span class="kt">int</span> <span class="n">num</span><span class="p">;</span>
+	<span class="k">struct</span> <span class="n">msg</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">struct</span> <span class="n">msg</span> <span class="o">*</span><span class="n">head</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">,</span> <span class="o">*</span><span class="n">mp</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">,</span> <span class="o">*</span><span class="n">mc</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+
+<span class="kt">void</span><span class="o">*</span> <span class="nf">producer</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">arg</span><span class="p">){</span>
+	<span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
+		<span class="n">mp</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">msg</span><span class="p">));</span>
+		<span class="n">mp</span> <span class="o">-&gt;</span> <span class="n">num</span> <span class="o">=</span> <span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">400</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;=&gt;produced %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">mp</span> <span class="o">-&gt;</span> <span class="n">num</span><span class="p">);</span>
+		
+		<span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+		<span class="n">mp</span> <span class="o">-&gt;</span> <span class="n">next</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+		<span class="n">head</span> <span class="o">=</span> <span class="n">mp</span><span class="p">;</span>
+		<span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+		<span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">pthread_cond_signal</span><span class="p">(</span><span class="o">&amp;</span><span class="n">has_product</span><span class="p">);</span>
+		<span class="k">if</span><span class="p">(</span><span class="n">ret</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">){</span>
+			<span class="n">printf</span><span class="p">(</span><span class="s">&#34;signal failed</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+			<span class="n">pthread_exit</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+		<span class="p">}</span>
+		<span class="n">sleep</span><span class="p">(</span><span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">3</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="o">*</span> <span class="nf">consumer</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">arg</span><span class="p">){</span>
+	<span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
+		<span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+		<span class="k">while</span><span class="p">(</span><span class="n">head</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">){</span>
+			<span class="n">pthread_cond_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">has_product</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+		<span class="p">}</span>
+		<span class="n">mc</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+		<span class="n">head</span> <span class="o">=</span> <span class="n">mc</span> <span class="o">-&gt;</span> <span class="n">next</span><span class="p">;</span>
+		<span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;=&gt;consumed: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">mc</span><span class="o">-&gt;</span><span class="n">num</span><span class="p">);</span>
+		<span class="n">free</span><span class="p">(</span><span class="n">mc</span><span class="p">);</span>
+		<span class="n">mc</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+		<span class="n">sleep</span><span class="p">(</span><span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">2</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="n">pthread_t</span> <span class="n">ptid</span><span class="p">,</span> <span class="n">ctid</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ptid</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">producer</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">ret</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">){</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;create error</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+		<span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="n">ret</span> <span class="o">=</span> <span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ctid</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">consumer</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">ret</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">){</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;create error</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+		<span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+	<span class="p">}</span>
+
+	<span class="n">pthread_join</span><span class="p">(</span><span class="n">ptid</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+	<span class="n">pthread_join</span><span class="p">(</span><span class="n">ctid</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="信号量也可以应用于进程间同步">信号量（也可以应用于进程间同步）</h2>
+<p>进化版的互斥锁。留意信号量的函数都是用errno来返回错误信息。</p>
+<p>sem_t 信号量结构体。</p>
+<h3 id="sem_init">sem_init</h3>
+<p>初始化信号量。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2084.png"
+        data-srcset="/images/LinuxSystem/Untitled%2084.png, /images/LinuxSystem/Untitled%2084.png 1.5x, /images/LinuxSystem/Untitled%2084.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2084.png"
+        title="/images/LinuxSystem/Untitled%2084.png" /></p>
+<p>第二个参数代表是否能在进程间共享，当非0，表示可以共享。</p>
+<h3 id="sem_destroy">sem_destroy</h3>
+<p>销毁信号。</p>
+<h3 id="sem_wait">sem_wait</h3>
+<p>信号量减一</p>
+<p>若信号量小于0，线程阻塞。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2085.png"
+        data-srcset="/images/LinuxSystem/Untitled%2085.png, /images/LinuxSystem/Untitled%2085.png 1.5x, /images/LinuxSystem/Untitled%2085.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2085.png"
+        title="/images/LinuxSystem/Untitled%2085.png" /></p>
+<h3 id="sem_trywait">sem_trywait</h3>
+<h3 id="sem_timedwait">sem_timedwait</h3>
+<h3 id="sem_post">sem_post</h3>
+<p>信号量加一，若信号量小于等于0，同时唤醒信号量上的进程。</p>
+<h3 id="生产者消费者">生产者消费者</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="o">*</span><span class="nf">producer</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">sem_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">blank_number</span><span class="p">);</span>                    <span class="c1">//生产者将空格子数--,为0则阻塞等待
+</span><span class="c1"></span>        <span class="n">queue</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">1000</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>               <span class="c1">//生产一个产品
+</span><span class="c1"></span>        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;----Produce---%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">queue</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>        
+        <span class="n">sem_post</span><span class="p">(</span><span class="o">&amp;</span><span class="n">product_number</span><span class="p">);</span>                  <span class="c1">//将产品数++
+</span><span class="c1"></span>
+        <span class="n">i</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">NUM</span><span class="p">;</span>                            <span class="c1">//借助下标实现环形
+</span><span class="c1"></span>        <span class="c1">//sleep(rand()%3);
+</span><span class="c1"></span>    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="o">*</span><span class="nf">consumer</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">sem_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">product_number</span><span class="p">);</span>                  <span class="c1">//消费者将产品数--,为0则阻塞等待
+</span><span class="c1"></span>        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;-Consume---%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">queue</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+        <span class="n">queue</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>                               <span class="c1">//消费一个产品 
+</span><span class="c1"></span>        <span class="n">sem_post</span><span class="p">(</span><span class="o">&amp;</span><span class="n">blank_number</span><span class="p">);</span>                    <span class="c1">//消费掉以后,将空格子数++
+</span><span class="c1"></span>
+        <span class="n">i</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">NUM</span><span class="p">;</span>
+        <span class="c1">//sleep(rand()%3);
+</span><span class="c1"></span>    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>为什么不需要互斥锁？</p>
+<h2 id="进程间同步">进程间同步</h2>
+<h3 id="互斥量">互斥量</h3>
+<p>进程中的互斥量需要修改mutex的属性。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2086.png"
+        data-srcset="/images/LinuxSystem/Untitled%2086.png, /images/LinuxSystem/Untitled%2086.png 1.5x, /images/LinuxSystem/Untitled%2086.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2086.png"
+        title="/images/LinuxSystem/Untitled%2086.png" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;pthread.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;sys/mman.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="k">struct</span> <span class="n">mt</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">num</span><span class="p">;</span>
+    <span class="n">pthread_mutex_t</span> <span class="n">mutex</span><span class="p">;</span>
+    <span class="n">pthread_mutexattr_t</span> <span class="n">mutexattr</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">mt</span> <span class="o">*</span><span class="n">mm</span><span class="p">;</span>
+    <span class="n">pid_t</span> <span class="n">pid</span><span class="p">;</span>
+<span class="cm">/*
+</span><span class="cm">    int fd = open(&#34;mt_test&#34;, O_CREAT | O_RDWR, 0777);
+</span><span class="cm">    ftruncate(fd, sizeof(*mm));
+</span><span class="cm">    mm = mmap(NULL, sizeof(*mm), PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
+</span><span class="cm">    close(fd);
+</span><span class="cm">    unlink(&#34;mt_test&#34;);
+</span><span class="cm">*/</span>
+    <span class="n">mm</span> <span class="o">=</span> <span class="n">mmap</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">mm</span><span class="p">),</span> <span class="n">PROT_READ</span><span class="o">|</span><span class="n">PROT_WRITE</span><span class="p">,</span> <span class="n">MAP_SHARED</span><span class="o">|</span><span class="n">MAP_ANON</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">memset</span><span class="p">(</span><span class="n">mm</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">mm</span><span class="p">));</span>
+
+    <span class="n">pthread_mutexattr_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">mutexattr</span><span class="p">);</span>                                  <span class="c1">//初始化mutex属性对象
+</span><span class="c1"></span>    <span class="n">pthread_mutexattr_setpshared</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">mutexattr</span><span class="p">,</span> <span class="n">PTHREAD_PROCESS_SHARED</span><span class="p">);</span>    <span class="c1">//修改属性为进程间共享
+</span><span class="c1"></span>
+    <span class="n">pthread_mutex_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">mutexattr</span><span class="p">);</span>                          <span class="c1">//初始化一把mutex琐
+</span><span class="c1"></span>
+    <span class="n">pid</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+            <span class="p">(</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">num</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>
+            <span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">&#34;-child----------num++   %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">mm</span><span class="o">-&gt;</span><span class="n">num</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">pid</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//    sleep(1);
+</span><span class="c1"></span>            <span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+            <span class="n">mm</span><span class="o">-&gt;</span><span class="n">num</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">;</span>
+            <span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">&#34;-------parent---num+=2  %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">mm</span><span class="o">-&gt;</span><span class="n">num</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">wait</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">pthread_mutexattr_destroy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">mutexattr</span><span class="p">);</span>          <span class="c1">//销毁mutex属性对象
+</span><span class="c1"></span>    <span class="n">pthread_mutex_destroy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>                  <span class="c1">//销毁mutex
+</span><span class="c1"></span>    <span class="n">munmap</span><span class="p">(</span><span class="n">mm</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">mm</span><span class="p">));</span>                             <span class="c1">//释放映射区
+</span><span class="c1"></span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="文件锁">文件锁</h2>
+<h3 id="fcntl函数">fcntl函数</h3>
+<p>修改已经打开文件的属性，修改阻塞和非阻塞。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2087.png"
+        data-srcset="/images/LinuxSystem/Untitled%2087.png, /images/LinuxSystem/Untitled%2087.png 1.5x, /images/LinuxSystem/Untitled%2087.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2087.png"
+        title="/images/LinuxSystem/Untitled%2087.png" /></p>
+<p>可以借助其来设置文件锁。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/LinuxSystem/Untitled%2088.png"
+        data-srcset="/images/LinuxSystem/Untitled%2088.png, /images/LinuxSystem/Untitled%2088.png 1.5x, /images/LinuxSystem/Untitled%2088.png 2x"
+        data-sizes="auto"
+        alt="/images/LinuxSystem/Untitled%2088.png"
+        title="/images/LinuxSystem/Untitled%2088.png" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="kt">void</span> <span class="nf">sys_err</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">str</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">perror</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
+    <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">fd</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">flock</span> <span class="n">f_lock</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;./a.out filename</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">((</span><span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">O_RDWR</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">sys_err</span><span class="p">(</span><span class="s">&#34;open&#34;</span><span class="p">);</span>
+
+    <span class="n">f_lock</span><span class="p">.</span><span class="n">l_type</span> <span class="o">=</span> <span class="n">F_WRLCK</span><span class="p">;</span>        <span class="cm">/*选用写琐*/</span>
+<span class="c1">//    f_lock.l_type = F_RDLCK;      /*选用读琐*/ 
+</span><span class="c1"></span>
+    <span class="n">f_lock</span><span class="p">.</span><span class="n">l_whence</span> <span class="o">=</span> <span class="n">SEEK_SET</span><span class="p">;</span>
+    <span class="n">f_lock</span><span class="p">.</span><span class="n">l_start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">f_lock</span><span class="p">.</span><span class="n">l_len</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>               <span class="cm">/* 0表示整个文件加锁 */</span>
+
+    <span class="n">fcntl</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">F_SETLKW</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">f_lock</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;get flock</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+
+    <span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+
+    <span class="n">f_lock</span><span class="p">.</span><span class="n">l_type</span> <span class="o">=</span> <span class="n">F_UNLCK</span><span class="p">;</span>
+    <span class="n">fcntl</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">F_SETLKW</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">f_lock</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;un flock</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+
+    <span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>多线程间不可以用文件锁，因为文件描述符共享。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-02-08</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/linuxsystem/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://brucemarkdown.top/linuxsystem/" data-title="Linux 系统编程" data-hashtags="Coding,Linux"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://brucemarkdown.top/linuxsystem/" data-hashtag="Coding"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://brucemarkdown.top/linuxsystem/" data-title="Linux 系统编程" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://brucemarkdown.top/linuxsystem/" data-title="Linux 系统编程"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://brucemarkdown.top/linuxsystem/" data-title="Linux 系统编程"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://brucemarkdown.top/linuxsystem/" data-title="Linux 系统编程" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://brucemarkdown.top/linuxsystem/" data-title="Linux 系统编程" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://brucemarkdown.top/linuxsystem/" data-title="Linux 系统编程"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/coding/">Coding</a>,&nbsp;<a href="/tags/linux/">Linux</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E4%B8%80%E4%BA%9B%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="prev" rel="prev" title="一些简单的设计模式"><i class="fas fa-angle-left fa-fw"></i>一些简单的设计模式</a>
+            <a href="/mysql%E5%8E%9F%E7%90%86/" class="next" rel="next" title="MySQL 原理总结">MySQL 原理总结<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/Hongwei7" target="_blank">Hongwei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":300},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

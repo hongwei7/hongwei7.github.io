@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>proc 初探 - Hongwei 的博客</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="proc 初探" />
+<meta property="og:description" content="proc是一个系统文件目录,存放着记录当前运行状态的文件." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://brucemarkdown.top/proc%E5%88%9D%E6%8E%A2/" /><meta property="og:image" content="https://brucemarkdown.top/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-04-19T17:32:48&#43;00:00" />
+<meta property="article:modified_time" content="2020-04-19T17:32:48&#43;00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://brucemarkdown.top/logo.png"/>
+
+<meta name="twitter:title" content="proc 初探"/>
+<meta name="twitter:description" content="proc是一个系统文件目录,存放着记录当前运行状态的文件."/>
+<meta name="application-name" content="Hongwei&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Hongwei&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://brucemarkdown.top/proc%E5%88%9D%E6%8E%A2/" /><link rel="prev" href="https://brucemarkdown.top/wpf%E4%B8%AD%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E5%88%B7%E6%96%B0ui%E7%9A%84%E6%96%B9%E6%B3%95/" /><link rel="next" href="https://brucemarkdown.top/%E8%B7%9F%E9%9A%8Fdb_tutorial%E5%BB%BA%E7%AB%8B%E6%95%B0%E6%8D%AE%E5%BA%93/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "proc 初探",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/brucemarkdown.top\/proc%E5%88%9D%E6%8E%A2\/"
+        },"genre": "posts","keywords": "Linux, OS","wordcount":  1063 ,
+        "url": "https:\/\/brucemarkdown.top\/proc%E5%88%9D%E6%8E%A2\/","datePublished": "2020-04-19T17:32:48+00:00","dateModified": "2020-04-19T17:32:48+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Hongwei"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Hongwei 的博客">Hongwei&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/proc%E5%88%9D%E6%8E%A2/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Hongwei 的博客">Hongwei&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/categories/documentation/" title="">文档</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/proc%E5%88%9D%E6%8E%A2/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">proc 初探</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/Hongwei7" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Hongwei</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-04-19">2020-04-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1063 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#proc-初探deepin下">proc 初探（Deepin下）</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>proc是一个系统文件目录,存放着记录当前运行状态的文件.<!-- more--></p>
+<h2 id="proc-初探deepin下">proc 初探（Deepin下）</h2>
+<ul>
+<li>acpi 目录 高级配置和电源接口 支持OS设置和控制各个硬件部件
+<ul>
+<li>wakeup 文件</li>
+</ul>
+</li>
+<li>asound 文件夹 声音设备相关</li>
+<li>buddyinfo 内存管理算法的状态</li>
+<li>bus 文件夹 总线管理
+<ul>
+<li>input 文件夹
+<ul>
+<li>devices 输入设备列表</li>
+<li>handlers 解决方案</li>
+</ul>
+</li>
+<li>pci 文件夹
+<ul>
+<li>devices pci连接设备</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>cgroups 将进程进行分组，对一组进程进行统一资源监控和限制</li>
+<li>cmdline 启动当前进程的完整命令 or  启动时传递给kernel的参数信息</li>
+<li>consoles 可以查看系统运行的所有终端</li>
+<li>cpuinfo 目前CPU信息</li>
+<li>crypto 内核使用的所有已安装的加密密码及细节</li>
+<li>devices 已经加载的设备</li>
+<li>diskstats 硬盘状态</li>
+<li>dma  已注册使用的ISA DMA频道列表（不明白）</li>
+<li>driver 驱动
+<ul>
+<li>rtc RTC驱动</li>
+</ul>
+</li>
+<li>execdomains 可能是内核执行空间</li>
+<li>fb 帧缓冲设备列表文件，包含帧缓冲设备的设备号和相关驱动信息</li>
+<li>filesystems 当前被内核支持的文件系统类型列表</li>
+<li>fs 挂载的文件系统类型及挂载的分区</li>
+<li>interrupts 查看中断情况</li>
+<li>iomem io设备内存缓冲区</li>
+<li>ioports io端口资源分布</li>
+<li>irq 各个中断具体情况</li>
+<li>kallsyms linux内核符号表 内核中使用到的函数和变量地址</li>
+<li>kcore 内存的映射 类比为内存中的alias</li>
+<li>keys 密钥</li>
+<li>key-users 用户密钥</li>
+<li>kmsg  似乎是内核的环形缓冲区</li>
+<li>kpagecgroup</li>
+<li>kpagecount 包含一个64位值，该值表示每个page被映射的次数，通过PFN索引。</li>
+<li>kpageflags 这个文件包含每一个page的64位的标记集，通过PFN索引</li>
+<li>loadavg 平均负载也就是可运行的进程的平均数</li>
+<li>locks 保存当前由内核锁定的文件的相关信息</li>
+<li>mdstat 内核是否已经加载MD驱动 (利用条带化(stripping)技术将数据块均匀分布到多个磁盘上来提高虚拟设备的读写性能)</li>
+<li>meminfo 内存信息</li>
+<li>misc 查看系统中装载的所有misc类设备</li>
+<li>modules 列出了所有load进入内核的模块列表</li>
+<li>mounts 文件挂载信息</li>
+<li>mtrr 将内存类型与系统内存中的物理地址范围关联起来</li>
+<li>net 网络信息与配置</li>
+<li>pagetypeinfo buddyinfo文件的细分</li>
+<li>partitions 查看分区信息</li>
+<li>sched_debug 打印出所有cpu的信息</li>
+<li>schedstat  CPU调度时间统计</li>
+<li>scsi 查看目前的磁盘信息</li>
+<li>slabinfo  gives information about memory usage on the slab level</li>
+<li>softirqs 查看软中断</li>
+<li>stat 记录的是系统进程整体的统计信息</li>
+<li>swaps 交换区信息</li>
+<li>sys 包括所有的内核参数信息</li>
+<li>sysrq-trigger （Magic System Request Key） 可以调用系统一些行为</li>
+<li>sysvipc 包括进程间通信的信号量（sem）、共享内存（shm）、消息队列（msg）信息</li>
+<li>thread-self 这是一个link，当访问次链接时，就会访问进程的<code>/proc/self/task/tid</code>目录</li>
+<li>timer_list 打印per_cpu的hrtimer_bases信息以及基于此的timer列表</li>
+<li>tty 查询当前系统tty的情况</li>
+<li>uptime 启动时间</li>
+<li>version 系统版本</li>
+<li>vfs_changes 内核模块创建的接口文件，用来给上层用户态应用程序访问</li>
+<li>vmallocinfo 由于系统的连续物理内存有限，这使得非连续物理内存的使用在linux内核中出现，查看非连续内存使用信息。</li>
+<li>vmstat  取得虚拟内存统计信息</li>
+<li>zoneinfo Zone的管理调度（虚拟内存相关）</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-04-19</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/proc%E5%88%9D%E6%8E%A2/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://brucemarkdown.top/proc%E5%88%9D%E6%8E%A2/" data-title="proc 初探" data-hashtags="Linux,OS"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://brucemarkdown.top/proc%E5%88%9D%E6%8E%A2/" data-hashtag="Linux"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://brucemarkdown.top/proc%E5%88%9D%E6%8E%A2/" data-title="proc 初探" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://brucemarkdown.top/proc%E5%88%9D%E6%8E%A2/" data-title="proc 初探"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://brucemarkdown.top/proc%E5%88%9D%E6%8E%A2/" data-title="proc 初探"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://brucemarkdown.top/proc%E5%88%9D%E6%8E%A2/" data-title="proc 初探" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://brucemarkdown.top/proc%E5%88%9D%E6%8E%A2/" data-title="proc 初探" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://brucemarkdown.top/proc%E5%88%9D%E6%8E%A2/" data-title="proc 初探"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/linux/">Linux</a>,&nbsp;<a href="/tags/os/">OS</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/wpf%E4%B8%AD%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E5%88%B7%E6%96%B0ui%E7%9A%84%E6%96%B9%E6%B3%95/" class="prev" rel="prev" title="WPF 中一个简单刷新 UI 的方法"><i class="fas fa-angle-left fa-fw"></i>WPF 中一个简单刷新 UI 的方法</a>
+            <a href="/%E8%B7%9F%E9%9A%8Fdb_tutorial%E5%BB%BA%E7%AB%8B%E6%95%B0%E6%8D%AE%E5%BA%93/" class="next" rel="next" title="跟随教程从头写自己的数据库(零基础入手)">跟随教程从头写自己的数据库(零基础入手)<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/Hongwei7" target="_blank">Hongwei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":300},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
