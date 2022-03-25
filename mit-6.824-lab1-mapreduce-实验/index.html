@@ -9,8 +9,8 @@
 <meta property="og:description" content="这次实验的目的是自己完成一个 MapReduce 的分布式实现。对我来说最大的困难在于语言的不熟悉，这里主要使用的是 Go 语言。由于这是我第一次接触 Go，有很多实现细节其实可以做的更好一些." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://hongwei7.github.io/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C/" /><meta property="og:image" content="https://hongwei7.github.io/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-06-02T06:22:02&#43;08:00" />
-<meta property="article:modified_time" content="2021-06-02T06:22:02&#43;08:00" />
+<meta property="article:published_time" content="2021-06-02T06:22:02+08:00" />
+<meta property="article:modified_time" content="2021-06-02T06:22:02+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://hongwei7.github.io/logo.png"/>
@@ -145,7 +145,7 @@
             <div class="admonition-content"><p>本着简单实现的想法，设计了以下 RPC 结构。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -154,14 +154,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Task</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">Seq</span>         <span class="kt">int</span>
-	<span class="nx">Status</span>      <span class="kt">int</span> <span class="c1">// 0  1  2  3  4 
-</span><span class="c1"></span>	<span class="nx">MapFile</span>     <span class="kt">string</span>
-	<span class="nx">ReduceFiles</span> <span class="p">[]</span><span class="nx">KeyValue</span>
-	<span class="nx">LastTime</span>    <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Task</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Seq</span>         <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Status</span>      <span class="kt">int</span> <span class="c1">// 0  1  2  3  4 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">MapFile</span>     <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">ReduceFiles</span> <span class="p">[]</span><span class="nx">KeyValue</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">LastTime</span>    <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这样就可以完整描述一个 Map 任务或者是一个 Reduce 任务了。</p>
 </div>
@@ -175,7 +175,7 @@
             <div class="admonition-content"><p>接着是 master 的结构设计。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -186,16 +186,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Coordinator</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">TaskQueue</span>        <span class="p">[]</span><span class="nx">Task</span>
-	<span class="nx">NReduce</span>          <span class="kt">int</span>
-	<span class="nx">MapFinished</span>      <span class="kt">bool</span>
-	<span class="nx">ReduceFinished</span>   <span class="kt">bool</span>
-	<span class="nx">RemainMapTask</span>    <span class="kt">int</span>
-	<span class="nx">RemainReduceTask</span> <span class="kt">int</span>
-	<span class="nx">Mu</span>               <span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Coordinator</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">TaskQueue</span>        <span class="p">[]</span><span class="nx">Task</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">NReduce</span>          <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">MapFinished</span>      <span class="kt">bool</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">ReduceFinished</span>   <span class="kt">bool</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">RemainMapTask</span>    <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">RemainReduceTask</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Mu</span>               <span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>这里用一个数组来记录任务队列。<code>MapFinished</code> 和 <code>ReduceFinished</code> 代表的是 Map 任务是否已经全部完成以及 Reduce 任务是否已经全部完成。</p>
 </div>
@@ -209,7 +209,7 @@
             <div class="admonition-content"><p>设计两个 RPC 接口，一个是请求任务的接口，一个是通知完成任务的接口。注意这里使用 <code>checkTime()</code> 函数来检查任务是否超时，一旦超时，则分配新的 worker 去完成任务。为了简化处理，这里没有对超时的 woker 做回收，而是忽略它通知完成任务的行为。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -283,79 +283,79 @@
 </span><span class="lnt">72
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">checkTime</span><span class="p">(</span><span class="nx">oldTime</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
-	<span class="nx">m</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">ParseDuration</span><span class="p">(</span><span class="s">&#34;-10s&#34;</span><span class="p">)</span>
-	<span class="nx">m1</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">().</span><span class="nf">Add</span><span class="p">(</span><span class="nx">m</span><span class="p">)</span>
-	<span class="k">if</span> <span class="nx">m1</span><span class="p">.</span><span class="nf">After</span><span class="p">(</span><span class="nx">oldTime</span><span class="p">)</span> <span class="p">{</span>
-		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;delay occurs&#34;</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="nx">m1</span><span class="p">.</span><span class="nf">After</span><span class="p">(</span><span class="nx">oldTime</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Coordinator</span><span class="p">)</span> <span class="nf">RequestForTask</span><span class="p">(</span><span class="nx">request</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">reply</span> <span class="o">*</span><span class="nx">Task</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
-	<span class="c1">// fmt.Printf(&#34;%d ask for Task, Map Remaining %d, Reduce Remaining %d\n&#34;, request, c.RemainMapTask, c.RemainReduceTask)
-</span><span class="c1"></span>	<span class="nx">c</span><span class="p">.</span><span class="nx">Mu</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
-	<span class="k">defer</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
-	<span class="k">if</span> <span class="p">!</span><span class="nx">c</span><span class="p">.</span><span class="nx">MapFinished</span> <span class="p">{</span>
-		<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">NReduce</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-			<span class="k">if</span> <span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Status</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Status</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="nf">checkTime</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">LastTime</span><span class="p">)){</span>
-				<span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Status</span> <span class="p">=</span> <span class="mi">1</span>
-				<span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">LastTime</span> <span class="p">=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
-				<span class="o">*</span><span class="nx">reply</span> <span class="p">=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
-				<span class="k">return</span> <span class="kc">nil</span>
-			<span class="p">}</span>
-		<span class="p">}</span>
-	<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">!</span><span class="nx">c</span><span class="p">.</span><span class="nx">ReduceFinished</span> <span class="p">{</span>
-		<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">c</span><span class="p">.</span><span class="nx">NReduce</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-			<span class="k">if</span> <span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Status</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">||</span> <span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Status</span> <span class="o">==</span> <span class="mi">3</span> <span class="o">&amp;&amp;</span> <span class="nf">checkTime</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">LastTime</span><span class="p">))</span> <span class="p">{</span>
-				<span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Status</span> <span class="p">=</span> <span class="mi">3</span>
-				<span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">LastTime</span> <span class="p">=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
-				<span class="o">*</span><span class="nx">reply</span> <span class="p">=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
-				<span class="k">return</span> <span class="kc">nil</span>
-			<span class="p">}</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
-
-	<span class="k">if</span> <span class="p">!</span><span class="nx">c</span><span class="p">.</span><span class="nx">ReduceFinished</span> <span class="p">{</span>
-		<span class="p">(</span><span class="o">*</span><span class="nx">reply</span><span class="p">).</span><span class="nx">Seq</span> <span class="p">=</span> <span class="o">-</span><span class="mi">1</span>
-	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-		<span class="p">(</span><span class="o">*</span><span class="nx">reply</span><span class="p">).</span><span class="nx">Seq</span> <span class="p">=</span> <span class="o">-</span><span class="mi">2</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="kc">nil</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Coordinator</span><span class="p">)</span> <span class="nf">SubmmitTask</span><span class="p">(</span><span class="nx">t</span> <span class="nx">Task</span><span class="p">,</span> <span class="nx">p</span> <span class="o">*</span><span class="kt">int</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
-	<span class="nx">c</span><span class="p">.</span><span class="nx">Mu</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
-	<span class="k">defer</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
-
-	<span class="k">if</span> <span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">t</span><span class="p">.</span><span class="nx">Seq</span><span class="p">].</span><span class="nx">Status</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="kc">nil</span>
-	<span class="p">}</span>
-
-	<span class="nx">status</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Status</span>
-
-	<span class="c1">// fmt.Println(c.TaskQueue[seq].ReduceFiles)
-</span><span class="c1"></span>
-	<span class="k">if</span> <span class="nx">status</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
-		<span class="c1">// fmt.Printf(&#34;Receving %s\n&#34;, t.MapFile)
-</span><span class="c1"></span>		<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">wi</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">t</span><span class="p">.</span><span class="nx">ReduceFiles</span> <span class="p">{</span>
-			<span class="nx">i</span> <span class="o">:=</span> <span class="nf">ihash</span><span class="p">(</span><span class="nx">wi</span><span class="p">.</span><span class="nx">Key</span><span class="p">)</span> <span class="o">%</span> <span class="nx">c</span><span class="p">.</span><span class="nx">NReduce</span>
-			<span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">ReduceFiles</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">ReduceFiles</span><span class="p">,</span> <span class="nx">wi</span><span class="p">)</span>
-		<span class="p">}</span>
-		<span class="nx">c</span><span class="p">.</span><span class="nx">RemainMapTask</span><span class="o">--</span>
-		<span class="k">if</span> <span class="nx">c</span><span class="p">.</span><span class="nx">RemainMapTask</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-			<span class="nx">c</span><span class="p">.</span><span class="nx">MapFinished</span> <span class="p">=</span> <span class="kc">true</span>
-		<span class="p">}</span>
-	<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">status</span> <span class="o">==</span> <span class="mi">3</span> <span class="p">{</span>
-		<span class="nx">c</span><span class="p">.</span><span class="nx">RemainReduceTask</span><span class="o">--</span>
-		<span class="k">if</span> <span class="nx">c</span><span class="p">.</span><span class="nx">RemainReduceTask</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-			<span class="nx">c</span><span class="p">.</span><span class="nx">ReduceFinished</span> <span class="p">=</span> <span class="kc">true</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
-	<span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">t</span><span class="p">.</span><span class="nx">Seq</span><span class="p">].</span><span class="nx">Status</span> <span class="p">=</span> <span class="o">-</span><span class="mi">1</span>
-	<span class="k">return</span> <span class="kc">nil</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">checkTime</span><span class="p">(</span><span class="nx">oldTime</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">m</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">ParseDuration</span><span class="p">(</span><span class="s">&#34;-10s&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">m1</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">().</span><span class="nf">Add</span><span class="p">(</span><span class="nx">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">m1</span><span class="p">.</span><span class="nf">After</span><span class="p">(</span><span class="nx">oldTime</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;delay occurs&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">m1</span><span class="p">.</span><span class="nf">After</span><span class="p">(</span><span class="nx">oldTime</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Coordinator</span><span class="p">)</span> <span class="nf">RequestForTask</span><span class="p">(</span><span class="nx">request</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">reply</span> <span class="o">*</span><span class="nx">Task</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// fmt.Printf(&#34;%d ask for Task, Map Remaining %d, Reduce Remaining %d\n&#34;, request, c.RemainMapTask, c.RemainReduceTask)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">c</span><span class="p">.</span><span class="nx">Mu</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">defer</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">!</span><span class="nx">c</span><span class="p">.</span><span class="nx">MapFinished</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">NReduce</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Status</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Status</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="nf">checkTime</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">LastTime</span><span class="p">)){</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Status</span> <span class="p">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">LastTime</span> <span class="p">=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">				<span class="o">*</span><span class="nx">reply</span> <span class="p">=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">				<span class="k">return</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">!</span><span class="nx">c</span><span class="p">.</span><span class="nx">ReduceFinished</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">c</span><span class="p">.</span><span class="nx">NReduce</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Status</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">||</span> <span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Status</span> <span class="o">==</span> <span class="mi">3</span> <span class="o">&amp;&amp;</span> <span class="nf">checkTime</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">LastTime</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Status</span> <span class="p">=</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">LastTime</span> <span class="p">=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">				<span class="o">*</span><span class="nx">reply</span> <span class="p">=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">				<span class="k">return</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">!</span><span class="nx">c</span><span class="p">.</span><span class="nx">ReduceFinished</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="p">(</span><span class="o">*</span><span class="nx">reply</span><span class="p">).</span><span class="nx">Seq</span> <span class="p">=</span> <span class="o">-</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="p">(</span><span class="o">*</span><span class="nx">reply</span><span class="p">).</span><span class="nx">Seq</span> <span class="p">=</span> <span class="o">-</span><span class="mi">2</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Coordinator</span><span class="p">)</span> <span class="nf">SubmmitTask</span><span class="p">(</span><span class="nx">t</span> <span class="nx">Task</span><span class="p">,</span> <span class="nx">p</span> <span class="o">*</span><span class="kt">int</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">c</span><span class="p">.</span><span class="nx">Mu</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">defer</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">t</span><span class="p">.</span><span class="nx">Seq</span><span class="p">].</span><span class="nx">Status</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">status</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Status</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// fmt.Println(c.TaskQueue[seq].ReduceFiles)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">status</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// fmt.Printf(&#34;Receving %s\n&#34;, t.MapFile)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">wi</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">t</span><span class="p">.</span><span class="nx">ReduceFiles</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">i</span> <span class="o">:=</span> <span class="nf">ihash</span><span class="p">(</span><span class="nx">wi</span><span class="p">.</span><span class="nx">Key</span><span class="p">)</span> <span class="o">%</span> <span class="nx">c</span><span class="p">.</span><span class="nx">NReduce</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">ReduceFiles</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">ReduceFiles</span><span class="p">,</span> <span class="nx">wi</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">c</span><span class="p">.</span><span class="nx">RemainMapTask</span><span class="o">--</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">c</span><span class="p">.</span><span class="nx">RemainMapTask</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">c</span><span class="p">.</span><span class="nx">MapFinished</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">status</span> <span class="o">==</span> <span class="mi">3</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">c</span><span class="p">.</span><span class="nx">RemainReduceTask</span><span class="o">--</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">c</span><span class="p">.</span><span class="nx">RemainReduceTask</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">c</span><span class="p">.</span><span class="nx">ReduceFinished</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">t</span><span class="p">.</span><span class="nx">Seq</span><span class="p">].</span><span class="nx">Status</span> <span class="p">=</span> <span class="o">-</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></div>
         </div>
@@ -363,7 +363,7 @@
 <p>使用 <code>./test-mr.sh</code> 测试，结果如下</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -400,42 +400,42 @@
 </span><span class="lnt">35
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">./test-mr.sh
-../../mrapps/wc.so
-*** Starting wc test.
-2021/06/02 17:49:08 rpc.Register: method &#34;Done&#34; has 1 input parameters; needs exactly three
---- wc test: PASS
-../../mrapps/indexer.so
-*** Starting indexer test.
-2021/06/02 17:49:18 rpc.Register: method &#34;Done&#34; has 1 input parameters; needs exactly three
---- indexer test: PASS
-*** Starting map parallelism test.
-2021/06/02 17:49:24 rpc.Register: method &#34;Done&#34; has 1 input parameters; needs exactly three
---- map parallelism test: PASS
-*** Starting reduce parallelism test.
-2021/06/02 17:49:33 rpc.Register: method &#34;Done&#34; has 1 input parameters; needs exactly three
---- reduce parallelism test: PASS
-*** Starting job count test.
-2021/06/02 17:49:44 rpc.Register: method &#34;Done&#34; has 1 input parameters; needs exactly three
---- job count test: PASS
-*** Starting early exit test.
-2021/06/02 17:50:03 rpc.Register: method &#34;Done&#34; has 1 input parameters; needs exactly three
---- early exit test: PASS
-*** Starting crash test.
-../../mrapps/nocrash.so
-2021/06/02 17:50:12 rpc.Register: method &#34;Done&#34; has 1 input parameters; needs exactly three
-delay occurs
-delay occurs
-delay occurs
-delay occurs
-delay occurs
-delay occurs
-2021/06/02 17:50:51 dialing:dial unix /var/tmp/824-mr-1000: connect: connection refused
-2021/06/02 17:50:51 dialing:dial unix /var/tmp/824-mr-1000: connect: connection refused
-2021/06/02 17:50:51 dialing:dial unix /var/tmp/824-mr-1000: connect: connection refused
---- crash test: PASS
-*** PASSED ALL TESTS
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">./test-mr.sh
+</span></span><span class="line"><span class="cl">../../mrapps/wc.so
+</span></span><span class="line"><span class="cl">*** Starting wc test.
+</span></span><span class="line"><span class="cl">2021/06/02 17:49:08 rpc.Register: method &#34;Done&#34; has 1 input parameters; needs exactly three
+</span></span><span class="line"><span class="cl">--- wc test: PASS
+</span></span><span class="line"><span class="cl">../../mrapps/indexer.so
+</span></span><span class="line"><span class="cl">*** Starting indexer test.
+</span></span><span class="line"><span class="cl">2021/06/02 17:49:18 rpc.Register: method &#34;Done&#34; has 1 input parameters; needs exactly three
+</span></span><span class="line"><span class="cl">--- indexer test: PASS
+</span></span><span class="line"><span class="cl">*** Starting map parallelism test.
+</span></span><span class="line"><span class="cl">2021/06/02 17:49:24 rpc.Register: method &#34;Done&#34; has 1 input parameters; needs exactly three
+</span></span><span class="line"><span class="cl">--- map parallelism test: PASS
+</span></span><span class="line"><span class="cl">*** Starting reduce parallelism test.
+</span></span><span class="line"><span class="cl">2021/06/02 17:49:33 rpc.Register: method &#34;Done&#34; has 1 input parameters; needs exactly three
+</span></span><span class="line"><span class="cl">--- reduce parallelism test: PASS
+</span></span><span class="line"><span class="cl">*** Starting job count test.
+</span></span><span class="line"><span class="cl">2021/06/02 17:49:44 rpc.Register: method &#34;Done&#34; has 1 input parameters; needs exactly three
+</span></span><span class="line"><span class="cl">--- job count test: PASS
+</span></span><span class="line"><span class="cl">*** Starting early exit test.
+</span></span><span class="line"><span class="cl">2021/06/02 17:50:03 rpc.Register: method &#34;Done&#34; has 1 input parameters; needs exactly three
+</span></span><span class="line"><span class="cl">--- early exit test: PASS
+</span></span><span class="line"><span class="cl">*** Starting crash test.
+</span></span><span class="line"><span class="cl">../../mrapps/nocrash.so
+</span></span><span class="line"><span class="cl">2021/06/02 17:50:12 rpc.Register: method &#34;Done&#34; has 1 input parameters; needs exactly three
+</span></span><span class="line"><span class="cl">delay occurs
+</span></span><span class="line"><span class="cl">delay occurs
+</span></span><span class="line"><span class="cl">delay occurs
+</span></span><span class="line"><span class="cl">delay occurs
+</span></span><span class="line"><span class="cl">delay occurs
+</span></span><span class="line"><span class="cl">delay occurs
+</span></span><span class="line"><span class="cl">2021/06/02 17:50:51 dialing:dial unix /var/tmp/824-mr-1000: connect: connection refused
+</span></span><span class="line"><span class="cl">2021/06/02 17:50:51 dialing:dial unix /var/tmp/824-mr-1000: connect: connection refused
+</span></span><span class="line"><span class="cl">2021/06/02 17:50:51 dialing:dial unix /var/tmp/824-mr-1000: connect: connection refused
+</span></span><span class="line"><span class="cl">--- crash test: PASS
+</span></span><span class="line"><span class="cl">*** PASSED ALL TESTS
+</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="details admonition success open">
         <div class="details-summary admonition-title">
@@ -475,7 +475,7 @@ delay occurs
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.95.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/hongwei7" target="_blank">hongwei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
