@@ -5,22 +5,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>STL 中如何为自定义的类编写比较函数和哈希函数 - hongwei7 的博客</title><meta name="Description" content="这是hongwei7的个人网站"><meta property="og:title" content="STL 中如何为自定义的类编写比较函数和哈希函数" />
+        <title>STL 中如何为自定义的类编写比较函数和哈希函数 - hongwei 的博客</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="STL 中如何为自定义的类编写比较函数和哈希函数" />
 <meta property="og:description" content="在 STL 中，unordered_set 需要所选对象具有哈希函数，而 set 要求所选对象的 key 有比较大小的函数。本文就来简单展开讨论。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://hongwei7.github.io/stl-hash-map/" /><meta property="og:image" content="https://hongwei7.github.io/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-05-12T00:00:00+00:00" />
-<meta property="article:modified_time" content="2021-05-12T00:00:00+00:00" />
+<meta property="og:url" content="https://brucemarkdown.top/stl-hash-map/" /><meta property="og:image" content="https://brucemarkdown.top/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-05-12T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2021-05-12T00:00:00&#43;00:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://hongwei7.github.io/logo.png"/>
+<meta name="twitter:image" content="https://brucemarkdown.top/logo.png"/>
 
 <meta name="twitter:title" content="STL 中如何为自定义的类编写比较函数和哈希函数"/>
 <meta name="twitter:description" content="在 STL 中，unordered_set 需要所选对象具有哈希函数，而 set 要求所选对象的 key 有比较大小的函数。本文就来简单展开讨论。"/>
-<meta name="application-name" content="hongwei7&#39;s Blog">
-<meta name="apple-mobile-web-app-title" content="hongwei7&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<meta name="application-name" content="hongwei&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="hongwei&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://hongwei7.github.io/stl-hash-map/" /><link rel="prev" href="https://hongwei7.github.io/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/" /><link rel="next" href="https://hongwei7.github.io/%E5%9C%A8%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%92%8C%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0%E4%B8%AD%E8%B0%83%E7%94%A8%E8%99%9A%E5%87%BD%E6%95%B0%E4%BC%9A%E5%A6%82%E4%BD%95/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://brucemarkdown.top/stl-hash-map/" /><link rel="prev" href="https://brucemarkdown.top/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/" /><link rel="next" href="https://brucemarkdown.top/%E5%9C%A8%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%92%8C%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0%E4%B8%AD%E8%B0%83%E7%94%A8%E8%99%9A%E5%87%BD%E6%95%B0%E4%BC%9A%E5%A6%82%E4%BD%95/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -28,9 +28,9 @@
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/hongwei7.github.io\/stl-hash-map\/"
+            "@id": "https:\/\/brucemarkdown.top\/stl-hash-map\/"
         },"genre": "posts","keywords": "C\u002b\u002b, STL","wordcount":  666 ,
-        "url": "https:\/\/hongwei7.github.io\/stl-hash-map\/","datePublished": "2021-05-12T00:00:00+00:00","dateModified": "2021-05-12T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+        "url": "https:\/\/brucemarkdown.top\/stl-hash-map\/","datePublished": "2021-05-12T00:00:00+00:00","dateModified": "2021-05-12T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
@@ -43,7 +43,7 @@
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
-            <a href="/" title="hongwei7 的博客">hongwei&#39;s Blog</a>
+            <a href="/" title="hongwei 的博客">hongwei&#39;s Blog</a>
         </div>
         <div class="menu">
             <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
@@ -69,7 +69,7 @@
     <div class="header-container">
         <div class="header-wrapper">
             <div class="header-title">
-                <a href="/" title="hongwei7 的博客">hongwei&#39;s Blog</a>
+                <a href="/" title="hongwei 的博客">hongwei&#39;s Blog</a>
             </div>
             <div class="menu-toggle" id="menu-toggle-mobile">
                 <span></span><span></span><span></span>
@@ -115,11 +115,11 @@
         </div><div class="featured-image"><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://hongwei7.github.io/images/map.png"
-        data-srcset="https://hongwei7.github.io/images/map.png, https://hongwei7.github.io/images/map.png 1.5x, https://hongwei7.github.io/images/map.png 2x"
+        data-src="https://brucemarkdown.top/images/map.png"
+        data-srcset="https://brucemarkdown.top/images/map.png, https://brucemarkdown.top/images/map.png 1.5x, https://brucemarkdown.top/images/map.png 2x"
         data-sizes="auto"
-        alt="https://hongwei7.github.io/images/map.png"
-        title="https://hongwei7.github.io/images/map.png" /></div><div class="details toc" id="toc-static"  kept="true">
+        alt="https://brucemarkdown.top/images/map.png"
+        title="https://brucemarkdown.top/images/map.png" /></div><div class="details toc" id="toc-static"  kept="true">
                 <div class="details-summary toc-title">
                     <span>目录</span>
                     <span><i class="details-icon fas fa-angle-right"></i></span>
@@ -135,7 +135,7 @@
 <p>unordered_set 的底层为 hashtable，解决哈希冲突的方法为链表法。默认的哈希函数定义为 <code>hash&lt;key&gt;</code>。我们可以自定义一个 hash 函数例如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -168,38 +168,38 @@
 </span><span class="lnt">31
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unordered_set&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="p">(</span><span class="kt">int</span> <span class="n">aa</span><span class="p">,</span> <span class="kt">int</span> <span class="n">bb</span><span class="p">)</span><span class="o">:</span> <span class="n">a</span><span class="p">(</span><span class="n">aa</span><span class="p">),</span> <span class="n">b</span><span class="p">(</span><span class="n">bb</span><span class="p">)</span> <span class="p">{}</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">a</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">b</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">hash_funA</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="k">operator</span><span class="p">()(</span><span class="k">const</span> <span class="n">A</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">a</span> <span class="o">+</span> <span class="n">a</span><span class="p">.</span><span class="n">b</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">equalA</span> <span class="p">{</span>  <span class="c1">//仿函数，比较两个对象是否相同
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">public</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="k">operator</span><span class="p">()(</span><span class="k">const</span> <span class="n">A</span><span class="o">&amp;</span> <span class="n">a</span><span class="p">,</span> <span class="k">const</span> <span class="n">A</span><span class="o">&amp;</span> <span class="n">b</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">.</span><span class="n">a</span> <span class="o">&amp;&amp;</span> <span class="n">a</span><span class="p">.</span><span class="n">b</span> <span class="o">==</span> <span class="n">b</span><span class="p">.</span><span class="n">b</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">unordered_set</span><span class="o">&lt;</span><span class="n">A</span><span class="p">,</span> <span class="n">hash_funA</span><span class="p">,</span> <span class="n">equalA</span><span class="o">&gt;</span> <span class="n">s</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="n">s</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;unordered_set&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">A</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">A</span><span class="p">(</span><span class="kt">int</span> <span class="n">aa</span><span class="p">,</span> <span class="kt">int</span> <span class="n">bb</span><span class="p">)</span><span class="o">:</span> <span class="n">a</span><span class="p">(</span><span class="n">aa</span><span class="p">),</span> <span class="n">b</span><span class="p">(</span><span class="n">bb</span><span class="p">)</span> <span class="p">{}</span>
+    <span class="kt">char</span> <span class="n">a</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">hash_funA</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="k">operator</span><span class="p">()(</span><span class="k">const</span> <span class="n">A</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">a</span> <span class="o">+</span> <span class="n">a</span><span class="p">.</span><span class="n">b</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">equalA</span> <span class="p">{</span>  <span class="c1">//仿函数，比较两个对象是否相同
+</span><span class="c1"></span><span class="k">public</span><span class="o">:</span>
+    <span class="kt">bool</span> <span class="k">operator</span><span class="p">()(</span><span class="k">const</span> <span class="n">A</span><span class="o">&amp;</span> <span class="n">a</span><span class="p">,</span> <span class="k">const</span> <span class="n">A</span><span class="o">&amp;</span> <span class="n">b</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">.</span><span class="n">a</span> <span class="o">&amp;&amp;</span> <span class="n">a</span><span class="p">.</span><span class="n">b</span> <span class="o">==</span> <span class="n">b</span><span class="p">.</span><span class="n">b</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">unordered_set</span><span class="o">&lt;</span><span class="n">A</span><span class="p">,</span> <span class="n">hash_funA</span><span class="p">,</span> <span class="n">equalA</span><span class="o">&gt;</span> <span class="n">s</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>其基本原理是：使用一个数组，把 key 映射到某个数组下标，就把对象存放在那个数组下标上。但是会发生哈希冲突的问题。因此哈希表的插入过程为：</p>
 <ul>
@@ -219,7 +219,7 @@
 <p>或者这里也不需要 <code>equalA</code>，直接在类内定义一个<code>==</code>的重载函数即可。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -230,22 +230,22 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="p">(</span><span class="kt">int</span> <span class="n">aa</span><span class="p">,</span> <span class="kt">int</span> <span class="n">bb</span><span class="p">)</span><span class="o">:</span> <span class="n">a</span><span class="p">(</span><span class="n">aa</span><span class="p">),</span> <span class="n">b</span><span class="p">(</span><span class="n">bb</span><span class="p">)</span> <span class="p">{}</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">a</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">b</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span> <span class="n">A</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">other</span><span class="p">.</span><span class="n">a</span> <span class="o">==</span> <span class="n">a</span> <span class="o">&amp;&amp;</span> <span class="n">other</span><span class="p">.</span><span class="n">b</span> <span class="o">==</span> <span class="n">b</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">A</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">A</span><span class="p">(</span><span class="kt">int</span> <span class="n">aa</span><span class="p">,</span> <span class="kt">int</span> <span class="n">bb</span><span class="p">)</span><span class="o">:</span> <span class="n">a</span><span class="p">(</span><span class="n">aa</span><span class="p">),</span> <span class="n">b</span><span class="p">(</span><span class="n">bb</span><span class="p">)</span> <span class="p">{}</span>
+    <span class="kt">char</span> <span class="n">a</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">b</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span> <span class="n">A</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">other</span><span class="p">.</span><span class="n">a</span> <span class="o">==</span> <span class="n">a</span> <span class="o">&amp;&amp;</span> <span class="n">other</span><span class="p">.</span><span class="n">b</span> <span class="o">==</span> <span class="n">b</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="自定义比较函数">自定义比较函数</h2>
 <p>我们在使用 set 时，若是自定义类的话，需要定义类的比较函数。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -267,27 +267,27 @@
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;set&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="p">(</span><span class="kt">int</span> <span class="n">aa</span><span class="p">,</span> <span class="kt">int</span> <span class="n">bb</span><span class="p">)</span><span class="o">:</span> <span class="n">a</span><span class="p">(</span><span class="n">aa</span><span class="p">),</span> <span class="n">b</span><span class="p">(</span><span class="n">bb</span><span class="p">)</span> <span class="p">{}</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">a</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">b</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="k">const</span> <span class="n">A</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">other</span><span class="p">.</span><span class="n">a</span><span class="p">)</span><span class="o">?</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="n">other</span><span class="p">.</span><span class="nl">b</span><span class="p">:</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">other</span><span class="p">.</span><span class="n">a</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">set</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span> <span class="n">s</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="n">s</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;set&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">A</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">A</span><span class="p">(</span><span class="kt">int</span> <span class="n">aa</span><span class="p">,</span> <span class="kt">int</span> <span class="n">bb</span><span class="p">)</span><span class="o">:</span> <span class="n">a</span><span class="p">(</span><span class="n">aa</span><span class="p">),</span> <span class="n">b</span><span class="p">(</span><span class="n">bb</span><span class="p">)</span> <span class="p">{}</span>
+    <span class="kt">char</span> <span class="n">a</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">b</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="k">const</span> <span class="n">A</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">other</span><span class="p">.</span><span class="n">a</span><span class="p">)</span><span class="o">?</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="n">other</span><span class="p">.</span><span class="nl">b</span><span class="p">:</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">other</span><span class="p">.</span><span class="n">a</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">set</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span> <span class="n">s</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">A</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div><p>同样是通过操作符重载来实现。</p>
 </div><div class="post-footer" id="post-footer">
@@ -303,7 +303,7 @@
                             <a class="link-to-markdown" href="/stl-hash-map/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://hongwei7.github.io/stl-hash-map/" data-title="STL 中如何为自定义的类编写比较函数和哈希函数" data-hashtags="C&#43;&#43;,STL"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://hongwei7.github.io/stl-hash-map/" data-hashtag="C&#43;&#43;"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://hongwei7.github.io/stl-hash-map/" data-title="STL 中如何为自定义的类编写比较函数和哈希函数" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://hongwei7.github.io/stl-hash-map/" data-title="STL 中如何为自定义的类编写比较函数和哈希函数"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://hongwei7.github.io/stl-hash-map/" data-title="STL 中如何为自定义的类编写比较函数和哈希函数" data-image="https://hongwei7.github.io/images/map.png"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://hongwei7.github.io/stl-hash-map/" data-title="STL 中如何为自定义的类编写比较函数和哈希函数" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://hongwei7.github.io/stl-hash-map/" data-title="STL 中如何为自定义的类编写比较函数和哈希函数" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://hongwei7.github.io/stl-hash-map/" data-title="STL 中如何为自定义的类编写比较函数和哈希函数"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://brucemarkdown.top/stl-hash-map/" data-title="STL 中如何为自定义的类编写比较函数和哈希函数" data-hashtags="C&#43;&#43;,STL"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://brucemarkdown.top/stl-hash-map/" data-hashtag="C&#43;&#43;"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://brucemarkdown.top/stl-hash-map/" data-title="STL 中如何为自定义的类编写比较函数和哈希函数" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://brucemarkdown.top/stl-hash-map/" data-title="STL 中如何为自定义的类编写比较函数和哈希函数"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://brucemarkdown.top/stl-hash-map/" data-title="STL 中如何为自定义的类编写比较函数和哈希函数" data-image="https://brucemarkdown.top/images/map.png"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://brucemarkdown.top/stl-hash-map/" data-title="STL 中如何为自定义的类编写比较函数和哈希函数" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://brucemarkdown.top/stl-hash-map/" data-title="STL 中如何为自定义的类编写比较函数和哈希函数" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://brucemarkdown.top/stl-hash-map/" data-title="STL 中如何为自定义的类编写比较函数和哈希函数"><i class="fab fa-evernote fa-fw"></i></a></span>
             </div>
         </div>
     </div>
@@ -320,7 +320,7 @@
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.95.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/hongwei7" target="_blank">hongwei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

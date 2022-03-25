@@ -5,22 +5,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>制作自己的 LFS 项目（操作系统课设） - hongwei7 的博客</title><meta name="Description" content="这是hongwei7的个人网站"><meta property="og:title" content="制作自己的 LFS 项目（操作系统课设）" />
+        <title>制作自己的 LFS 项目（操作系统课设） - hongwei 的博客</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="制作自己的 LFS 项目（操作系统课设）" />
 <meta property="og:description" content="Linux From Scratch (LFS) is a project that provides you with step-by-step instructions for building your own customized Linux system entirely from source." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://hongwei7.github.io/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-lfs%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE/" /><meta property="og:image" content="https://hongwei7.github.io/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-08-18T22:23:48+00:00" />
-<meta property="article:modified_time" content="2020-08-18T22:23:48+00:00" />
+<meta property="og:url" content="https://brucemarkdown.top/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-lfs%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE/" /><meta property="og:image" content="https://brucemarkdown.top/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-08-18T22:23:48&#43;00:00" />
+<meta property="article:modified_time" content="2020-08-18T22:23:48&#43;00:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://hongwei7.github.io/logo.png"/>
+<meta name="twitter:image" content="https://brucemarkdown.top/logo.png"/>
 
 <meta name="twitter:title" content="制作自己的 LFS 项目（操作系统课设）"/>
 <meta name="twitter:description" content="Linux From Scratch (LFS) is a project that provides you with step-by-step instructions for building your own customized Linux system entirely from source."/>
-<meta name="application-name" content="hongwei7&#39;s Blog">
-<meta name="apple-mobile-web-app-title" content="hongwei7&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<meta name="application-name" content="hongwei&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="hongwei&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://hongwei7.github.io/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-lfs%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE/" /><link rel="prev" href="https://hongwei7.github.io/%E8%B7%9F%E9%9A%8Fdb_tutorial%E5%BB%BA%E7%AB%8B%E6%95%B0%E6%8D%AE%E5%BA%93/" /><link rel="next" href="https://hongwei7.github.io/%E5%89%91%E6%8C%87offer/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://brucemarkdown.top/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-lfs%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE/" /><link rel="prev" href="https://brucemarkdown.top/%E8%B7%9F%E9%9A%8Fdb_tutorial%E5%BB%BA%E7%AB%8B%E6%95%B0%E6%8D%AE%E5%BA%93/" /><link rel="next" href="https://brucemarkdown.top/%E5%89%91%E6%8C%87offer/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -28,9 +28,9 @@
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/hongwei7.github.io\/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-lfs%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE\/"
+            "@id": "https:\/\/brucemarkdown.top\/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-lfs%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE\/"
         },"genre": "posts","keywords": "Project, CS, OS","wordcount":  1182 ,
-        "url": "https:\/\/hongwei7.github.io\/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-lfs%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE\/","datePublished": "2020-08-18T22:23:48+00:00","dateModified": "2020-08-18T22:23:48+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+        "url": "https:\/\/brucemarkdown.top\/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-lfs%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE\/","datePublished": "2020-08-18T22:23:48+00:00","dateModified": "2020-08-18T22:23:48+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
@@ -43,7 +43,7 @@
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
-            <a href="/" title="hongwei7 的博客">hongwei&#39;s Blog</a>
+            <a href="/" title="hongwei 的博客">hongwei&#39;s Blog</a>
         </div>
         <div class="menu">
             <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
@@ -69,7 +69,7 @@
     <div class="header-container">
         <div class="header-wrapper">
             <div class="header-title">
-                <a href="/" title="hongwei7 的博客">hongwei&#39;s Blog</a>
+                <a href="/" title="hongwei 的博客">hongwei&#39;s Blog</a>
             </div>
             <div class="menu-toggle" id="menu-toggle-mobile">
                 <span></span><span></span><span></span>
@@ -145,19 +145,19 @@
 <p>使用<code>cfdisk</code>创建两个分区</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkswap /dev/sda1
-</span></span><span class="line"><span class="cl">mke2fs -jv /dev/sda2
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">mkswap /dev/sda1
+mke2fs -jv /dev/sda2
+</code></pre></td></tr></table>
 </div>
 </div><p>sda1作为交换分区,sda2作为ext3格式分区.</p>
 <h3 id="工作环境设置">工作环境设置</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -185,33 +185,33 @@
 </span><span class="lnt">26
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">LFS</span><span class="o">=</span>/mnt/lfs
-</span></span><span class="line"><span class="cl">mkdir -pv <span class="nv">$LFS</span>
-</span></span><span class="line"><span class="cl">mount /dev/sda2 <span class="nv">$LFS</span>
-</span></span><span class="line"><span class="cl">swapon /dev/sda1
-</span></span><span class="line"><span class="cl">ln -sv <span class="nv">$LFS</span>/tools /
-</span></span><span class="line"><span class="cl">groupadd lfs
-</span></span><span class="line"><span class="cl">useradd -s /bin/bash -g lfs -m -k /dev/null lfs
-</span></span><span class="line"><span class="cl">passwd lfs
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">chown -v lfs <span class="nv">$LFS</span>/tools
-</span></span><span class="line"><span class="cl">chown -v lfs <span class="nv">$LFS</span>/sources 
-</span></span><span class="line"><span class="cl">su - lfs
-</span></span><span class="line"><span class="cl">cat &gt; ~/.bash_profile &lt;&lt; <span class="s2">&#34;EOF&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">exec</span> env -i <span class="nv">HOME</span><span class="o">=</span><span class="nv">$HOME</span> <span class="nv">TERM</span><span class="o">=</span><span class="nv">$TERM</span> <span class="nv">PS1</span><span class="o">=</span><span class="s1">&#39;\u:\w\$ &#39;</span> /bin/bash 
-</span></span><span class="line"><span class="cl">EOF
-</span></span><span class="line"><span class="cl">cat &gt; ~/.bashrc &lt;&lt; <span class="s2">&#34;EOF&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">set</span> +h
-</span></span><span class="line"><span class="cl"><span class="nb">umask</span> <span class="m">022</span>
-</span></span><span class="line"><span class="cl"><span class="nv">LFS</span><span class="o">=</span>/mnt/lfs
-</span></span><span class="line"><span class="cl"><span class="nv">LC_ALL</span><span class="o">=</span>POSIX
-</span></span><span class="line"><span class="cl"><span class="nv">LFS_TGT</span><span class="o">=</span><span class="k">$(</span>uname -m<span class="k">)</span>-lfs-linux-gnu
-</span></span><span class="line"><span class="cl"><span class="nv">PATH</span><span class="o">=</span>/tools/bin:/bin:/usr/bin
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> LFS LC_ALL PATH
-</span></span><span class="line"><span class="cl">EOF
-</span></span><span class="line"><span class="cl"><span class="nb">source</span> ~/.bash_profile
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">export</span> <span class="nv">LFS</span><span class="o">=</span>/mnt/lfs
+mkdir -pv <span class="nv">$LFS</span>
+mount /dev/sda2 <span class="nv">$LFS</span>
+swapon /dev/sda1
+ln -sv <span class="nv">$LFS</span>/tools /
+groupadd lfs
+useradd -s /bin/bash -g lfs -m -k /dev/null lfs
+passwd lfs
+
+
+chown -v lfs <span class="nv">$LFS</span>/tools
+chown -v lfs <span class="nv">$LFS</span>/sources 
+su - lfs
+cat &gt; ~/.bash_profile &lt;&lt; <span class="s2">&#34;EOF&#34;</span>
+<span class="nb">exec</span> env -i <span class="nv">HOME</span><span class="o">=</span><span class="nv">$HOME</span> <span class="nv">TERM</span><span class="o">=</span><span class="nv">$TERM</span> <span class="nv">PS1</span><span class="o">=</span><span class="s1">&#39;\u:\w\$ &#39;</span> /bin/bash 
+EOF
+cat &gt; ~/.bashrc &lt;&lt; <span class="s2">&#34;EOF&#34;</span>
+<span class="nb">set</span> +h
+<span class="nb">umask</span> <span class="m">022</span>
+<span class="nv">LFS</span><span class="o">=</span>/mnt/lfs
+<span class="nv">LC_ALL</span><span class="o">=</span>POSIX
+<span class="nv">LFS_TGT</span><span class="o">=</span><span class="k">$(</span>uname -m<span class="k">)</span>-lfs-linux-gnu
+<span class="nv">PATH</span><span class="o">=</span>/tools/bin:/bin:/usr/bin
+<span class="nb">export</span> LFS LC_ALL PATH
+EOF
+<span class="nb">source</span> ~/.bash_profile
+</code></pre></td></tr></table>
 </div>
 </div><p>新建了一个lfs用户,并赋予其编译工具链的目录和权限,并设置一些环境变量.</p>
 <h3 id="工具链编译">工具链编译</h3>
@@ -262,11 +262,11 @@
 <p>因为我是用的是 parallel 虚拟机，需要配置特殊的硬盘配置。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">make menuconfig
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">make menuconfig
+</code></pre></td></tr></table>
 </div>
 </div><blockquote>
 <p>Device Drivers</p>
@@ -285,7 +285,7 @@
 <h3 id="设置grub引导sda2分区块parallels环境">设置Grub引导(sda2分区块,parallels环境)</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -319,39 +319,39 @@
 </span><span class="lnt">32
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat &gt; /etc/fstab &lt;&lt; <span class="s2">&#34;EOF&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Begin /etc/fstab</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># file system mount-point type options dump fsck</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#                                           order</span>
-</span></span><span class="line"><span class="cl">/dev/sda2 / ext2 defaults <span class="m">1</span> <span class="m">1</span>
-</span></span><span class="line"><span class="cl">/dev/sda1 swap swap <span class="nv">pri</span><span class="o">=</span><span class="m">1</span> <span class="m">0</span> <span class="m">0</span>
-</span></span><span class="line"><span class="cl">proc /proc proc defaults <span class="m">0</span> <span class="m">0</span>
-</span></span><span class="line"><span class="cl">sysfs /sys sysfs defaults <span class="m">0</span> <span class="m">0</span>
-</span></span><span class="line"><span class="cl">devpts /dev/pts devpts <span class="nv">gid</span><span class="o">=</span>4,mode<span class="o">=</span><span class="m">620</span> <span class="m">0</span> <span class="m">0</span>
-</span></span><span class="line"><span class="cl">shm /dev/shm tmpfs defaults <span class="m">0</span> <span class="m">0</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># End /etc/fstab</span>
-</span></span><span class="line"><span class="cl">EOF
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">cat &gt; /boot/grub/menu.lst &lt;&lt; <span class="s2">&#34;EOF&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Begin /boot/grub/menu.lst</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># By default boot the first menu entry.</span>
-</span></span><span class="line"><span class="cl">default <span class="m">0</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Allow 30 seconds before booting the default.</span>
-</span></span><span class="line"><span class="cl">timeout <span class="m">5</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Use prettier colors.</span>
-</span></span><span class="line"><span class="cl">color green/black light-green/black
-</span></span><span class="line"><span class="cl"><span class="c1"># The first entry is for LFS.</span>
-</span></span><span class="line"><span class="cl">title LFS 6.3
-</span></span><span class="line"><span class="cl">root <span class="o">(</span>hd0,1<span class="o">)</span>
-</span></span><span class="line"><span class="cl">kernel /boot/lfskernel-2.6.22.5 <span class="nv">root</span><span class="o">=</span>/dev/sda2
-</span></span><span class="line"><span class="cl">EOF
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">grub
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">root <span class="o">(</span>hd0,1<span class="o">)</span> 
-</span></span><span class="line"><span class="cl">setup <span class="o">(</span>hd0<span class="o">)</span> 
-</span></span><span class="line"><span class="cl">quit
-</span></span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">cat &gt; /etc/fstab &lt;&lt; <span class="s2">&#34;EOF&#34;</span>
+<span class="c1"># Begin /etc/fstab</span>
+<span class="c1"># file system mount-point type options dump fsck</span>
+<span class="c1">#                                           order</span>
+/dev/sda2 / ext2 defaults <span class="m">1</span> <span class="m">1</span>
+/dev/sda1 swap swap <span class="nv">pri</span><span class="o">=</span><span class="m">1</span> <span class="m">0</span> <span class="m">0</span>
+proc /proc proc defaults <span class="m">0</span> <span class="m">0</span>
+sysfs /sys sysfs defaults <span class="m">0</span> <span class="m">0</span>
+devpts /dev/pts devpts <span class="nv">gid</span><span class="o">=</span>4,mode<span class="o">=</span><span class="m">620</span> <span class="m">0</span> <span class="m">0</span>
+shm /dev/shm tmpfs defaults <span class="m">0</span> <span class="m">0</span>
+<span class="c1"># End /etc/fstab</span>
+EOF
+
+cat &gt; /boot/grub/menu.lst &lt;&lt; <span class="s2">&#34;EOF&#34;</span>
+<span class="c1"># Begin /boot/grub/menu.lst</span>
+<span class="c1"># By default boot the first menu entry.</span>
+default <span class="m">0</span>
+<span class="c1"># Allow 30 seconds before booting the default.</span>
+timeout <span class="m">5</span>
+<span class="c1"># Use prettier colors.</span>
+color green/black light-green/black
+<span class="c1"># The first entry is for LFS.</span>
+title LFS 6.3
+root <span class="o">(</span>hd0,1<span class="o">)</span>
+kernel /boot/lfskernel-2.6.22.5 <span class="nv">root</span><span class="o">=</span>/dev/sda2
+EOF
+
+grub
+
+root <span class="o">(</span>hd0,1<span class="o">)</span> 
+setup <span class="o">(</span>hd0<span class="o">)</span> 
+quit
+</code></pre></td></tr></table>
 </div>
 </div><p>重启顺利进入LFS系统.</p>
 <h3 id="安装openssh">安装openssh</h3>
@@ -373,7 +373,7 @@
                             <a class="link-to-markdown" href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-lfs%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://hongwei7.github.io/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-lfs%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE/" data-title="制作自己的 LFS 项目（操作系统课设）" data-hashtags="Project,CS,OS"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://hongwei7.github.io/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-lfs%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE/" data-hashtag="Project"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://hongwei7.github.io/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-lfs%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE/" data-title="制作自己的 LFS 项目（操作系统课设）" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://hongwei7.github.io/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-lfs%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE/" data-title="制作自己的 LFS 项目（操作系统课设）"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://hongwei7.github.io/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-lfs%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE/" data-title="制作自己的 LFS 项目（操作系统课设）"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://hongwei7.github.io/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-lfs%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE/" data-title="制作自己的 LFS 项目（操作系统课设）" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://hongwei7.github.io/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-lfs%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE/" data-title="制作自己的 LFS 项目（操作系统课设）" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://hongwei7.github.io/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-lfs%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE/" data-title="制作自己的 LFS 项目（操作系统课设）"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://brucemarkdown.top/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-lfs%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE/" data-title="制作自己的 LFS 项目（操作系统课设）" data-hashtags="Project,CS,OS"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://brucemarkdown.top/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-lfs%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE/" data-hashtag="Project"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://brucemarkdown.top/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-lfs%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE/" data-title="制作自己的 LFS 项目（操作系统课设）" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://brucemarkdown.top/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-lfs%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE/" data-title="制作自己的 LFS 项目（操作系统课设）"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://brucemarkdown.top/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-lfs%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE/" data-title="制作自己的 LFS 项目（操作系统课设）"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://brucemarkdown.top/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-lfs%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE/" data-title="制作自己的 LFS 项目（操作系统课设）" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://brucemarkdown.top/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-lfs%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE/" data-title="制作自己的 LFS 项目（操作系统课设）" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://brucemarkdown.top/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-lfs%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE/" data-title="制作自己的 LFS 项目（操作系统课设）"><i class="fab fa-evernote fa-fw"></i></a></span>
             </div>
         </div>
     </div>
@@ -390,7 +390,7 @@
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.95.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/hongwei7" target="_blank">hongwei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

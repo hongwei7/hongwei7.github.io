@@ -4,8 +4,6 @@
 
 这里的实现有很多的 Bug，不能跑通 2B 和 2C 的 Test。
 
-由于版权原因，2B2C2D 的内容已经被删除。
-
 {{< /admonition >}}
 
 {{< admonition info "三个函数" true >}}

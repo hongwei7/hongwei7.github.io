@@ -1,96 +1,96 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>所有文章 - hongwei7 的博客</title>
-        <link>https://hongwei7.github.io/posts/</link>
-        <description>所有文章 | hongwei7 的博客</description>
+        <title>所有文章 - hongwei 的博客</title>
+        <link>https://brucemarkdown.top/posts/</link>
+        <description>所有文章 | hongwei 的博客</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1216869567@qq.com (hongwei)</managingEditor>
-            <webMaster>1216869567@qq.com (hongwei)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 15 Jun 2021 00:43:41 &#43;0800</lastBuildDate><atom:link href="https://hongwei7.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>1216869567@qq.com (hongwei)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 15 Jun 2021 00:43:41 &#43;0800</lastBuildDate><atom:link href="https://brucemarkdown.top/posts/" rel="self" type="application/rss+xml" /><item>
     <title>MIT-6.824-Lab2BC-Raft-LogReplication-Persistence</title>
-    <link>https://hongwei7.github.io/mitlab2bc/</link>
+    <link>https://brucemarkdown.top/mitlab2bc/</link>
     <pubDate>Tue, 15 Jun 2021 00:43:41 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://hongwei7.github.io/mitlab2bc/</guid>
+    <guid>https://brucemarkdown.top/mitlab2bc/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/images/raft/raft.png" referrerpolicy="no-referrer">
             </div>这次实验主要实现Log的一致性和持久性。主要是Debug的过程中会遇到非常多的问题。这里对遇到的问题做一下回顾。]]></description>
 </item><item>
     <title>MIT-6.824-Lab2A-Raft-LeaderElection</title>
-    <link>https://hongwei7.github.io/mit-6.824-lab2a-raft-leaderelection/</link>
+    <link>https://brucemarkdown.top/mit-6.824-lab2a-raft-leaderelection/</link>
     <pubDate>Tue, 08 Jun 2021 06:22:02 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://hongwei7.github.io/mit-6.824-lab2a-raft-leaderelection/</guid>
+    <guid>https://brucemarkdown.top/mit-6.824-lab2a-raft-leaderelection/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/images/LeaderElection.png" referrerpolicy="no-referrer">
             </div>这次的作业主要是要实现 LeaderElection 的部分，难度不大，但是一些实现的细节可能会影响后续的实验。]]></description>
 </item><item>
     <title>MIT-6.824-Lab1-MapReduce 实验</title>
-    <link>https://hongwei7.github.io/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C/</link>
+    <link>https://brucemarkdown.top/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C/</link>
     <pubDate>Wed, 02 Jun 2021 06:22:02 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://hongwei7.github.io/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C/</guid>
+    <guid>https://brucemarkdown.top/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/images/mapreduce.png" referrerpolicy="no-referrer">
             </div>这次实验的目的是自己完成一个 MapReduce 的分布式实现。对我来说最大的困难在于语言的不熟悉，这里主要使用的是 Go 语言。由于这是我第一次接触 Go，有很多实现细节其实可以做的更好一些.]]></description>
 </item><item>
     <title>GFS文件系统</title>
-    <link>https://hongwei7.github.io/gfs/</link>
+    <link>https://brucemarkdown.top/gfs/</link>
     <pubDate>Thu, 27 May 2021 11:22:05 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://hongwei7.github.io/gfs/</guid>
+    <guid>https://brucemarkdown.top/gfs/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/images/GFS/Untitled%204.png" referrerpolicy="no-referrer">
             </div>GFS 是 Google 在 2010 年提出的分布式文件存储系统。]]></description>
 </item><item>
     <title>Linux下线程中栈变量和堆变量的共享性</title>
-    <link>https://hongwei7.github.io/linux%E4%B8%8B%E7%BA%BF%E7%A8%8B%E4%B8%AD%E6%A0%88%E5%8F%98%E9%87%8F%E5%92%8C%E5%A0%86%E5%8F%98%E9%87%8F%E7%9A%84%E5%85%B1%E4%BA%AB%E6%80%A7/</link>
+    <link>https://brucemarkdown.top/linux%E4%B8%8B%E7%BA%BF%E7%A8%8B%E4%B8%AD%E6%A0%88%E5%8F%98%E9%87%8F%E5%92%8C%E5%A0%86%E5%8F%98%E9%87%8F%E7%9A%84%E5%85%B1%E4%BA%AB%E6%80%A7/</link>
     <pubDate>Sat, 22 May 2021 15:40:05 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://hongwei7.github.io/linux%E4%B8%8B%E7%BA%BF%E7%A8%8B%E4%B8%AD%E6%A0%88%E5%8F%98%E9%87%8F%E5%92%8C%E5%A0%86%E5%8F%98%E9%87%8F%E7%9A%84%E5%85%B1%E4%BA%AB%E6%80%A7/</guid>
+    <guid>https://brucemarkdown.top/linux%E4%B8%8B%E7%BA%BF%E7%A8%8B%E4%B8%AD%E6%A0%88%E5%8F%98%E9%87%8F%E5%92%8C%E5%A0%86%E5%8F%98%E9%87%8F%E7%9A%84%E5%85%B1%E4%BA%AB%E6%80%A7/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/images/threadsMemory.jpeg" referrerpolicy="no-referrer">
             </div>在 CSAPP 中，说到在操作系统的线程概念模型中，每个线程有独立的栈，而线程之间不能访问其他栈的变量。但是在实现中有所区别，本文来做一个小小的实验。]]></description>
 </item><item>
     <title>在构造函数和析构函数中调用虚函数会如何</title>
-    <link>https://hongwei7.github.io/%E5%9C%A8%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%92%8C%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0%E4%B8%AD%E8%B0%83%E7%94%A8%E8%99%9A%E5%87%BD%E6%95%B0%E4%BC%9A%E5%A6%82%E4%BD%95/</link>
+    <link>https://brucemarkdown.top/%E5%9C%A8%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%92%8C%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0%E4%B8%AD%E8%B0%83%E7%94%A8%E8%99%9A%E5%87%BD%E6%95%B0%E4%BC%9A%E5%A6%82%E4%BD%95/</link>
     <pubDate>Mon, 17 May 2021 20:22:05 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://hongwei7.github.io/%E5%9C%A8%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%92%8C%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0%E4%B8%AD%E8%B0%83%E7%94%A8%E8%99%9A%E5%87%BD%E6%95%B0%E4%BC%9A%E5%A6%82%E4%BD%95/</guid>
+    <guid>https://brucemarkdown.top/%E5%9C%A8%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%92%8C%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0%E4%B8%AD%E8%B0%83%E7%94%A8%E8%99%9A%E5%87%BD%E6%95%B0%E4%BC%9A%E5%A6%82%E4%BD%95/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/images/effective.jpg" referrerpolicy="no-referrer">
             </div>在《Effective C++》中，作者提到绝对不要在构造函数和析构函数中调用虚函数。简单分析虚机制在构造函数和析构函数下的情况。]]></description>
 </item><item>
     <title>STL 中如何为自定义的类编写比较函数和哈希函数</title>
-    <link>https://hongwei7.github.io/stl-hash-map/</link>
+    <link>https://brucemarkdown.top/stl-hash-map/</link>
     <pubDate>Wed, 12 May 2021 00:00:00 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>https://hongwei7.github.io/stl-hash-map/</guid>
+    <guid>https://brucemarkdown.top/stl-hash-map/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/images/map.png" referrerpolicy="no-referrer">
             </div>在 STL 中，unordered_set 需要所选对象具有哈希函数，而 set 要求所选对象的 key 有比较大小的函数。本文就来简单展开讨论。]]></description>
 </item><item>
     <title>实现shared_ptr</title>
-    <link>https://hongwei7.github.io/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/</link>
+    <link>https://brucemarkdown.top/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/</link>
     <pubDate>Wed, 12 May 2021 00:00:00 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>https://hongwei7.github.io/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/</guid>
+    <guid>https://brucemarkdown.top/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/images/sptr.jpg" referrerpolicy="no-referrer">
             </div>自己尝试实现简单的 shared_ptr]]></description>
 </item><item>
     <title>C&#43;&#43;偏特化的使用</title>
-    <link>https://hongwei7.github.io/c-%E5%81%8F%E7%89%B9%E5%8C%96%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+    <link>https://brucemarkdown.top/c-%E5%81%8F%E7%89%B9%E5%8C%96%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
     <pubDate>Tue, 11 May 2021 00:00:00 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>https://hongwei7.github.io/c-%E5%81%8F%E7%89%B9%E5%8C%96%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+    <guid>https://brucemarkdown.top/c-%E5%81%8F%E7%89%B9%E5%8C%96%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/images/cpp-logo.png" referrerpolicy="no-referrer">
             </div>上次面试被问到了偏特化的使用, 现在来总结一下.]]></description>
 </item><item>
     <title>数据链路层复习</title>
-    <link>https://hongwei7.github.io/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/</link>
+    <link>https://brucemarkdown.top/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/</link>
     <pubDate>Mon, 10 May 2021 00:00:00 &#43;0000</pubDate>
     <author>作者</author>
-    <guid>https://hongwei7.github.io/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/</guid>
+    <guid>https://brucemarkdown.top/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/images/Network.jpg" referrerpolicy="no-referrer">
             </div>🙊逻辑链路层和 MAC 子层的复习。]]></description>
