@@ -4,7 +4,16 @@
         <link>https://hongwei7.github.io/posts/</link>
         <description>所有文章 | hongwei7 的博客</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1216869567@qq.com (hongwei)</managingEditor>
-            <webMaster>1216869567@qq.com (hongwei)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 08 Jun 2021 06:22:02 &#43;0800</lastBuildDate><atom:link href="https://hongwei7.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>1216869567@qq.com (hongwei)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 15 Jun 2021 00:43:41 &#43;0800</lastBuildDate><atom:link href="https://hongwei7.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>MIT-6.824-Lab2BC-Raft-LogReplication-Persistence</title>
+    <link>https://hongwei7.github.io/mitlab2bc/</link>
+    <pubDate>Tue, 15 Jun 2021 00:43:41 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://hongwei7.github.io/mitlab2bc/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/images/raft/raft.png" referrerpolicy="no-referrer">
+            </div>这次实验主要实现Log的一致性和持久性。主要是Debug的过程中会遇到非常多的问题。这里对遇到的问题做一下回顾。]]></description>
+</item><item>
     <title>MIT-6.824-Lab2A-Raft-LeaderElection</title>
     <link>https://hongwei7.github.io/mit-6.824-lab2a-raft-leaderelection/</link>
     <pubDate>Tue, 08 Jun 2021 06:22:02 &#43;0800</pubDate>
@@ -22,6 +31,33 @@
     <description><![CDATA[<div class="featured-image">
                 <img src="/images/mapreduce.png" referrerpolicy="no-referrer">
             </div>这次实验的目的是自己完成一个 MapReduce 的分布式实现。对我来说最大的困难在于语言的不熟悉，这里主要使用的是 Go 语言。由于这是我第一次接触 Go，有很多实现细节其实可以做的更好一些.]]></description>
+</item><item>
+    <title>GFS文件系统</title>
+    <link>https://hongwei7.github.io/gfs/</link>
+    <pubDate>Thu, 27 May 2021 11:22:05 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://hongwei7.github.io/gfs/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/images/GFS/Untitled%204.png" referrerpolicy="no-referrer">
+            </div>GFS 是 Google 在 2010 年提出的分布式文件存储系统。]]></description>
+</item><item>
+    <title>Linux下线程中栈变量和堆变量的共享性</title>
+    <link>https://hongwei7.github.io/linux%E4%B8%8B%E7%BA%BF%E7%A8%8B%E4%B8%AD%E6%A0%88%E5%8F%98%E9%87%8F%E5%92%8C%E5%A0%86%E5%8F%98%E9%87%8F%E7%9A%84%E5%85%B1%E4%BA%AB%E6%80%A7/</link>
+    <pubDate>Sat, 22 May 2021 15:40:05 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://hongwei7.github.io/linux%E4%B8%8B%E7%BA%BF%E7%A8%8B%E4%B8%AD%E6%A0%88%E5%8F%98%E9%87%8F%E5%92%8C%E5%A0%86%E5%8F%98%E9%87%8F%E7%9A%84%E5%85%B1%E4%BA%AB%E6%80%A7/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/images/threadsMemory.jpeg" referrerpolicy="no-referrer">
+            </div>在 CSAPP 中，说到在操作系统的线程概念模型中，每个线程有独立的栈，而线程之间不能访问其他栈的变量。但是在实现中有所区别，本文来做一个小小的实验。]]></description>
+</item><item>
+    <title>在构造函数和析构函数中调用虚函数会如何</title>
+    <link>https://hongwei7.github.io/%E5%9C%A8%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%92%8C%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0%E4%B8%AD%E8%B0%83%E7%94%A8%E8%99%9A%E5%87%BD%E6%95%B0%E4%BC%9A%E5%A6%82%E4%BD%95/</link>
+    <pubDate>Mon, 17 May 2021 20:22:05 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://hongwei7.github.io/%E5%9C%A8%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%92%8C%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0%E4%B8%AD%E8%B0%83%E7%94%A8%E8%99%9A%E5%87%BD%E6%95%B0%E4%BC%9A%E5%A6%82%E4%BD%95/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/images/effective.jpg" referrerpolicy="no-referrer">
+            </div>在《Effective C++》中，作者提到绝对不要在构造函数和析构函数中调用虚函数。简单分析虚机制在构造函数和析构函数下的情况。]]></description>
 </item><item>
     <title>STL 中如何为自定义的类编写比较函数和哈希函数</title>
     <link>https://hongwei7.github.io/stl-hash-map/</link>
@@ -58,35 +94,5 @@
     <description><![CDATA[<div class="featured-image">
                 <img src="/images/Network.jpg" referrerpolicy="no-referrer">
             </div>🙊逻辑链路层和 MAC 子层的复习。]]></description>
-</item><item>
-    <title>MySQL 原理总结</title>
-    <link>https://hongwei7.github.io/mysql%E5%8E%9F%E7%90%86/</link>
-    <pubDate>Tue, 30 Mar 2021 19:23:48 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://hongwei7.github.io/mysql%E5%8E%9F%E7%90%86/</guid>
-    <description><![CDATA[阅读高性能 MySQL 的笔记。]]></description>
-</item><item>
-    <title>Linux 系统编程</title>
-    <link>https://hongwei7.github.io/linuxsystem/</link>
-    <pubDate>Mon, 08 Feb 2021 00:00:00 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://hongwei7.github.io/linuxsystem/</guid>
-    <description><![CDATA[🍮Linux系统级编程笔记。]]></description>
-</item><item>
-    <title>一些简单的设计模式</title>
-    <link>https://hongwei7.github.io/%E4%B8%80%E4%BA%9B%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
-    <pubDate>Mon, 01 Feb 2021 00:00:00 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://hongwei7.github.io/%E4%B8%80%E4%BA%9B%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
-    <description><![CDATA[开始接触设计模式。]]></description>
-</item><item>
-    <title>STL-源码剖析（侯捷）</title>
-    <link>https://hongwei7.github.io/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7/</link>
-    <pubDate>Sat, 23 Jan 2021 00:00:00 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://hongwei7.github.io/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="/images/STL/Untitled.png" referrerpolicy="no-referrer">
-            </div>侯捷C++系列，STL源码剖析的笔记记录📒。]]></description>
 </item></channel>
 </rss>

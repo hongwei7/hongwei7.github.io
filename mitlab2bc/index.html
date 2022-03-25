@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>MIT-6.824-Lab2BC-Raft-LogReplication-Persistence - hongwei7 的博客</title><meta name="Description" content="这是hongwei7的个人网站"><meta property="og:title" content="MIT-6.824-Lab2BC-Raft-LogReplication-Persistence" />
+<meta property="og:description" content="这次实验主要实现Log的一致性和持久性。主要是Debug的过程中会遇到非常多的问题。这里对遇到的问题做一下回顾。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hongwei7.github.io/mitlab2bc/" /><meta property="og:image" content="https://hongwei7.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-06-15T00:43:41+08:00" />
+<meta property="article:modified_time" content="2021-06-15T00:43:41+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://hongwei7.github.io/logo.png"/>
+
+<meta name="twitter:title" content="MIT-6.824-Lab2BC-Raft-LogReplication-Persistence"/>
+<meta name="twitter:description" content="这次实验主要实现Log的一致性和持久性。主要是Debug的过程中会遇到非常多的问题。这里对遇到的问题做一下回顾。"/>
+<meta name="application-name" content="hongwei7&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="hongwei7&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://hongwei7.github.io/mitlab2bc/" /><link rel="prev" href="https://hongwei7.github.io/mit-6.824-lab2a-raft-leaderelection/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "MIT-6.824-Lab2BC-Raft-LogReplication-Persistence",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/hongwei7.github.io\/mitlab2bc\/"
+        },"genre": "posts","keywords": "Distributed System, Go","wordcount":  2630 ,
+        "url": "https:\/\/hongwei7.github.io\/mitlab2bc\/","datePublished": "2021-06-15T00:43:41+08:00","dateModified": "2021-06-15T00:43:41+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "hongwei"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="hongwei7 的博客">hongwei&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/mitlab2bc/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="hongwei7 的博客">hongwei&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/categories/documentation/" title="">文档</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/mitlab2bc/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">MIT-6.824-Lab2BC-Raft-LogReplication-Persistence</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/hongwei7" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>hongwei</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-06-15">2021-06-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2630 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://hongwei7.github.io/images/raft/raft.png"
+        data-srcset="https://hongwei7.github.io/images/raft/raft.png, https://hongwei7.github.io/images/raft/raft.png 1.5x, https://hongwei7.github.io/images/raft/raft.png 2x"
+        data-sizes="auto"
+        alt="https://hongwei7.github.io/images/raft/raft.png"
+        title="https://hongwei7.github.io/images/raft/raft.png" /></div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#定时器的实现">定时器的实现</a></li>
+    <li><a href="#快速恢复">快速恢复</a></li>
+    <li><a href="#一些-guide-里面得到解决的问题">一些 guide 里面得到解决的问题</a>
+      <ul>
+        <li><a href="#start-和-heartbeat-的异同">Start() 和 HeartBeat 的异同</a></li>
+        <li><a href="#回应-applymsg-的时机和-commit-的一个小问题">回应 ApplyMsg 的时机和 Commit 的一个小问题</a></li>
+      </ul>
+    </li>
+    <li><a href="#后记">后记</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>这次实验主要实现 Log 的一致性和持久性。主要是 Debug 的过程中会遇到非常多的问题。这里对遇到的问题做一下回顾。这里主要是对自己的实现做一个记录和总结，常见的问题还是需要去参考 <a href="https://raft.github.io/raft.pdf" target="_blank" rel="noopener noreffer">Raft</a> 和 <a href="https://thesquareplanet.com/blog/students-guide-to-raft/" target="_blank" rel="noopener noreffer">students-guide-to-raft</a>。首先对论文里面的 Figure2 实现一次，再参照 guide 顺着往下阅读一遍，一边对自己的实现进行修改，就会发现自己很多实现上的 bug 了。我磕磕绊绊地做了将近两周的时间才基本把 2B 和 2C 的测试跑通。有些 Bug 在很多次重复测试后才会偶尔出现一两次，也使得调试变得比较麻烦。注意自己不要参考太多其他人的实现，那样的话有可能会被误导，还是要以论文和 guide 为主要参考。</p>
+<h2 id="定时器的实现">定时器的实现</h2>
+<p>一开始的实现非常简陋，对定时器的实现非常不严谨，误打误撞过了 2B 的 Test，结果在 2C 的测试中吃了大苦，不得不重新回头重构定时器的机制。2B 这里主要有三个牵涉到定时的地方：</p>
+<ul>
+<li>Election Timer： 到时后决定是否需要发起选举。</li>
+<li>HeartBeat Timer： Leader 在这个定时器到时后，发出 AppendEntries RPC 请求。</li>
+<li>Append Entries timeout Timer： 心跳包的超时定时器。</li>
+</ul>
+<p>一开始的定时器实现，混杂了 <code>Loop</code> 和 <code>time.Sleep</code>，甚至有些定时器会互相影响。比如一个 server 它的选举和发出心跳包的 <code>Loop</code> 是同一个，这样的实现无疑是非常粗糙的。最后的做法是，一个 server 在 make 后就常驻一个 <code>CheckElection()</code> 线程，定期用 <code>time.Sleep()</code> 检查是否可以发起选举。一旦满足选举的条件，再进行选举。同时使用一个 <code>GotHeartBeat</code> 的标志量来记录定时器的状态。这样便可以不破坏定时器的精确度。</p>
+<p>另外当 server 成为 Leader 后，会启动 <code>SendHeartBeat()</code> 线程，这里的定时器实现也是与上面相似的。
+另外是两个超时定时器的实现。首先需要说明为了 RPC 的并发性，回调接收是通过 channel 来进行处理的。这里的定时器也就顺理成章地使用 <code>select</code> 来实现了。为了正确关闭 channel，还需要使用一个回收线程去 <code>close()</code> 这个 channel，否则会有一大堆的阻塞的线程。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">rf</span> <span class="o">*</span><span class="nx">Raft</span><span class="p">)</span> <span class="nf">StartElection</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">rf</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">rf</span><span class="p">.</span><span class="nx">Role</span> <span class="o">!=</span> <span class="mi">1</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">rf</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">ch</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="nx">RequestVoteReply</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">args</span> <span class="o">:=</span> <span class="nx">RequestVoteArgs</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">Term</span><span class="p">:</span>         <span class="nx">rf</span><span class="p">.</span><span class="nx">CurrentTerm</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">CandidateId</span><span class="p">:</span>  <span class="nx">rf</span><span class="p">.</span><span class="nx">me</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">LastLogIndex</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="nx">rf</span><span class="p">.</span><span class="nx">Log</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">LastLogTerm</span><span class="p">:</span>  <span class="nx">rf</span><span class="p">.</span><span class="nx">Log</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="nx">rf</span><span class="p">.</span><span class="nx">Log</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="nx">Term</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">rf</span><span class="p">.</span><span class="nx">peers</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">i</span> <span class="o">==</span> <span class="nx">rf</span><span class="p">.</span><span class="nx">me</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">continue</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="k">go</span> <span class="nx">rf</span><span class="p">.</span><span class="nf">sendRequestVote</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">args</span><span class="p">,</span> <span class="nx">ch</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">rf</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">agree</span> <span class="o">:=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">randomNum</span> <span class="o">:=</span> <span class="nx">ElectionTimer</span> <span class="o">+</span> <span class="nx">rand</span><span class="p">.</span><span class="nf">Intn</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">ElectionTimeoutChan</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">After</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Duration</span><span class="p">(</span><span class="nx">randomNum</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">select</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">case</span> <span class="nx">reply</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">ch</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="c1">// DPrintf(&#34;server %d GOT vote reply term = %d&#34;, rf.me, reply.Term)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="nx">rf</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="nx">rf</span><span class="p">.</span><span class="nx">Role</span> <span class="o">!=</span> <span class="mi">1</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">rf</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">				<span class="k">return</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="nx">reply</span><span class="p">.</span><span class="nx">Term</span> <span class="p">&gt;</span> <span class="nx">rf</span><span class="p">.</span><span class="nx">CurrentTerm</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">rf</span><span class="p">.</span><span class="nf">BecomeFollower</span><span class="p">(</span><span class="nx">reply</span><span class="p">.</span><span class="nx">Term</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">rf</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">				<span class="c1">// DPrintf(&#34;EXIT1&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="k">return</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">reply</span><span class="p">.</span><span class="nx">Term</span> <span class="p">&lt;</span> <span class="nx">rf</span><span class="p">.</span><span class="nx">CurrentTerm</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">rf</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">				<span class="c1">// DPrintf(&#34;EXIT2&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="c1">// DPrintf(&#34;%d &lt; %d&#34;, reply.Term, rf.CurrentTerm)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="k">continue</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">reply</span><span class="p">.</span><span class="nx">VoteGranted</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">agree</span><span class="o">++</span>
+</span></span><span class="line"><span class="cl">				<span class="c1">// DPrintf(&#34;EXIT3&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="c1">// DPrintf(&#34;EXIT4&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="nx">agree</span><span class="o">*</span><span class="mi">2</span> <span class="p">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">rf</span><span class="p">.</span><span class="nx">peers</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">rf</span><span class="p">.</span><span class="nf">BecomeLeader</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">				<span class="k">go</span> <span class="nx">rf</span><span class="p">.</span><span class="nf">SendHeartbeat</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">				<span class="k">go</span> <span class="nx">rf</span><span class="p">.</span><span class="nf">closeChan</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">ch</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">rf</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">				<span class="c1">// log.Fatalf(&#34;Leader!!!\n&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="k">return</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">rf</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">		<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">ElectionTimeoutChan</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="k">go</span> <span class="nx">rf</span><span class="p">.</span><span class="nf">closeChan</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">ch</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="k">goto</span> <span class="nx">startAgain</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">i</span><span class="o">++</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">startAgain</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">rf</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">rf</span><span class="p">.</span><span class="nx">Role</span> <span class="o">!=</span> <span class="mi">1</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">rf</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">rf</span><span class="p">.</span><span class="nf">BecomeCandidate</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">rf</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">go</span> <span class="nx">rf</span><span class="p">.</span><span class="nf">StartElection</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="快速恢复">快速恢复</h2>
+<p>当 Follower 的 Log 落后 Leader 很多时，可以在 Append Entries 的回复中添加 <code>Xterm</code> 和 <code>XIndex</code> 两个参数，反馈给 Leader 是哪个 term 或者哪个 index 开始落后的。这样可以快速地恢复 Follower，而不是按照 Figure2 里面那样要把 <code>nextIndex</code> 慢慢递减。一次递减会产生一次 RPC，这样的话有大量的冗余通信。如果不做这个优化的话，理论上不能通过 TestManyElection2A。</p>
+<p>而我在刚开始的实现时，强制让一个 HeartBeat 去阻塞执行恢复一个 Follower 的日志。这样的话也可以通过这个测试。但是这样的设计不能通过 2C 的测试，因为这样并没有严格地实现心跳包。阻塞恢复 Log：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 这个实现是有问题的！！
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 恢复日志的实现函数
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 判断是否需要恢复，如果需要回复则创建线程去发送 AppendEntries RPC
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">rf</span> <span class="o">*</span><span class="nx">Raft</span><span class="p">)</span> <span class="nf">RecoverLog</span><span class="p">(</span><span class="nx">reply</span> <span class="o">*</span><span class="nx">AppendEntriesReply</span><span class="p">,</span> <span class="nx">ch</span> <span class="kd">chan</span> <span class="nx">AppendEntriesReply</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">server</span> <span class="o">:=</span> <span class="nx">reply</span><span class="p">.</span><span class="nx">Id</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">rf</span><span class="p">.</span><span class="nx">NextIndex</span><span class="p">[</span><span class="nx">server</span><span class="p">]</span><span class="o">--</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">rf</span><span class="p">.</span><span class="nx">NextIndex</span><span class="p">[</span><span class="nx">server</span><span class="p">]</span> <span class="p">&lt;</span> <span class="mi">1</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">rf</span><span class="p">.</span><span class="nx">NextIndex</span><span class="p">[</span><span class="nx">server</span><span class="p">]</span> <span class="p">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">DPrintf</span><span class="p">(</span><span class="s">&#34;Try to recover %d nextIndex %d&#34;</span><span class="p">,</span> <span class="nx">server</span><span class="p">,</span> <span class="nx">rf</span><span class="p">.</span><span class="nx">NextIndex</span><span class="p">[</span><span class="nx">server</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// retry
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">lastIndex</span> <span class="o">:=</span> <span class="nx">rf</span><span class="p">.</span><span class="nx">NextIndex</span><span class="p">[</span><span class="nx">server</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">prevLogTerm</span> <span class="o">:=</span> <span class="o">-</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">rf</span><span class="p">.</span><span class="nx">NextIndex</span><span class="p">[</span><span class="nx">server</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">prevLogTerm</span> <span class="p">=</span> <span class="nx">rf</span><span class="p">.</span><span class="nx">Log</span><span class="p">[</span><span class="nx">lastIndex</span><span class="p">].</span><span class="nx">Term</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">args</span> <span class="o">:=</span> <span class="nx">AppendEntriesArgs</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">rf</span><span class="p">.</span><span class="nx">CurrentTerm</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">rf</span><span class="p">.</span><span class="nx">me</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">lastIndex</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">prevLogTerm</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">rf</span><span class="p">.</span><span class="nx">Log</span><span class="p">[</span><span class="nx">rf</span><span class="p">.</span><span class="nx">NextIndex</span><span class="p">[</span><span class="nx">server</span><span class="p">]:],</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">rf</span><span class="p">.</span><span class="nx">CommitIndex</span><span class="err">，</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">go</span> <span class="nx">rf</span><span class="p">.</span><span class="nf">sendAppliedEntries</span><span class="p">(</span><span class="nx">server</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">args</span><span class="p">,</span> <span class="nx">ch</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Leader 接受 AppendEntries 后
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">randomNum</span> <span class="o">:=</span> <span class="nx">AppendEntriesTimeout</span> <span class="o">+</span> <span class="nx">rand</span><span class="p">.</span><span class="nf">Intn</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">timeoutChan</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">After</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Duration</span><span class="p">(</span><span class="nx">randomNum</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">rf</span><span class="p">.</span><span class="nx">peers</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// DPrintf(&#34;server %d waiting AppendEntriesReply&#34;, rf.me)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">select</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">case</span> <span class="nx">reply</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">ch</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// DPrintf(&#34;server %d got heartbeat, id: %d&#34;, rf.me, reply.Id)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">if</span> <span class="nx">rf</span><span class="p">.</span><span class="nx">CurrentTerm</span> <span class="o">!=</span> <span class="nx">term</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">rf</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">reply</span><span class="p">.</span><span class="nx">Term</span> <span class="p">&gt;</span> <span class="nx">rf</span><span class="p">.</span><span class="nx">CurrentTerm</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="c1">// DPrintf(&#34;HEARTBEAT&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="nx">rf</span><span class="p">.</span><span class="nf">BecomeFollower</span><span class="p">(</span><span class="nx">reply</span><span class="p">.</span><span class="nx">Term</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">rf</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">reply</span><span class="p">.</span><span class="nx">Term</span> <span class="p">&lt;</span> <span class="nx">rf</span><span class="p">.</span><span class="nx">CurrentTerm</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">continue</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">!</span><span class="nx">reply</span><span class="p">.</span><span class="nx">Success</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nf">DPrintf</span><span class="p">(</span><span class="s">&#34;Leader %d wants to recover %d&#34;</span><span class="p">,</span> <span class="nx">rf</span><span class="p">.</span><span class="nx">me</span><span class="p">,</span> <span class="nx">reply</span><span class="p">.</span><span class="nx">Id</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">			<span class="c1">// 阻塞等待恢复日志
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="k">if</span> <span class="nx">rf</span><span class="p">.</span><span class="nf">RecoverLog</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">reply</span><span class="p">,</span> <span class="nx">ch</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="nx">i</span><span class="o">--</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">			<span class="c1">// 重置超时，等待新的 RPC 响应
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="nx">timeoutChan</span> <span class="p">=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">After</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Duration</span><span class="p">(</span><span class="nx">randomNum</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">timeoutChan</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// DPrintf(&#34;server %d AppendEntries timeout&#34;, rf.me)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">goto</span> <span class="nx">stopWatingHearbeat</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这样的实现，会使得 Leader 在发现某一个 Follower 的日志落后后，就一直不断向那个 Follower 发出 AppendEntries，不断递减 <code>nextIndex</code>，直到 Follower 的日志不再落后为止。期间 Leader 不能对其他 Follower 发出心跳包，这样在可靠的环境下当然是可以的，但是在不可靠的网络环境下，网络的变化会使得这样的恢复行为变得没有意义。</p>
+<p>认识到这个问题后，在 AppendEntries 的回复参数中添加快速恢复的 <code>XTerm</code> 和 <code>XIndex</code>，实现快速恢复后这个问题也就被解决了。</p>
+<h2 id="一些-guide-里面得到解决的问题">一些 guide 里面得到解决的问题</h2>
+<p>对于一些遇到的，在 guide 里面有描述的问题，这里简单做一下记录。</p>
+<h3 id="start-和-heartbeat-的异同">Start() 和 HeartBeat 的异同</h3>
+<p>在一开始，我认为 client 提交完一个 command 后，应该 Leader 马上去产生一堆 AppendEntries 去提交这个命令，而 HeartBeat 只是应该用于发送心跳和恢复 Follower。这样的实现确实可能没问题，但是在这两个行为里面，包含了大量雷同逻辑，实际上两者都是通过 AppendEntries 来实现的，正如 guide 里面所说，提交 command 完全可以通过 HeartBeat 来完成。</p>
+<h3 id="回应-applymsg-的时机和-commit-的一个小问题">回应 ApplyMsg 的时机和 Commit 的一个小问题</h3>
+<p>什么时候去回应 client 呢，最直接的想法是用一个常驻线程，不断地去检查 <code>CommitIndex</code> 和 <code>LastApplied</code>。那无疑又是一些锁和资源的开销。其实只要在 <code>CommitIndex</code> 改变后做一次检查即可。此外，guide 中提到 Figure 8 的问题。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/raft/Figure8.png"
+        data-srcset="/images/raft/Figure8.png, /images/raft/Figure8.png 1.5x, /images/raft/Figure8.png 2x"
+        data-sizes="auto"
+        alt="/images/raft/Figure8.png"
+        title="/images/raft/Figure8.png" /></p>
+<p>Leader 的 crash 可能会使得当其他的 server 成为 Leader 后，提交错误的日志。必须在 Leader 更新 <code>CommitIndex</code> 之前检查 <code>rf.CurrentTerm == rf.Log[rf.CommitIndex].Term</code>。</p>
+<h2 id="后记">后记</h2>
+<p>经过两周的各种 Debug，除了并发测试量特别高时（比如 100 个测试并发），<code>Figure 8 (unreliable)</code> 会超时几秒钟以外，代码连续 5000 次通过了测试，这个 Lab 暂且算完成了。要完成这个 Lab 真的得把 Raft 的每个细节都理解清楚。非常建议使用 go-test-many.sh 脚本来并发测试，否则有些 Bug 死活测不出来，然后在某一次测试中突然跑出来闹事。另外在跑测试的时候，建议喝杯水放松放松，Bug 该来还是会来的。最后附上测试结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Test (2A): initial election ...
+</span></span><span class="line"><span class="cl">  ... Passed --   3.1  3  110   31908    0
+</span></span><span class="line"><span class="cl">Test (2A): election after network failure ...
+</span></span><span class="line"><span class="cl">  ... Passed --   5.0  3  230   46648    0
+</span></span><span class="line"><span class="cl">Test (2A): multiple elections ...
+</span></span><span class="line"><span class="cl">  ... Passed --   5.6  7  936  201618    0
+</span></span><span class="line"><span class="cl">PASS
+</span></span><span class="line"><span class="cl">ok      6.824/raft      13.745s
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Test (2B): basic agreement ...
+</span></span><span class="line"><span class="cl">  ... Passed --   0.7  3   16    4588    3
+</span></span><span class="line"><span class="cl">Test (2B): RPC byte count ...
+</span></span><span class="line"><span class="cl">  ... Passed --   1.5  3   48  114552   11
+</span></span><span class="line"><span class="cl">Test (2B): agreement despite follower disconnection ...
+</span></span><span class="line"><span class="cl">  ... Passed --   5.6  3  210   59199    8
+</span></span><span class="line"><span class="cl">Test (2B): no agreement if too many followers disconnect ...
+</span></span><span class="line"><span class="cl">  ... Passed --   3.6  5  352   83558    4
+</span></span><span class="line"><span class="cl">Test (2B): concurrent Start()s ...
+</span></span><span class="line"><span class="cl">  ... Passed --   0.6  3   12    3440    6
+</span></span><span class="line"><span class="cl">Test (2B): rejoin of partitioned leader ...
+</span></span><span class="line"><span class="cl">  ... Passed --   4.6  3  262   59749    4
+</span></span><span class="line"><span class="cl">Test (2B): leader backs up quickly over incorrect follower logs ...
+</span></span><span class="line"><span class="cl">  ... Passed --  16.2  5 2316 1827613  102
+</span></span><span class="line"><span class="cl">Test (2B): RPC counts aren&#39;t too high ...
+</span></span><span class="line"><span class="cl">  ... Passed --   2.0  3   66   19678   12
+</span></span><span class="line"><span class="cl">PASS
+</span></span><span class="line"><span class="cl">ok      6.824/raft      34.825s
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Test (2C): basic persistence ...
+</span></span><span class="line"><span class="cl">  ... Passed --   3.9  3  126   33452    6
+</span></span><span class="line"><span class="cl">Test (2C): more persistence ...
+</span></span><span class="line"><span class="cl">  ... Passed --  15.5  5 1828  369618   16
+</span></span><span class="line"><span class="cl">Test (2C): partitioned leader and one follower crash, leader restarts ...
+</span></span><span class="line"><span class="cl">  ... Passed --   1.8  3   42   11544    4
+</span></span><span class="line"><span class="cl">Test (2C): Figure 8 ...
+</span></span><span class="line"><span class="cl">  ... Passed --  32.2  5 1120  247514   41
+</span></span><span class="line"><span class="cl">Test (2C): unreliable agreement ...
+</span></span><span class="line"><span class="cl">  ... Passed --   3.1  5  216   77507  246
+</span></span><span class="line"><span class="cl">Test (2C): Figure 8 (unreliable) ...
+</span></span><span class="line"><span class="cl">  ... Passed --  94.0  5 16504 17911361  142
+</span></span><span class="line"><span class="cl">Test (2C): churn ...
+</span></span><span class="line"><span class="cl">  ... Passed --  16.4  5 1296 1341742  384
+</span></span><span class="line"><span class="cl">Test (2C): unreliable churn ...
+</span></span><span class="line"><span class="cl">  ... Passed --  16.2  5  888  495533  392
+</span></span><span class="line"><span class="cl">PASS
+</span></span><span class="line"><span class="cl">ok      6.824/raft      183.121s
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-06-15</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/mitlab2bc/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://hongwei7.github.io/mitlab2bc/" data-title="MIT-6.824-Lab2BC-Raft-LogReplication-Persistence" data-hashtags="Distributed System,Go"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://hongwei7.github.io/mitlab2bc/" data-hashtag="Distributed System"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://hongwei7.github.io/mitlab2bc/" data-title="MIT-6.824-Lab2BC-Raft-LogReplication-Persistence" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://hongwei7.github.io/mitlab2bc/" data-title="MIT-6.824-Lab2BC-Raft-LogReplication-Persistence"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://hongwei7.github.io/mitlab2bc/" data-title="MIT-6.824-Lab2BC-Raft-LogReplication-Persistence" data-image="https://hongwei7.github.io/images/raft/raft.png"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://hongwei7.github.io/mitlab2bc/" data-title="MIT-6.824-Lab2BC-Raft-LogReplication-Persistence" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://hongwei7.github.io/mitlab2bc/" data-title="MIT-6.824-Lab2BC-Raft-LogReplication-Persistence" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://hongwei7.github.io/mitlab2bc/" data-title="MIT-6.824-Lab2BC-Raft-LogReplication-Persistence"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/distributed-system/">Distributed System</a>,&nbsp;<a href="/tags/go/">Go</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/mit-6.824-lab2a-raft-leaderelection/" class="prev" rel="prev" title="MIT-6.824-Lab2A-Raft-LeaderElection"><i class="fas fa-angle-left fa-fw"></i>MIT-6.824-Lab2A-Raft-LeaderElection</a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.95.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/hongwei7" target="_blank">hongwei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":300},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

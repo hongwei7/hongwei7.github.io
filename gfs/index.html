@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>GFS文件系统 - hongwei7 的博客</title><meta name="Description" content="这是hongwei7的个人网站"><meta property="og:title" content="GFS文件系统" />
+<meta property="og:description" content="GFS 是 Google 在 2010 年提出的分布式文件存储系统。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hongwei7.github.io/gfs/" /><meta property="og:image" content="https://hongwei7.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-05-27T11:22:05+08:00" />
+<meta property="article:modified_time" content="2021-05-27T11:22:05+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://hongwei7.github.io/logo.png"/>
+
+<meta name="twitter:title" content="GFS文件系统"/>
+<meta name="twitter:description" content="GFS 是 Google 在 2010 年提出的分布式文件存储系统。"/>
+<meta name="application-name" content="hongwei7&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="hongwei7&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://hongwei7.github.io/gfs/" /><link rel="prev" href="https://hongwei7.github.io/linux%E4%B8%8B%E7%BA%BF%E7%A8%8B%E4%B8%AD%E6%A0%88%E5%8F%98%E9%87%8F%E5%92%8C%E5%A0%86%E5%8F%98%E9%87%8F%E7%9A%84%E5%85%B1%E4%BA%AB%E6%80%A7/" /><link rel="next" href="https://hongwei7.github.io/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "GFS文件系统",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/hongwei7.github.io\/gfs\/"
+        },"genre": "posts","keywords": "Distributed System","wordcount":  1382 ,
+        "url": "https:\/\/hongwei7.github.io\/gfs\/","datePublished": "2021-05-27T11:22:05+08:00","dateModified": "2021-05-27T11:22:05+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "hongwei"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="hongwei7 的博客">hongwei&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/gfs/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="hongwei7 的博客">hongwei&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/categories/documentation/" title="">文档</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/gfs/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">GFS文件系统</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/hongwei7" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>hongwei</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-05-27">2021-05-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1382 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://hongwei7.github.io/images/GFS/Untitled%204.png"
+        data-srcset="https://hongwei7.github.io/images/GFS/Untitled%204.png, https://hongwei7.github.io/images/GFS/Untitled%204.png 1.5x, https://hongwei7.github.io/images/GFS/Untitled%204.png 2x"
+        data-sizes="auto"
+        alt="https://hongwei7.github.io/images/GFS/Untitled 4.png"
+        title="https://hongwei7.github.io/images/GFS/Untitled 4.png" /></div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#介绍">介绍</a>
+      <ul>
+        <li><a href="#实现工具">实现工具</a></li>
+      </ul>
+    </li>
+    <li><a href="#性能-可拓展性加速">性能-可拓展性加速</a></li>
+    <li><a href="#容错">容错</a></li>
+    <li><a href="#一致性">一致性</a></li>
+    <li><a href="#mapreduce">MapReduce</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#使用多线程">使用多线程</a>
+      <ul>
+        <li><a href="#好处">好处：</a></li>
+        <li><a href="#挑战">挑战：</a></li>
+      </ul>
+    </li>
+    <li><a href="#coordination协调手段">coordination协调手段</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#大数据存储的难题">大数据存储的难题</a></li>
+    <li><a href="#一个副本的情况">一个副本的情况</a></li>
+    <li><a href="#两个副本的情况">两个副本的情况</a></li>
+    <li><a href="#gfs-的解决方案">GFS 的解决方案</a>
+      <ul>
+        <li><a href="#读操作">读操作</a></li>
+        <li><a href="#写操作">写操作</a></li>
+        <li><a href="#split-brain-脑裂问题">split brain 脑裂问题</a></li>
+        <li><a href="#缺点">缺点</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>随着计算机在数量上的增加，计算机同样开始分散。尽管商业公司过去愿意购买越来越大的大型机，现在的典型情况是，甚至很小的应用程序都同时在多台机器上运行。思考这样做的利弊权衡，即是分布式系统的研究所在，也是越来越重要的一项技能。</p>
+<h1 id="概述">概述</h1>
+<h2 id="介绍">介绍</h2>
+<p>需要分布式的原因：</p>
+<ul>
+<li>并行性</li>
+<li>容错性</li>
+<li>物理性</li>
+<li>安全性</li>
+</ul>
+<p>基本的挑战：</p>
+<ul>
+<li>并行性带来的复杂</li>
+<li>部分故障</li>
+<li>最终性能</li>
+</ul>
+<h3 id="实现工具">实现工具</h3>
+<ul>
+<li>RPC</li>
+<li>多线程</li>
+<li>多并发控制（锁）</li>
+</ul>
+<h2 id="性能-可拓展性加速">性能-可拓展性加速</h2>
+<p>最好的结果是，线性地增长设备时，性能也能线性地提升（甚至指数性）。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/GFS/Untitled.png"
+        data-srcset="/images/GFS/Untitled.png, /images/GFS/Untitled.png 1.5x, /images/GFS/Untitled.png 2x"
+        data-sizes="auto"
+        alt="/images/GFS/Untitled.png"
+        title="/images/GFS/Untitled.png" /></p>
+<h2 id="容错">容错</h2>
+<p>计算机会经常故障或者挂掉（集群）。这要求系统拥有可用性和恢复性。</p>
+<ul>
+<li>可用性: 服务在以上这些挑战下，还是可用的。</li>
+<li>可恢复性：出现问题时，服务是可恢复的。</li>
+</ul>
+<p>解决工具：</p>
+<ul>
+<li>非易失性存储（硬盘）。通常很慢。</li>
+<li>复制副本。</li>
+</ul>
+<h2 id="一致性">一致性</h2>
+<p>存储→key-value表。</p>
+<p>put 和 get 会在多副本中产生一些列一致性的问题。</p>
+<h2 id="mapreduce">MapReduce</h2>
+<p>假设有一些输入块，每个输入块经过一个 Map 函数，得到一些 key。Reduce 部分是指把每个输入块得到的 key，集合起来，相同的 key 传递给一个 Reduce 函数，Reduce 函数负责把这些数据归合起来。最后分别计算数据。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/GFS/Untitled%201.png"
+        data-srcset="/images/GFS/Untitled%201.png, /images/GFS/Untitled%201.png 1.5x, /images/GFS/Untitled%201.png 2x"
+        data-sizes="auto"
+        alt="/images/GFS/Untitled%201.png"
+        title="/images/GFS/Untitled 1.png" /></p>
+<h1 id="go">Go</h1>
+<h2 id="使用多线程">使用多线程</h2>
+<h3 id="好处">好处：</h3>
+<ul>
+<li>IO 资源共享</li>
+<li>并行性</li>
+<li>周期性检查</li>
+<li>事件驱动友好</li>
+</ul>
+<h3 id="挑战">挑战：</h3>
+<ul>
+<li>共享变量带来的 race 问题</li>
+</ul>
+<h2 id="coordination协调手段">coordination协调手段</h2>
+<p>channels 频道</p>
+<p>sync.Cond 条件变量</p>
+<p>waitGroup 等待队列</p>
+<p>Deadlock 死锁</p>
+<h1 id="gfs">GFS</h1>
+<p><a href="https://spongecaptain.cool/post/paper/googlefilesystem/" target="_blank" rel="noopener noreffer">Google File System-GFS 论文阅读</a></p>
+<h2 id="大数据存储的难题">大数据存储的难题</h2>
+<ul>
+<li>性能表现 →分片分机</li>
+<li>分片分机 →容错</li>
+<li>容错度→副本复制</li>
+<li>副本复制→消除一致性问题</li>
+<li>一致性→低性能</li>
+</ul>
+<h2 id="一个副本的情况">一个副本的情况</h2>
+<p>考虑存储一个键值表。</p>
+<p>一个副本下，也会出现一些简单的一致性的问题</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/GFS/Untitled%202.png"
+        data-srcset="/images/GFS/Untitled%202.png, /images/GFS/Untitled%202.png 1.5x, /images/GFS/Untitled%202.png 2x"
+        data-sizes="auto"
+        alt="/images/GFS/Untitled%202.png"
+        title="/images/GFS/Untitled 2.png" /></p>
+<p>同时容错率极低，单主机崩溃后 server 直接 down。</p>
+<h2 id="两个副本的情况">两个副本的情况</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/GFS/Untitled%203.png"
+        data-srcset="/images/GFS/Untitled%203.png, /images/GFS/Untitled%203.png 1.5x, /images/GFS/Untitled%203.png 2x"
+        data-sizes="auto"
+        alt="/images/GFS/Untitled%203.png"
+        title="/images/GFS/Untitled 3.png" /></p>
+<p>两个副本下， client 直接向两台服务器同时发送请求。若不能保证client 请求的顺序相同，一致性就会被破坏。</p>
+<h2 id="gfs-的解决方案">GFS 的解决方案</h2>
+<p><a href="/images/GFS/The_Google_File_System.pdf" rel="">The Google File System中文版.pdf</a></p>
+<p>特点：</p>
+<ul>
+<li>Big，Fast，Global（共享）</li>
+<li>分割文件：从大文件到小文件。</li>
+<li>自动化恢复</li>
+<li>单一的数据中心（Google 内部使用的服务）</li>
+<li>为大范围的非随机访问优化</li>
+</ul>
+<p>设计：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/GFS/Untitled%204.png"
+        data-srcset="/images/GFS/Untitled%204.png, /images/GFS/Untitled%204.png 1.5x, /images/GFS/Untitled%204.png 2x"
+        data-sizes="auto"
+        alt="/images/GFS/Untitled%204.png"
+        title="/images/GFS/Untitled 4.png" /></p>
+<p>客户端发送文件名和 chunk index，master 服务器做 map 工作，把 IO 工作分到不同 chunkserver，不同的 chunkserver 带来并行性提高性能。</p>
+<p>master 需要保存的信息：</p>
+<ul>
+<li>文件名→array of chunk handles  （nv）</li>
+<li>chunk handles
+<ul>
+<li>version     chunk 的版本号 （nv）</li>
+<li>list of chunk servers   （memory）</li>
+<li>primary  （memory）</li>
+<li>lease time      过期时间  （memory）</li>
+</ul>
+</li>
+<li>log + checkpoint （stable storage 先写入 log 再执行写入操作）</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/GFS/Untitled%205.png"
+        data-srcset="/images/GFS/Untitled%205.png, /images/GFS/Untitled%205.png 1.5x, /images/GFS/Untitled%205.png 2x"
+        data-sizes="auto"
+        alt="/images/GFS/Untitled%205.png"
+        title="/images/GFS/Untitled 5.png" /></p>
+<h3 id="读操作">读操作</h3>
+<ul>
+<li>client 发送 filename 和 offset 到 master</li>
+<li>master 找到 list of chunkservers</li>
+<li>client 会对某些 chunk server 发送读请求，且会把 chunk server缓存起来</li>
+<li>chunk server 读取文件，返回数据</li>
+</ul>
+<h3 id="写操作">写操作</h3>
+<p>当 master 没有 primary 时：</p>
+<ul>
+<li>找到最新副本的 chunk server</li>
+<li>选择一个作为 primary</li>
+<li>增加版本号，写入</li>
+<li>告诉 primary 和 secondary，需要增加版本号</li>
+<li>master 把新的 version 写入硬盘</li>
+<li>primary 告诉所有的 secondary，需要追加写入文件</li>
+<li>如果所有的 secondary 都回应 yes，那么向 client 回应 success，否则回应 failed。这里如果某个 secondary 写入失败，其他的 secondary 仍然会写入，这里会产生不一致性的问题。但是 GFS 容忍这种不一致性（冗余）。同时 client 会重试请求。</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/GFS/Untitled%206.png"
+        data-srcset="/images/GFS/Untitled%206.png, /images/GFS/Untitled%206.png 1.5x, /images/GFS/Untitled%206.png 2x"
+        data-sizes="auto"
+        alt="/images/GFS/Untitled%206.png"
+        title="/images/GFS/Untitled 6.png" /></p>
+<p>当 master 有 primary 时，不会更新版本号。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/GFS/Untitled%207.png"
+        data-srcset="/images/GFS/Untitled%207.png, /images/GFS/Untitled%207.png 1.5x, /images/GFS/Untitled%207.png 2x"
+        data-sizes="auto"
+        alt="/images/GFS/Untitled%207.png"
+        title="/images/GFS/Untitled 7.png" /></p>
+<h3 id="split-brain-脑裂问题">split brain 脑裂问题</h3>
+<p>当网络错误使得 master 无法和 primary 通信，master 会重新指定一个 primary，此时会产生两个 primary。此时 client 直接向两个 primary 发送信息时，就会产生冲突。</p>
+<p>解决方法：当 master 需要重新选择 primary 时，master 会等待上一个 primary 的 lease（租约）过期，再去分配新的 primary。</p>
+<h3 id="缺点">缺点</h3>
+<p>GFS 只有一个 master，而单个 master 的内存资源总是有限的。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-05-27</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/gfs/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://hongwei7.github.io/gfs/" data-title="GFS文件系统" data-hashtags="Distributed System"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://hongwei7.github.io/gfs/" data-hashtag="Distributed System"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://hongwei7.github.io/gfs/" data-title="GFS文件系统" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://hongwei7.github.io/gfs/" data-title="GFS文件系统"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://hongwei7.github.io/gfs/" data-title="GFS文件系统" data-image="https://hongwei7.github.io/images/GFS/Untitled 4.png"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://hongwei7.github.io/gfs/" data-title="GFS文件系统" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://hongwei7.github.io/gfs/" data-title="GFS文件系统" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://hongwei7.github.io/gfs/" data-title="GFS文件系统"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/distributed-system/">Distributed System</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/linux%E4%B8%8B%E7%BA%BF%E7%A8%8B%E4%B8%AD%E6%A0%88%E5%8F%98%E9%87%8F%E5%92%8C%E5%A0%86%E5%8F%98%E9%87%8F%E7%9A%84%E5%85%B1%E4%BA%AB%E6%80%A7/" class="prev" rel="prev" title="Linux下线程中栈变量和堆变量的共享性"><i class="fas fa-angle-left fa-fw"></i>Linux下线程中栈变量和堆变量的共享性</a>
+            <a href="/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C/" class="next" rel="next" title="MIT-6.824-Lab1-MapReduce 实验">MIT-6.824-Lab1-MapReduce 实验<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.95.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/hongwei7" target="_blank">hongwei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":300},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
