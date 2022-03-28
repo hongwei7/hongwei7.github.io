@@ -21,7 +21,7 @@ h1{
   transform:translateY(-50%);
   font-family: 'Love Ya Like A Sister', cursive;
   font-size: 26px;
-  color:black;
+  color:var(--title-color, @dark);;
   padding: 0 20px;
 }
 h1 span{
@@ -51,7 +51,7 @@ window.onload=function starttime(){
         var hour = parseInt(time/3600)-24*day;    // 小时 60*60 总小时数-过去的小时数=现在的小时数
         var minute = parseInt(time%3600/60); // 分 -(day*24) 以60秒为一整份 取余 剩下秒数 秒数/60 就是分钟数
         var second = parseInt(time%60);  // 以60秒为一整份 取余 剩下秒数
-        obj.innerHTML="<br>距离下个Big Day还有<br>"+day+"天"+hour+"小时"+minute+"分"+second+"秒"+"<br><span>🎉🎉🎉</span>"
+        obj.innerHTML="<br>距离下个Big Day还有<br>"+day+"天"+hour+"小时"+minute+"分"+second+"秒"+"<br><span></span>"
 }
 </script>
 </body>
