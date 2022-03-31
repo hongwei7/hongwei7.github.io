@@ -13,41 +13,35 @@ body{
     margin: 0;
 }
 h1{
-  position: fixed;
-  top: 20%;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  transform:translateY(-50%);
-  font-family: 'Love Ya Like A Sister', cursive;
-  font-size: 26px;
-  color: black;
-  padding: 0 0px;
+    position: fixed;
+    top: 20%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    transform:translateY(-50%);
+    font-family: 'Love Ya Like A Sister', cursive;
+    font-size: 26px;
+    color: black;
+    padding: 0 0px;
 }
 h1 span{
-  position: fixed;
-  left: 0;
-  width: 100%;
-  text-align: center;
-margin-top:30px;
+    position: fixed;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    margin-top:30px;
     font-size:26px;
     color:black;
-}
-.div1{
-    position: fixed;
-    margin-top:40px;
-    text-align: center;
-    box-shadow: darkgrey 10px 10px 30px 5px ;//边框阴影
 }
         </style>
     </head>
     <body>
-            <h1 id="h1"></h1>
-            <script>
-                window.onload=function starttime(){
-                    time(h1,'2021/11/10');     
-                    ptimer = setTimeout(starttime,1000); // 添加计时器
-                }
+        <h1 id="h1"></h1>
+        <script>
+            window.onload=function starttime(){
+                time(h1,'2021/11/10');     
+                ptimer = setTimeout(starttime,1000); // 添加计时器
+            }
 function time(obj,futimg){
     var nowtime = new Date().getTime(); // 现在时间转换为时间戳
     var futruetime =  new Date(futimg).getTime(); // 未来时间转换为时间戳
@@ -59,6 +53,6 @@ function time(obj,futimg){
     var second = parseInt(time%60);  // 以60秒为一整份 取余 剩下秒数
     obj.innerHTML="<div class='div1'><br>从牵起手到现在经过了<br>"+day+"天"+hour+"小时"+minute+"分"+second+"秒"+"<br></div>"
 }
-            </script>
+        </script>
     </body>
 </html>
