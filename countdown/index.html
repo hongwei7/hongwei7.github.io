@@ -1,58 +1,194 @@
 <!doctype html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>敬请期待</title>
-        <style>
-canvas {
-    padding:0;
-    margin:0;
-}
-body{
-    overflow: hidden;
-    margin: 0;
-}
-h1{
-    position: fixed;
-    top: 20%;
-    width: 100%;
-    left: 0;
-    text-align: center;
-    transform:translateY(-50%);
-    font-family: 'Hannotate SC', 'Papyrus';
-    font-size: 26px;
-    color: black;
-    padding: 0 0px;
-}
-h1 span{
-    position: fixed;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    margin-top:30px;
-    font-size:26px;
-    color:black;
-}
-        </style>
-    </head>
-    <body>
-        <h1 id="h1"></h1>
-        <script>
-            window.onload=function starttime(){
-                time(h1,'2021/11/10');     
-                ptimer = setTimeout(starttime,1000); // 添加计时器
+
+<head>
+    <meta charset="utf-8">
+    <title>敬请期待</title>
+    <style>
+        canvas {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            overflow: hidden;
+            margin: 0;
+        }
+
+        h1 {
+            position: fixed;
+            top: 20%;
+            width: 100%;
+            left: 0;
+            text-align: center;
+            transform: translateY(-50%);
+            font-family: 'Hannotate SC', 'Papyrus';
+            font-size: 26px;
+            color: blue;
+            padding: 0 0px;
+        }
+
+        h1 span {
+            position: fixed;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            margin-top: 30px;
+            font-size: 26px;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="h1"></h1>
+    <script>
+        ////////////////////////////////////////////////////////////////////////////////
+        //
+        // computeSunRiseSunSet(Latitude, Longitude, TimeZone)
+        //                     Computes SunRise/SunSet based on Latitude/Longitude
+        // Return: Object retVal {
+        //           Date SunRise,
+        //           Date SunSet,
+        //           String str    // Sun Rise, Sun Set (transformed by TimeZone)
+        //         };
+        //
+        ////////////////////////////////////////////////////////////////////////////////
+        function computeSunRiseSunSet(Latitude, Longitude, TimeZone) {
+            var curTime = new Date();
+            // Variable names used: B5, C, C2, C3, CD, D, DR, H, HR, HS, L0, L5, M, MR, MS, N, PI, R1, RD, S1, SC, SD, str
+            var retVal = new Object();
+            var PI = Math.PI;
+            var DR = PI / 180;
+            var RD = 1 / DR;
+            var B5 = Latitude;
+            var L5 = Longitude;
+            var H = -1 * (curTime.getTimezoneOffset() / 60 * -1); // Local timezone
+            // Overriding TimeZone to standardize on UTC
+            // H = 0;
+            var M = curTime.getMonth() + 1;
+            var D = curTime.getDate();
+            B5 = DR * B5;
+            var N = parseInt(275 * M / 9) - 2 * parseInt((M + 9) / 12) + D - 30;
+            var L0 = 4.8771 + .0172 * (N + .5 - L5 / 360);
+            var C = .03342 * Math.sin(L0 + 1.345);
+            var C2 = RD * (Math.atan(Math.tan(L0 + C)) - Math.atan(.9175 * Math.tan(L0 + C)) - C);
+            var SD = .3978 * Math.sin(L0 + C);
+            var CD = Math.sqrt(1 - SD * SD);
+            var SC = (SD * Math.sin(B5) + .0145) / (Math.cos(B5) * CD);
+            if (Math.abs(SC) <= 1) {
+                var C3 = RD * Math.atan(SC / Math.sqrt(1 - SC * SC));
+                var R1 = 6 - H - (L5 + C2 + C3) / 15;
+                var HR = parseInt(R1);
+                var MR = parseInt((R1 - HR) * 60);
+                retVal.SunRise = parseTime(HR + ":" + MR);
+                var TargetTimezoneOffset = (TimeZone * 60 * 60 * 1000) + (retVal.SunRise.getTimezoneOffset() * 60 * 1000);
+                var transformedSunRise = new Date(retVal.SunRise.getTime() + TargetTimezoneOffset);
+                var strSunRise = "日出" + transformedSunRise.getHours() + ":" + (transformedSunRise.getMinutes() < 10 ? "0" + transformedSunRise.getMinutes() : transformedSunRise.getMinutes());
+                var S1 = 18 - H - (L5 + C2 - C3) / 15;
+                var HS = parseInt(S1);
+                var MS = parseInt((S1 - HS) * 60);
+                retVal.SunSet = parseTime(HS + ":" + MS);
+                var transformedSunSet = new Date(retVal.SunSet.getTime() + TargetTimezoneOffset);
+                var strSunSet = "日落" + transformedSunSet.getHours() + ":" + (transformedSunSet.getMinutes() < 10 ? "0" + transformedSunSet.getMinutes() : transformedSunSet.getMinutes());
+                retVal.Noon = new Date((retVal.SunRise.getTime() + retVal.SunSet.getTime()) / 2);
+                var transformedNoon = new Date(retVal.Noon.getTime() + TargetTimezoneOffset);
+                var strNoon = "正午" + transformedNoon.getHours() + ":" + (transformedNoon.getMinutes() < 10 ? "0" + transformedNoon.getMinutes() : transformedNoon.getMinutes());
             }
-function time(obj,futimg){
-    var nowtime = new Date().getTime(); // 现在时间转换为时间戳
-    var futruetime =  new Date(futimg).getTime(); // 未来时间转换为时间戳
-    var msec = -futruetime+nowtime-1000*3600*21-1000*60*10; // 毫秒 未来时间-现在时间
-    var time = (msec/1000);  // 毫秒/1000
-    var day = parseInt(time/86400); // 天  24*60*60*1000
-    var hour = parseInt(time/3600)-24*day;    // 小时 60*60 总小时数-过去的小时数=现在的小时数
-    var minute = parseInt(time%3600/60); // 分 -(day*24) 以60秒为一整份 取余 剩下秒数 秒数/60 就是分钟数
-    var second = parseInt(time%60);  // 以60秒为一整份 取余 剩下秒数
-    obj.innerHTML="<div>从牵起手到现在经过了:<br>"+day+"天"+hour+"小时"+minute+"分"+second+"秒"+"<br></div>"
-}
-        </script>
-    </body>
+            else {
+                if (SC > 1) {
+                    // str="Sun up all day";
+                    strSunRise = ".";
+                    strNoon = ".";
+                    strSunSet = ".";
+                    var tDate = new Date();
+                    // Set Sunset to be in the future ...
+                    retVal.SunSet = new Date(tDate.getFullYear() + 1, tDate.getMonth(), tDate.getDay(), tDate.getHours());
+                    // Set Sunrise to be in the past ...
+                    retVal.SunRise = new Date(tDate.getFullYear() - 1, tDate.getMonth(), tDate.getDay(), tDate.getHours() - 1);
+                }
+                if (SC < -1) {
+                    // str="Sun down all day";
+                    strSunRise = ".";
+                    strNoon = ".";
+                    strSunSet = ".";
+                    // Set Sunrise and Sunset to be in the future ...
+                    retVal.SunRise = new Date(tDate.getFullYear() + 1, tDate.getMonth(), tDate.getDay(), tDate.getHours());
+                    retVal.SunSet = new Date(tDate.getFullYear() + 1, tDate.getMonth(), tDate.getDay(), tDate.getHours());
+                }
+            }
+            retVal.strSunRise = strSunRise;
+            retVal.strNoon = strNoon;
+            retVal.strSunSet = strSunSet;
+            retVal.str = strSunRise + ' | ' + strNoon + ' | ' + strSunSet;
+            return retVal;
+        }
+        ////////////////////////////////////////////////////////////////////////////////
+        //
+        // parseTime(string aTime) - takes a string of time in the format HH:MM:SS
+        //                           and returns Javascript Date Object
+        //
+        ////////////////////////////////////////////////////////////////////////////////
+        function parseTime(aTime) {
+            var aDateTimeObject = 'none';
+            if (aTime !== undefined && aTime.length) {
+                aDateTimeObject = GMTTime();
+                try {
+                    var theHour = parseInt(aTime.split(':')[0]);
+                    var theMinutes = parseInt(aTime.split(':')[1]);
+                    aDateTimeObject.setHours(theHour);
+                    aDateTimeObject.setMinutes(theMinutes);
+                }
+                catch (ex) {
+                }
+            }
+            return aDateTimeObject;
+        }
+        ////////////////////////////////////////////////////////////////////////////////
+        //
+        // GMTTime() - returns time adjusted to GMT (Universal Time)
+        //
+        ////////////////////////////////////////////////////////////////////////////////
+        function GMTTime() {
+            var aDate = new Date();
+            var aDateAdjustedToGMTInMS = aDate.getTime() + (aDate.getTimezoneOffset() * 60 * 1000);
+            return (new Date(aDateAdjustedToGMTInMS));
+        }
+
+        function getHour() {
+            return new Date().getHours();
+        }
+        function isDay() {
+            var nowHour = getHour();
+            var sunHour = computeSunRiseSunSet(22.3, 110.9, 8);
+            var sunRiseHour = sunHour.SunRise.getHours();
+            var sunSetHour = sunHour.SunSet.getHours();
+            return nowHour > sunRiseHour && nowHour < sunSetHour;
+        }
+        window.onload = function starttime() {
+            var tt = '2021/11/10';
+            time(h1, tt);
+            ptimer = setTimeout(starttime, 1000); // 添加计时器
+        }
+        function time(obj, futimg) {
+            var nowtime = new Date().getTime(); // 现在时间转换为时间戳
+            var futruetime = new Date(futimg).getTime(); // 未来时间转换为时间戳
+            var msec = -futruetime + nowtime - 1000 * 3600 * 21 - 1000 * 60 * 10; // 毫秒 未来时间-现在时间
+            var time = (msec / 1000);  // 毫秒/1000
+            var day = parseInt(time / 86400); // 天  24*60*60*1000
+            var hour = parseInt(time / 3600) - 24 * day;    // 小时 60*60 总小时数-过去的小时数=现在的小时数
+            var minute = parseInt(time % 3600 / 60); // 分 -(day*24) 以60秒为一整份 取余 剩下秒数 秒数/60 就是分钟数
+            var second = parseInt(time % 60);  // 以60秒为一整份 取余 剩下秒数
+            var divColor;
+            if (isDay()) {
+                divColor = "<div style='color:black;'>";
+            } else {
+                divColor = "<div style='color:white;'>"
+            }
+            obj.innerHTML = divColor + "从牵起手到现在经过了:<br>"
+                + day + "天" + hour + "小时" + minute + "分" + second + "秒" + "<br></div>"
+        }
+    </script>
+</body>
+
 </html>
