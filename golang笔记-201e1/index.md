@@ -193,7 +193,7 @@ func WithValue(parent Context, key, valinterface{}) Context
 
 golang 的 goroutine 使用的调度方式是 MPG 模型。
 
-![Untitled](https://brucemarkdown.top/images/Glang%E7%AC%94%E8%AE%B0%20201e1/Untitled.png)
+![Untitled](Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled.png)
 
 一个M对应一个系统内核线程，一个P对应一个上下文，一个上下文连接一个或多个 G goroutine。蓝色的 G 代表运行中。
 
@@ -345,11 +345,11 @@ func fib3(x int) func() int {
 }
 ```
 
-![Untitled](https://brucemarkdown.top/images/Glang%E7%AC%94%E8%AE%B0%20201e1/Untitled%201.png)
+![Untitled](https://brucemarkdown.top/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%201.png)
 
-![Untitled](https://brucemarkdown.top/images/Glang%E7%AC%94%E8%AE%B0%20201e1/Untitled%202.png)
+![Untitled](Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%202.png)
 
-![Untitled](https://brucemarkdown.top/images/Glang%E7%AC%94%E8%AE%B0%20201e1/Untitled%203.png)
+![Untitled](Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%203.png)
 
 **所有引用局部变量，Golang在生成汇编是帮我们在堆上创建该变量的一个拷贝，并把该变量地址和函数闭包组成一个结构体，并把该结构体传出来作为返回值。**
 
@@ -363,7 +363,7 @@ func fib3(x int) func() int {
 
 清理后的对象空间用链表结构串联起来（可以添加cookie或者标志位来实现）。
 
-![Untitled](https://brucemarkdown.top/images/Glang%E7%AC%94%E8%AE%B0%20201e1/Untitled%204.png)
+![Untitled](Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%204.png)
 
 问题：用户程序在标记清除的过程中不能执行（长时间的 STW ）。
 
@@ -382,7 +382,7 @@ func fib3(x int) func() int {
 - 黑色对象指向的所有对象都标记成灰色。（这样该对象不会被回收）
 - 重复以上两个步骤不存在灰色。
     
-    ![Untitled](https://brucemarkdown.top/images/Glang%E7%AC%94%E8%AE%B0%20201e1/Untitled%205.png)
+    ![Untitled](Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%205.png)
     
 
 当三色的标记清除的标记阶段结束之后，应用程序的堆中就不存在任何的灰色对象，我们只能看到黑色的存活对象以及白色的垃圾对象，垃圾收集器可以回收这些白色的垃圾。
@@ -401,7 +401,7 @@ func fib3(x int) func() int {
 - 强三色不变性：黑色对象不会指向白色对象。
 - 弱三色不变性：黑色对象指向的白色对象必须包含一条从灰色对象经由多个白色对象的可达路径。（垃圾收集器无法从某个灰色对象出发，经过几个连续的白色对象访问白色的 C 和 D 两个对象）
 
-![Untitled](https://brucemarkdown.top/images/Glang%E7%AC%94%E8%AE%B0%20201e1/Untitled%206.png)
+![Untitled](Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%206.png)
 
 编程语言往往都会采用写屏障保证三色不变性。Go 语言中使用的两种写屏障技术，分别是 Dijkstra 提出的插入写屏障和 Yuasa 提出的删除写屏障。
 
@@ -413,7 +413,7 @@ func fib3(x int) func() int {
 
 例如：
 
-![Untitled](https://brucemarkdown.top/images/Glang%E7%AC%94%E8%AE%B0%20201e1/Untitled%207.png)
+![Untitled](Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%207.png)
 
 1. 垃圾收集器将根对象指向 A 对象标记成黑色并将 A 对象指向的对象 B 标记成灰色；
 2. 用户程序修改 A 对象的指针，将原本指向 B 对象的指针指向 C 对象，这时触发写屏障将 C 对象标记成灰色；
@@ -432,7 +432,7 @@ func fib3(x int) func() int {
 
 在老对象的引用被删除时，将白色的老对象涂成灰色，这样就保证了弱三色不变性。
 
-![Untitled](https://brucemarkdown.top/images/Glang%E7%AC%94%E8%AE%B0%20201e1/Untitled%208.png)
+![Untitled](Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%208.png)
 
 1. 垃圾收集器将根对象指向 A 对象标记成黑色并将 A 对象指向的对象 B 标记成灰色；
 2. 用户程序将 A 对象原本指向 B 的指针指向 C，触发删除写屏障，但是因为 B 对象已经是灰色的，所以不做改变；
