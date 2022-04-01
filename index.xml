@@ -4,9 +4,18 @@
         <link>https://brucemarkdown.top/</link>
         <description>欢迎来到hongwei7的个人博客</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1216869567@qq.com (hongwei)</managingEditor>
-            <webMaster>1216869567@qq.com (hongwei)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 15 Jun 2021 00:43:41 &#43;0800</lastBuildDate>
+            <webMaster>1216869567@qq.com (hongwei)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 01 Apr 2022 11:22:05 &#43;0800</lastBuildDate>
             <atom:link href="https://brucemarkdown.top/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Golang学习笔记记录</title>
+    <link>https://brucemarkdown.top/golang%E7%AC%94%E8%AE%B0-201e1/</link>
+    <pubDate>Fri, 01 Apr 2022 11:22:05 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://brucemarkdown.top/golang%E7%AC%94%E8%AE%B0-201e1/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/images/GFS/Untitled%204.png" referrerpolicy="no-referrer">
+            </div>Go（又称Golang）是Google开发的一种静态强类型、编译型、并发型，并具有垃圾回收功能的编程语言。]]></description>
+</item><item>
     <title>MIT-6.824-Lab2BC-Raft-LogReplication-Persistence</title>
     <link>https://brucemarkdown.top/mitlab2bc/</link>
     <pubDate>Tue, 15 Jun 2021 00:43:41 &#43;0800</pubDate>
@@ -87,14 +96,5 @@
     <description><![CDATA[<div class="featured-image">
                 <img src="/images/cpp-logo.png" referrerpolicy="no-referrer">
             </div>上次面试被问到了偏特化的使用, 现在来总结一下.]]></description>
-</item><item>
-    <title>数据链路层复习</title>
-    <link>https://brucemarkdown.top/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/</link>
-    <pubDate>Mon, 10 May 2021 00:00:00 &#43;0000</pubDate>
-    <author>作者</author>
-    <guid>https://brucemarkdown.top/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="/images/Network.jpg" referrerpolicy="no-referrer">
-            </div>🙊逻辑链路层和 MAC 子层的复习。]]></description>
 </item></channel>
 </rss>

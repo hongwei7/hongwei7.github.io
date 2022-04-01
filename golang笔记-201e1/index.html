@@ -5,32 +5,32 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title> - hongwei 的博客</title><meta name="Description" content="欢迎来到hongwei7的个人博客"><meta property="og:title" content="" />
-<meta property="og:description" content="Golang笔记 基础 基本语法 通过官网 A Tour Of Go 学习 golang 基本语法。 struct golang 通过 struct 来实现其他语言中的 class，但是在 golang 中没有继承的概念。 golang 中使用组合函" />
+        <title>Golang学习笔记记录 - hongwei 的博客</title><meta name="Description" content="欢迎来到hongwei7的个人博客"><meta property="og:title" content="Golang学习笔记记录" />
+<meta property="og:description" content="Go（又称Golang）是Google开发的一种静态强类型、编译型、并发型，并具有垃圾回收功能的编程语言。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://brucemarkdown.top/golang%E7%AC%94%E8%AE%B0-201e1/" /><meta property="og:image" content="https://brucemarkdown.top/logo.png"/><meta property="article:section" content="posts" />
-
-
+<meta property="article:published_time" content="2022-04-01T11:22:05&#43;08:00" />
+<meta property="article:modified_time" content="2022-04-01T11:22:05&#43;08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://brucemarkdown.top/logo.png"/>
 
-<meta name="twitter:title" content=""/>
-<meta name="twitter:description" content="Golang笔记 基础 基本语法 通过官网 A Tour Of Go 学习 golang 基本语法。 struct golang 通过 struct 来实现其他语言中的 class，但是在 golang 中没有继承的概念。 golang 中使用组合函"/>
+<meta name="twitter:title" content="Golang学习笔记记录"/>
+<meta name="twitter:description" content="Go（又称Golang）是Google开发的一种静态强类型、编译型、并发型，并具有垃圾回收功能的编程语言。"/>
 <meta name="application-name" content="hongwei&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="hongwei&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://brucemarkdown.top/golang%E7%AC%94%E8%AE%B0-201e1/" /><link rel="next" href="https://brucemarkdown.top/linuxshellnote/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://brucemarkdown.top/golang%E7%AC%94%E8%AE%B0-201e1/" /><link rel="prev" href="https://brucemarkdown.top/mitlab2bc/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "",
+        "headline": "Golang学习笔记记录",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/brucemarkdown.top\/golang%E7%AC%94%E8%AE%B0-201e1\/"
-        },"genre": "posts","wordcount":  5226 ,
-        "url": "https:\/\/brucemarkdown.top\/golang%E7%AC%94%E8%AE%B0-201e1\/","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+        },"genre": "posts","keywords": "Go","wordcount":  5226 ,
+        "url": "https:\/\/brucemarkdown.top\/golang%E7%AC%94%E8%AE%B0-201e1\/","datePublished": "2022-04-01T11:22:05+08:00","dateModified": "2022-04-01T11:22:05+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
@@ -108,11 +108,18 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX"></h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animated flipInX">Golang学习笔记记录</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/hongwei7" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>hongwei</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5226 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-04-01">2022-04-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5226 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 11 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="true">
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://brucemarkdown.top/images/GFS/Untitled%204.png"
+        data-srcset="https://brucemarkdown.top/images/GFS/Untitled%204.png, https://brucemarkdown.top/images/GFS/Untitled%204.png 1.5x, https://brucemarkdown.top/images/GFS/Untitled%204.png 2x"
+        data-sizes="auto"
+        alt="https://brucemarkdown.top/images/GFS/Untitled 4.png"
+        title="https://brucemarkdown.top/images/GFS/Untitled 4.png" /></div><div class="details toc" id="toc-static"  kept="true">
                 <div class="details-summary toc-title">
                     <span>目录</span>
                     <span><i class="details-icon fas fa-angle-right"></i></span>
@@ -819,7 +826,7 @@ Processor 唤醒一个 Machine，如果 Machine 的 waiting 队列没有等待�
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 0001-01-01</span>
+                <span>更新于 2022-04-01</span>
             </div>
             <div class="post-info-license"></div>
         </div>
@@ -828,20 +835,19 @@ Processor 唤醒一个 Machine，如果 Machine 的 waiting 队列没有等待�
                             <a class="link-to-markdown" href="/golang%E7%AC%94%E8%AE%B0-201e1/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://brucemarkdown.top/golang%E7%AC%94%E8%AE%B0-201e1/" data-title=""><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://brucemarkdown.top/golang%E7%AC%94%E8%AE%B0-201e1/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://brucemarkdown.top/golang%E7%AC%94%E8%AE%B0-201e1/" data-title="" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://brucemarkdown.top/golang%E7%AC%94%E8%AE%B0-201e1/" data-title=""><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://brucemarkdown.top/golang%E7%AC%94%E8%AE%B0-201e1/" data-title=""><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://brucemarkdown.top/golang%E7%AC%94%E8%AE%B0-201e1/" data-title="" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://brucemarkdown.top/golang%E7%AC%94%E8%AE%B0-201e1/" data-title="" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://brucemarkdown.top/golang%E7%AC%94%E8%AE%B0-201e1/" data-title=""><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://brucemarkdown.top/golang%E7%AC%94%E8%AE%B0-201e1/" data-title="Golang学习笔记记录" data-hashtags="Go"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://brucemarkdown.top/golang%E7%AC%94%E8%AE%B0-201e1/" data-hashtag="Go"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://brucemarkdown.top/golang%E7%AC%94%E8%AE%B0-201e1/" data-title="Golang学习笔记记录" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://brucemarkdown.top/golang%E7%AC%94%E8%AE%B0-201e1/" data-title="Golang学习笔记记录"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://brucemarkdown.top/golang%E7%AC%94%E8%AE%B0-201e1/" data-title="Golang学习笔记记录" data-image="https://brucemarkdown.top/images/GFS/Untitled 4.png"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://brucemarkdown.top/golang%E7%AC%94%E8%AE%B0-201e1/" data-title="Golang学习笔记记录" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://brucemarkdown.top/golang%E7%AC%94%E8%AE%B0-201e1/" data-title="Golang学习笔记记录" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://brucemarkdown.top/golang%E7%AC%94%E8%AE%B0-201e1/" data-title="Golang学习笔记记录"><i class="fab fa-evernote fa-fw"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/go/">Go</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
         </section>
     </div>
 
-    <div class="post-nav">
-            <a href="/linuxshellnote/" class="next" rel="next" title="Linux Shell 笔记">Linux Shell 笔记<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/mitlab2bc/" class="prev" rel="prev" title="MIT-6.824-Lab2BC-Raft-LogReplication-Persistence"><i class="fas fa-angle-left fa-fw"></i>MIT-6.824-Lab2BC-Raft-LogReplication-Persistence</a></div>
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
