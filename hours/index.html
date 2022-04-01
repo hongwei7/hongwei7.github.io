@@ -125,6 +125,7 @@
         }
 
         function isDay() {
+            return !(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
             var now = new Date();
             var sun = computeSunRiseSunSet(22.3, 110.9, 8);
             var sunRise = sun.SunRise;
