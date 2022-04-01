@@ -193,7 +193,7 @@ func WithValue(parent Context, key, valinterface{}) Context
 
 golang 的 goroutine 使用的调度方式是 MPG 模型。
 
-![Untitled](Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled.png)
+![Untitled](https://brucemarkdown.top/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled.png)
 
 一个M对应一个系统内核线程，一个P对应一个上下文，一个上下文连接一个或多个 G goroutine。蓝色的 G 代表运行中。
 
