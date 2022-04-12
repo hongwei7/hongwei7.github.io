@@ -5,32 +5,32 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title> - hongwei 的博客</title><meta name="Description" content="欢迎来到hongwei7的个人博客"><meta property="og:title" content="" />
-<meta property="og:description" content="理解平摊分析 [MIT算法导论第13集] 平摊分析，表的扩增，势能方法_哔哩哔哩_bilibili 哈希表的均摊分析 Hash Table 在足够长时，搜索时间会很短" />
+        <title>理解均摊分析 - hongwei 的博客</title><meta name="Description" content="欢迎来到hongwei7的个人博客"><meta property="og:title" content="理解均摊分析" />
+<meta property="og:description" content="Amortized Analysis，是对算法复杂度的另一种分析。它的基本概念是，给定一连串操作，大部分的操作是非常廉价的，有极少的操作可能非常昂贵，因此一个标准的最坏分析可能过于消极了。因此，其基本理念在于，当昂贵的操作特别少的时候，他们的成本可能会均摊到所有的操作上。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://brucemarkdown.top/%E7%90%86%E8%A7%A3%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90-7a26c/" /><meta property="og:image" content="https://brucemarkdown.top/logo.png"/><meta property="article:section" content="posts" />
-
-
+<meta property="article:published_time" content="2022-04-12T11:22:05&#43;08:00" />
+<meta property="article:modified_time" content="2022-04-12T11:22:05&#43;08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://brucemarkdown.top/logo.png"/>
 
-<meta name="twitter:title" content=""/>
-<meta name="twitter:description" content="理解平摊分析 [MIT算法导论第13集] 平摊分析，表的扩增，势能方法_哔哩哔哩_bilibili 哈希表的均摊分析 Hash Table 在足够长时，搜索时间会很短"/>
+<meta name="twitter:title" content="理解均摊分析"/>
+<meta name="twitter:description" content="Amortized Analysis，是对算法复杂度的另一种分析。它的基本概念是，给定一连串操作，大部分的操作是非常廉价的，有极少的操作可能非常昂贵，因此一个标准的最坏分析可能过于消极了。因此，其基本理念在于，当昂贵的操作特别少的时候，他们的成本可能会均摊到所有的操作上。"/>
 <meta name="application-name" content="hongwei&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="hongwei&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://brucemarkdown.top/%E7%90%86%E8%A7%A3%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90-7a26c/" /><link rel="next" href="https://brucemarkdown.top/linuxshellnote/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://brucemarkdown.top/%E7%90%86%E8%A7%A3%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90-7a26c/" /><link rel="prev" href="https://brucemarkdown.top/golang%E7%AC%94%E8%AE%B0-201e1/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "",
+        "headline": "理解均摊分析",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/brucemarkdown.top\/%E7%90%86%E8%A7%A3%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90-7a26c\/"
-        },"genre": "posts","wordcount":  760 ,
-        "url": "https:\/\/brucemarkdown.top\/%E7%90%86%E8%A7%A3%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90-7a26c\/","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+        },"genre": "posts","keywords": "算法","wordcount":  760 ,
+        "url": "https:\/\/brucemarkdown.top\/%E7%90%86%E8%A7%A3%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90-7a26c\/","datePublished": "2022-04-12T11:22:05+08:00","dateModified": "2022-04-12T11:22:05+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
@@ -108,11 +108,18 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX"></h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animated flipInX">理解均摊分析</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/hongwei7" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>hongwei</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 760 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-04-12">2022-04-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 760 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="true">
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tse1-mm.cn.bing.net/th/id/OIP-C.tSrZz_I2ToRj9-3lG17vewHaD9?pid=ImgDet&amp;rs=1"
+        data-srcset="https://tse1-mm.cn.bing.net/th/id/OIP-C.tSrZz_I2ToRj9-3lG17vewHaD9?pid=ImgDet&amp;rs=1, https://tse1-mm.cn.bing.net/th/id/OIP-C.tSrZz_I2ToRj9-3lG17vewHaD9?pid=ImgDet&amp;rs=1 1.5x, https://tse1-mm.cn.bing.net/th/id/OIP-C.tSrZz_I2ToRj9-3lG17vewHaD9?pid=ImgDet&amp;rs=1 2x"
+        data-sizes="auto"
+        alt="https://tse1-mm.cn.bing.net/th/id/OIP-C.tSrZz_I2ToRj9-3lG17vewHaD9?pid=ImgDet&amp;rs=1"
+        title="https://tse1-mm.cn.bing.net/th/id/OIP-C.tSrZz_I2ToRj9-3lG17vewHaD9?pid=ImgDet&amp;rs=1" /></div><div class="details toc" id="toc-static"  kept="true">
                 <div class="details-summary toc-title">
                     <span>目录</span>
                     <span><i class="details-icon fas fa-angle-right"></i></span>
@@ -197,7 +204,7 @@ $$</p>
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 0001-01-01</span>
+                <span>更新于 2022-04-12</span>
             </div>
             <div class="post-info-license"></div>
         </div>
@@ -206,20 +213,19 @@ $$</p>
                             <a class="link-to-markdown" href="/%E7%90%86%E8%A7%A3%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90-7a26c/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://brucemarkdown.top/%E7%90%86%E8%A7%A3%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90-7a26c/" data-title=""><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://brucemarkdown.top/%E7%90%86%E8%A7%A3%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90-7a26c/"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://brucemarkdown.top/%E7%90%86%E8%A7%A3%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90-7a26c/" data-title="" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://brucemarkdown.top/%E7%90%86%E8%A7%A3%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90-7a26c/" data-title=""><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://brucemarkdown.top/%E7%90%86%E8%A7%A3%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90-7a26c/" data-title=""><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://brucemarkdown.top/%E7%90%86%E8%A7%A3%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90-7a26c/" data-title="" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://brucemarkdown.top/%E7%90%86%E8%A7%A3%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90-7a26c/" data-title="" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://brucemarkdown.top/%E7%90%86%E8%A7%A3%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90-7a26c/" data-title=""><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://brucemarkdown.top/%E7%90%86%E8%A7%A3%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90-7a26c/" data-title="理解均摊分析" data-hashtags="算法"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://brucemarkdown.top/%E7%90%86%E8%A7%A3%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90-7a26c/" data-hashtag="算法"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://brucemarkdown.top/%E7%90%86%E8%A7%A3%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90-7a26c/" data-title="理解均摊分析" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://brucemarkdown.top/%E7%90%86%E8%A7%A3%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90-7a26c/" data-title="理解均摊分析"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://brucemarkdown.top/%E7%90%86%E8%A7%A3%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90-7a26c/" data-title="理解均摊分析" data-image="https://tse1-mm.cn.bing.net/th/id/OIP-C.tSrZz_I2ToRj9-3lG17vewHaD9?pid=ImgDet&amp;rs=1"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://brucemarkdown.top/%E7%90%86%E8%A7%A3%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90-7a26c/" data-title="理解均摊分析" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://brucemarkdown.top/%E7%90%86%E8%A7%A3%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90-7a26c/" data-title="理解均摊分析" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://brucemarkdown.top/%E7%90%86%E8%A7%A3%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90-7a26c/" data-title="理解均摊分析"><i class="fab fa-evernote fa-fw"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E7%AE%97%E6%B3%95/">算法</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
         </section>
     </div>
 
-    <div class="post-nav">
-            <a href="/linuxshellnote/" class="next" rel="next" title="Linux Shell 笔记">Linux Shell 笔记<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/golang%E7%AC%94%E8%AE%B0-201e1/" class="prev" rel="prev" title="Golang学习笔记记录"><i class="fas fa-angle-left fa-fw"></i>Golang学习笔记记录</a></div>
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
