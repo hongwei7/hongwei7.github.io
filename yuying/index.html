@@ -1,0 +1,232 @@
+<!doctype html>
+<script type="text/javascript">
+    window._AMapSecurityConfig = {
+        securityJsCode: '37ca4ef6c31305c14409fd1bb626f1be',
+    }
+</script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js">
+</script>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>行政区边界查询</title>
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+    <style>
+        html,
+        body,
+        #container {
+            margin: 0;
+            height: 100%;
+        }
+
+        .input-item-text {
+            width: 7rem;
+        }
+
+        .input-card {
+            width: 3rem;
+        }
+    </style>
+</head>
+<document>
+
+    <div id="container"></div>
+    <div class="input-card">
+        <input id="draw" type="button" class="btn" value="查询" />
+    </div>
+    <script src="https://webapi.amap.com/maps?v=2.0&key=cb193dd5b7cb8756b18ebead37318895"></script>
+    <script type="text/javascript"
+        src="//webapi.amap.com/maps?v=2.0&key=cb193dd5b7cb8756b18ebead37318895&plugin=AMap.DistrictSearch"></script>
+    <script src="https://webapi.amap.com/loca?v=2.0.0&key=cb193dd5b7cb8756b18ebead37318895"></script>
+    <script type="text/javascript">
+        //初始化地图对象，加载地图
+        var map = new AMap.Map("container", {
+            resizeEnable: true,
+            center: [116.397428, 39.90923],//地图中心点
+            zoom: 12, //地图显示的缩放级别
+            mapStyle: "amap://styles/light",
+        });
+
+        var district = null;
+        var polygons = [];
+        function drawBounds() {
+            //加载行政区划插件
+            if (!district) {
+                //实例化DistrictSearch
+                var opts = {
+                    subdistrict: 0,   //获取边界不需要返回下级行政区
+                    extensions: 'all',  //返回行政区边界坐标组等具体信息
+                    level: 'district'  //查询行政级别为 市
+                };
+                district = new AMap.DistrictSearch(opts);
+            }
+            //行政区查询
+            district.setLevel('district')
+            district.search('信宜市', function (status, result) {
+                map.remove(polygons)//清除上次结果
+                polygons = [];
+                var bounds = result.districtList[0].boundaries;
+                if (bounds) {
+                    for (var i = 0, l = bounds.length; i < l; i++) {
+                        //生成行政区划polygon
+                        var polygon = new AMap.Polygon({
+                            strokeWeight: 1,
+                            path: bounds[i],
+                            fillOpacity: 0,
+                            fillColor: '#80d8ff',
+                            strokeColor: '#FF0000'
+                        });
+                        polygons.push(polygon);
+                    }
+                }
+                map.add(polygons)
+                map.setFitView(polygons);//视口自适应
+            });
+        }
+        drawBounds();
+
+        map.setFeatures(['bg', 'building', 'point']);
+
+        var labelsLayer = new AMap.LabelsLayer({
+            collision: true,
+            opacity: 1,
+            zIndex: 120,
+            collision: false,
+        });
+        map.add(labelsLayer)
+
+        function addMarker(l1, l2, content, color, fsize) {
+
+            // 创建一个 LabelMarker 实例
+            var labelMarker = new AMap.LabelMarker({
+                position: [l1, l2],
+                // opacity: 1,
+                // zIndex: 1,
+                icon: {
+                    'image': 'https://a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
+                    // anchor: 'bottom-center',
+                    size: [25, 34],
+                    // clipOrigin: [459, 92],
+                    // clipSize: [50, 68]
+                    offset: new AMap.Pixel(0, 4),
+                },
+                text: {
+                    content: content,
+                    direction: 'right',
+                    style: {
+                        fontSize: fsize,
+                        fillColor: color,
+                        // strokeColor: 'rgba(255,0,0,0.5)',
+                        // strokeWidth: 2,
+                        // padding: [3, 10],
+                        backgroundColor: 'white',
+                        borderColor: 'black',
+                        borderWidth: 0.2,
+                    }
+                }
+            });
+
+            labelsLayer.add(labelMarker);
+            return labelMarker;
+        }
+
+
+    </script>
+</document>
+<script>
+    window.onload = function () {
+        var i = 0;
+        markers = [[111.138333, 22.531389, '亚鹩坪交通联络站'],
+        [111.007778, 22.419722, '铁枝顶交通联络站'],
+        [110.876764, 22.20303, '八坊村秘密情报站'],
+        [110.938056, 22.556389, '八块垌交通联络站'],
+        [111.244722, 22.471111, '“新就店”交通联络站'],
+        [111.123889, 22.545833, '茶山东北交通联络站'],
+        [110.966389, 22.3875, '黄屋交通联络站'],
+        [110.863611, 22.375278, '“地站”交通联络站'],
+        [110.961667, 22.408889, '“日站”交通联络站'],
+        [110.90129, 22.439362, '“月站”交通联络站'],
+        [110.863333, 22.474444, '“星站”交通联络站'],
+        [110.761944, 22.338889, '“辰站”交通联络站'],
+        [110.881111, 22.333056, '“天站”交通联络站']];
+
+
+        function showLines() {
+            console.log("showLines");
+            var loca = new Loca.Container({
+                map,
+            });
+            window._loca = loca;
+
+            var geo = new Loca.GeoJSONSource({
+                url: 'Lines.json',
+            });
+
+            var layer = new Loca.PulseLineLayer({
+                // loca,
+                zIndex: 10,
+                opacity: 1,
+                visible: true,
+                zooms: [2, 22],
+            });
+
+            // var headColors = ['#EFBB51', '#7F3CFF', '#4CC19B', '#0B5D74', '#E06AC4', '#223F9B', '#F15C1A', '#7A0FA6'];
+
+            console.log('geo', geo);
+            layer.setSource(geo);
+            layer.setStyle({
+                altitude: 0,
+                lineWidth: 2,
+                // 脉冲头颜色
+                headColor: '#ff0000',
+                // 脉冲尾颜色
+                trailColor: 'rgba(220, 50, 50, 0.30)',
+                // 脉冲长度，0.25 表示一段脉冲占整条路的 1/4
+                interval: 0.25,
+                // 脉冲线的速度，几秒钟跑完整段路
+                duration: 5000,
+            });
+            loca.add(layer);
+            loca.animate.start();
+            
+        }
+
+
+
+        function ADD_MARKER() {
+            console.log(i);
+            if (i == markers.length) {
+                showLines();
+                i++
+                return;
+            }
+            if (i == markers.length + 1) {
+                drawBounds();
+                i++;
+                return;
+            }
+            if (i > markers.length) {
+                return;
+            }
+            m_i = markers[i];
+            i++;
+            var color = 'black';
+            var size = 14;
+            if(i == markers.length){
+                color = 'red';
+                size = 26;
+            }
+            map.setFitView(addMarker(m_i[0], m_i[1], m_i[2], color, size));
+            map.setZoom(11.7);
+        }
+
+        document.getElementById('draw').onclick = ADD_MARKER;
+
+    }
+
+</script>
+
+</html>
