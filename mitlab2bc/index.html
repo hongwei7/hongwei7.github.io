@@ -8,19 +8,19 @@
         <title>MIT-6.824-Lab2BC-Raft-LogReplication-Persistence - hongwei 的博客</title><meta name="Description" content="欢迎来到hongwei7的个人博客"><meta property="og:title" content="MIT-6.824-Lab2BC-Raft-LogReplication-Persistence" />
 <meta property="og:description" content="这次实验主要实现Log的一致性和持久性。主要是Debug的过程中会遇到非常多的问题。这里对遇到的问题做一下回顾。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://brucemarkdown.top/mitlab2bc/" /><meta property="og:image" content="https://brucemarkdown.top/logo.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://hongwei7.online/mitlab2bc/" /><meta property="og:image" content="https://hongwei7.online/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-06-15T00:43:41&#43;08:00" />
 <meta property="article:modified_time" content="2021-06-15T00:43:41&#43;08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://brucemarkdown.top/logo.png"/>
+<meta name="twitter:image" content="https://hongwei7.online/logo.png"/>
 
 <meta name="twitter:title" content="MIT-6.824-Lab2BC-Raft-LogReplication-Persistence"/>
 <meta name="twitter:description" content="这次实验主要实现Log的一致性和持久性。主要是Debug的过程中会遇到非常多的问题。这里对遇到的问题做一下回顾。"/>
 <meta name="application-name" content="hongwei&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="hongwei&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://brucemarkdown.top/mitlab2bc/" /><link rel="prev" href="https://brucemarkdown.top/mit-6.824-lab2a-raft-leaderelection/" /><link rel="next" href="https://brucemarkdown.top/golang%E7%AC%94%E8%AE%B0-201e1/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://hongwei7.online/mitlab2bc/" /><link rel="prev" href="https://hongwei7.online/mit-6.824-lab2a-raft-leaderelection/" /><link rel="next" href="https://hongwei7.online/golang%E7%AC%94%E8%AE%B0-201e1/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -28,9 +28,9 @@
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/brucemarkdown.top\/mitlab2bc\/"
+            "@id": "https:\/\/hongwei7.online\/mitlab2bc\/"
         },"genre": "posts","keywords": "Distributed System, Go","wordcount":  2630 ,
-        "url": "https:\/\/brucemarkdown.top\/mitlab2bc\/","datePublished": "2021-06-15T00:43:41+08:00","dateModified": "2021-06-15T00:43:41+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+        "url": "https:\/\/hongwei7.online\/mitlab2bc\/","datePublished": "2021-06-15T00:43:41+08:00","dateModified": "2021-06-15T00:43:41+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
@@ -115,11 +115,11 @@
         </div><div class="featured-image"><img
         class="lazyload"
         src="/svg/loading.min.svg"
-        data-src="https://brucemarkdown.top/images/raft/raft.png"
-        data-srcset="https://brucemarkdown.top/images/raft/raft.png, https://brucemarkdown.top/images/raft/raft.png 1.5x, https://brucemarkdown.top/images/raft/raft.png 2x"
+        data-src="https://hongwei7.online/images/raft/raft.png"
+        data-srcset="https://hongwei7.online/images/raft/raft.png, https://hongwei7.online/images/raft/raft.png 1.5x, https://hongwei7.online/images/raft/raft.png 2x"
         data-sizes="auto"
-        alt="https://brucemarkdown.top/images/raft/raft.png"
-        title="https://brucemarkdown.top/images/raft/raft.png" /></div><div class="details toc" id="toc-static"  kept="true">
+        alt="https://hongwei7.online/images/raft/raft.png"
+        title="https://hongwei7.online/images/raft/raft.png" /></div><div class="details toc" id="toc-static"  kept="true">
                 <div class="details-summary toc-title">
                     <span>目录</span>
                     <span><i class="details-icon fas fa-angle-right"></i></span>
@@ -603,7 +603,7 @@ ok      6.824/raft      183.121s
                             <a class="link-to-markdown" href="/mitlab2bc/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://brucemarkdown.top/mitlab2bc/" data-title="MIT-6.824-Lab2BC-Raft-LogReplication-Persistence" data-hashtags="Distributed System,Go"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://brucemarkdown.top/mitlab2bc/" data-hashtag="Distributed System"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://brucemarkdown.top/mitlab2bc/" data-title="MIT-6.824-Lab2BC-Raft-LogReplication-Persistence" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://brucemarkdown.top/mitlab2bc/" data-title="MIT-6.824-Lab2BC-Raft-LogReplication-Persistence"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://brucemarkdown.top/mitlab2bc/" data-title="MIT-6.824-Lab2BC-Raft-LogReplication-Persistence" data-image="https://brucemarkdown.top/images/raft/raft.png"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://brucemarkdown.top/mitlab2bc/" data-title="MIT-6.824-Lab2BC-Raft-LogReplication-Persistence" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://brucemarkdown.top/mitlab2bc/" data-title="MIT-6.824-Lab2BC-Raft-LogReplication-Persistence" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://brucemarkdown.top/mitlab2bc/" data-title="MIT-6.824-Lab2BC-Raft-LogReplication-Persistence"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://hongwei7.online/mitlab2bc/" data-title="MIT-6.824-Lab2BC-Raft-LogReplication-Persistence" data-hashtags="Distributed System,Go"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://hongwei7.online/mitlab2bc/" data-hashtag="Distributed System"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://hongwei7.online/mitlab2bc/" data-title="MIT-6.824-Lab2BC-Raft-LogReplication-Persistence" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://hongwei7.online/mitlab2bc/" data-title="MIT-6.824-Lab2BC-Raft-LogReplication-Persistence"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://hongwei7.online/mitlab2bc/" data-title="MIT-6.824-Lab2BC-Raft-LogReplication-Persistence" data-image="https://hongwei7.online/images/raft/raft.png"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://hongwei7.online/mitlab2bc/" data-title="MIT-6.824-Lab2BC-Raft-LogReplication-Persistence" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://hongwei7.online/mitlab2bc/" data-title="MIT-6.824-Lab2BC-Raft-LogReplication-Persistence" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://hongwei7.online/mitlab2bc/" data-title="MIT-6.824-Lab2BC-Raft-LogReplication-Persistence"><i class="fab fa-evernote fa-fw"></i></a></span>
             </div>
         </div>
     </div>

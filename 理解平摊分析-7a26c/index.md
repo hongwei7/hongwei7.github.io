@@ -55,7 +55,7 @@ $$
     - 插入新元素支出1元。
     - 储存2元。
 
-![Untitled](http://brucemarkdown.top/images/%E7%90%86%E8%A7%A3%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90%207a26c/Untitled.png)
+![Untitled](http://hongwei7.online/images/%E7%90%86%E8%A7%A3%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90%207a26c/Untitled.png)
 
 如此过程，**可以持续（显然）**，说明每个操作平摊复杂度上界为3元。
 
@@ -82,4 +82,3 @@ $$
 $$
 
 实际上势能方法，只是用代数来更精确地靠近上界。但是原理跟记账法其实是相同的。
-

@@ -1,10 +1,10 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>hongwei 的博客</title>
-        <link>https://brucemarkdown.top/en/</link>
+        <link>https://hongwei7.online/en/</link>
         <description>About LoveIt Theme</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>1216869567@qq.com (hongwei)</managingEditor>
             <webMaster>1216869567@qq.com (hongwei)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-            <atom:link href="https://brucemarkdown.top/en/index.xml" rel="self" type="application/rss+xml" />
+            <atom:link href="https://hongwei7.online/en/index.xml" rel="self" type="application/rss+xml" />
         </channel>
 </rss>
