@@ -9,9 +9,8 @@
 <meta property="og:description" content="在 CSAPP 中，说到在操作系统的线程概念模型中，每个线程有独立的栈，而线程之间不能访问其他栈的变量。但是在实现中有所区别，本文来做一个小小的实验。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://hongwei7.online/linux%E4%B8%8B%E7%BA%BF%E7%A8%8B%E4%B8%AD%E6%A0%88%E5%8F%98%E9%87%8F%E5%92%8C%E5%A0%86%E5%8F%98%E9%87%8F%E7%9A%84%E5%85%B1%E4%BA%AB%E6%80%A7/" /><meta property="og:image" content="https://hongwei7.online/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-05-22T15:40:05&#43;08:00" />
-<meta property="article:modified_time" content="2021-05-22T15:40:05&#43;08:00" />
-
+<meta property="article:published_time" content="2021-05-22T15:40:05+08:00" />
+<meta property="article:modified_time" content="2021-05-22T15:40:05+08:00" />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://hongwei7.online/logo.png"/>
 
@@ -29,7 +28,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/hongwei7.online\/linux%E4%B8%8B%E7%BA%BF%E7%A8%8B%E4%B8%AD%E6%A0%88%E5%8F%98%E9%87%8F%E5%92%8C%E5%A0%86%E5%8F%98%E9%87%8F%E7%9A%84%E5%85%B1%E4%BA%AB%E6%80%A7\/"
-        },"genre": "posts","keywords": "Linux, CS","wordcount":  601 ,
+        },"genre": "posts","keywords": "Linux, CS","wordcount":  602 ,
         "url": "https:\/\/hongwei7.online\/linux%E4%B8%8B%E7%BA%BF%E7%A8%8B%E4%B8%AD%E6%A0%88%E5%8F%98%E9%87%8F%E5%92%8C%E5%A0%86%E5%8F%98%E9%87%8F%E7%9A%84%E5%85%B1%E4%BA%AB%E6%80%A7\/","datePublished": "2021-05-22T15:40:05+08:00","dateModified": "2021-05-22T15:40:05+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -110,7 +109,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Linux下线程中栈变量和堆变量的共享性</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/hongwei7" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>hongwei</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-05-22">2021-05-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 601 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-05-22">2021-05-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 602 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
@@ -171,7 +170,7 @@
 <p>为了探究这一特性，做了相关的测试代码。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -213,47 +212,47 @@
 </span><span class="lnt">40
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cm">/*
-</span><span class="cm">* 创建两个全局指针 a，b，首先由 线程 1 修改两个指针分别指向堆变量和栈变量
-</span><span class="cm">* 线程 2 分别访问两个指针指向的地址，检验堆变量和栈变量的可访问性
-</span><span class="cm">*/</span>
-
-<span class="cp">#include</span> <span class="cpf">&lt;dbg.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;pthread.h&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="kt">int</span><span class="o">*</span> <span class="n">a</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
-<span class="kt">int</span> <span class="o">*</span><span class="n">b</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
-
-<span class="kt">void</span><span class="o">*</span> <span class="nf">fun1</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-    <span class="n">dbg</span><span class="p">(</span><span class="s">&#34;------1s------&#34;</span><span class="p">);</span>
-
-    <span class="n">dbg</span><span class="p">(</span><span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">(</span><span class="mi">1000</span><span class="p">));</span>
-    <span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span>
-    <span class="n">dbg</span><span class="p">(</span><span class="n">b</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">);</span>
-
-    <span class="k">return</span> <span class="k">nullptr</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">void</span><span class="o">*</span> <span class="nf">fun2</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">dbg</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
-    <span class="n">dbg</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
-
-    <span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-    <span class="n">dbg</span><span class="p">(</span><span class="s">&#34;------2s------&#34;</span><span class="p">);</span>
-
-    <span class="n">dbg</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="o">*</span><span class="n">a</span><span class="p">);</span>
-    <span class="n">dbg</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="o">*</span><span class="n">b</span><span class="p">);</span>
-    <span class="k">return</span> <span class="k">nullptr</span><span class="p">;</span>
-<span class="p">}</span> 
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">pthread_t</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">;</span>
-    <span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">p1</span><span class="p">,</span> <span class="k">nullptr</span><span class="p">,</span> <span class="n">fun1</span><span class="p">,</span> <span class="k">nullptr</span><span class="p">);</span>
-    <span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">p2</span><span class="p">,</span> <span class="k">nullptr</span><span class="p">,</span> <span class="n">fun2</span><span class="p">,</span> <span class="k">nullptr</span><span class="p">);</span>
-    <span class="n">pthread_join</span><span class="p">(</span><span class="n">p2</span><span class="p">,</span> <span class="k">nullptr</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">* 创建两个全局指针 a，b，首先由 线程 1 修改两个指针分别指向堆变量和栈变量
+</span></span></span><span class="line"><span class="cl"><span class="cm">* 线程 2 分别访问两个指针指向的地址，检验堆变量和栈变量的可访问性
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;dbg.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;pthread.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span><span class="o">*</span> <span class="n">a</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="o">*</span><span class="n">b</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span><span class="o">*</span> <span class="nf">fun1</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dbg</span><span class="p">(</span><span class="s">&#34;------1s------&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">dbg</span><span class="p">(</span><span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">(</span><span class="mi">1000</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dbg</span><span class="p">(</span><span class="n">b</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">nullptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span><span class="o">*</span> <span class="nf">fun2</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dbg</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dbg</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dbg</span><span class="p">(</span><span class="s">&#34;------2s------&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">dbg</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="o">*</span><span class="n">a</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dbg</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="o">*</span><span class="n">b</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">nullptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pthread_t</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">p1</span><span class="p">,</span> <span class="k">nullptr</span><span class="p">,</span> <span class="n">fun1</span><span class="p">,</span> <span class="k">nullptr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">p2</span><span class="p">,</span> <span class="k">nullptr</span><span class="p">,</span> <span class="n">fun2</span><span class="p">,</span> <span class="k">nullptr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pthread_join</span><span class="p">(</span><span class="n">p2</span><span class="p">,</span> <span class="k">nullptr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="details admonition tip open">
         <div class="details-summary admonition-title">
@@ -266,7 +265,7 @@
 <p>结果在 Ubuntu 18.0 中，测试结果如下</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -278,22 +277,22 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[test.cpp:19 (fun2)] a = nullptr (int*)
-[test.cpp:20 (fun2)] b = nullptr (int*)
-[test.cpp:9 (fun1)] ------1s------
-[test.cpp:11 (fun1)] a = new int(1000) = 0x7fa154000e10 (int*&amp;)
-[test.cpp:13 (fun1)] b = &amp;c = 0x7fa162597e64 (int*&amp;)
-[test.cpp:23 (fun2)] ------2s------
-[test.cpp:25 (fun2)] a = 0x7fa154000e10 (int*)
-[test.cpp:25 (fun2)] *a = 1000 (int&amp;)
-[test.cpp:26 (fun2)] b = 0x7fa162597e64 (int*)
-[test.cpp:26 (fun2)] *b = 200 (int&amp;)
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[test.cpp:19 (fun2)] a = nullptr (int*)
+</span></span><span class="line"><span class="cl">[test.cpp:20 (fun2)] b = nullptr (int*)
+</span></span><span class="line"><span class="cl">[test.cpp:9 (fun1)] ------1s------
+</span></span><span class="line"><span class="cl">[test.cpp:11 (fun1)] a = new int(1000) = 0x7fa154000e10 (int*&amp;)
+</span></span><span class="line"><span class="cl">[test.cpp:13 (fun1)] b = &amp;c = 0x7fa162597e64 (int*&amp;)
+</span></span><span class="line"><span class="cl">[test.cpp:23 (fun2)] ------2s------
+</span></span><span class="line"><span class="cl">[test.cpp:25 (fun2)] a = 0x7fa154000e10 (int*)
+</span></span><span class="line"><span class="cl">[test.cpp:25 (fun2)] *a = 1000 (int&amp;)
+</span></span><span class="line"><span class="cl">[test.cpp:26 (fun2)] b = 0x7fa162597e64 (int*)
+</span></span><span class="line"><span class="cl">[test.cpp:26 (fun2)] *b = 200 (int&amp;)
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在 Mac OS X 中 测试结果如下</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -305,17 +304,17 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">[test.cpp:19 (fun2)] a = nullptr (int*)
-[test.cpp:20 (fun2)] b = nullptr (int*)
-[test.cpp:9 (fun1)] ------1s------
-[test.cpp:11 (fun1)] a = new int(1000) = 0x7f81c4d040d0 (int*&amp;)
-[test.cpp:13 (fun1)] b = &amp;c = 0x7000003f6e9c (int*&amp;)
-[test.cpp:23 (fun2)] ------2s------
-[test.cpp:25 (fun2)] a = 0x7f81c4d040d0 (int*)
-[test.cpp:25 (fun2)] *a = 1000 (int&amp;)
-[test.cpp:26 (fun2)] b = 0x7000003f6e9c (int*)
-[1]    54143 segmentation fault  &#34;/Users/lulu/Desktop/code/&#34;test
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[test.cpp:19 (fun2)] a = nullptr (int*)
+</span></span><span class="line"><span class="cl">[test.cpp:20 (fun2)] b = nullptr (int*)
+</span></span><span class="line"><span class="cl">[test.cpp:9 (fun1)] ------1s------
+</span></span><span class="line"><span class="cl">[test.cpp:11 (fun1)] a = new int(1000) = 0x7f81c4d040d0 (int*&amp;)
+</span></span><span class="line"><span class="cl">[test.cpp:13 (fun1)] b = &amp;c = 0x7000003f6e9c (int*&amp;)
+</span></span><span class="line"><span class="cl">[test.cpp:23 (fun2)] ------2s------
+</span></span><span class="line"><span class="cl">[test.cpp:25 (fun2)] a = 0x7f81c4d040d0 (int*)
+</span></span><span class="line"><span class="cl">[test.cpp:25 (fun2)] *a = 1000 (int&amp;)
+</span></span><span class="line"><span class="cl">[test.cpp:26 (fun2)] b = 0x7000003f6e9c (int*)
+</span></span><span class="line"><span class="cl">[1]    54143 segmentation fault  &#34;/Users/lulu/Desktop/code/&#34;test
+</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="details admonition success open">
         <div class="details-summary admonition-title">
@@ -355,8 +354,8 @@
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/hongwei7" target="_blank">hongwei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/hongwei7" target="_blank">hongwei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

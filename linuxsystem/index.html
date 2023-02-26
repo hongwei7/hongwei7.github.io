@@ -9,9 +9,8 @@
 <meta property="og:description" content="🍮Linux系统级编程笔记。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://hongwei7.online/linuxsystem/" /><meta property="og:image" content="https://hongwei7.online/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-02-08T00:00:00&#43;00:00" />
-<meta property="article:modified_time" content="2021-02-08T00:00:00&#43;00:00" />
-
+<meta property="article:published_time" content="2021-02-08T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-02-08T00:00:00+00:00" />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://hongwei7.online/logo.png"/>
 
@@ -29,7 +28,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/hongwei7.online\/linuxsystem\/"
-        },"genre": "posts","keywords": "Coding, Linux","wordcount":  8067 ,
+        },"genre": "posts","keywords": "Coding, Linux","wordcount":  8113 ,
         "url": "https:\/\/hongwei7.online\/linuxsystem\/","datePublished": "2021-02-08T00:00:00+00:00","dateModified": "2021-02-08T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -110,7 +109,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Linux 系统编程</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/hongwei7" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>hongwei</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-02-08">2021-02-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 8067 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-02-08">2021-02-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 8113 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 17 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="true">
                 <div class="details-summary toc-title">
@@ -357,11 +356,11 @@
         title="/images/LinuxSystem/Untitled%202.png" /></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="k">extern</span> <span class="kt">char</span><span class="o">**</span> <span class="n">eniron</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">extern</span> <span class="kt">char</span><span class="o">**</span> <span class="n">eniron</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="getenv-获取环境变量">getenv 获取环境变量</h3>
 <h3 id="setenv设置环境变量">setenv设置环境变量</h3>
@@ -382,7 +381,7 @@
 <h3 id="创建n个进程">创建N个进程</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -404,27 +403,27 @@
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="kt">int</span> <span class="nf">forkN</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;I am the father %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">getpid</span><span class="p">());</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
-                <span class="kt">int</span> <span class="n">pid</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
-                <span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
-                        <span class="n">perror</span><span class="p">(</span><span class="s">&#34;fork error!&#34;</span><span class="p">);</span>
-                        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-                <span class="p">}</span>
-                <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
-                        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;I am the %d child %u, my father is %u</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">getpid</span><span class="p">(),</span> <span class="n">getppid</span><span class="p">());</span>
-                        <span class="k">break</span><span class="p">;</span>
-                <span class="p">}</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">forkN</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;I am the father %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="nf">getpid</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="kt">int</span> <span class="n">pid</span> <span class="o">=</span> <span class="nf">fork</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                        <span class="nf">perror</span><span class="p">(</span><span class="s">&#34;fork error!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                        <span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;I am the %d child %u, my father is %u</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nf">getpid</span><span class="p">(),</span> <span class="nf">getppid</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="进程共享">进程共享</h2>
 <p>刚fork完时，父子进程中</p>
@@ -440,13 +439,13 @@
 <h2 id="gdb调试多进程程序">gdb调试多进程程序</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="n">set</span> <span class="n">follow</span><span class="o">-</span><span class="n">fork</span><span class="o">-</span><span class="n">mod</span> <span class="n">child</span>
-<span class="n">set</span> <span class="n">follow</span><span class="o">-</span><span class="n">fork</span><span class="o">-</span><span class="n">mod</span> <span class="n">parent</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">set</span> <span class="n">follow</span><span class="o">-</span><span class="n">fork</span><span class="o">-</span><span class="n">mod</span> <span class="n">child</span>
+</span></span><span class="line"><span class="cl"><span class="n">set</span> <span class="n">follow</span><span class="o">-</span><span class="n">fork</span><span class="o">-</span><span class="n">mod</span> <span class="n">parent</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="exec类函数">exec类函数</h2>
 <p>让程序执行一个进程（原进程的用户空间和代码完全被新程序替换）。</p>
@@ -465,24 +464,24 @@
 <p>execlp：（list path）加载一个进程，借助环境变量</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="n">execlp</span><span class="p">(</span><span class="s">&#34;ls&#34;</span><span class="p">,</span> <span class="s">&#34;ls&#34;</span><span class="p">,</span> <span class="s">&#34;-l&#34;</span><span class="p">,</span> <span class="s">&#34;-a&#34;</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
-<span class="c1">//第二个参数相当于argv[0] 一般可能不使用
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="nf">execlp</span><span class="p">(</span><span class="s">&#34;ls&#34;</span><span class="p">,</span> <span class="s">&#34;ls&#34;</span><span class="p">,</span> <span class="s">&#34;-l&#34;</span><span class="p">,</span> <span class="s">&#34;-a&#34;</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//第二个参数相当于argv[0] 一般可能不使用
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
 <p>execl：通过路径+程序名来加载。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="n">execl</span><span class="p">(</span><span class="s">&#34;/bin/ls&#34;</span><span class="p">,</span> <span class="s">&#34;ls&#34;</span><span class="p">,</span> <span class="s">&#34;-l&#34;</span><span class="p">,</span> <span class="s">&#34;-a&#34;</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="nf">execl</span><span class="p">(</span><span class="s">&#34;/bin/ls&#34;</span><span class="p">,</span> <span class="s">&#34;ls&#34;</span><span class="p">,</span> <span class="s">&#34;-l&#34;</span><span class="p">,</span> <span class="s">&#34;-a&#34;</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -495,7 +494,7 @@
 <h2 id="保存-ps-结果到-out">保存 ps 结果到 out</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -518,28 +517,28 @@
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="kt">int</span> <span class="nf">ps</span><span class="p">()</span>
-<span class="p">{</span>
-        <span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">&#34;out&#34;</span><span class="p">,</span> <span class="n">O_WRONLY</span> <span class="o">|</span> <span class="n">O_CREAT</span> <span class="o">|</span> <span class="n">O_TRUNC</span><span class="p">,</span> <span class="mo">0644</span><span class="p">);</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">fd</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
-                <span class="n">perror</span><span class="p">(</span><span class="s">&#34;open file:&#34;</span><span class="p">);</span>
-                <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-        <span class="p">}</span>
-        <span class="n">dup2</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">STDOUT_FILENO</span><span class="p">);</span> <span class="c1">//把out文件的描述符复制到std::out
-</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">execlp</span><span class="p">(</span><span class="s">&#34;ps&#34;</span><span class="p">,</span> <span class="s">&#34;ps&#34;</span><span class="p">,</span> <span class="s">&#34;aux&#34;</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
-				<span class="k">if</span><span class="p">(</span><span class="n">res</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="n">perror</span><span class="p">(</span><span class="s">&#34;exec error:&#34;</span><span class="p">);</span>
-				<span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-        <span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
-        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">ps</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="s">&#34;out&#34;</span><span class="p">,</span> <span class="n">O_WRONLY</span> <span class="o">|</span> <span class="n">O_CREAT</span> <span class="o">|</span> <span class="n">O_TRUNC</span><span class="p">,</span> <span class="mo">0644</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">fd</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">perror</span><span class="p">(</span><span class="s">&#34;open file:&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">dup2</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">STDOUT_FILENO</span><span class="p">);</span> <span class="c1">//把out文件的描述符复制到std::out
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="nf">execlp</span><span class="p">(</span><span class="s">&#34;ps&#34;</span><span class="p">,</span> <span class="s">&#34;ps&#34;</span><span class="p">,</span> <span class="s">&#34;aux&#34;</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">				<span class="k">if</span><span class="p">(</span><span class="n">res</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="nf">perror</span><span class="p">(</span><span class="s">&#34;exec error:&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">				<span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>exec函数只在出错的时候返回-1。</p>
 <h2 id="回收子进程">回收子进程</h2>
@@ -661,7 +660,7 @@
 <h3 id="简单的管道示例">简单的管道示例：</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -694,38 +693,38 @@
 </span><span class="lnt">31
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="kt">int</span> <span class="nf">pipeTest</span><span class="p">(){</span>
-        <span class="kt">int</span> <span class="n">fd</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="c1">//两个文件描述符
-</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">pipe</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">ret</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
-                <span class="n">perror</span><span class="p">(</span><span class="s">&#34;pipe error:&#34;</span><span class="p">);</span>
-                <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-        <span class="p">}</span>
-        <span class="n">pid_t</span> <span class="n">pid</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
-                <span class="n">perror</span><span class="p">(</span><span class="s">&#34;fork&#34;</span><span class="p">);</span>
-                <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-        <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span> <span class="c1">//child read
-</span><span class="c1"></span>                <span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
-                <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
-                <span class="n">ret</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">buf</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buf</span><span class="p">));</span>
-                <span class="k">if</span><span class="p">(</span><span class="n">ret</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
-                        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;read done</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-                <span class="p">}</span>
-                <span class="n">write</span><span class="p">(</span><span class="n">STDOUT_FILENO</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="n">ret</span><span class="p">);</span>
-        <span class="p">}</span><span class="k">else</span><span class="p">{</span> <span class="c1">//father write
-</span><span class="c1"></span>                <span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-                <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-                <span class="kt">char</span> <span class="o">*</span> <span class="n">str</span> <span class="o">=</span> <span class="s">&#34;hello pipe</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
-                <span class="n">ret</span> <span class="o">=</span> <span class="n">write</span><span class="p">(</span><span class="n">fd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">str</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">str</span><span class="p">));</span>
-        <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">pipeTest</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">fd</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="c1">//两个文件描述符
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="nf">pipe</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">ret</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">perror</span><span class="p">(</span><span class="s">&#34;pipe error:&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">pid_t</span> <span class="n">pid</span> <span class="o">=</span> <span class="nf">fork</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">perror</span><span class="p">(</span><span class="s">&#34;fork&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span> <span class="c1">//child read
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="nf">close</span><span class="p">(</span><span class="n">fd</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">                <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ret</span> <span class="o">=</span> <span class="nf">read</span><span class="p">(</span><span class="n">fd</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">buf</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buf</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span><span class="p">(</span><span class="n">ret</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;read done</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">write</span><span class="p">(</span><span class="n">STDOUT_FILENO</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="n">ret</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span><span class="k">else</span><span class="p">{</span> <span class="c1">//father write
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="nf">close</span><span class="p">(</span><span class="n">fd</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="kt">char</span> <span class="o">*</span> <span class="n">str</span> <span class="o">=</span> <span class="s">&#34;hello pipe</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ret</span> <span class="o">=</span> <span class="nf">write</span><span class="p">(</span><span class="n">fd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">str</span><span class="p">,</span> <span class="nf">strlen</span><span class="p">(</span><span class="n">str</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="mmap-共享内存">mmap 共享内存</h2>
 <p><img
@@ -772,7 +771,7 @@
         title="/images/LinuxSystem/Untitled%2017.png" /></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -811,44 +810,44 @@
 </span><span class="lnt">37
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;sys/mman.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;string.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="kt">int</span> <span class="nf">mmapTest</span><span class="p">(){</span>
-	<span class="kt">char</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-	<span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">&#34;text&#34;</span><span class="p">,</span> <span class="n">O_RDWR</span> <span class="o">|</span> <span class="n">O_CREAT</span><span class="p">,</span> <span class="mo">0644</span><span class="p">);</span>
-	<span class="k">if</span><span class="p">(</span><span class="n">fd</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">){</span>
-		<span class="n">perror</span><span class="p">(</span><span class="s">&#34;open fail:&#34;</span><span class="p">);</span>
-		<span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-	<span class="p">}</span>
-	<span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> <span class="c1">//size
-</span><span class="c1"></span>	<span class="k">if</span><span class="p">(</span> <span class="n">ftruncate</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">len</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
-		<span class="n">perror</span><span class="p">(</span><span class="s">&#34;ftruncate&#34;</span><span class="p">);</span> <span class="c1">//拓展文件
-</span><span class="c1"></span>		<span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-	<span class="p">}</span>
-	<span class="n">p</span> <span class="o">=</span> <span class="n">mmap</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="n">len</span><span class="p">,</span> <span class="n">PROT_READ</span> <span class="o">|</span> <span class="n">PROT_WRITE</span><span class="p">,</span> <span class="n">MAP_SHARED</span><span class="p">,</span> <span class="n">fd</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-       <span class="k">if</span><span class="p">(</span><span class="n">p</span> <span class="o">==</span> <span class="n">MAP_FAILED</span><span class="p">){</span>
-	       <span class="n">perror</span><span class="p">(</span><span class="s">&#34;MAP FAILED&#34;</span><span class="p">);</span>
-	       <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-       <span class="p">}</span>       
-       <span class="n">strcpy</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="s">&#34;abc&#34;</span><span class="p">);</span> <span class="c1">//write to mmap
-</span><span class="c1"></span>       <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
-	<span class="k">if</span><span class="p">(</span><span class="n">res</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
-       		<span class="n">perror</span><span class="p">(</span><span class="s">&#34;close fail&#34;</span><span class="p">);</span>
-		<span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-       <span class="p">}</span>
-       <span class="n">res</span> <span class="o">=</span> <span class="n">munmap</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">len</span><span class="p">);</span>
-       <span class="k">if</span><span class="p">(</span><span class="n">res</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
-       		<span class="n">perror</span><span class="p">(</span><span class="s">&#34;unmap fail&#34;</span><span class="p">);</span>
-		<span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-       <span class="p">}</span>
-       <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;sys/mman.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">mmapTest</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">char</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="s">&#34;text&#34;</span><span class="p">,</span> <span class="n">O_RDWR</span> <span class="o">|</span> <span class="n">O_CREAT</span><span class="p">,</span> <span class="mo">0644</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="n">fd</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">perror</span><span class="p">(</span><span class="s">&#34;open fail:&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> <span class="c1">//size
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">if</span><span class="p">(</span> <span class="nf">ftruncate</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">len</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">perror</span><span class="p">(</span><span class="s">&#34;ftruncate&#34;</span><span class="p">);</span> <span class="c1">//拓展文件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="n">p</span> <span class="o">=</span> <span class="nf">mmap</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="n">len</span><span class="p">,</span> <span class="n">PROT_READ</span> <span class="o">|</span> <span class="n">PROT_WRITE</span><span class="p">,</span> <span class="n">MAP_SHARED</span><span class="p">,</span> <span class="n">fd</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">       <span class="k">if</span><span class="p">(</span><span class="n">p</span> <span class="o">==</span> <span class="n">MAP_FAILED</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">	       <span class="nf">perror</span><span class="p">(</span><span class="s">&#34;MAP FAILED&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	       <span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">       <span class="p">}</span>       
+</span></span><span class="line"><span class="cl">       <span class="nf">strcpy</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="s">&#34;abc&#34;</span><span class="p">);</span> <span class="c1">//write to mmap
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="nf">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="n">res</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">       		<span class="nf">perror</span><span class="p">(</span><span class="s">&#34;close fail&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">       <span class="p">}</span>
+</span></span><span class="line"><span class="cl">       <span class="n">res</span> <span class="o">=</span> <span class="nf">munmap</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">len</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">       <span class="k">if</span><span class="p">(</span><span class="n">res</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">       		<span class="nf">perror</span><span class="p">(</span><span class="s">&#34;unmap fail&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">       <span class="p">}</span>
+</span></span><span class="line"><span class="cl">       <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>注意事项：</p>
 <ul>
@@ -895,11 +894,11 @@
 <h3 id="strace命令">strace命令</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="n">strace</span> <span class="n">binfile</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">strace</span> <span class="n">binfile</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>可以查看程序调用的资源。</p>
 <h2 id="阶段性练习">阶段性练习</h2>
@@ -1135,7 +1134,7 @@
 <h3 id="示例打印未决信号集">示例：打印未决信号集</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1170,40 +1169,40 @@
 </span><span class="lnt">33
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;signal.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="kt">void</span> <span class="nf">printsig</span><span class="p">(</span><span class="n">sigset_t</span> <span class="o">*</span><span class="n">set</span><span class="p">){</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">32</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
-                <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="n">sigismember</span><span class="p">(</span><span class="n">set</span><span class="p">,</span> <span class="n">i</span><span class="p">));</span>
-        <span class="p">}</span><span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-        <span class="n">sigset_t</span> <span class="n">myset</span><span class="p">,</span> <span class="n">oldset</span><span class="p">,</span> <span class="n">pend</span><span class="p">;</span>
-
-        <span class="n">sigemptyset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">myset</span><span class="p">);</span>
-        <span class="n">sigaddset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">myset</span><span class="p">,</span> <span class="n">SIGQUIT</span><span class="p">);</span>
-        <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">sigprocmask</span><span class="p">(</span><span class="n">SIG_BLOCK</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">myset</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">oldset</span><span class="p">);</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">res</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
-                <span class="n">perror</span><span class="p">(</span><span class="s">&#34;sig error&#34;</span><span class="p">);</span>
-                <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-        <span class="p">}</span>
-
-        <span class="n">sigpending</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pend</span><span class="p">);</span>
-        <span class="n">printsig</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pend</span><span class="p">);</span>
-        <span class="n">raise</span><span class="p">(</span><span class="n">SIGQUIT</span><span class="p">);</span>
-        <span class="n">sigpending</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pend</span><span class="p">);</span>
-        <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
-                <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-                <span class="n">printsig</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pend</span><span class="p">);</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;signal.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">printsig</span><span class="p">(</span><span class="kt">sigset_t</span> <span class="o">*</span><span class="n">set</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">32</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="nf">sigismember</span><span class="p">(</span><span class="n">set</span><span class="p">,</span> <span class="n">i</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span><span class="nf">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">sigset_t</span> <span class="n">myset</span><span class="p">,</span> <span class="n">oldset</span><span class="p">,</span> <span class="n">pend</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nf">sigemptyset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">myset</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">sigaddset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">myset</span><span class="p">,</span> <span class="n">SIGQUIT</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="nf">sigprocmask</span><span class="p">(</span><span class="n">SIG_BLOCK</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">myset</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">oldset</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">res</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">perror</span><span class="p">(</span><span class="s">&#34;sig error&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nf">sigpending</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pend</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printsig</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pend</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">raise</span><span class="p">(</span><span class="n">SIGQUIT</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">sigpending</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pend</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">printsig</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pend</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="信号的捕捉">信号的捕捉</h2>
 <h3 id="signal-函数">signal 函数</h3>
@@ -1277,7 +1276,7 @@
 <p><strong>使用sigaction和pause实现sleep：</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1314,42 +1313,42 @@
 </span><span class="lnt">35
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;errno.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;signal.h&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="kt">void</span> <span class="nf">catchSignal</span><span class="p">(</span><span class="kt">int</span> <span class="n">signo</span><span class="p">){</span>
-	<span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">int</span> <span class="nf">mySleep</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">seconds</span><span class="p">){</span>
-	<span class="k">struct</span> <span class="n">sigaction</span> <span class="n">act</span><span class="p">,</span> <span class="n">oldact</span><span class="p">;</span>
-	<span class="n">act</span><span class="p">.</span><span class="n">sa_handler</span> <span class="o">=</span> <span class="n">catchSignal</span><span class="p">;</span>
-	<span class="n">sigemptyset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">act</span><span class="p">.</span><span class="n">sa_mask</span><span class="p">);</span>
-	<span class="n">act</span><span class="p">.</span><span class="n">sa_flags</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-
-	<span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">sigaction</span><span class="p">(</span><span class="n">SIGALRM</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">act</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">oldact</span><span class="p">);</span>
-	<span class="k">if</span><span class="p">(</span><span class="n">ret</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
-		<span class="n">perror</span><span class="p">(</span><span class="s">&#34;sigaction&#34;</span><span class="p">);</span>
-		<span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-	<span class="p">}</span>
-	<span class="n">alarm</span><span class="p">(</span><span class="n">seconds</span><span class="p">);</span>
-	<span class="n">ret</span> <span class="o">=</span> <span class="n">pause</span><span class="p">();</span>
-	<span class="k">if</span><span class="p">(</span><span class="n">ret</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">errno</span> <span class="o">==</span> <span class="n">EINTR</span><span class="p">){</span>
-		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;signal caught!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-	<span class="p">}</span>
-
-	<span class="n">ret</span> <span class="o">=</span> <span class="n">alarm</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-	<span class="n">sigaction</span><span class="p">(</span><span class="n">SIGALRM</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">oldact</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
-	<span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
-	<span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="n">mySleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;errno.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;signal.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">catchSignal</span><span class="p">(</span><span class="kt">int</span> <span class="n">signo</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">	<span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">mySleep</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">seconds</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">	<span class="k">struct</span> <span class="n">sigaction</span> <span class="n">act</span><span class="p">,</span> <span class="n">oldact</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">act</span><span class="p">.</span><span class="n">sa_handler</span> <span class="o">=</span> <span class="n">catchSignal</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">sigemptyset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">act</span><span class="p">.</span><span class="n">sa_mask</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">act</span><span class="p">.</span><span class="n">sa_flags</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="nf">sigaction</span><span class="p">(</span><span class="n">SIGALRM</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">act</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">oldact</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="n">ret</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">perror</span><span class="p">(</span><span class="s">&#34;sigaction&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">alarm</span><span class="p">(</span><span class="n">seconds</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">ret</span> <span class="o">=</span> <span class="nf">pause</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="n">ret</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">errno</span> <span class="o">==</span> <span class="n">EINTR</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">printf</span><span class="p">(</span><span class="s">&#34;signal caught!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">ret</span> <span class="o">=</span> <span class="nf">alarm</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">sigaction</span><span class="p">(</span><span class="n">SIGALRM</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">oldact</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">	<span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="nf">mySleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="时序竞态">时序竞态</h2>
 <h3 id="一个会出问题的例子">一个会出问题的例子</h3>
@@ -1393,7 +1392,7 @@
 <p>父子进程之间交替数数程序。运行一段时间后两者都永久等待。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1466,78 +1465,78 @@
 </span><span class="lnt">71
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;signal.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  <span class="c1">//定义两个全局变量（注意了）
-</span><span class="c1"></span> 
-<span class="kt">void</span> <span class="nf">sys_err</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">str</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">perror</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
-    <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-<span class="p">}</span>
- 
-<span class="kt">void</span> <span class="nf">do_sig_child</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">)</span>  <span class="c1">//子进程的用户处理函数
-</span><span class="c1"></span><span class="p">{</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;I am child  %d</span><span class="se">\t</span><span class="s">%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">getpid</span><span class="p">(),</span> <span class="n">n</span><span class="p">);</span>
-    <span class="n">n</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">;</span>
-    <span class="n">flag</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>  <span class="c1">//对全局变量的修改
-</span><span class="c1"></span><span class="p">}</span>
- 
-<span class="kt">void</span> <span class="nf">do_sig_parent</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">)</span>   <span class="c1">//父进程的用户处理函数
-</span><span class="c1"></span><span class="p">{</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;I am parent %d</span><span class="se">\t</span><span class="s">%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">getpid</span><span class="p">(),</span> <span class="n">n</span><span class="p">);</span>
-    <span class="n">n</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">;</span>
-    <span class="n">flag</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>  <span class="c1">//对全局变量的修改
-</span><span class="c1"></span><span class="p">}</span>
- 
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">pid_t</span> <span class="n">pid</span><span class="p">;</span>
-    <span class="k">struct</span> <span class="n">sigaction</span> <span class="n">act</span><span class="p">;</span>
- 
-    <span class="k">if</span> <span class="p">((</span><span class="n">pid</span> <span class="o">=</span> <span class="n">fork</span><span class="p">())</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="n">sys_err</span><span class="p">(</span><span class="s">&#34;fork&#34;</span><span class="p">);</span>
- 
-    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">pid</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">n</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>          <span class="c1">//父进程从1开始数
-</span><span class="c1"></span>        <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>       <span class="c1">//父进程睡眠1s确保在父进程向子进程发信号之前，子进程完成了对信号的注册
-</span><span class="c1"></span>        <span class="n">act</span><span class="p">.</span><span class="n">sa_handler</span> <span class="o">=</span> <span class="n">do_sig_parent</span><span class="p">;</span>
-        <span class="n">sigemptyset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">act</span><span class="p">.</span><span class="n">sa_mask</span><span class="p">);</span>
-        <span class="n">act</span><span class="p">.</span><span class="n">sa_flags</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="n">sigaction</span><span class="p">(</span><span class="n">SIGUSR2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">act</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>             <span class="c1">//注册自己的信号捕捉函数，父进程使用SIGUSR2信号
-</span><span class="c1"></span> 
-        <span class="n">do_sig_parent</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>   <span class="c1">//父进程先进行数数，从1开始
-</span><span class="c1"></span> 
-        <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-            <span class="cm">/* wait for signal */</span><span class="p">;</span>
-           <span class="k">if</span> <span class="p">(</span><span class="n">flag</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>                         <span class="c1">//父进程数数完成
-</span><span class="c1"></span>                <span class="n">kill</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="n">SIGUSR1</span><span class="p">);</span>
-                <span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>                        <span class="c1">//标志已经给子进程发送完信号
-</span><span class="c1"></span>            <span class="p">}</span>
-        <span class="p">}</span>
- 
-    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
-        <span class="n">n</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>      <span class="c1">//子进程从2开始数
-</span><span class="c1"></span>        <span class="n">act</span><span class="p">.</span><span class="n">sa_handler</span> <span class="o">=</span> <span class="n">do_sig_child</span><span class="p">;</span>
-        <span class="n">sigemptyset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">act</span><span class="p">.</span><span class="n">sa_mask</span><span class="p">);</span>
-        <span class="n">act</span><span class="p">.</span><span class="n">sa_flags</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="n">sigaction</span><span class="p">(</span><span class="n">SIGUSR1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">act</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
- 
-        <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-            <span class="cm">/* wait for signal */</span><span class="p">;</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">flag</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-                <span class="n">kill</span><span class="p">(</span><span class="n">getppid</span><span class="p">(),</span> <span class="n">SIGUSR2</span><span class="p">);</span>
-                <span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
- 
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;signal.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  <span class="c1">//定义两个全局变量（注意了）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> 
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">sys_err</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">str</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">perror</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">do_sig_child</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">)</span>  <span class="c1">//子进程的用户处理函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;I am child  %d</span><span class="se">\t</span><span class="s">%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="nf">getpid</span><span class="p">(),</span> <span class="n">n</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">n</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">flag</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>  <span class="c1">//对全局变量的修改
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">do_sig_parent</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">)</span>   <span class="c1">//父进程的用户处理函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;I am parent %d</span><span class="se">\t</span><span class="s">%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="nf">getpid</span><span class="p">(),</span> <span class="n">n</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">n</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">flag</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>  <span class="c1">//对全局变量的修改
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">pid_t</span> <span class="n">pid</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">sigaction</span> <span class="n">act</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">((</span><span class="n">pid</span> <span class="o">=</span> <span class="nf">fork</span><span class="p">())</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">sys_err</span><span class="p">(</span><span class="s">&#34;fork&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">pid</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">n</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>          <span class="c1">//父进程从1开始数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nf">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>       <span class="c1">//父进程睡眠1s确保在父进程向子进程发信号之前，子进程完成了对信号的注册
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">act</span><span class="p">.</span><span class="n">sa_handler</span> <span class="o">=</span> <span class="n">do_sig_parent</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">sigemptyset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">act</span><span class="p">.</span><span class="n">sa_mask</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">act</span><span class="p">.</span><span class="n">sa_flags</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">sigaction</span><span class="p">(</span><span class="n">SIGUSR2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">act</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>             <span class="c1">//注册自己的信号捕捉函数，父进程使用SIGUSR2信号
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> 
+</span></span><span class="line"><span class="cl">        <span class="nf">do_sig_parent</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>   <span class="c1">//父进程先进行数数，从1开始
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> 
+</span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="cm">/* wait for signal */</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">           <span class="k">if</span> <span class="p">(</span><span class="n">flag</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>                         <span class="c1">//父进程数数完成
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="nf">kill</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="n">SIGUSR1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>                        <span class="c1">//标志已经给子进程发送完信号
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">n</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>      <span class="c1">//子进程从2开始数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">act</span><span class="p">.</span><span class="n">sa_handler</span> <span class="o">=</span> <span class="n">do_sig_child</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">sigemptyset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">act</span><span class="p">.</span><span class="n">sa_mask</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">act</span><span class="p">.</span><span class="n">sa_flags</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">sigaction</span><span class="p">(</span><span class="n">SIGUSR1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">act</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="cm">/* wait for signal */</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">flag</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">kill</span><span class="p">(</span><span class="nf">getppid</span><span class="p">(),</span> <span class="n">SIGUSR2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>问题在于flag的修改，若某一进程修改不及时，另一进程已经发送了信号，那么就会导致原进程在执行完信号后才修改flag为0，那么两者就会死锁。</p>
 <p>这里的全局是原程序和内核回调函数的并行。</p>
@@ -1713,7 +1712,7 @@
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1755,47 +1754,47 @@
 </span><span class="lnt">40
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-	<span class="n">pid_t</span> <span class="n">pid</span><span class="p">,</span> <span class="n">spid</span><span class="p">;</span>
-
-	<span class="n">pid</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
-	<span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="c1">//child
-</span><span class="c1"></span>	<span class="p">{</span>
-		<span class="n">spid</span> <span class="o">=</span> <span class="n">setsid</span><span class="p">();</span>
-		<span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">chdir</span><span class="p">(</span><span class="s">&#34;/home/hongwei&#34;</span><span class="p">);</span>
-		<span class="k">if</span><span class="p">(</span><span class="n">ret</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
-			<span class="n">perror</span><span class="p">(</span><span class="s">&#34;chdir&#34;</span><span class="p">);</span>
-			<span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-		<span class="p">}</span>
-		<span class="n">umask</span><span class="p">(</span><span class="mo">0002</span><span class="p">);</span>
-		
-		<span class="n">close</span><span class="p">(</span><span class="n">STDIN_FILENO</span><span class="p">);</span>
-		<span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">&#34;/dev/null&#34;</span><span class="p">,</span> <span class="n">O_RDWR</span><span class="p">);</span>
-		<span class="k">if</span><span class="p">(</span><span class="n">fd</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">){</span>
-			<span class="n">perror</span><span class="p">(</span><span class="s">&#34;open&#34;</span><span class="p">);</span>
-			<span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-		<span class="p">}</span>
-		<span class="n">dup2</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">STDOUT_FILENO</span><span class="p">);</span>
-		<span class="n">dup2</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">STDERR_FILENO</span><span class="p">);</span>
-		<span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
-			<span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>	
-		<span class="p">}</span>
-		
-	<span class="p">}</span>
-	<span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">){</span>
-		<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">pid_t</span> <span class="n">pid</span><span class="p">,</span> <span class="n">spid</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">pid</span> <span class="o">=</span> <span class="nf">fork</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="c1">//child
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">spid</span> <span class="o">=</span> <span class="nf">setsid</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">		<span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="nf">chdir</span><span class="p">(</span><span class="s">&#34;/home/hongwei&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span><span class="p">(</span><span class="n">ret</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">			<span class="nf">perror</span><span class="p">(</span><span class="s">&#34;chdir&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">			<span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">umask</span><span class="p">(</span><span class="mo">0002</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="nf">close</span><span class="p">(</span><span class="n">STDIN_FILENO</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="s">&#34;/dev/null&#34;</span><span class="p">,</span> <span class="n">O_RDWR</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span><span class="p">(</span><span class="n">fd</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">			<span class="nf">perror</span><span class="p">(</span><span class="s">&#34;open&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">			<span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">dup2</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">STDOUT_FILENO</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">dup2</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">STDERR_FILENO</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">			<span class="nf">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>	
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">pid</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在bashrc文件中加入运行命令，则可以保证每次开机自动启动。</p>
 <h1 id="线程">线程</h1>
@@ -2125,17 +2124,17 @@
 <p>abstime是绝对时间(相对于unix诞生时间):</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="n">time_t</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">time</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
-<span class="k">struct</span> <span class="n">timespec</span> <span class="n">t</span><span class="p">;</span>
-<span class="n">t</span><span class="p">.</span><span class="n">tv_sec</span> <span class="o">=</span> <span class="n">cur</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
-<span class="n">pthread_cond_timedwait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cond</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">mutex</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">time_t</span> <span class="n">cur</span> <span class="o">=</span> <span class="nf">time</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">timespec</span> <span class="n">t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">t</span><span class="p">.</span><span class="n">tv_sec</span> <span class="o">=</span> <span class="n">cur</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nf">pthread_cond_timedwait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cond</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">mutex</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="使用条件变量解决生产者消费者模型">使用条件变量解决生产者消费者模型</h3>
 <p><img
@@ -2150,7 +2149,7 @@
 <p>条件变量的优点在于减少了竞争，消费者之间在生产时不再需要竞争互斥锁。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -2222,77 +2221,77 @@
 </span><span class="lnt">70
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span><span class="cpf">&lt;pthread.h&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="n">pthread_mutex_t</span> <span class="n">mutex</span> <span class="o">=</span> <span class="n">PTHREAD_MUTEX_INITIALIZER</span><span class="p">;</span>
-<span class="n">pthread_cond_t</span> <span class="n">has_product</span> <span class="o">=</span> <span class="n">PTHREAD_COND_INITIALIZER</span><span class="p">;</span>
-
-<span class="k">struct</span> <span class="n">msg</span><span class="p">{</span>
-	<span class="kt">int</span> <span class="n">num</span><span class="p">;</span>
-	<span class="k">struct</span> <span class="n">msg</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
-<span class="p">};</span>
-
-<span class="k">struct</span> <span class="n">msg</span> <span class="o">*</span><span class="n">head</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">,</span> <span class="o">*</span><span class="n">mp</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">,</span> <span class="o">*</span><span class="n">mc</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-
-<span class="kt">void</span><span class="o">*</span> <span class="nf">producer</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">arg</span><span class="p">){</span>
-	<span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
-		<span class="n">mp</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">msg</span><span class="p">));</span>
-		<span class="n">mp</span> <span class="o">-&gt;</span> <span class="n">num</span> <span class="o">=</span> <span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">400</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
-		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;=&gt;produced %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">mp</span> <span class="o">-&gt;</span> <span class="n">num</span><span class="p">);</span>
-		
-		<span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
-		<span class="n">mp</span> <span class="o">-&gt;</span> <span class="n">next</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
-		<span class="n">head</span> <span class="o">=</span> <span class="n">mp</span><span class="p">;</span>
-		<span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
-		<span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">pthread_cond_signal</span><span class="p">(</span><span class="o">&amp;</span><span class="n">has_product</span><span class="p">);</span>
-		<span class="k">if</span><span class="p">(</span><span class="n">ret</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">){</span>
-			<span class="n">printf</span><span class="p">(</span><span class="s">&#34;signal failed</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-			<span class="n">pthread_exit</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
-		<span class="p">}</span>
-		<span class="n">sleep</span><span class="p">(</span><span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">3</span><span class="p">);</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">void</span><span class="o">*</span> <span class="nf">consumer</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">arg</span><span class="p">){</span>
-	<span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
-		<span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
-		<span class="k">while</span><span class="p">(</span><span class="n">head</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">){</span>
-			<span class="n">pthread_cond_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">has_product</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
-		<span class="p">}</span>
-		<span class="n">mc</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
-		<span class="n">head</span> <span class="o">=</span> <span class="n">mc</span> <span class="o">-&gt;</span> <span class="n">next</span><span class="p">;</span>
-		<span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
-		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;=&gt;consumed: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">mc</span><span class="o">-&gt;</span><span class="n">num</span><span class="p">);</span>
-		<span class="n">free</span><span class="p">(</span><span class="n">mc</span><span class="p">);</span>
-		<span class="n">mc</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-		<span class="n">sleep</span><span class="p">(</span><span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">2</span><span class="p">);</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-	<span class="n">pthread_t</span> <span class="n">ptid</span><span class="p">,</span> <span class="n">ctid</span><span class="p">;</span>
-	<span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ptid</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">producer</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
-	<span class="k">if</span><span class="p">(</span><span class="n">ret</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">){</span>
-		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;create error</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-		<span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-	<span class="p">}</span>
-	<span class="n">ret</span> <span class="o">=</span> <span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ctid</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">consumer</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
-	<span class="k">if</span><span class="p">(</span><span class="n">ret</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">){</span>
-		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;create error</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-		<span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-	<span class="p">}</span>
-
-	<span class="n">pthread_join</span><span class="p">(</span><span class="n">ptid</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
-	<span class="n">pthread_join</span><span class="p">(</span><span class="n">ctid</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
-
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;pthread.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">pthread_mutex_t</span> <span class="n">mutex</span> <span class="o">=</span> <span class="n">PTHREAD_MUTEX_INITIALIZER</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">pthread_cond_t</span> <span class="n">has_product</span> <span class="o">=</span> <span class="n">PTHREAD_COND_INITIALIZER</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">msg</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">num</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">struct</span> <span class="n">msg</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">msg</span> <span class="o">*</span><span class="n">head</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">,</span> <span class="o">*</span><span class="n">mp</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">,</span> <span class="o">*</span><span class="n">mc</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span><span class="o">*</span> <span class="nf">producer</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">arg</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">	<span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">		<span class="n">mp</span> <span class="o">=</span> <span class="nf">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">msg</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">		<span class="n">mp</span> <span class="o">-&gt;</span> <span class="n">num</span> <span class="o">=</span> <span class="nf">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">400</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">printf</span><span class="p">(</span><span class="s">&#34;=&gt;produced %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">mp</span> <span class="o">-&gt;</span> <span class="n">num</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="nf">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">mp</span> <span class="o">-&gt;</span> <span class="n">next</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">head</span> <span class="o">=</span> <span class="n">mp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="nf">pthread_cond_signal</span><span class="p">(</span><span class="o">&amp;</span><span class="n">has_product</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span><span class="p">(</span><span class="n">ret</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">			<span class="nf">printf</span><span class="p">(</span><span class="s">&#34;signal failed</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">			<span class="nf">pthread_exit</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">sleep</span><span class="p">(</span><span class="nf">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span><span class="o">*</span> <span class="nf">consumer</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">arg</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">	<span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="k">while</span><span class="p">(</span><span class="n">head</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">			<span class="nf">pthread_cond_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">has_product</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="n">mc</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">head</span> <span class="o">=</span> <span class="n">mc</span> <span class="o">-&gt;</span> <span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">printf</span><span class="p">(</span><span class="s">&#34;=&gt;consumed: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">mc</span><span class="o">-&gt;</span><span class="n">num</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">free</span><span class="p">(</span><span class="n">mc</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">mc</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">sleep</span><span class="p">(</span><span class="nf">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">pthread_t</span> <span class="n">ptid</span><span class="p">,</span> <span class="n">ctid</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="nf">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ptid</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">producer</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="n">ret</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">printf</span><span class="p">(</span><span class="s">&#34;create error</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="n">ret</span> <span class="o">=</span> <span class="nf">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ctid</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">consumer</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="n">ret</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">printf</span><span class="p">(</span><span class="s">&#34;create error</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nf">pthread_join</span><span class="p">(</span><span class="n">ptid</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">pthread_join</span><span class="p">(</span><span class="n">ctid</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="信号量也可以应用于进程间同步">信号量（也可以应用于进程间同步）</h2>
 <p>进化版的互斥锁。留意信号量的函数都是用errno来返回错误信息。</p>
@@ -2328,7 +2327,7 @@
 <h3 id="生产者消费者">生产者消费者</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -2359,36 +2358,36 @@
 </span><span class="lnt">29
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="o">*</span><span class="nf">producer</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-
-    <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">sem_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">blank_number</span><span class="p">);</span>                    <span class="c1">//生产者将空格子数--,为0则阻塞等待
-</span><span class="c1"></span>        <span class="n">queue</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">1000</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>               <span class="c1">//生产一个产品
-</span><span class="c1"></span>        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;----Produce---%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">queue</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>        
-        <span class="n">sem_post</span><span class="p">(</span><span class="o">&amp;</span><span class="n">product_number</span><span class="p">);</span>                  <span class="c1">//将产品数++
-</span><span class="c1"></span>
-        <span class="n">i</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">NUM</span><span class="p">;</span>                            <span class="c1">//借助下标实现环形
-</span><span class="c1"></span>        <span class="c1">//sleep(rand()%3);
-</span><span class="c1"></span>    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="kt">void</span> <span class="o">*</span><span class="nf">consumer</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-
-    <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">sem_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">product_number</span><span class="p">);</span>                  <span class="c1">//消费者将产品数--,为0则阻塞等待
-</span><span class="c1"></span>        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;-Consume---%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">queue</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-        <span class="n">queue</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>                               <span class="c1">//消费一个产品 
-</span><span class="c1"></span>        <span class="n">sem_post</span><span class="p">(</span><span class="o">&amp;</span><span class="n">blank_number</span><span class="p">);</span>                    <span class="c1">//消费掉以后,将空格子数++
-</span><span class="c1"></span>
-        <span class="n">i</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">NUM</span><span class="p">;</span>
-        <span class="c1">//sleep(rand()%3);
-</span><span class="c1"></span>    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="o">*</span><span class="nf">producer</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">sem_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">blank_number</span><span class="p">);</span>                    <span class="c1">//生产者将空格子数--,为0则阻塞等待
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">queue</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nf">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">1000</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>               <span class="c1">//生产一个产品
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;----Produce---%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">queue</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>        
+</span></span><span class="line"><span class="cl">        <span class="nf">sem_post</span><span class="p">(</span><span class="o">&amp;</span><span class="n">product_number</span><span class="p">);</span>                  <span class="c1">//将产品数++
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">        <span class="n">i</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">NUM</span><span class="p">;</span>                            <span class="c1">//借助下标实现环形
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//sleep(rand()%3);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="o">*</span><span class="nf">consumer</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">sem_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">product_number</span><span class="p">);</span>                  <span class="c1">//消费者将产品数--,为0则阻塞等待
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;-Consume---%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">queue</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">queue</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>                               <span class="c1">//消费一个产品 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nf">sem_post</span><span class="p">(</span><span class="o">&amp;</span><span class="n">blank_number</span><span class="p">);</span>                    <span class="c1">//消费掉以后,将空格子数++
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">        <span class="n">i</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">NUM</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//sleep(rand()%3);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>为什么不需要互斥锁？</p>
 <h2 id="进程间同步">进程间同步</h2>
@@ -2404,7 +2403,7 @@
         title="/images/LinuxSystem/Untitled%2086.png" /></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -2466,67 +2465,67 @@
 </span><span class="lnt">60
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;pthread.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;sys/mman.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="k">struct</span> <span class="n">mt</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">num</span><span class="p">;</span>
-    <span class="n">pthread_mutex_t</span> <span class="n">mutex</span><span class="p">;</span>
-    <span class="n">pthread_mutexattr_t</span> <span class="n">mutexattr</span><span class="p">;</span>
-<span class="p">};</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
-    <span class="k">struct</span> <span class="n">mt</span> <span class="o">*</span><span class="n">mm</span><span class="p">;</span>
-    <span class="n">pid_t</span> <span class="n">pid</span><span class="p">;</span>
-<span class="cm">/*
-</span><span class="cm">    int fd = open(&#34;mt_test&#34;, O_CREAT | O_RDWR, 0777);
-</span><span class="cm">    ftruncate(fd, sizeof(*mm));
-</span><span class="cm">    mm = mmap(NULL, sizeof(*mm), PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
-</span><span class="cm">    close(fd);
-</span><span class="cm">    unlink(&#34;mt_test&#34;);
-</span><span class="cm">*/</span>
-    <span class="n">mm</span> <span class="o">=</span> <span class="n">mmap</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">mm</span><span class="p">),</span> <span class="n">PROT_READ</span><span class="o">|</span><span class="n">PROT_WRITE</span><span class="p">,</span> <span class="n">MAP_SHARED</span><span class="o">|</span><span class="n">MAP_ANON</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-    <span class="n">memset</span><span class="p">(</span><span class="n">mm</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">mm</span><span class="p">));</span>
-
-    <span class="n">pthread_mutexattr_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">mutexattr</span><span class="p">);</span>                                  <span class="c1">//初始化mutex属性对象
-</span><span class="c1"></span>    <span class="n">pthread_mutexattr_setpshared</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">mutexattr</span><span class="p">,</span> <span class="n">PTHREAD_PROCESS_SHARED</span><span class="p">);</span>    <span class="c1">//修改属性为进程间共享
-</span><span class="c1"></span>
-    <span class="n">pthread_mutex_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">mutexattr</span><span class="p">);</span>                          <span class="c1">//初始化一把mutex琐
-</span><span class="c1"></span>
-    <span class="n">pid</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
-            <span class="p">(</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">num</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>
-            <span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&#34;-child----------num++   %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">mm</span><span class="o">-&gt;</span><span class="n">num</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">pid</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">for</span> <span class="p">(</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">//    sleep(1);
-</span><span class="c1"></span>            <span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
-            <span class="n">mm</span><span class="o">-&gt;</span><span class="n">num</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">;</span>
-            <span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
-            <span class="n">printf</span><span class="p">(</span><span class="s">&#34;-------parent---num+=2  %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">mm</span><span class="o">-&gt;</span><span class="n">num</span><span class="p">);</span>
-        <span class="p">}</span>
-        <span class="n">wait</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="n">pthread_mutexattr_destroy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">mutexattr</span><span class="p">);</span>          <span class="c1">//销毁mutex属性对象
-</span><span class="c1"></span>    <span class="n">pthread_mutex_destroy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>                  <span class="c1">//销毁mutex
-</span><span class="c1"></span>    <span class="n">munmap</span><span class="p">(</span><span class="n">mm</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">mm</span><span class="p">));</span>                             <span class="c1">//释放映射区
-</span><span class="c1"></span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;pthread.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/mman.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">mt</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">num</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">pthread_mutex_t</span> <span class="n">mutex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">pthread_mutexattr_t</span> <span class="n">mutexattr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">mt</span> <span class="o">*</span><span class="n">mm</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">pid_t</span> <span class="n">pid</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">    int fd = open(&#34;mt_test&#34;, O_CREAT | O_RDWR, 0777);
+</span></span></span><span class="line"><span class="cl"><span class="cm">    ftruncate(fd, sizeof(*mm));
+</span></span></span><span class="line"><span class="cl"><span class="cm">    mm = mmap(NULL, sizeof(*mm), PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
+</span></span></span><span class="line"><span class="cl"><span class="cm">    close(fd);
+</span></span></span><span class="line"><span class="cl"><span class="cm">    unlink(&#34;mt_test&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span><span class="line"><span class="cl">    <span class="n">mm</span> <span class="o">=</span> <span class="nf">mmap</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">mm</span><span class="p">),</span> <span class="n">PROT_READ</span><span class="o">|</span><span class="n">PROT_WRITE</span><span class="p">,</span> <span class="n">MAP_SHARED</span><span class="o">|</span><span class="n">MAP_ANON</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">memset</span><span class="p">(</span><span class="n">mm</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">mm</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nf">pthread_mutexattr_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">mutexattr</span><span class="p">);</span>                                  <span class="c1">//初始化mutex属性对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">pthread_mutexattr_setpshared</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">mutexattr</span><span class="p">,</span> <span class="n">PTHREAD_PROCESS_SHARED</span><span class="p">);</span>    <span class="c1">//修改属性为进程间共享
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="nf">pthread_mutex_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">mutexattr</span><span class="p">);</span>                          <span class="c1">//初始化一把mutex琐
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="n">pid</span> <span class="o">=</span> <span class="nf">fork</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">num</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;-child----------num++   %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">mm</span><span class="o">-&gt;</span><span class="n">num</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">pid</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//    sleep(1);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nf">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">mm</span><span class="o">-&gt;</span><span class="n">num</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;-------parent---num+=2  %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">mm</span><span class="o">-&gt;</span><span class="n">num</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">wait</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nf">pthread_mutexattr_destroy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">mutexattr</span><span class="p">);</span>          <span class="c1">//销毁mutex属性对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">pthread_mutex_destroy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mm</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>                  <span class="c1">//销毁mutex
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">munmap</span><span class="p">(</span><span class="n">mm</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="o">*</span><span class="n">mm</span><span class="p">));</span>                             <span class="c1">//释放映射区
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="文件锁">文件锁</h2>
 <h3 id="fcntl函数">fcntl函数</h3>
@@ -2550,7 +2549,7 @@
         title="/images/LinuxSystem/Untitled%2088.png" /></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -2598,53 +2597,53 @@
 </span><span class="lnt">46
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="kt">void</span> <span class="nf">sys_err</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">str</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">perror</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
-    <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">fd</span><span class="p">;</span>
-    <span class="k">struct</span> <span class="n">flock</span> <span class="n">f_lock</span><span class="p">;</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;./a.out filename</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="k">if</span> <span class="p">((</span><span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">O_RDWR</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="n">sys_err</span><span class="p">(</span><span class="s">&#34;open&#34;</span><span class="p">);</span>
-
-    <span class="n">f_lock</span><span class="p">.</span><span class="n">l_type</span> <span class="o">=</span> <span class="n">F_WRLCK</span><span class="p">;</span>        <span class="cm">/*选用写琐*/</span>
-<span class="c1">//    f_lock.l_type = F_RDLCK;      /*选用读琐*/ 
-</span><span class="c1"></span>
-    <span class="n">f_lock</span><span class="p">.</span><span class="n">l_whence</span> <span class="o">=</span> <span class="n">SEEK_SET</span><span class="p">;</span>
-    <span class="n">f_lock</span><span class="p">.</span><span class="n">l_start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">f_lock</span><span class="p">.</span><span class="n">l_len</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>               <span class="cm">/* 0表示整个文件加锁 */</span>
-
-    <span class="n">fcntl</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">F_SETLKW</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">f_lock</span><span class="p">);</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;get flock</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-
-    <span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
-
-    <span class="n">f_lock</span><span class="p">.</span><span class="n">l_type</span> <span class="o">=</span> <span class="n">F_UNLCK</span><span class="p">;</span>
-    <span class="n">fcntl</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">F_SETLKW</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">f_lock</span><span class="p">);</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;un flock</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-
-    <span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
-
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">sys_err</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">str</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">perror</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">fd</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">flock</span> <span class="n">f_lock</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;./a.out filename</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">((</span><span class="n">fd</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">O_RDWR</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">sys_err</span><span class="p">(</span><span class="s">&#34;open&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">f_lock</span><span class="p">.</span><span class="n">l_type</span> <span class="o">=</span> <span class="n">F_WRLCK</span><span class="p">;</span>        <span class="cm">/*选用写琐*/</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//    f_lock.l_type = F_RDLCK;      /*选用读琐*/ 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="n">f_lock</span><span class="p">.</span><span class="n">l_whence</span> <span class="o">=</span> <span class="n">SEEK_SET</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f_lock</span><span class="p">.</span><span class="n">l_start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f_lock</span><span class="p">.</span><span class="n">l_len</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>               <span class="cm">/* 0表示整个文件加锁 */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nf">fcntl</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">F_SETLKW</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">f_lock</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;get flock</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nf">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">f_lock</span><span class="p">.</span><span class="n">l_type</span> <span class="o">=</span> <span class="n">F_UNLCK</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">fcntl</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">F_SETLKW</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">f_lock</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;un flock</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nf">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>多线程间不可以用文件锁，因为文件描述符共享。</p>
 </div><div class="post-footer" id="post-footer">
@@ -2677,8 +2676,8 @@
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.83.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/hongwei7" target="_blank">hongwei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/hongwei7" target="_blank">hongwei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 
