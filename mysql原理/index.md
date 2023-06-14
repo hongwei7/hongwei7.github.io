@@ -326,3 +326,9 @@ B+索引的末端存放的是聚簇索引的 key。
 包含所有需要查询的数据列的索引称为覆盖索引。
 
 ![/images/MySQL/C2115178-1F5C-4E5D-B7EA-03F98F10BF3C.jpeg](/images/MySQL/C2115178-1F5C-4E5D-B7EA-03F98F10BF3C.jpeg)
+
+---
+
+> 作者: [hongwei](https://github.com/hongwei7)  
+> URL: https://hongwei7.online/mysql%E5%8E%9F%E7%90%86/  
+

@@ -16,13 +16,14 @@
 
 ```go
 type Task struct {
-	Seq         int
-	Status      int // 0  1  2  3  4 
-	MapFile     string
-	ReduceFiles []KeyValue
-	LastTime    time.Time
+    Seq         int
+    Status      int // 0  1  2  3  4 
+    MapFile     string
+    ReduceFiles []KeyValue
+    LastTime    time.Time
 }
 ```
+
 这样就可以完整描述一个 Map 任务或者是一个 Reduce 任务了。
 {{< /admonition >}}
 {{< admonition info "master" true >}}
@@ -31,15 +32,16 @@ type Task struct {
 
 ```go
 type Coordinator struct {
-	TaskQueue        []Task
-	NReduce          int
-	MapFinished      bool
-	ReduceFinished   bool
-	RemainMapTask    int
-	RemainReduceTask int
-	Mu               sync.Mutex
+    TaskQueue        []Task
+    NReduce          int
+    MapFinished      bool
+    ReduceFinished   bool
+    RemainMapTask    int
+    RemainReduceTask int
+    Mu               sync.Mutex
 }
 ```
+
 这里用一个数组来记录任务队列。`MapFinished` 和 `ReduceFinished` 代表的是 Map 任务是否已经全部完成以及 Reduce 任务是否已经全部完成。
 {{< /admonition >}}
 
@@ -48,78 +50,79 @@ type Coordinator struct {
 
 ```go
 func checkTime(oldTime time.Time) bool {
-	m, _ := time.ParseDuration("-10s")
-	m1 := time.Now().Add(m)
-	if m1.After(oldTime) {
-		fmt.Println("delay occurs")
-	}
-	return m1.After(oldTime)
+    m, _ := time.ParseDuration("-10s")
+    m1 := time.Now().Add(m)
+    if m1.After(oldTime) {
+        fmt.Println("delay occurs")
+    }
+    return m1.After(oldTime)
 }
 
 func (c *Coordinator) RequestForTask(request int, reply *Task) error {
-	// fmt.Printf("%d ask for Task, Map Remaining %d, Reduce Remaining %d\n", request, c.RemainMapTask, c.RemainReduceTask)
-	c.Mu.Lock()
-	defer c.Mu.Unlock()
-	if !c.MapFinished {
-		for i := c.NReduce; i < len(c.TaskQueue); i++ {
-			if c.TaskQueue[i].Status == 0 || (c.TaskQueue[i].Status == 1 && checkTime(c.TaskQueue[i].LastTime)){
-				c.TaskQueue[i].Status = 1
-				c.TaskQueue[i].LastTime = time.Now()
-				*reply = c.TaskQueue[i]
-				return nil
-			}
-		}
-	} else if !c.ReduceFinished {
-		for i := 0; i < c.NReduce; i++ {
-			if c.TaskQueue[i].Status == 2 || (c.TaskQueue[i].Status == 3 && checkTime(c.TaskQueue[i].LastTime)) {
-				c.TaskQueue[i].Status = 3
-				c.TaskQueue[i].LastTime = time.Now()
-				*reply = c.TaskQueue[i]
-				return nil
-			}
-		}
-	}
+    // fmt.Printf("%d ask for Task, Map Remaining %d, Reduce Remaining %d\n", request, c.RemainMapTask, c.RemainReduceTask)
+    c.Mu.Lock()
+    defer c.Mu.Unlock()
+    if !c.MapFinished {
+        for i := c.NReduce; i < len(c.TaskQueue); i++ {
+            if c.TaskQueue[i].Status == 0 || (c.TaskQueue[i].Status == 1 && checkTime(c.TaskQueue[i].LastTime)){
+                c.TaskQueue[i].Status = 1
+                c.TaskQueue[i].LastTime = time.Now()
+                *reply = c.TaskQueue[i]
+                return nil
+            }
+        }
+    } else if !c.ReduceFinished {
+        for i := 0; i < c.NReduce; i++ {
+            if c.TaskQueue[i].Status == 2 || (c.TaskQueue[i].Status == 3 && checkTime(c.TaskQueue[i].LastTime)) {
+                c.TaskQueue[i].Status = 3
+                c.TaskQueue[i].LastTime = time.Now()
+                *reply = c.TaskQueue[i]
+                return nil
+            }
+        }
+    }
 
-	if !c.ReduceFinished {
-		(*reply).Seq = -1
-	} else {
-		(*reply).Seq = -2
-	}
-	return nil
+    if !c.ReduceFinished {
+        (*reply).Seq = -1
+    } else {
+        (*reply).Seq = -2
+    }
+    return nil
 }
 
 func (c *Coordinator) SubmmitTask(t Task, p *int) error {
-	c.Mu.Lock()
-	defer c.Mu.Unlock()
+    c.Mu.Lock()
+    defer c.Mu.Unlock()
 
-	if c.TaskQueue[t.Seq].Status == -1 {
-		return nil
-	}
+    if c.TaskQueue[t.Seq].Status == -1 {
+        return nil
+    }
 
-	status := t.Status
+    status := t.Status
 
-	// fmt.Println(c.TaskQueue[seq].ReduceFiles)
+    // fmt.Println(c.TaskQueue[seq].ReduceFiles)
 
-	if status == 1 {
-		// fmt.Printf("Receving %s\n", t.MapFile)
-		for _, wi := range t.ReduceFiles {
-			i := ihash(wi.Key) % c.NReduce
-			c.TaskQueue[i].ReduceFiles = append(c.TaskQueue[i].ReduceFiles, wi)
-		}
-		c.RemainMapTask--
-		if c.RemainMapTask == 0 {
-			c.MapFinished = true
-		}
-	} else if status == 3 {
-		c.RemainReduceTask--
-		if c.RemainReduceTask == 0 {
-			c.ReduceFinished = true
-		}
-	}
-	c.TaskQueue[t.Seq].Status = -1
-	return nil
+    if status == 1 {
+        // fmt.Printf("Receving %s\n", t.MapFile)
+        for _, wi := range t.ReduceFiles {
+            i := ihash(wi.Key) % c.NReduce
+            c.TaskQueue[i].ReduceFiles = append(c.TaskQueue[i].ReduceFiles, wi)
+        }
+        c.RemainMapTask--
+        if c.RemainMapTask == 0 {
+            c.MapFinished = true
+        }
+    } else if status == 3 {
+        c.RemainReduceTask--
+        if c.RemainReduceTask == 0 {
+            c.ReduceFinished = true
+        }
+    }
+    c.TaskQueue[t.Seq].Status = -1
+    return nil
 }
 ```
+
 {{< /admonition >}}
 
 使用 `./test-mr.sh` 测试，结果如下
@@ -165,4 +168,10 @@ delay occurs
 {{< admonition success "结果：" true >}}
 可以看到所有测试都通过了，到这里Lab1就做完了。
 {{< /admonition >}}
+
+
+---
+
+> 作者: [hongwei](https://github.com/hongwei7)  
+> URL: https://hongwei7.online/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C/  
 

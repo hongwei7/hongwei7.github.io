@@ -242,3 +242,9 @@ Test (2C): unreliable churn ...
 PASS
 ok      6.824/raft      183.121s
 ```
+
+---
+
+> 作者: [hongwei](https://github.com/hongwei7)  
+> URL: https://hongwei7.online/mitlab2bc/  
+

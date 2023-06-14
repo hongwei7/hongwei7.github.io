@@ -180,3 +180,9 @@ ok      6.824/raft      15.106s
 ```
 测试通过。
 {{< /admonition >}}
+
+---
+
+> 作者: [hongwei](https://github.com/hongwei7)  
+> URL: https://hongwei7.online/mit-6.824-lab2a-raft-leaderelection/  
+

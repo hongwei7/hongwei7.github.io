@@ -186,3 +186,9 @@ singleton* singleton::instance() {
     return p;
 }
 ```
+
+---
+
+> 作者: [hongwei](https://github.com/hongwei7)  
+> URL: https://hongwei7.online/%E4%B8%80%E4%BA%9B%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/  
+

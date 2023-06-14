@@ -51,3 +51,9 @@ int main() {
 ```
 
 可以看到虚机制失效，且能看出来构造函数的调用顺序为：基类构造函数、对象成员构造函数、派生类本身的构造函数。
+
+---
+
+> 作者: [hongwei](https://github.com/hongwei7)  
+> URL: https://hongwei7.online/%E5%9C%A8%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%92%8C%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0%E4%B8%AD%E8%B0%83%E7%94%A8%E8%99%9A%E5%87%BD%E6%95%B0%E4%BC%9A%E5%A6%82%E4%BD%95/  
+

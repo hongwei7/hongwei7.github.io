@@ -549,53 +549,53 @@ public:
 class Solution
 {
 public:
-	vector<int> res;
-	vector<int> printNumbers(int n) {
-		if (n <= 0) return res;
-		string number(n, '0');
-		for (int i = 0; i <= 9; i++)
-		//从高位到低位进行全排列
-		{
-			number[0] = i + '0';//首字符赋初值
-			permutationNumbers(number, n, 1);//设置下一位
-		}
-		return res;
-	}
-	//对数字全排列
-	void permutationNumbers(string& number, int length, int index) {
-		if (index == length) {//递归边界
-			saveNumber(number);//存储结果
-			return;
-		}
-		else
-		{
-			for (int i = 0; i <= 9; i++)
-			{
-				number[index] = '0' + i;//设置第index位的字符
-				permutationNumbers(number, length, index + 1);
-			}
-		}
-	}
-	//存储结果
-	//只能存储前导非0的排列
-	void saveNumber(string number) {
-		bool isBegin0 = true;
-		string tempStr = "";
-		string::iterator it = number.begin();
-		while (it != number.end())
-		{
-			if (isBegin0 && *it != '0') isBegin0 = false;
-			if (!isBegin0) {
-				tempStr += *it;
-			}
-			it++;
-		}
-		//从高位到低位全排列，要注意首字符为0时，tempStr为空，不能执行stoi
-		if (tempStr != "") {
-			int tempNum = stoi(tempStr);
-			res.push_back(tempNum);
-		}
-	}
+    vector<int> res;
+    vector<int> printNumbers(int n) {
+        if (n <= 0) return res;
+        string number(n, '0');
+        for (int i = 0; i <= 9; i++)
+        //从高位到低位进行全排列
+        {
+            number[0] = i + '0';//首字符赋初值
+            permutationNumbers(number, n, 1);//设置下一位
+        }
+        return res;
+    }
+    //对数字全排列
+    void permutationNumbers(string& number, int length, int index) {
+        if (index == length) {//递归边界
+            saveNumber(number);//存储结果
+            return;
+        }
+        else
+        {
+            for (int i = 0; i <= 9; i++)
+            {
+                number[index] = '0' + i;//设置第index位的字符
+                permutationNumbers(number, length, index + 1);
+            }
+        }
+    }
+    //存储结果
+    //只能存储前导非0的排列
+    void saveNumber(string number) {
+        bool isBegin0 = true;
+        string tempStr = "";
+        string::iterator it = number.begin();
+        while (it != number.end())
+        {
+            if (isBegin0 && *it != '0') isBegin0 = false;
+            if (!isBegin0) {
+                tempStr += *it;
+            }
+            it++;
+        }
+        //从高位到低位全排列，要注意首字符为0时，tempStr为空，不能执行stoi
+        if (tempStr != "") {
+            int tempNum = stoi(tempStr);
+            res.push_back(tempNum);
+        }
+    }
 };
 ```
 
@@ -629,7 +629,7 @@ void DeleteNode(ListNode** pListHead, ListNode* pToBeDeleted)
         ListNode* pNext = pToBeDeleted->m_pNext;
         pToBeDeleted->m_nValue = pNext->m_nValue;
         pToBeDeleted->m_pNext = pNext->m_pNext;
- 
+
         delete pNext;
         pNext = nullptr;
     }
@@ -648,7 +648,7 @@ void DeleteNode(ListNode** pListHead, ListNode* pToBeDeleted)
         {
             pNode = pNode->m_pNext;            
         }
- 
+
         pNode->m_pNext = nullptr;
         delete pToBeDeleted;
         pToBeDeleted = nullptr;
@@ -1181,38 +1181,36 @@ class Solution {
 public:
     vector<int> spiralOrder(vector<vector<int>>& matrix) {
         vector<int> res;
-      
+
         int m = matrix.size();
         if(m == 0) return res;
         int n = matrix[0].size();
-        
+
         for(int k = 0; 2 * k < min(m, n); ++k) {
             for(int j = k; j < n - k; ++j) {
                 res.push_back(matrix[k][j]);
             }
-            
+
             for(int i = k + 1; i < m - k; ++i) {
                 res.push_back(matrix[i][n - k - 1]);
             }
-            
+
             if(2 * k + 1 >= min(m, n))return res;
-            
+
             for(int j = n - k - 2; j >= k; --j) {
                 res.push_back(matrix[m - k - 1][j]);
             }
-                        
+
             for(int i = m - k - 2; i > k; --i) {
                 res.push_back(matrix[i][k]);
             }    
-            
+
         }
-        
+
         return res;
     }
 };
 ```
-
-
 
 ## 30.实现 O（1）的 minStack
 
@@ -1226,14 +1224,14 @@ public:
     MinStack() {
 
     }
-    
+
     void push(int x) {
         if(sortedData.empty() || x <= sortedData.top()){
             sortedData.push(x);
         }
         data.push(x);
     }
-    
+
     void pop() {
         if(data.empty()){
             return;
@@ -1245,12 +1243,12 @@ public:
             data.pop();
         }
     }
-    
+
     int top() {
         if(!data.empty())return data.top();
         else return -1;
     }
-    
+
     int min() {
         if(!data.empty()) return sortedData.top();
         else return -1;
@@ -1279,7 +1277,7 @@ public:
         int pPopped = 0;
         for(int i = 0; i < pushed.size(); i++){
             s.push(pushed[i]);
-						//注意防止 pPopped 越界
+                        //注意防止 pPopped 越界
             while(!s.empty() && pPopped < popped.size() &&s.top() == popped[pPopped]){
                 s.pop();
                 pPopped++;
@@ -1664,8 +1662,8 @@ public:
 - 哈希表统计每个数字出现次数。时间复杂度和空间复杂度都是$O(n)$。
 - 数组排序法。把数组排序后，中点一定是出现次数超过一半的数。时间复杂度为$O(n\log_2n)$，空间复杂度为$O(1)$。
 - 摩尔投票法。考虑让所有人来投票，最后的投票结果即为超过一半的数。时间复杂度$O(n)$ ，空间复杂度$O(1)$。
-    - 票数统计为 0 票，假设众数为 `nums[0]` 。
-    - 当票数大于 0，假设的众数不变；当等于 0，假设众数变为 `nums[i+1]` 。
+  - 票数统计为 0 票，假设众数为 `nums[0]` 。
+  - 当票数大于 0，假设的众数不变；当等于 0，假设众数变为 `nums[i+1]` 。
 
 ```cpp
 class Solution {
@@ -1694,98 +1692,99 @@ public:
 ## 40.数组的前 k 个最小的数
 
 - 排序后取前 k 个数。时间复杂度$O(n\log_2n)$，空间复杂度$O(n\log_2n)$。
+
 - 大小为 K 的最小堆
-
+  
     使用一个大根堆实时维护数组的前 k 个最小值。时间复杂度$O(n\log k)$ 空间复杂度 $O(k)$。
-
+  
     使用c++中的 priority_queue ，底层为大根堆。
-
-    ```cpp
-    class Solution {
-    public:
-        vector<int> getLeastNumbers(vector<int>& arr, int k) {
-            vector<int> vec;
-            if(k == 0)return vec;
-            priority_queue<int> heap;
-            for(int i = 0; i < k; i++){
-                heap.push(arr[i]);
-            }
-            for(int i = k; i < arr.size(); i++){
-                if(arr[i] < heap.top()){
-                    heap.pop();
-                    heap.push(arr[i]);
-                }
-            }
-            for(int i = 0; i < k; i++){
-                vec.push_back( heap.top());
-                heap.pop();
-            }
-            return vec;
-        }
-    };
-    ```
+  
+  ```cpp
+  class Solution {
+  public:
+      vector<int> getLeastNumbers(vector<int>& arr, int k) {
+          vector<int> vec;
+          if(k == 0)return vec;
+          priority_queue<int> heap;
+          for(int i = 0; i < k; i++){
+              heap.push(arr[i]);
+          }
+          for(int i = k; i < arr.size(); i++){
+              if(arr[i] < heap.top()){
+                  heap.pop();
+                  heap.push(arr[i]);
+              }
+          }
+          for(int i = 0; i < k; i++){
+              vec.push_back( heap.top());
+              heap.pop();
+          }
+          return vec;
+      }
+  };
+  ```
 
 - 利用快排函数快速切分
-
+  
     注意熟读快速排序函数
-
-    ```cpp
-    //严蔚敏《数据结构》标准分割函数
-     Paritition1(int A[], int low, int high) {
-       int pivot = A[low];
-       while (low < high) {
-         while (low < high && A[high] >= pivot) {
-           --high;
-         }
-         A[low] = A[high];
-         while (low < high && A[low] <= pivot) {
-           ++low;
-         }
-         A[high] = A[low];
+  
+  ```cpp
+  //严蔚敏《数据结构》标准分割函数
+   Paritition1(int A[], int low, int high) {
+     int pivot = A[low];
+     while (low < high) {
+       while (low < high && A[high] >= pivot) {
+         --high;
        }
-       A[low] = pivot;
-       return low;
+       A[low] = A[high];
+       while (low < high && A[low] <= pivot) {
+         ++low;
+       }
+       A[high] = A[low];
      }
-    ```
-
+     A[low] = pivot;
+     return low;
+   }
+  ```
+  
     若分割点>k，即需要对左边进行分划
-
+  
     若分割点<k，即需要对右边进行分割
-
-    ```cpp
-    class Solution {
-    public:
-        vector<int> getLeastNumbers(vector<int>& arr, int k) {
-            vector<int> vec;
-            if(k == 0)return vec;
-            if(k >= arr.size())return arr;
-            int dividePos = -1;
-            int start = 0, end = arr.size() - 1;
-            while(dividePos != k){
-                dividePos = partition(start, end, arr);
-                if(dividePos < k)start = dividePos + 1;
-                else if(dividePos > k) end = dividePos - 1;
-            }
-            for(int i = 0; i < k; i++){
-                vec.push_back(arr[i]);
-            }
-            return vec;
-        }
-    private:
-        int partition(int l, int r, vector<int>& nums){
-            int pivot = nums[r];
-            int i = l - 1;
-            for (int j = l; j <= r - 1; ++j) {
-                if (nums[j] <= pivot) {
-                    i = i + 1;
-                    swap(nums[i], nums[j]);
-                }
-            }
-            swap(nums[i + 1], nums[r]);
-            return i + 1;
-        }
-    }
-    ```
+  
+  ```cpp
+  class Solution {
+  public:
+      vector<int> getLeastNumbers(vector<int>& arr, int k) {
+          vector<int> vec;
+          if(k == 0)return vec;
+          if(k >= arr.size())return arr;
+          int dividePos = -1;
+          int start = 0, end = arr.size() - 1;
+          while(dividePos != k){
+              dividePos = partition(start, end, arr);
+              if(dividePos < k)start = dividePos + 1;
+              else if(dividePos > k) end = dividePos - 1;
+          }
+          for(int i = 0; i < k; i++){
+              vec.push_back(arr[i]);
+          }
+          return vec;
+      }
+  private:
+      int partition(int l, int r, vector<int>& nums){
+          int pivot = nums[r];
+          int i = l - 1;
+          for (int j = l; j <= r - 1; ++j) {
+              if (nums[j] <= pivot) {
+                  i = i + 1;
+                  swap(nums[i], nums[j]);
+              }
+          }
+          swap(nums[i + 1], nums[r]);
+          return i + 1;
+      }
+  }
+  ```
 
 ---
 
@@ -1823,7 +1822,7 @@ public:
             }
         }
     }
-    
+
     double findMedian() {
         if(m+n == 0)return 0.0;
         if((m+n) % 2 == 0)return (-big.top() + small.top()) / 2.0;
@@ -1922,7 +1921,7 @@ public:
             /*如果index大于n，结束*/
             if (n - temp < 0)
                 break;
-            
+
             index = temp;
             lev *= 10;
             ++bit;
@@ -1984,7 +1983,7 @@ public:
         for(int i = 1; i < nums.size(); i++){
             dp[i] += dp[i - 1];
             if(nums[i - 1] == '1' || (nums[i - 1] == '2') && nums[i] <= '5')
-							dp[i] += i > 1? dp[i - 2]: 1;
+                            dp[i] += i > 1? dp[i - 2]: 1;
         }
         return dp[nums.size() - 1];
     }
@@ -2004,7 +2003,7 @@ public:
             dp2 += dp1;
             if(nums[i - 1] == '1' 
                || (nums[i - 1] == '2') && nums[i] <= '5')
-						dp2 += (i > 1)? dp0: 1;
+                        dp2 += (i > 1)? dp0: 1;
             dp0 = dp1, dp1 = dp2, dp2 = 0;
         }
         return dp1;
@@ -2054,7 +2053,7 @@ public:
                 **l = max(l, m[s[r]] + 1); //忽略以前发生的冲突**
             }
             m[s[r]] = r;
-						r++;
+                        r++;
             ret = max(r - l, ret);
         }
         return ret;
@@ -2085,7 +2084,7 @@ public:
             **if(dp[i] == dp[i2] * 2)i2++;
             if(dp[i] == dp[i3] * 3)i3++;
             if(dp[i] == dp[i5] * 5)i5++;
-						//注意这里不能重复计算路径 如2x3 vs 3x2**
+                        //注意这里不能重复计算路径 如2x3 vs 3x2**
         }
         return dp[n - 1];
     }
@@ -2105,7 +2104,7 @@ public:
         unordered_map<char, int> m;
         for(auto item: s)m[item]++;
         for(auto item: s)
-					if(m[item] == 1)return item;
+                    if(m[item] == 1)return item;
         return ' ';
     }
 };
@@ -2243,7 +2242,7 @@ int binarySearchLeft(int left, int right, vector<int>& nums, int target){
             }
         }
         return left >= 0 && left < nums.size() 
-								&& nums[left] == target ? left : -1;
+                                && nums[left] == target ? left : -1;
     }
 ```
 
@@ -2374,7 +2373,7 @@ public:
     int maxDepth(TreeNode* root) {
         if(root == nullptr)return 0;
         return max(maxDepth(root -> left) + 1, 
-										maxDepth(root -> right) + 1);
+                                        maxDepth(root -> right) + 1);
     }
 };
 ```
@@ -2594,7 +2593,7 @@ public:
         vector<vector<int>> result;
         for(int i = target / 2; i >= 2; i--){
             if((target / i - i / 2 + 1 > 0 && i % 2 == 0 && (target - (i*(i-1)/2) ) % i == 0 ) 
-								|| (target / i - i / 2> 0 && i % 2 == 1 && target % i == 0)  ){
+                                || (target / i - i / 2> 0 && i % 2 == 1 && target % i == 0)  ){
                 vector<int> temp;
                 for(int j = (target / i) - i / 2 + (i % 2 == 0); j <= (target / i) + i / 2; j++){
                     temp.push_back(j);
@@ -2752,19 +2751,19 @@ public:
     MaxQueue() {
 
     }
-    
+
     int max_value() {
         if(data.empty())return -1;
         return maxQueue.front();
     }
-    
+
     void push_back(int value) {
         while(!maxQueue.empty() && maxQueue.front() < value)maxQueue.pop_front();
         while(!maxQueue.empty() && maxQueue.back() < value)maxQueue.pop_back();
         data.push(value);
         maxQueue.push_back(value);
     }
-    
+
     int pop_front() {
         if(data.empty())return -1;
         int val = data.front();
@@ -3107,9 +3106,9 @@ public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
         if(root == nullptr)return nullptr;
         if(p -> val < root -> val && q -> val < root -> val)
-						return lowestCommonAncestor(root -> left, p, q);
+                        return lowestCommonAncestor(root -> left, p, q);
         else if(p -> val > root -> val && q -> val > root -> val) 
-						return lowestCommonAncestor(root -> right, p, q);
+                        return lowestCommonAncestor(root -> right, p, q);
         else return root;
     }
 };
@@ -3134,3 +3133,9 @@ public:
     }
 };
 ```
+
+---
+
+> 作者: [hongwei](https://github.com/hongwei7)  
+> URL: https://hongwei7.online/%E5%89%91%E6%8C%87offer/  
+

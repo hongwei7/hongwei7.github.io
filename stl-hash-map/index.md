@@ -100,3 +100,9 @@ int main() {
 ```
 
 同样是通过操作符重载来实现。
+
+---
+
+> 作者: [hongwei](https://github.com/hongwei7)  
+> URL: https://hongwei7.online/stl-hash-map/  
+

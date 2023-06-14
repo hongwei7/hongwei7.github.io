@@ -173,3 +173,9 @@ master 需要保存的信息：
 ### 缺点
 
 GFS 只有一个 master，而单个 master 的内存资源总是有限的。
+
+---
+
+> 作者: [hongwei](https://github.com/hongwei7)  
+> URL: https://hongwei7.online/gfs/  
+

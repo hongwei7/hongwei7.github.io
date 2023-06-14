@@ -10,9 +10,9 @@ template<typename T>
 class complex
 {
 public:
-	//...
+    //...
 private:
-	T re, im;
+    T re, im;
 };
 
 complex<int> c;
@@ -51,7 +51,7 @@ class vector
 template<class Alloc>
 class vector<bool, Alloc> //对第一个模板做了偏特化
 {
-	//...
+    //...
 }
 ```
 
@@ -62,8 +62,6 @@ class vector<bool, Alloc> //对第一个模板做了偏特化
 ![/images/STL/Untitled%201.png](/images/STL/Untitled%201.png)
 
 上面例子对 T 为指针时做了偏特化，常量指针又做了偏特化。
-
-
 
 ## 分配器 allocators
 
@@ -114,8 +112,6 @@ GCC 2.9.1实际上默认的 alloc：
 
 这里的关系是组合而非继承。
 
-
-
 ## list 链表
 
 ![/images/STL/Untitled%207.png](/images/STL/Untitled%207.png)
@@ -129,15 +125,15 @@ iterator：希望它模拟指针的动作，因而会取到 list_node 中的 nex
 ```cpp
 template<class T, class Ref, class Ptr>
 class __list_iterator{
-	//必须的五个 typedef
-	typedef T value_type;
-	typedef Ptr pointer;
-	typedef Ref reference;
-	typedef __list_node<T>* link_type;
-	typedef ptrdiff_t difference_type;
+    //必须的五个 typedef
+    typedef T value_type;
+    typedef Ptr pointer;
+    typedef Ref reference;
+    typedef __list_node<T>* link_type;
+    typedef ptrdiff_t difference_type;
 
-	link_type node;
-	//操作符重载...
+    link_type node;
+    //操作符重载...
 };
 ```
 
@@ -168,8 +164,6 @@ class __list_iterator{
 ![/images/STL/Untitled%2014.png](/images/STL/Untitled%2014.png)
 
 但是也变得更复杂。新版的 list 多了一个指向最后空白节点的指针，大小变为 8。
-
-
 
 ## iterator 迭代器的特征
 
@@ -210,8 +204,6 @@ c++针对各种类型都定义有萃取机。这里加上 typename 告诉编译�
 iterator_traits<Iterator>::iterator_category;;
 ```
 
-
-
 ## vector
 
 vector 包含三个迭代器（私有）：`start`，`finish`，`end_of_storage`。
@@ -234,8 +226,6 @@ GCC4.9中的 vector：
 
 又变得复杂了。
 
-
-
 ## array
 
 ![/images/STL/Untitled%2023.png](/images/STL/Untitled%2023.png)
@@ -255,8 +245,6 @@ array 其实只是对数组做了一层包装，加上 iterator。
 [C++11 带来的新特性 （3）-- 关键字noexcept](https://www.cnblogs.com/sword03/p/10020344.html)
 
 ![/images/STL/Untitled%2024.png](/images/STL/Untitled%2024.png)
-
-
 
 ## deque，queue 和stack
 
@@ -314,8 +302,6 @@ queue 和 stack都是以 deque 作为底层实现。
 
 且stack 可以用 vector 做底层结构，queue 不行。因为 vector 并没有 `pop_front()`函数。
 
-
-
 ## rb-tree
 
 关联式容器的地步都是红黑树和 散列表 。
@@ -325,12 +311,13 @@ queue 和 stack都是以 deque 作为底层实现。
 特性：
 
 - 平衡二叉搜索树
+
 - 提供遍历 iterators，能获得排序的状态。
-
+  
     begin为最左边的节点，end为最右边的节点，中序遍历。
-
+  
     ![/images/STL/Untitled%2036.png](/images/STL/Untitled%2036.png)
-
+  
     map的排序是按照key来排序，而data是可以改变的。因此这里的元素值应该是开放修改的。
 
 实现：
@@ -356,8 +343,6 @@ cout << tree.empty() << endl;
 
 GNU4.9的版本同样变得非常复杂。实际上这是OO里面Handel的做法。
 
-
-
 ## set 与 multiset
 
 区别：元素能否重复。都是以红黑树为底层，元素会自动按照key排序。而对于set来说，key和value是同一样东西。
@@ -375,8 +360,6 @@ GNU4.9的版本同样变得非常复杂。实际上这是OO里面Handel的做法
 ![/images/STL/Untitled%2042.png](/images/STL/Untitled%2042.png)
 
 所以set也是adapter。 set和multiset的区别仅仅是insert函数调用的不同。
-
-
 
 ## map  和 multimap
 
@@ -402,8 +385,6 @@ mul_map[1] = 2; //非法
 
 除此之外，安插key的位置是由lower_bound函数实现的。
 
-
-
 ## hashtable
 
 ![/images/STL/Untitled%2046.png](/images/STL/Untitled%2046.png)
@@ -426,8 +407,6 @@ hashtable的使用：
 
 unordered類的容器底層都是紅黑樹。
 
-
-
 # 算法 Algorithm
 
 从语言层面来说，只有算法是函数模板，其他都是类模板。
@@ -441,8 +420,6 @@ unordered類的容器底層都是紅黑樹。
 各个容器的iterator tag：
 
 ![/images/STL/Untitled%2051.png](/images/STL/Untitled%2051.png)
-
-
 
 ## iterator_category 对算法的影响
 
@@ -459,8 +436,6 @@ iterators的继承关系，会使得子类的继承迭代器调用到父类的�
 这里的**type萃取机**回答这个type是否具有拷贝赋值特性。默认的构造函数是不重要的（trivial）。
 
 注意算法中的函数参数仅仅只是模板，不一定一定要指定的iterator。仅仅是暗示需要什么迭代器。
-
-
 
 ## 算法实现剖析
 
@@ -507,8 +482,6 @@ binary_search:
 
 二分查找借助了`lower_bound()` 函数。注意这里返回的只是`bool`。
 
-
-
 # 仿函数 functors
 
 STL中最简单的部件。最容易自己写的部分。皆是function like class。
@@ -533,8 +506,6 @@ STL中最简单的部件。最容易自己写的部分。皆是function like cla
 
 ![/images/STL/Untitled%2064.png](/images/STL/Untitled%2064.png)
 
-
-
 # 适配器 Adapter
 
 是设计模式之中的一个。存在很多Adapter。
@@ -544,8 +515,6 @@ STL中最简单的部件。最容易自己写的部分。皆是function like cla
 有容器适配器、迭代器适配器和仿函数适配器，都是使用组合的方式而非继承。
 
 如stack和queue都是deque的**容器适配器**，它们内含一个deque。
-
-
 
 ## 函数适配器
 
@@ -569,8 +538,8 @@ bind2nd起到了把第二个参数绑定为40的作用。
 template<class Operation, class T>
 inline binder2nd<Operation> bind2nd(const Operation& op, const T &x)
 {
-		typedef typename Operation::second_argument_type arg2_type;
-		return binder2nd<Operation>(op, arg2_type(x));//temp object
+        typedef typename Operation::second_argument_type arg2_type;
+        return binder2nd<Operation>(op, arg2_type(x));//temp object
 }
 ```
 
@@ -594,8 +563,6 @@ not1函数在这里是否定的意思。
 
 虽然只是一个取否操作，但是为了adaptable的性质，需要做出一些工作。
 
-
-
 ### bind 新型适配器
 
 ![/images/STL/Untitled%2070.png](/images/STL/Untitled%2070.png)
@@ -606,10 +573,10 @@ not1函数在这里是否定的意思。
 #include<functional>
 using namespace std::placeholders;
 int main(){
-	auto myfun = bind(fun, 100);
-	myfun();
-	auto myfun1 = bind(fun2, _1, 10);//占位符
-	for(int i = 0; i < 3; i++)myfun1(i);
+    auto myfun = bind(fun, 100);
+    myfun();
+    auto myfun1 = bind(fun2, _1, 10);//占位符
+    for(int i = 0; i < 3; i++)myfun1(i);
 }
 ```
 
@@ -629,8 +596,6 @@ fun(pair1, arg1);
 绑定member data也类似。
 
 ![/images/STL/Untitled%2071.png](/images/STL/Untitled%2071.png)
-
-
 
 ## 迭代器适配器
 
@@ -663,8 +628,6 @@ copy(l.begin(), l.end(), inserter(r, r.begin()));
 
 ![/images/STL/Untitled%2075.png](/images/STL/Untitled%2075.png)
 
-
-
 ## 未知分类的iterator
 
 ### ostream_iterator
@@ -684,8 +647,6 @@ copy(l.begin(), l.end(), inserter(r, r.begin()));
 ![/images/STL/Untitled%2079.png](/images/STL/Untitled%2079.png)
 
 一切设计都符合逻辑。
-
-
 
 # STL之外
 
@@ -744,4 +705,10 @@ cout是一个对象。
 ![/images/STL/Untitled%2089.png](/images/STL/Untitled%2089.png)
 
 它继承自ostream。对一系列类型做了操作符重载。
+
+
+---
+
+> 作者: [hongwei](https://github.com/hongwei7)  
+> URL: https://hongwei7.online/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7/  
 

@@ -1,5 +1,6 @@
 # 理解平摊分析
 
+
 # 理解平摊分析
 
 [[MIT算法导论第13集] 平摊分析，表的扩增，势能方法_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1A4411a7pf?spm_id_from=333.337.search-card.all.click)
@@ -48,12 +49,12 @@ $$
 对于动态hash table，假设**每个操作有3元**：
 
 - 直接插入时：
-    - 插入支出1元。
-    - 存储2元。
+  - 插入支出1元。
+  - 存储2元。
 - 需要翻倍时：
-    - 移动旧元素从银行取出n元。
-    - 插入新元素支出1元。
-    - 储存2元。
+  - 移动旧元素从银行取出n元。
+  - 插入新元素支出1元。
+  - 储存2元。
 
 ![Untitled](http://hongwei7.online/images/%E7%90%86%E8%A7%A3%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90%207a26c/Untitled.png)
 
@@ -82,4 +83,10 @@ $$
 $$
 
 实际上势能方法，只是用代数来更精确地靠近上界。但是原理跟记账法其实是相同的。
+
+
+---
+
+> 作者: [hongwei](https://github.com/hongwei7)  
+> URL: https://hongwei7.online/%E7%90%86%E8%A7%A3%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90-7a26c/  
 

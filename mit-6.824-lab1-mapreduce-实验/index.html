@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>MIT-6.824-Lab1-MapReduce 实验 - hongwei 的博客</title><meta name="Description" content="欢迎来到hongwei7的个人博客"><meta property="og:title" content="MIT-6.824-Lab1-MapReduce 实验" />
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>MIT-6.824-Lab1-MapReduce 实验 - hongwei 的博客</title><meta name="author" content="hongwei">
+<meta name="author-link" content="https://github.com/hongwei7">
+<meta name="description" content="这次实验的目的是自己完成一个 MapReduce 的分布式实现。对我来说最大的困难在于语言的不熟悉，这里主要使用的是 Go 语言。由于这是我第一次接触 Go，有很多实现细节其实可以做的更好一些." /><meta name="keywords" content='Distributed System, Go' /><meta itemprop="name" content="MIT-6.824-Lab1-MapReduce 实验">
+<meta itemprop="description" content="这次实验的目的是自己完成一个 MapReduce 的分布式实现。对我来说最大的困难在于语言的不熟悉，这里主要使用的是 Go 语言。由于这是我第一次接触 Go，有很多实现细节其实可以做的更好一些."><meta itemprop="datePublished" content="2021-06-02T06:22:02+08:00" />
+<meta itemprop="dateModified" content="2021-06-02T06:22:02+08:00" />
+<meta itemprop="wordCount" content="1115"><meta itemprop="image" content="https://hongwei7.online/logo.png"/>
+<meta itemprop="keywords" content="Distributed System,Go," /><meta property="og:title" content="MIT-6.824-Lab1-MapReduce 实验" />
 <meta property="og:description" content="这次实验的目的是自己完成一个 MapReduce 的分布式实现。对我来说最大的困难在于语言的不熟悉，这里主要使用的是 Go 语言。由于这是我第一次接触 Go，有很多实现细节其实可以做的更好一些." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://hongwei7.online/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C/" /><meta property="og:image" content="https://hongwei7.online/logo.png"/><meta property="article:section" content="posts" />
@@ -17,118 +23,194 @@
 <meta name="twitter:title" content="MIT-6.824-Lab1-MapReduce 实验"/>
 <meta name="twitter:description" content="这次实验的目的是自己完成一个 MapReduce 的分布式实现。对我来说最大的困难在于语言的不熟悉，这里主要使用的是 Go 语言。由于这是我第一次接触 Go，有很多实现细节其实可以做的更好一些."/>
 <meta name="application-name" content="hongwei&#39;s Blog">
-<meta name="apple-mobile-web-app-title" content="hongwei&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://hongwei7.online/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C/" /><link rel="prev" href="https://hongwei7.online/gfs/" /><link rel="next" href="https://hongwei7.online/mit-6.824-lab2a-raft-leaderelection/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "MIT-6.824-Lab1-MapReduce 实验",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/hongwei7.online\/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C\/"
-        },"genre": "posts","keywords": "Distributed System, Go","wordcount":  1115 ,
-        "url": "https:\/\/hongwei7.online\/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C\/","datePublished": "2021-06-02T06:22:02+08:00","dateModified": "2021-06-02T06:22:02+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
-            "@type": "Organization",
-            "name": ""},"author": {
-                "@type": "Person",
-                "name": "hongwei"
-            },"description": ""
-    }
-    </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<meta name="apple-mobile-web-app-title" content="hongwei&#39;s Blog"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://hongwei7.online/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C/" /><link rel="prev" href="https://hongwei7.online/gfs/" /><link rel="next" href="https://hongwei7.online/mit-6.824-lab2a-raft-leaderelection/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "MIT-6.824-Lab1-MapReduce 实验",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/hongwei7.online\/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C\/"
+    },"genre": "posts","keywords": "Distributed System, Go","wordcount":  1115 ,
+    "url": "https:\/\/hongwei7.online\/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C\/","datePublished": "2021-06-02T06:22:02+08:00","dateModified": "2021-06-02T06:22:02+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "hongwei"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="hongwei 的博客"><span class="header-title-text">hongwei&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              >所有文章</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              >标签</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              >分类</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/documentation/"
+                
+                
+              >文档</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/about/"
+                
+                
+              >关于</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="https://github.com/dillonzq/LoveIt"
+                title="GitHub"
+                rel="noopener noreferrer" target="_blank"
+              ><i class='fab fa-github fa-fw'></i> </a></li><li class="menu-item delimiter"></li><li class="menu-item language">
+            <span role="button" aria-label="选择语言" title="选择语言">简体中文<i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden="true"></i>
+            </span>
+            <ul class="sub-menu"><li class="menu-item">没有更多翻译</li></ul>
+          </li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="hongwei 的博客">hongwei&#39;s Blog</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
-                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C/" selected>简体中文</option></select>
-                    </a><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
-                </a>
-            </div>
-        </div>
+      <div class="header-title">
+        <a href="/" title="hongwei 的博客"><span class="header-title-text">hongwei&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/" title="hongwei 的博客">hongwei&#39;s Blog</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/categories/documentation/" title="">文档</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C/" selected>简体中文</option></select>
-                </a></div>
-    </div>
-</header>
-<div class="search-dropdown desktop">
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                >所有文章</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                >标签</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                >分类</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/documentation/"
+                  
+                  
+                >文档</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/about/"
+                  
+                  
+                >关于</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="https://github.com/dillonzq/LoveIt"
+                  title="GitHub"
+                  rel="noopener noreferrer" target="_blank"
+                ><i class='fab fa-github fa-fw'></i> </a></li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li><li class="menu-item language">
+            <span role="button" aria-label="选择语言" title="选择语言">简体中文<i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden="true"></i>
+            </span>
+            <select class="language-select" onchange="location = this.value;"><option disabled>没有更多翻译</option></select>
+          </li></ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
     <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
+  </div>
+  <div class="search-dropdown mobile">
     <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">MIT-6.824-Lab1-MapReduce 实验</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/hongwei7" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>hongwei</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-06-02">2021-06-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1115 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
-        </div><div class="featured-image"><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://hongwei7.online/images/mapreduce.png"
-        data-srcset="https://hongwei7.online/images/mapreduce.png, https://hongwei7.online/images/mapreduce.png 1.5x, https://hongwei7.online/images/mapreduce.png 2x"
-        data-sizes="auto"
-        alt="https://hongwei7.online/images/mapreduce.png"
-        title="https://hongwei7.online/images/mapreduce.png" /></div><div class="details toc" id="toc-static"  kept="true">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  </div><main class="container" data-page-style="normal"><aside class="toc" id="toc-auto"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside>
+
+  <aside class="aside-custom">
+    </aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX">
+        <span>MIT-6.824-Lab1-MapReduce 实验</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/hongwei7" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+    hongwei</a></span></div>
+      <div class="post-meta-line"><span title=2021-06-02&#32;06:22:02><i class="fa-regular fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-06-02">2021-06-02</time></span>&nbsp;<span><i class="fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i> 约 1115 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw" aria-hidden="true"></i> 预计阅读 3 分钟</span>&nbsp;</div>
+    </div><div class="featured-image"><img loading="lazy" src="/images/mapreduce.png" srcset="/images/mapreduce.png, /images/mapreduce.png 1.5x, /images/mapreduce.png 2x" sizes="auto" data-title="/images/mapreduce.png" data-alt="/images/mapreduce.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></div><div class="details toc" id="toc-static" data-kept="true">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#基本要求">基本要求</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>这次实验的目的是自己完成一个 MapReduce 的分布式实现。对我来说最大的困难在于语言的不熟悉，这里主要使用的是 Go 语言。由于这是我第一次接触 Go，有很多实现细节其实可以做的更好一些。</p>
+      </div><div class="content" id="content"><p>这次实验的目的是自己完成一个 MapReduce 的分布式实现。对我来说最大的困难在于语言的不熟悉，这里主要使用的是 Go 语言。由于这是我第一次接触 Go，有很多实现细节其实可以做的更好一些。</p>
 <h2 id="基本要求">基本要求</h2>
 <ul>
 <li>master 进程分配 m 个 Map 任务和 n 个 Reduce 任务给 worker，worker 完成任务后通知 master。</li>
@@ -137,11 +219,11 @@
 <li>为了通过最后的 crash 测试，当 worker 超时，master 会分配新的 worker 去完成任务。这里需要保证对分配重复任务的 worker，只取一次的结果。</li>
 </ul>
 <p><div class="details admonition info open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-info-circle fa-fw"></i>Task RPC<i class="details-icon fas fa-angle-right fa-fw"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content"><p>本着简单实现的想法，设计了以下 RPC 结构。</p>
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-info-circle fa-fw" aria-hidden="true"></i>Task RPC<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content"><p>本着简单实现的想法，设计了以下 RPC 结构。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -154,24 +236,24 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Task</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">Seq</span>         <span class="kt">int</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">Status</span>      <span class="kt">int</span> <span class="c1">// 0  1  2  3  4 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">MapFile</span>     <span class="kt">string</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">ReduceFiles</span> <span class="p">[]</span><span class="nx">KeyValue</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">LastTime</span>    <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Seq</span>         <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Status</span>      <span class="kt">int</span> <span class="c1">// 0  1  2  3  4 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">MapFile</span>     <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ReduceFiles</span> <span class="p">[]</span><span class="nx">KeyValue</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">LastTime</span>    <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>这样就可以完整描述一个 Map 任务或者是一个 Reduce 任务了。</p>
 </div>
-        </div>
     </div>
+  </div>
 <div class="details admonition info open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-info-circle fa-fw"></i>master<i class="details-icon fas fa-angle-right fa-fw"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content"><p>接着是 master 的结构设计。</p>
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-info-circle fa-fw" aria-hidden="true"></i>master<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content"><p>接着是 master 的结构设计。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -186,26 +268,26 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Coordinator</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">TaskQueue</span>        <span class="p">[]</span><span class="nx">Task</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">NReduce</span>          <span class="kt">int</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">MapFinished</span>      <span class="kt">bool</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">ReduceFinished</span>   <span class="kt">bool</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">RemainMapTask</span>    <span class="kt">int</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">RemainReduceTask</span> <span class="kt">int</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">Mu</span>               <span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">TaskQueue</span>        <span class="p">[]</span><span class="nx">Task</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">NReduce</span>          <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">MapFinished</span>      <span class="kt">bool</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ReduceFinished</span>   <span class="kt">bool</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">RemainMapTask</span>    <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">RemainReduceTask</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Mu</span>               <span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>这里用一个数组来记录任务队列。<code>MapFinished</code> 和 <code>ReduceFinished</code> 代表的是 Map 任务是否已经全部完成以及 Reduce 任务是否已经全部完成。</p>
 </div>
-        </div>
-    </div></p>
+    </div>
+  </div></p>
 <div class="details admonition info open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-info-circle fa-fw"></i>More RPC<i class="details-icon fas fa-angle-right fa-fw"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content"><p>设计两个 RPC 接口，一个是请求任务的接口，一个是通知完成任务的接口。注意这里使用 <code>checkTime()</code> 函数来检查任务是否超时，一旦超时，则分配新的 worker 去完成任务。为了简化处理，这里没有对超时的 woker 做回收，而是忽略它通知完成任务的行为。</p>
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-info-circle fa-fw" aria-hidden="true"></i>More RPC<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="details-content">
+      <div class="admonition-content"><p>设计两个 RPC 接口，一个是请求任务的接口，一个是通知完成任务的接口。注意这里使用 <code>checkTime()</code> 函数来检查任务是否超时，一旦超时，则分配新的 worker 去完成任务。为了简化处理，这里没有对超时的 woker 做回收，而是忽略它通知完成任务的行为。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -283,82 +365,82 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">checkTime</span><span class="p">(</span><span class="nx">oldTime</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">m</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">ParseDuration</span><span class="p">(</span><span class="s">&#34;-10s&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">m1</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">().</span><span class="nf">Add</span><span class="p">(</span><span class="nx">m</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">m1</span><span class="p">.</span><span class="nf">After</span><span class="p">(</span><span class="nx">oldTime</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;delay occurs&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">m1</span><span class="p">.</span><span class="nf">After</span><span class="p">(</span><span class="nx">oldTime</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">m</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">ParseDuration</span><span class="p">(</span><span class="s">&#34;-10s&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">m1</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">().</span><span class="nf">Add</span><span class="p">(</span><span class="nx">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">m1</span><span class="p">.</span><span class="nf">After</span><span class="p">(</span><span class="nx">oldTime</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;delay occurs&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">m1</span><span class="p">.</span><span class="nf">After</span><span class="p">(</span><span class="nx">oldTime</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Coordinator</span><span class="p">)</span> <span class="nf">RequestForTask</span><span class="p">(</span><span class="nx">request</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">reply</span> <span class="o">*</span><span class="nx">Task</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">// fmt.Printf(&#34;%d ask for Task, Map Remaining %d, Reduce Remaining %d\n&#34;, request, c.RemainMapTask, c.RemainReduceTask)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">c</span><span class="p">.</span><span class="nx">Mu</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">	<span class="k">defer</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">!</span><span class="nx">c</span><span class="p">.</span><span class="nx">MapFinished</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">NReduce</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Status</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Status</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="nf">checkTime</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">LastTime</span><span class="p">)){</span>
-</span></span><span class="line"><span class="cl">				<span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Status</span> <span class="p">=</span> <span class="mi">1</span>
-</span></span><span class="line"><span class="cl">				<span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">LastTime</span> <span class="p">=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">				<span class="o">*</span><span class="nx">reply</span> <span class="p">=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">				<span class="k">return</span> <span class="kc">nil</span>
-</span></span><span class="line"><span class="cl">			<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">!</span><span class="nx">c</span><span class="p">.</span><span class="nx">ReduceFinished</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">c</span><span class="p">.</span><span class="nx">NReduce</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Status</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">||</span> <span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Status</span> <span class="o">==</span> <span class="mi">3</span> <span class="o">&amp;&amp;</span> <span class="nf">checkTime</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">LastTime</span><span class="p">))</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">				<span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Status</span> <span class="p">=</span> <span class="mi">3</span>
-</span></span><span class="line"><span class="cl">				<span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">LastTime</span> <span class="p">=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">				<span class="o">*</span><span class="nx">reply</span> <span class="p">=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">				<span class="k">return</span> <span class="kc">nil</span>
-</span></span><span class="line"><span class="cl">			<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// fmt.Printf(&#34;%d ask for Task, Map Remaining %d, Reduce Remaining %d\n&#34;, request, c.RemainMapTask, c.RemainReduceTask)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">c</span><span class="p">.</span><span class="nx">Mu</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">defer</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">!</span><span class="nx">c</span><span class="p">.</span><span class="nx">MapFinished</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">NReduce</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Status</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Status</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="nf">checkTime</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">LastTime</span><span class="p">)){</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Status</span> <span class="p">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">LastTime</span> <span class="p">=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">                <span class="o">*</span><span class="nx">reply</span> <span class="p">=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">!</span><span class="nx">c</span><span class="p">.</span><span class="nx">ReduceFinished</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">c</span><span class="p">.</span><span class="nx">NReduce</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Status</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">||</span> <span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Status</span> <span class="o">==</span> <span class="mi">3</span> <span class="o">&amp;&amp;</span> <span class="nf">checkTime</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">LastTime</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">Status</span> <span class="p">=</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">LastTime</span> <span class="p">=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">                <span class="o">*</span><span class="nx">reply</span> <span class="p">=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">!</span><span class="nx">c</span><span class="p">.</span><span class="nx">ReduceFinished</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="p">(</span><span class="o">*</span><span class="nx">reply</span><span class="p">).</span><span class="nx">Seq</span> <span class="p">=</span> <span class="o">-</span><span class="mi">1</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="p">(</span><span class="o">*</span><span class="nx">reply</span><span class="p">).</span><span class="nx">Seq</span> <span class="p">=</span> <span class="o">-</span><span class="mi">2</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">!</span><span class="nx">c</span><span class="p">.</span><span class="nx">ReduceFinished</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="o">*</span><span class="nx">reply</span><span class="p">).</span><span class="nx">Seq</span> <span class="p">=</span> <span class="o">-</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="o">*</span><span class="nx">reply</span><span class="p">).</span><span class="nx">Seq</span> <span class="p">=</span> <span class="o">-</span><span class="mi">2</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">nil</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Coordinator</span><span class="p">)</span> <span class="nf">SubmmitTask</span><span class="p">(</span><span class="nx">t</span> <span class="nx">Task</span><span class="p">,</span> <span class="nx">p</span> <span class="o">*</span><span class="kt">int</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">c</span><span class="p">.</span><span class="nx">Mu</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">	<span class="k">defer</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">c</span><span class="p">.</span><span class="nx">Mu</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">defer</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">t</span><span class="p">.</span><span class="nx">Seq</span><span class="p">].</span><span class="nx">Status</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="kc">nil</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">t</span><span class="p">.</span><span class="nx">Seq</span><span class="p">].</span><span class="nx">Status</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="nx">status</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Status</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">status</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Status</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="c1">// fmt.Println(c.TaskQueue[seq].ReduceFiles)
+</span></span><span class="line"><span class="cl">    <span class="c1">// fmt.Println(c.TaskQueue[seq].ReduceFiles)
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">status</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="c1">// fmt.Printf(&#34;Receving %s\n&#34;, t.MapFile)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">wi</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">t</span><span class="p">.</span><span class="nx">ReduceFiles</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="nx">i</span> <span class="o">:=</span> <span class="nf">ihash</span><span class="p">(</span><span class="nx">wi</span><span class="p">.</span><span class="nx">Key</span><span class="p">)</span> <span class="o">%</span> <span class="nx">c</span><span class="p">.</span><span class="nx">NReduce</span>
-</span></span><span class="line"><span class="cl">			<span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">ReduceFiles</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">ReduceFiles</span><span class="p">,</span> <span class="nx">wi</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">c</span><span class="p">.</span><span class="nx">RemainMapTask</span><span class="o">--</span>
-</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">c</span><span class="p">.</span><span class="nx">RemainMapTask</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="nx">c</span><span class="p">.</span><span class="nx">MapFinished</span> <span class="p">=</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">status</span> <span class="o">==</span> <span class="mi">3</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">c</span><span class="p">.</span><span class="nx">RemainReduceTask</span><span class="o">--</span>
-</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">c</span><span class="p">.</span><span class="nx">RemainReduceTask</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="nx">c</span><span class="p">.</span><span class="nx">ReduceFinished</span> <span class="p">=</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">t</span><span class="p">.</span><span class="nx">Seq</span><span class="p">].</span><span class="nx">Status</span> <span class="p">=</span> <span class="o">-</span><span class="mi">1</span>
-</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">status</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// fmt.Printf(&#34;Receving %s\n&#34;, t.MapFile)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">wi</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">t</span><span class="p">.</span><span class="nx">ReduceFiles</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">i</span> <span class="o">:=</span> <span class="nf">ihash</span><span class="p">(</span><span class="nx">wi</span><span class="p">.</span><span class="nx">Key</span><span class="p">)</span> <span class="o">%</span> <span class="nx">c</span><span class="p">.</span><span class="nx">NReduce</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">ReduceFiles</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">ReduceFiles</span><span class="p">,</span> <span class="nx">wi</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">c</span><span class="p">.</span><span class="nx">RemainMapTask</span><span class="o">--</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nx">c</span><span class="p">.</span><span class="nx">RemainMapTask</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">c</span><span class="p">.</span><span class="nx">MapFinished</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">status</span> <span class="o">==</span> <span class="mi">3</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">c</span><span class="p">.</span><span class="nx">RemainReduceTask</span><span class="o">--</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nx">c</span><span class="p">.</span><span class="nx">RemainReduceTask</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">c</span><span class="p">.</span><span class="nx">ReduceFinished</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">c</span><span class="p">.</span><span class="nx">TaskQueue</span><span class="p">[</span><span class="nx">t</span><span class="p">.</span><span class="nx">Seq</span><span class="p">].</span><span class="nx">Status</span> <span class="p">=</span> <span class="o">-</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">nil</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div></div>
-        </div>
     </div>
+  </div>
 <p>使用 <code>./test-mr.sh</code> 测试，结果如下</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -437,52 +519,55 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><div class="details admonition success open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-check-circle fa-fw"></i>结果：<i class="details-icon fas fa-angle-right fa-fw"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content">可以看到所有测试都通过了，到这里Lab1就做完了。</div>
-        </div>
+    <div class="details-summary admonition-title">
+      <i class="icon fa-solid fa-check-circle fa-fw" aria-hidden="true"></i>结果：<i class="details-icon fa-solid fa-angle-right fa-fw" aria-hidden="true"></i>
     </div>
+    <div class="details-content">
+      <div class="admonition-content">可以看到所有测试都通过了，到这里Lab1就做完了。</div>
+    </div>
+  </div>
 </div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2021-06-02</span>
-            </div>
-            <div class="post-info-license"></div>
-        </div>
-        <div class="post-info-line">
-            <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C/index.md" target="_blank">阅读原始文档</a>
-                        </span></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://hongwei7.online/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C/" data-title="MIT-6.824-Lab1-MapReduce 实验" data-hashtags="Distributed System,Go"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://hongwei7.online/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C/" data-hashtag="Distributed System"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://hongwei7.online/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C/" data-title="MIT-6.824-Lab1-MapReduce 实验" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://hongwei7.online/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C/" data-title="MIT-6.824-Lab1-MapReduce 实验"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://hongwei7.online/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C/" data-title="MIT-6.824-Lab1-MapReduce 实验" data-image="https://hongwei7.online/images/mapreduce.png"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://hongwei7.online/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C/" data-title="MIT-6.824-Lab1-MapReduce 实验" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://hongwei7.online/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C/" data-title="MIT-6.824-Lab1-MapReduce 实验" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://hongwei7.online/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C/" data-title="MIT-6.824-Lab1-MapReduce 实验"><i class="fab fa-evernote fa-fw"></i></a></span>
-            </div>
-        </div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title=2021-06-02&#32;06:22:02>更新于 2021-06-02&nbsp;</span>
+      </div><div class="post-info-license">
+          <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span>
+        </div></div>
+    <div class="post-info-line">
+      <div class="post-info-md"><span><a href="/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
+      <div class="post-info-share">
+        <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://hongwei7.online/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C/" data-title="MIT-6.824-Lab1-MapReduce 实验" data-hashtags="Distributed System,Go"><i class="fa-brands fa-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://hongwei7.online/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C/" data-hashtag="Distributed System"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://hongwei7.online/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C/" data-title="MIT-6.824-Lab1-MapReduce 实验" data-web><i class="fa-brands fa-whatsapp fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://hongwei7.online/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C/" data-title="MIT-6.824-Lab1-MapReduce 实验"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://hongwei7.online/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C/" data-title="MIT-6.824-Lab1-MapReduce 实验" data-image="/images/mapreduce.png"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://hongwei7.online/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C/" data-title="MIT-6.824-Lab1-MapReduce 实验" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://hongwei7.online/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C/" data-title="MIT-6.824-Lab1-MapReduce 实验" data-description=""><i class="fa-brands fa-blogger fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://hongwei7.online/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C/" data-title="MIT-6.824-Lab1-MapReduce 实验"><i class="fa-brands fa-evernote fa-fw" aria-hidden="true"></i></a>
+  </span>
+      </div>
     </div>
+  </div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/distributed-system/">Distributed System</a>,&nbsp;<a href="/tags/go/">Go</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
-        </section>
-    </div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/distributed-system/' class="post-tag">Distributed System</a><a href='/tags/go/' class="post-tag">Go</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div>
 
-    <div class="post-nav"><a href="/gfs/" class="prev" rel="prev" title="GFS文件系统"><i class="fas fa-angle-left fa-fw"></i>GFS文件系统</a>
-            <a href="/mit-6.824-lab2a-raft-leaderelection/" class="next" rel="next" title="MIT-6.824-Lab2A-Raft-LeaderElection">MIT-6.824-Lab2A-Raft-LeaderElection<i class="fas fa-angle-right fa-fw"></i></a></div>
+  <div class="post-nav"><a href="/gfs/" class="post-nav-item" rel="prev" title="GFS文件系统"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>GFS文件系统</a>
+      <a href="/mit-6.824-lab2a-raft-leaderelection/" class="post-nav-item" rel="next" title="MIT-6.824-Lab2A-Raft-LeaderElection">MIT-6.824-Lab2A-Raft-LeaderElection<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
-<div id="comments"></div></article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/hongwei7" target="_blank">hongwei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
-        </div>
-    </footer></div>
-
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
-            </a>
-        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":300},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+<div id="comments"></div></article></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.111.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.2.18-RC"><img class="fixit-icon" src="/fixit.min.svg" alt="FixIt logo" />&nbsp;FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2020 - 2023</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/hongwei7"target="_blank" rel="external nofollow noopener noreferrer">hongwei</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div><div class="footer-line statistics"></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div><div class="fixed-button view-comments d-none" role="button" aria-label="查看评论"><i class="fa-solid fa-comment fa-fw" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">FixIt 主题在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/lunr/lunr.min.js" defer></script><script src="/lib/lunr/lunr.stemmer.support.min.js" defer></script><script src="/lib/lunr/lunr.zh.min.js" defer></script><script src="/lib/twemoji/twemoji.min.js" defer></script><script src="/lib/lightgallery/lightgallery.min.js" defer></script><script src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js" defer></script><script src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":300},"comment":{"enable":true,"expired":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script src="/js/theme.min.js" defer></script></body>
 </html>

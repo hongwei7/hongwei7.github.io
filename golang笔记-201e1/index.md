@@ -1,5 +1,6 @@
 # Golang学习笔记记录
 
+
 # Golang笔记
 
 ## 基础
@@ -11,27 +12,29 @@
 ### struct
 
 - golang 通过 struct 来实现其他语言中的 class，但是在 golang 中没有继承的概念。
+
 - golang 中使用组合函数的方法来定义结构体函数：
-    
-    ```go
-    func (person Profile) FmtProfile() {
-        fmt.Printf("名字：%s\n", person.name)
-        fmt.Printf("年龄：%d\n", person.age)
-        fmt.Printf("性别：%s\n", person.gender)
-    }
-    ```
-    
+  
+  ```go
+  func (person Profile) FmtProfile() {
+      fmt.Printf("名字：%s\n", person.name)
+      fmt.Printf("年龄：%d\n", person.age)
+      fmt.Printf("性别：%s\n", person.gender)
+  }
+  ```
+
 - 当需要改变对象内容或者结构体过大需要性能提升时，使用指针作为方法接收者。
-    
-    ```go
-    func (person *Profile) FmtProfile() {
-        fmt.Printf("名字：%s\n", person.name)
-        fmt.Printf("年龄：%d\n", person.age)
-        fmt.Printf("性别：%s\n", person.gender)
-    }
-    ```
-    
+  
+  ```go
+  func (person *Profile) FmtProfile() {
+      fmt.Printf("名字：%s\n", person.name)
+      fmt.Printf("年龄：%d\n", person.age)
+      fmt.Printf("性别：%s\n", person.gender)
+  }
+  ```
+
 - golang 使用组合的方法来实现继承。
+
 - golang 使用接口（Interface）来实现多态。
 
 ```go
@@ -193,7 +196,7 @@ func WithValue(parent Context, key, valinterface{}) Context
 
 golang 的 goroutine 使用的调度方式是 MPG 模型。
 
-![Untitled](https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled.png)
+![Untitled](/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled.png)
 
 一个M对应一个系统内核线程，一个P对应一个上下文，一个上下文连接一个或多个 G goroutine。蓝色的 G 代表运行中。
 
@@ -268,7 +271,7 @@ array 在函数中参数传递的是值，slice 传递的是指针。
 新创建的slice2和slice1底层是同一个数组，所以修改任何一个，两个slice共同的指向元素，会导致同时修改的问题.
 
 ```go
-		// 创建一个容量和长度均为6的slice
+        // 创建一个容量和长度均为6的slice
     slice1 := []int{5, 23, 10, 2, 61, 33}
     // 对slices1进行切片，长度为2容量为4
     slice2 := slice1[1:3]
@@ -285,7 +288,7 @@ array 在函数中参数传递的是值，slice 传递的是指针。
 创建新的slice可以设置其cap，但是不能超过原底层数组的长度。此时对新的slice进行append，仍然会影响原来的slice。
 
 ```go
-		// 创建一个容量和长度均为6的slice
+        // 创建一个容量和长度均为6的slice
     slice1 := []int{5, 23, 10, 2, 61, 33}
     // 对slices1进行切片，长度为2容量为3
     slice2 := slice1[1:3:4]
@@ -308,7 +311,7 @@ array 在函数中参数传递的是值，slice 传递的是指针。
 如果在创建新的slice时我们把他的长度和容量的值设置为样的值，那么在append新元素时，底层会创建一个新的array并把之前的值复制过去。这样就不会影响之前共同的底层array了。
 
 ```go
-	// 创建一个容量和长度均为6的slice
+    // 创建一个容量和长度均为6的slice
     slice1 := []int{5, 23, 10, 2, 61, 33}
     // 对slices1进行切片，长度为2容量为3
     slice2 := slice1[1:3:3]
@@ -336,20 +339,20 @@ array 在函数中参数传递的是值，slice 传递的是指针。
 
 ```go
 func fib3(x int) func() int {
-	a, b := 0, 1
-	return func() int {
-		a, b = b, a+b
-		x++
-		return a+x
-	}
+    a, b := 0, 1
+    return func() int {
+        a, b = b, a+b
+        x++
+        return a+x
+    }
 }
 ```
 
-![Untitled](https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%201.png)
+![Untitled](/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%201.png)
 
-![Untitled](https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%202.png)
+![Untitled](/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%202.png)
 
-![Untitled](https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%203.png)
+![Untitled](/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%203.png)
 
 **所有引用局部变量，Golang在生成汇编是帮我们在堆上创建该变量的一个拷贝，并把该变量地址和函数闭包组成一个结构体，并把该结构体传出来作为返回值。**
 
@@ -363,7 +366,7 @@ func fib3(x int) func() int {
 
 清理后的对象空间用链表结构串联起来（可以添加cookie或者标志位来实现）。
 
-![Untitled](https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%204.png)
+![Untitled](/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%204.png)
 
 问题：用户程序在标记清除的过程中不能执行（长时间的 STW ）。
 
@@ -378,12 +381,14 @@ func fib3(x int) func() int {
 工作过程：
 
 - 根对象被标记成灰色。收集器只会从灰色对象集合中扫描，灰色集合不存在对象时，标记阶段结束。
+
 - 从灰色集合中选择一个灰色对象，标记成黑色。
+
 - 黑色对象指向的所有对象都标记成灰色。（这样该对象不会被回收）
+
 - 重复以上两个步骤不存在灰色。
-    
-    ![Untitled](https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%205.png)
-    
+  
+    ![Untitled](/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%205.png)
 
 当三色的标记清除的标记阶段结束之后，应用程序的堆中就不存在任何的灰色对象，我们只能看到黑色的存活对象以及白色的垃圾对象，垃圾收集器可以回收这些白色的垃圾。
 
@@ -394,14 +399,13 @@ func fib3(x int) func() int {
 ### 屏障技术
 
 > 内存屏障技术是一种屏障指令，它可以让 CPU 或者编译器在执行内存相关操作时遵循特定的约束，目前多数的现代处理器都会乱序执行指令以最大化性能，但是该技术能够保证内存操作的顺序性，在内存屏障前执行的操作一定会先于内存屏障后执行的操作。
-> 
 
 要想并发或增量地运行三色标记算法，要达成两种三色不变性其中的一种：
 
 - 强三色不变性：黑色对象不会指向白色对象。
 - 弱三色不变性：黑色对象指向的白色对象必须包含一条从灰色对象经由多个白色对象的可达路径。（垃圾收集器无法从某个灰色对象出发，经过几个连续的白色对象访问白色的 C 和 D 两个对象）
 
-![Untitled](https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%206.png)
+![Untitled](/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%206.png)
 
 编程语言往往都会采用写屏障保证三色不变性。Go 语言中使用的两种写屏障技术，分别是 Dijkstra 提出的插入写屏障和 Yuasa 提出的删除写屏障。
 
@@ -413,7 +417,7 @@ func fib3(x int) func() int {
 
 例如：
 
-![Untitled](https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%207.png)
+![Untitled](/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%207.png)
 
 1. 垃圾收集器将根对象指向 A 对象标记成黑色并将 A 对象指向的对象 B 标记成灰色；
 2. 用户程序修改 A 对象的指针，将原本指向 B 对象的指针指向 C 对象，这时触发写屏障将 C 对象标记成灰色；
@@ -432,7 +436,7 @@ func fib3(x int) func() int {
 
 在老对象的引用被删除时，将白色的老对象涂成灰色，这样就保证了弱三色不变性。
 
-![Untitled](https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%208.png)
+![Untitled](/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%208.png)
 
 1. 垃圾收集器将根对象指向 A 对象标记成黑色并将 A 对象指向的对象 B 标记成灰色；
 2. 用户程序将 A 对象原本指向 B 的指针指向 C，触发删除写屏障，但是因为 B 对象已经是灰色的，所以不做改变；
@@ -440,3 +444,9 @@ func fib3(x int) func() int {
 4. 垃圾收集器依次遍历程序中的其他灰色对象，将它们分别标记成黑色；
 
 Yuasa 删除写屏障通过对 C 对象的着色，保证了 C 对象和下游的 D 对象能够在这一次垃圾收集的循环中存活，避免发生悬挂指针以保证用户程序的正确性。
+
+---
+
+> 作者: [hongwei](https://github.com/hongwei7)  
+> URL: https://hongwei7.online/golang%E7%AC%94%E8%AE%B0-201e1/  
+

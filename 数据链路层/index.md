@@ -272,3 +272,9 @@ CSMA/CD 要求最短帧的发送时间大于等于争用时隙。
 - 无分片交换（读够 64 个字节后再转发）
 
 ![/images/Network-1/Untitled%2028.png](/images/Network-1/Untitled%2028.png)
+
+---
+
+> 作者: [hongwei](https://github.com/hongwei7)  
+> URL: https://hongwei7.online/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/  
+

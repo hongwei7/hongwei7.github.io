@@ -113,3 +113,9 @@ int main() {
 {{< admonition success "结果：" true >}}
 说明在 Mac OS X 中，线程之间的栈不能相互访问，而在 Ubuntu 中，线程之间可以访问各自的栈变量。而两个系统环境下，不同线程下可以互相访问各自的 heap 变量。
 {{< /admonition >}}
+
+---
+
+> 作者: [hongwei](https://github.com/hongwei7)  
+> URL: https://hongwei7.online/linux%E4%B8%8B%E7%BA%BF%E7%A8%8B%E4%B8%AD%E6%A0%88%E5%8F%98%E9%87%8F%E5%92%8C%E5%A0%86%E5%8F%98%E9%87%8F%E7%9A%84%E5%85%B1%E4%BA%AB%E6%80%A7/  
+

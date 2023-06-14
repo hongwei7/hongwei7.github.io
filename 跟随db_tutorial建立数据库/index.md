@@ -367,3 +367,9 @@ typedef struct {
 
 一切对于虚拟机的操作都可以转化为对光标的抽象操作了
 
+
+---
+
+> 作者: [hongwei](https://github.com/hongwei7)  
+> URL: https://hongwei7.online/%E8%B7%9F%E9%9A%8Fdb_tutorial%E5%BB%BA%E7%AB%8B%E6%95%B0%E6%8D%AE%E5%BA%93/  
+

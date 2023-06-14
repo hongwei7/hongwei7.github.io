@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>STL-源码剖析（侯捷） - hongwei 的博客</title><meta name="Description" content="欢迎来到hongwei7的个人博客"><meta property="og:title" content="STL-源码剖析（侯捷）" />
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>STL-源码剖析（侯捷） - hongwei 的博客</title><meta name="author" content="hongwei">
+<meta name="author-link" content="https://github.com/hongwei7">
+<meta name="description" content="侯捷C&#43;&#43;系列，STL源码剖析的笔记记录📒。" /><meta name="keywords" content='Coding, STL, C&#43;&#43;' /><meta itemprop="name" content="STL-源码剖析（侯捷）">
+<meta itemprop="description" content="侯捷C&#43;&#43;系列，STL源码剖析的笔记记录📒。"><meta itemprop="datePublished" content="2021-01-23T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-01-23T00:00:00+00:00" />
+<meta itemprop="wordCount" content="5042"><meta itemprop="image" content="https://hongwei7.online/logo.png"/>
+<meta itemprop="keywords" content="Coding,STL,C&#43;&#43;," /><meta property="og:title" content="STL-源码剖析（侯捷）" />
 <meta property="og:description" content="侯捷C&#43;&#43;系列，STL源码剖析的笔记记录📒。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://hongwei7.online/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7/" /><meta property="og:image" content="https://hongwei7.online/logo.png"/><meta property="article:section" content="posts" />
@@ -17,113 +23,189 @@
 <meta name="twitter:title" content="STL-源码剖析（侯捷）"/>
 <meta name="twitter:description" content="侯捷C&#43;&#43;系列，STL源码剖析的笔记记录📒。"/>
 <meta name="application-name" content="hongwei&#39;s Blog">
-<meta name="apple-mobile-web-app-title" content="hongwei&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://hongwei7.online/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7/" /><link rel="prev" href="https://hongwei7.online/%E5%89%91%E6%8C%87offer/" /><link rel="next" href="https://hongwei7.online/%E4%B8%80%E4%BA%9B%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "STL-源码剖析（侯捷）",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/hongwei7.online\/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7\/"
-        },"genre": "posts","keywords": "Coding, STL, C\u002b\u002b","wordcount":  5042 ,
-        "url": "https:\/\/hongwei7.online\/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7\/","datePublished": "2021-01-23T00:00:00+00:00","dateModified": "2021-01-23T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
-            "@type": "Organization",
-            "name": ""},"author": {
-                "@type": "Person",
-                "name": "hongwei"
-            },"description": ""
-    }
-    </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<meta name="apple-mobile-web-app-title" content="hongwei&#39;s Blog"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://hongwei7.online/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7/" /><link rel="prev" href="https://hongwei7.online/%E5%89%91%E6%8C%87offer/" /><link rel="next" href="https://hongwei7.online/%E4%B8%80%E4%BA%9B%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "STL-源码剖析（侯捷）",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/hongwei7.online\/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7\/"
+    },"genre": "posts","keywords": "Coding, STL, C\u002b\u002b","wordcount":  5042 ,
+    "url": "https:\/\/hongwei7.online\/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7\/","datePublished": "2021-01-23T00:00:00+00:00","dateModified": "2021-01-23T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "hongwei"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="hongwei 的博客"><span class="header-title-text">hongwei&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              >所有文章</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              >标签</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              >分类</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/documentation/"
+                
+                
+              >文档</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/about/"
+                
+                
+              >关于</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="https://github.com/dillonzq/LoveIt"
+                title="GitHub"
+                rel="noopener noreferrer" target="_blank"
+              ><i class='fab fa-github fa-fw'></i> </a></li><li class="menu-item delimiter"></li><li class="menu-item language">
+            <span role="button" aria-label="选择语言" title="选择语言">简体中文<i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden="true"></i>
+            </span>
+            <ul class="sub-menu"><li class="menu-item">没有更多翻译</li></ul>
+          </li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="hongwei 的博客">hongwei&#39;s Blog</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
-                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7/" selected>简体中文</option></select>
-                    </a><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
-                </a>
-            </div>
-        </div>
+      <div class="header-title">
+        <a href="/" title="hongwei 的博客"><span class="header-title-text">hongwei&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/" title="hongwei 的博客">hongwei&#39;s Blog</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/categories/documentation/" title="">文档</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7/" selected>简体中文</option></select>
-                </a></div>
-    </div>
-</header>
-<div class="search-dropdown desktop">
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                >所有文章</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                >标签</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                >分类</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/documentation/"
+                  
+                  
+                >文档</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/about/"
+                  
+                  
+                >关于</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="https://github.com/dillonzq/LoveIt"
+                  title="GitHub"
+                  rel="noopener noreferrer" target="_blank"
+                ><i class='fab fa-github fa-fw'></i> </a></li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li><li class="menu-item language">
+            <span role="button" aria-label="选择语言" title="选择语言">简体中文<i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden="true"></i>
+            </span>
+            <select class="language-select" onchange="location = this.value;"><option disabled>没有更多翻译</option></select>
+          </li></ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
     <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
+  </div>
+  <div class="search-dropdown mobile">
     <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">STL-源码剖析（侯捷）</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/hongwei7" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>hongwei</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-01-23">2021-01-23</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5042 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 11 分钟&nbsp;</div>
-        </div><div class="featured-image"><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://hongwei7.online/images/STL/Untitled.png"
-        data-srcset="https://hongwei7.online/images/STL/Untitled.png, https://hongwei7.online/images/STL/Untitled.png 1.5x, https://hongwei7.online/images/STL/Untitled.png 2x"
-        data-sizes="auto"
-        alt="https://hongwei7.online/images/STL/Untitled.png"
-        title="https://hongwei7.online/images/STL/Untitled.png" /></div><div class="details toc" id="toc-static"  kept="true">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  </div><main class="container" data-page-style="normal"><aside class="toc" id="toc-auto"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside>
+
+  <aside class="aside-custom">
+    </aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX">
+        <span>STL-源码剖析（侯捷）</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/hongwei7" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+    hongwei</a></span></div>
+      <div class="post-meta-line"><span title=2021-01-23&#32;00:00:00><i class="fa-regular fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-01-23">2021-01-23</time></span>&nbsp;<span><i class="fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i> 约 5042 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw" aria-hidden="true"></i> 预计阅读 11 分钟</span>&nbsp;</div>
+    </div><div class="featured-image"><img loading="lazy" src="/images/STL/Untitled.png" srcset="/images/STL/Untitled.png, /images/STL/Untitled.png 1.5x, /images/STL/Untitled.png 2x" sizes="auto" data-title="/images/STL/Untitled.png" data-alt="/images/STL/Untitled.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></div><div class="details toc" id="toc-static" data-kept="true">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#模板知识">模板知识</a>
       <ul>
@@ -205,14 +287,7 @@
     <li><a href="#cout">cout</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled.png"
-        data-srcset="/images/STL/Untitled.png, /images/STL/Untitled.png 1.5x, /images/STL/Untitled.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled.png"
-        title="/images/STL/Untitled.png" /></p>
+      </div><div class="content" id="content"><p><img loading="lazy" src="/images/STL/Untitled.png" srcset="/images/STL/Untitled.png, /images/STL/Untitled.png 1.5x, /images/STL/Untitled.png 2x" sizes="auto" data-title="/images/STL/Untitled.png" data-alt="/images/STL/Untitled.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <h2 id="模板知识">模板知识</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -233,9 +308,9 @@
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">complex</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//...
+</span></span><span class="line"><span class="cl">    <span class="c1">//...
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">private</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">	<span class="n">T</span> <span class="n">re</span><span class="p">,</span> <span class="n">im</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">T</span> <span class="n">re</span><span class="p">,</span> <span class="n">im</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">complex</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">c</span><span class="p">;</span>
@@ -292,43 +367,22 @@
 </span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Alloc</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="p">,</span> <span class="n">Alloc</span><span class="o">&gt;</span> <span class="c1">//对第一个模板做了偏特化
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//...
+</span></span><span class="line"><span class="cl">    <span class="c1">//...
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>对多个模板中的某个模板进行特化，为第一种偏特化。</p>
 <p>第二种偏特化：范围的偏特化。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%201.png"
-        data-srcset="/images/STL/Untitled%201.png, /images/STL/Untitled%201.png 1.5x, /images/STL/Untitled%201.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%201.png"
-        title="/images/STL/Untitled%201.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%201.png" srcset="/images/STL/Untitled%201.png, /images/STL/Untitled%201.png 1.5x, /images/STL/Untitled%201.png 2x" sizes="auto" data-title="/images/STL/Untitled%201.png" data-alt="/images/STL/Untitled%201.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>上面例子对 T 为指针时做了偏特化，常量指针又做了偏特化。</p>
 <h2 id="分配器-allocators">分配器 allocators</h2>
 <p>分配器扮演的是幕后英雄的角色。</p>
 <h3 id="operator-new-和-malloc">operator new 和 malloc</h3>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%202.png"
-        data-srcset="/images/STL/Untitled%202.png, /images/STL/Untitled%202.png 1.5x, /images/STL/Untitled%202.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%202.png"
-        title="/images/STL/Untitled%202.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%202.png" srcset="/images/STL/Untitled%202.png, /images/STL/Untitled%202.png 1.5x, /images/STL/Untitled%202.png 2x" sizes="auto" data-title="/images/STL/Untitled%202.png" data-alt="/images/STL/Untitled%202.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>new 的底部其实是调用了 malloc。</p>
 <h3 id="allocator">allocator</h3>
 <p>VC6，GCC和 BC5 的 allocator 只是用 new 和 delete 的重载完成了 allocate（）和 deallocate（），没有其他特殊设计。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%203.png"
-        data-srcset="/images/STL/Untitled%203.png, /images/STL/Untitled%203.png 1.5x, /images/STL/Untitled%203.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%203.png"
-        title="/images/STL/Untitled%203.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%203.png" srcset="/images/STL/Untitled%203.png, /images/STL/Untitled%203.png 1.5x, /images/STL/Untitled%203.png 2x" sizes="auto" data-title="/images/STL/Untitled%203.png" data-alt="/images/STL/Untitled%203.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>可以自己尝试去调用：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -342,47 +396,19 @@
 </div>
 </div><p>这里要求使用者知道当初申请了多少单位的内存，而容器调用时则不会出现这种问题。</p>
 <p>所有的容器用的都是这种分配器。若无数元素都是使用new ，将会消耗大量的格外空间，造成浪费。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%204.png"
-        data-srcset="/images/STL/Untitled%204.png, /images/STL/Untitled%204.png 1.5x, /images/STL/Untitled%204.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%204.png"
-        title="/images/STL/Untitled%204.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%204.png" srcset="/images/STL/Untitled%204.png, /images/STL/Untitled%204.png 1.5x, /images/STL/Untitled%204.png 2x" sizes="auto" data-title="/images/STL/Untitled%204.png" data-alt="/images/STL/Untitled%204.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>GCC 中说明，虽然做出了这个分配器，但是自己的容器都不使用它。</p>
 <h3 id="alloc">alloc</h3>
 <p>GCC 2.9.1实际上默认的 alloc：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%205.png"
-        data-srcset="/images/STL/Untitled%205.png, /images/STL/Untitled%205.png 1.5x, /images/STL/Untitled%205.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%205.png"
-        title="/images/STL/Untitled%205.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%205.png" srcset="/images/STL/Untitled%205.png, /images/STL/Untitled%205.png 1.5x, /images/STL/Untitled%205.png 2x" sizes="auto" data-title="/images/STL/Untitled%205.png" data-alt="/images/STL/Untitled%205.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>主要诉求是，减少 malloc 的次数。这样可以减少 cookies，还有内存对齐带来的浪费。 容器的大小按 8 的倍数来分配。第一个链表负责 8byte，第二个负责 16byte，第三个负责 24byte。。。当链表的内存用完后，再借用其他链表的内存，连接起来。这样减少了 cookies。</p>
 <p>但是 GCC4.9使用的又变回了没有特殊设计的 allocator。alloc 的名称也被变为__pool_alloc。</p>
 <h1 id="容器-container-和-迭代器-iterator">容器 container 和 迭代器 iterator</h1>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%206.png"
-        data-srcset="/images/STL/Untitled%206.png, /images/STL/Untitled%206.png 1.5x, /images/STL/Untitled%206.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%206.png"
-        title="/images/STL/Untitled%206.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%206.png" srcset="/images/STL/Untitled%206.png, /images/STL/Untitled%206.png 1.5x, /images/STL/Untitled%206.png 2x" sizes="auto" data-title="/images/STL/Untitled%206.png" data-alt="/images/STL/Untitled%206.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>红黑树是 set、map 的底层。vector 支撑了 heap，heap 支撑了 priority_queue。deque 支撑了 stack 和 queue。unordered_ 类的底层都是 hashtable。</p>
 <p>这里的关系是组合而非继承。</p>
 <h2 id="list-链表">list 链表</h2>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%207.png"
-        data-srcset="/images/STL/Untitled%207.png, /images/STL/Untitled%207.png 1.5x, /images/STL/Untitled%207.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%207.png"
-        title="/images/STL/Untitled%207.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%207.png" srcset="/images/STL/Untitled%207.png, /images/STL/Untitled%207.png 1.5x, /images/STL/Untitled%207.png 2x" sizes="auto" data-title="/images/STL/Untitled%207.png" data-alt="/images/STL/Untitled%207.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>list_node 是平时的节点，list 包含一个 list_node 的指针。一个 list_node 除了数据，还有两个指针。</p>
 <h3 id="__list_iterator">__list_iterator</h3>
 <p>iterator：希望它模拟指针的动作，因而会取到 list_node 中的 next 中去。</p>
@@ -404,106 +430,36 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Ref</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Ptr</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">__list_iterator</span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//必须的五个 typedef
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">typedef</span> <span class="n">T</span> <span class="n">value_type</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="k">typedef</span> <span class="n">Ptr</span> <span class="n">pointer</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="k">typedef</span> <span class="n">Ref</span> <span class="n">reference</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="k">typedef</span> <span class="n">__list_node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;*</span> <span class="n">link_type</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="k">typedef</span> <span class="n">ptrdiff_t</span> <span class="n">difference_type</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//必须的五个 typedef
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">typedef</span> <span class="n">T</span> <span class="n">value_type</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">typedef</span> <span class="n">Ptr</span> <span class="n">pointer</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">typedef</span> <span class="n">Ref</span> <span class="n">reference</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">typedef</span> <span class="n">__list_node</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;*</span> <span class="n">link_type</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">typedef</span> <span class="n">ptrdiff_t</span> <span class="n">difference_type</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="n">link_type</span> <span class="n">node</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//操作符重载...
+</span></span><span class="line"><span class="cl">    <span class="n">link_type</span> <span class="n">node</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//操作符重载...
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%208.png"
-        data-srcset="/images/STL/Untitled%208.png, /images/STL/Untitled%208.png 1.5x, /images/STL/Untitled%208.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%208.png"
-        title="/images/STL/Untitled%208.png" /></p>
+</div><p><img loading="lazy" src="/images/STL/Untitled%208.png" srcset="/images/STL/Untitled%208.png, /images/STL/Untitled%208.png 1.5x, /images/STL/Untitled%208.png 2x" sizes="auto" data-title="/images/STL/Untitled%208.png" data-alt="/images/STL/Untitled%208.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>++的实现：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/2021-01-26_10.54.58.png"
-        data-srcset="/images/STL/2021-01-26_10.54.58.png, /images/STL/2021-01-26_10.54.58.png 1.5x, /images/STL/2021-01-26_10.54.58.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/2021-01-26_10.54.58.png"
-        title="/images/STL/2021-01-26_10.54.58.png" /></p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%209.png"
-        data-srcset="/images/STL/Untitled%209.png, /images/STL/Untitled%209.png 1.5x, /images/STL/Untitled%209.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%209.png"
-        title="/images/STL/Untitled%209.png" /></p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2010.png"
-        data-srcset="/images/STL/Untitled%2010.png, /images/STL/Untitled%2010.png 1.5x, /images/STL/Untitled%2010.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2010.png"
-        title="/images/STL/Untitled%2010.png" /></p>
+<p><img loading="lazy" src="/images/STL/2021-01-26_10.54.58.png" srcset="/images/STL/2021-01-26_10.54.58.png, /images/STL/2021-01-26_10.54.58.png 1.5x, /images/STL/2021-01-26_10.54.58.png 2x" sizes="auto" data-title="/images/STL/2021-01-26_10.54.58.png" data-alt="/images/STL/2021-01-26_10.54.58.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<p><img loading="lazy" src="/images/STL/Untitled%209.png" srcset="/images/STL/Untitled%209.png, /images/STL/Untitled%209.png 1.5x, /images/STL/Untitled%209.png 2x" sizes="auto" data-title="/images/STL/Untitled%209.png" data-alt="/images/STL/Untitled%209.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2010.png" srcset="/images/STL/Untitled%2010.png, /images/STL/Untitled%2010.png 1.5x, /images/STL/Untitled%2010.png 2x" sizes="auto" data-title="/images/STL/Untitled%2010.png" data-alt="/images/STL/Untitled%2010.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>注意这里跟整数一样，<code>i++++</code>或 <code>(i++)++</code>都是非法操作。所以返回是否为引用，也很讲究。</p>
 <p>*号：取得 data的引用；→号：取得本身操作对象数据地址。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2011.png"
-        data-srcset="/images/STL/Untitled%2011.png, /images/STL/Untitled%2011.png 1.5x, /images/STL/Untitled%2011.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2011.png"
-        title="/images/STL/Untitled%2011.png" /></p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2012.png"
-        data-srcset="/images/STL/Untitled%2012.png, /images/STL/Untitled%2012.png 1.5x, /images/STL/Untitled%2012.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2012.png"
-        title="/images/STL/Untitled%2012.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2011.png" srcset="/images/STL/Untitled%2011.png, /images/STL/Untitled%2011.png 1.5x, /images/STL/Untitled%2011.png 2x" sizes="auto" data-title="/images/STL/Untitled%2011.png" data-alt="/images/STL/Untitled%2011.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2012.png" srcset="/images/STL/Untitled%2012.png, /images/STL/Untitled%2012.png 1.5x, /images/STL/Untitled%2012.png 2x" sizes="auto" data-title="/images/STL/Untitled%2012.png" data-alt="/images/STL/Untitled%2012.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <h3 id="gcc49的改进">GCC4.9的改进</h3>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2013.png"
-        data-srcset="/images/STL/Untitled%2013.png, /images/STL/Untitled%2013.png 1.5x, /images/STL/Untitled%2013.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2013.png"
-        title="/images/STL/Untitled%2013.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2013.png" srcset="/images/STL/Untitled%2013.png, /images/STL/Untitled%2013.png 1.5x, /images/STL/Untitled%2013.png 2x" sizes="auto" data-title="/images/STL/Untitled%2013.png" data-alt="/images/STL/Untitled%2013.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p><code>iterator</code> 只保留了一个模板参数，更好。节点本身的 <code>prev</code> 和 <code>next</code> 不再是 <code>void*</code>，更好。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2014.png"
-        data-srcset="/images/STL/Untitled%2014.png, /images/STL/Untitled%2014.png 1.5x, /images/STL/Untitled%2014.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2014.png"
-        title="/images/STL/Untitled%2014.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2014.png" srcset="/images/STL/Untitled%2014.png, /images/STL/Untitled%2014.png 1.5x, /images/STL/Untitled%2014.png 2x" sizes="auto" data-title="/images/STL/Untitled%2014.png" data-alt="/images/STL/Untitled%2014.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>但是也变得更复杂。新版的 list 多了一个指向最后空白节点的指针，大小变为 8。</p>
 <h2 id="iterator-迭代器的特征">iterator 迭代器的特征</h2>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2015.png"
-        data-srcset="/images/STL/Untitled%2015.png, /images/STL/Untitled%2015.png 1.5x, /images/STL/Untitled%2015.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2015.png"
-        title="/images/STL/Untitled%2015.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2015.png" srcset="/images/STL/Untitled%2015.png, /images/STL/Untitled%2015.png 1.5x, /images/STL/Untitled%2015.png 2x" sizes="auto" data-title="/images/STL/Untitled%2015.png" data-alt="/images/STL/Untitled%2015.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>迭代器回答算法关于数据的一些性质，从而启示算法如何去执行。如算法 rotate：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2016.png"
-        data-srcset="/images/STL/Untitled%2016.png, /images/STL/Untitled%2016.png 1.5x, /images/STL/Untitled%2016.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2016.png"
-        title="/images/STL/Untitled%2016.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2016.png" srcset="/images/STL/Untitled%2016.png, /images/STL/Untitled%2016.png 1.5x, /images/STL/Untitled%2016.png 2x" sizes="auto" data-title="/images/STL/Untitled%2016.png" data-alt="/images/STL/Untitled%2016.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>上面反映的三种回答：</p>
 <ul>
 <li>iterator_category 迭代器的分类：如是否可以+=3，是否可以两向移动。。。</li>
@@ -516,33 +472,12 @@
 <li>pointer_type</li>
 </ul>
 <p>后面两种从来没有被使用过。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2017.png"
-        data-srcset="/images/STL/Untitled%2017.png, /images/STL/Untitled%2017.png 1.5x, /images/STL/Untitled%2017.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2017.png"
-        title="/images/STL/Untitled%2017.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2017.png" srcset="/images/STL/Untitled%2017.png, /images/STL/Untitled%2017.png 1.5x, /images/STL/Untitled%2017.png 2x" sizes="auto" data-title="/images/STL/Untitled%2017.png" data-alt="/images/STL/Untitled%2017.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>但若单纯的指针作为迭代器时，就需要萃取（Traits）了。</p>
 <h3 id="萃取">萃取</h3>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2018.png"
-        data-srcset="/images/STL/Untitled%2018.png, /images/STL/Untitled%2018.png 1.5x, /images/STL/Untitled%2018.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2018.png"
-        title="/images/STL/Untitled%2018.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2018.png" srcset="/images/STL/Untitled%2018.png, /images/STL/Untitled%2018.png 1.5x, /images/STL/Untitled%2018.png 2x" sizes="auto" data-title="/images/STL/Untitled%2018.png" data-alt="/images/STL/Untitled%2018.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>有能力把普通的指针的特性提取出来。利用偏特化可以写出萃取机：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2019.png"
-        data-srcset="/images/STL/Untitled%2019.png, /images/STL/Untitled%2019.png 1.5x, /images/STL/Untitled%2019.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2019.png"
-        title="/images/STL/Untitled%2019.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2019.png" srcset="/images/STL/Untitled%2019.png, /images/STL/Untitled%2019.png 1.5x, /images/STL/Untitled%2019.png 2x" sizes="auto" data-title="/images/STL/Untitled%2019.png" data-alt="/images/STL/Untitled%2019.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>c++针对各种类型都定义有萃取机。这里加上 typename 告诉编译器这里指的是类型名，而不是模板。例：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -555,44 +490,16 @@
 </div><h2 id="vector">vector</h2>
 <p>vector 包含三个迭代器（私有）：<code>start</code>，<code>finish</code>，<code>end_of_storage</code>。</p>
 <p>装满了之后会两倍成长。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2020.png"
-        data-srcset="/images/STL/Untitled%2020.png, /images/STL/Untitled%2020.png 1.5x, /images/STL/Untitled%2020.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2020.png"
-        title="/images/STL/Untitled%2020.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2020.png" srcset="/images/STL/Untitled%2020.png, /images/STL/Untitled%2020.png 1.5x, /images/STL/Untitled%2020.png 2x" sizes="auto" data-title="/images/STL/Untitled%2020.png" data-alt="/images/STL/Untitled%2020.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>增长的过程:</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2021.png"
-        data-srcset="/images/STL/Untitled%2021.png, /images/STL/Untitled%2021.png 1.5x, /images/STL/Untitled%2021.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2021.png"
-        title="/images/STL/Untitled%2021.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2021.png" srcset="/images/STL/Untitled%2021.png, /images/STL/Untitled%2021.png 1.5x, /images/STL/Untitled%2021.png 2x" sizes="auto" data-title="/images/STL/Untitled%2021.png" data-alt="/images/STL/Untitled%2021.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>注意在 c++11 中右值引用的方法如何降低了增长的成本?</p>
-<p><a href="https://www.notion.so/C-11-14-2-0-2aeec1a83a9e4e6b89b4d0b80d1026b0" target="_blank" rel="noopener noreffer">C++ 11&amp;14（2.0）新标准（侯捷）</a></p>
+<p><a href="https://www.notion.so/C-11-14-2-0-2aeec1a83a9e4e6b89b4d0b80d1026b0"target="_blank" rel="external nofollow noopener noreferrer">C++ 11&amp;14（2.0）新标准（侯捷）</a></p>
 <p>GCC4.9中的 vector：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2022.png"
-        data-srcset="/images/STL/Untitled%2022.png, /images/STL/Untitled%2022.png 1.5x, /images/STL/Untitled%2022.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2022.png"
-        title="/images/STL/Untitled%2022.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2022.png" srcset="/images/STL/Untitled%2022.png, /images/STL/Untitled%2022.png 1.5x, /images/STL/Untitled%2022.png 2x" sizes="auto" data-title="/images/STL/Untitled%2022.png" data-alt="/images/STL/Untitled%2022.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>又变得复杂了。</p>
 <h2 id="array">array</h2>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2023.png"
-        data-srcset="/images/STL/Untitled%2023.png, /images/STL/Untitled%2023.png 1.5x, /images/STL/Untitled%2023.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2023.png"
-        title="/images/STL/Untitled%2023.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2023.png" srcset="/images/STL/Untitled%2023.png, /images/STL/Untitled%2023.png 1.5x, /images/STL/Untitled%2023.png 2x" sizes="auto" data-title="/images/STL/Untitled%2023.png" data-alt="/images/STL/Untitled%2023.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>array 必须指定大小</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -605,24 +512,10 @@
 </div><p>疑问：template&lt;typename *Tp, std::size_*t _Nm&gt; 代表模板里面可以放参数？ 是的。</p>
 <p>array 其实只是对数组做了一层包装，加上 iterator。</p>
 <p>疑问：为什么这里的 begin 和 end 函数要加上 noexcept？</p>
-<p><a href="https://www.cnblogs.com/sword03/p/10020344.html" target="_blank" rel="noopener noreffer">C++11 带来的新特性 （3）&ndash; 关键字noexcept</a></p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2024.png"
-        data-srcset="/images/STL/Untitled%2024.png, /images/STL/Untitled%2024.png 1.5x, /images/STL/Untitled%2024.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2024.png"
-        title="/images/STL/Untitled%2024.png" /></p>
+<p><a href="https://www.cnblogs.com/sword03/p/10020344.html"target="_blank" rel="external nofollow noopener noreferrer">C++11 带来的新特性 （3）&ndash; 关键字noexcept</a></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2024.png" srcset="/images/STL/Untitled%2024.png, /images/STL/Untitled%2024.png 1.5x, /images/STL/Untitled%2024.png 2x" sizes="auto" data-title="/images/STL/Untitled%2024.png" data-alt="/images/STL/Untitled%2024.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <h2 id="dequequeue-和stack">deque，queue 和stack</h2>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2025.png"
-        data-srcset="/images/STL/Untitled%2025.png, /images/STL/Untitled%2025.png 1.5x, /images/STL/Untitled%2025.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2025.png"
-        title="/images/STL/Untitled%2025.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2025.png" srcset="/images/STL/Untitled%2025.png, /images/STL/Untitled%2025.png 1.5x, /images/STL/Untitled%2025.png 2x" sizes="auto" data-title="/images/STL/Untitled%2025.png" data-alt="/images/STL/Untitled%2025.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <ul>
 <li>deque 其实是分段连续，对外表现形式为连续。底层的一个 vector 中放的每个元素都是一个指针，分别指向一段连续 buffer。多段的 buffer 形成了连续的队列。当 某一段 buffer 用完，vector 添加一个指针在后端，申请一段新的 buffer。</li>
 <li>vector 扩张时，原有的指针会被复制到新 vector 的中央。</li>
@@ -630,102 +523,32 @@
 <li>当 cur 走到了某个缓冲区的尾部，迭代器会自动回到 vector 中找到下一个缓冲区。</li>
 <li>start 和 finish 迭代器如图所示，一切都按照 iterator 的接口来定义。</li>
 </ul>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2026.png"
-        data-srcset="/images/STL/Untitled%2026.png, /images/STL/Untitled%2026.png 1.5x, /images/STL/Untitled%2026.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2026.png"
-        title="/images/STL/Untitled%2026.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2026.png" srcset="/images/STL/Untitled%2026.png, /images/STL/Untitled%2026.png 1.5x, /images/STL/Untitled%2026.png 2x" sizes="auto" data-title="/images/STL/Untitled%2026.png" data-alt="/images/STL/Untitled%2026.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>新版不再允许自定义 buffersize。</p>
 <h3 id="dequetinsert">deque<T>::insert()</h3>
 <p>注意 deque 是支持随机访问的，并不是单纯的双端队列。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2027.png"
-        data-srcset="/images/STL/Untitled%2027.png, /images/STL/Untitled%2027.png 1.5x, /images/STL/Untitled%2027.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2027.png"
-        title="/images/STL/Untitled%2027.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2027.png" srcset="/images/STL/Untitled%2027.png, /images/STL/Untitled%2027.png 1.5x, /images/STL/Untitled%2027.png 2x" sizes="auto" data-title="/images/STL/Untitled%2027.png" data-alt="/images/STL/Untitled%2027.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>deque 需要判断元素是向前移动还是向后移动更好。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2028.png"
-        data-srcset="/images/STL/Untitled%2028.png, /images/STL/Untitled%2028.png 1.5x, /images/STL/Untitled%2028.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2028.png"
-        title="/images/STL/Untitled%2028.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2028.png" srcset="/images/STL/Untitled%2028.png, /images/STL/Untitled%2028.png 1.5x, /images/STL/Untitled%2028.png 2x" sizes="auto" data-title="/images/STL/Untitled%2028.png" data-alt="/images/STL/Untitled%2028.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <h3 id="deque-中-iterator的操作符重载">deque 中 iterator的操作符重载</h3>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2029.png"
-        data-srcset="/images/STL/Untitled%2029.png, /images/STL/Untitled%2029.png 1.5x, /images/STL/Untitled%2029.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2029.png"
-        title="/images/STL/Untitled%2029.png" /></p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2030.png"
-        data-srcset="/images/STL/Untitled%2030.png, /images/STL/Untitled%2030.png 1.5x, /images/STL/Untitled%2030.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2030.png"
-        title="/images/STL/Untitled%2030.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2029.png" srcset="/images/STL/Untitled%2029.png, /images/STL/Untitled%2029.png 1.5x, /images/STL/Untitled%2029.png 2x" sizes="auto" data-title="/images/STL/Untitled%2029.png" data-alt="/images/STL/Untitled%2029.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2030.png" srcset="/images/STL/Untitled%2030.png, /images/STL/Untitled%2030.png 1.5x, /images/STL/Untitled%2030.png 2x" sizes="auto" data-title="/images/STL/Untitled%2030.png" data-alt="/images/STL/Untitled%2030.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>简单的计算可以算出任意两个 iterator 间的距离。注意 buffersize 都是相同的。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2031.png"
-        data-srcset="/images/STL/Untitled%2031.png, /images/STL/Untitled%2031.png 1.5x, /images/STL/Untitled%2031.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2031.png"
-        title="/images/STL/Untitled%2031.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2031.png" srcset="/images/STL/Untitled%2031.png, /images/STL/Untitled%2031.png 1.5x, /images/STL/Untitled%2031.png 2x" sizes="auto" data-title="/images/STL/Untitled%2031.png" data-alt="/images/STL/Untitled%2031.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>注意一般都是用后置运算符调用前置运算符。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2032.png"
-        data-srcset="/images/STL/Untitled%2032.png, /images/STL/Untitled%2032.png 1.5x, /images/STL/Untitled%2032.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2032.png"
-        title="/images/STL/Untitled%2032.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2032.png" srcset="/images/STL/Untitled%2032.png, /images/STL/Untitled%2032.png 1.5x, /images/STL/Untitled%2032.png 2x" sizes="auto" data-title="/images/STL/Untitled%2032.png" data-alt="/images/STL/Untitled%2032.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>+可以利用+=来完成。先判断要不要跨越缓冲区，如果需要，则需计算出真正缓冲区的位置，切换到正确的缓冲区后再切换到元素的位置。</p>
 <h3 id="queue-和-stack">queue 和 stack</h3>
 <p>queue 和 stack都是以 deque 作为底层实现。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2033.png"
-        data-srcset="/images/STL/Untitled%2033.png, /images/STL/Untitled%2033.png 1.5x, /images/STL/Untitled%2033.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2033.png"
-        title="/images/STL/Untitled%2033.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2033.png" srcset="/images/STL/Untitled%2033.png, /images/STL/Untitled%2033.png 1.5x, /images/STL/Untitled%2033.png 2x" sizes="auto" data-title="/images/STL/Untitled%2033.png" data-alt="/images/STL/Untitled%2033.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>可以称 queue 和 stack 为 adapter。注意 queue 和 stack 都不提供iterator。一般标准容器才有 iterator。</p>
 <p>为什么以 deque 作为底部呢？</p>
 <p>实际上 两者可以选择 list和 deque 作为底部。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2034.png"
-        data-srcset="/images/STL/Untitled%2034.png, /images/STL/Untitled%2034.png 1.5x, /images/STL/Untitled%2034.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2034.png"
-        title="/images/STL/Untitled%2034.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2034.png" srcset="/images/STL/Untitled%2034.png, /images/STL/Untitled%2034.png 1.5x, /images/STL/Untitled%2034.png 2x" sizes="auto" data-title="/images/STL/Untitled%2034.png" data-alt="/images/STL/Untitled%2034.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>且stack 可以用 vector 做底层结构，queue 不行。因为 vector 并没有 <code>pop_front()</code>函数。</p>
 <h2 id="rb-tree">rb-tree</h2>
 <p>关联式容器的地步都是红黑树和 散列表 。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2035.png"
-        data-srcset="/images/STL/Untitled%2035.png, /images/STL/Untitled%2035.png 1.5x, /images/STL/Untitled%2035.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2035.png"
-        title="/images/STL/Untitled%2035.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2035.png" srcset="/images/STL/Untitled%2035.png, /images/STL/Untitled%2035.png 1.5x, /images/STL/Untitled%2035.png 2x" sizes="auto" data-title="/images/STL/Untitled%2035.png" data-alt="/images/STL/Untitled%2035.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>特性：</p>
 <ul>
 <li>
@@ -734,37 +557,16 @@
 <li>
 <p>提供遍历 iterators，能获得排序的状态。</p>
 <p>begin为最左边的节点，end为最右边的节点，中序遍历。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2036.png"
-        data-srcset="/images/STL/Untitled%2036.png, /images/STL/Untitled%2036.png 1.5x, /images/STL/Untitled%2036.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2036.png"
-        title="/images/STL/Untitled%2036.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2036.png" srcset="/images/STL/Untitled%2036.png, /images/STL/Untitled%2036.png 1.5x, /images/STL/Untitled%2036.png 2x" sizes="auto" data-title="/images/STL/Untitled%2036.png" data-alt="/images/STL/Untitled%2036.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>map的排序是按照key来排序，而data是可以改变的。因此这里的元素值应该是开放修改的。</p>
 </li>
 </ul>
 <p>实现：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2037.png"
-        data-srcset="/images/STL/Untitled%2037.png, /images/STL/Untitled%2037.png 1.5x, /images/STL/Untitled%2037.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2037.png"
-        title="/images/STL/Untitled%2037.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2037.png" srcset="/images/STL/Untitled%2037.png, /images/STL/Untitled%2037.png 1.5x, /images/STL/Untitled%2037.png 2x" sizes="auto" data-title="/images/STL/Untitled%2037.png" data-alt="/images/STL/Untitled%2037.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>红黑树只有三个data：node_count,  header, key_compare。</p>
 <p>分别对应的是红黑树的节点数量，红黑树的头，key比较的方法。注意红黑树的header为空的，为了实现上的方便。</p>
 <p>keyofvalue模板告诉红黑树如何从value中取出key。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2038.png"
-        data-srcset="/images/STL/Untitled%2038.png, /images/STL/Untitled%2038.png 1.5x, /images/STL/Untitled%2038.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2038.png"
-        title="/images/STL/Untitled%2038.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2038.png" srcset="/images/STL/Untitled%2038.png, /images/STL/Untitled%2038.png 1.5x, /images/STL/Untitled%2038.png 2x" sizes="auto" data-title="/images/STL/Untitled%2038.png" data-alt="/images/STL/Untitled%2038.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>key_compare的为functionlike object，大小为1。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -776,64 +578,22 @@
 </span></span><span class="line"><span class="cl"><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">tree</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2039.png"
-        data-srcset="/images/STL/Untitled%2039.png, /images/STL/Untitled%2039.png 1.5x, /images/STL/Untitled%2039.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2039.png"
-        title="/images/STL/Untitled%2039.png" /></p>
+</div><p><img loading="lazy" src="/images/STL/Untitled%2039.png" srcset="/images/STL/Untitled%2039.png, /images/STL/Untitled%2039.png 1.5x, /images/STL/Untitled%2039.png 2x" sizes="auto" data-title="/images/STL/Untitled%2039.png" data-alt="/images/STL/Untitled%2039.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>GNU4.9的版本同样变得非常复杂。实际上这是OO里面Handel的做法。</p>
 <h2 id="set-与-multiset">set 与 multiset</h2>
 <p>区别：元素能否重复。都是以红黑树为底层，元素会自动按照key排序。而对于set来说，key和value是同一样东西。</p>
 <p>提供遍历和iterators。无法通过迭代器来赋值。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2040.png"
-        data-srcset="/images/STL/Untitled%2040.png, /images/STL/Untitled%2040.png 1.5x, /images/STL/Untitled%2040.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2040.png"
-        title="/images/STL/Untitled%2040.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2040.png" srcset="/images/STL/Untitled%2040.png, /images/STL/Untitled%2040.png 1.5x, /images/STL/Untitled%2040.png 2x" sizes="auto" data-title="/images/STL/Untitled%2040.png" data-alt="/images/STL/Untitled%2040.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>这里GNU的identity指的是key即value。而在VC6下为_Kfn。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2041.png"
-        data-srcset="/images/STL/Untitled%2041.png, /images/STL/Untitled%2041.png 1.5x, /images/STL/Untitled%2041.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2041.png"
-        title="/images/STL/Untitled%2041.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2041.png" srcset="/images/STL/Untitled%2041.png, /images/STL/Untitled%2041.png 1.5x, /images/STL/Untitled%2041.png 2x" sizes="auto" data-title="/images/STL/Untitled%2041.png" data-alt="/images/STL/Untitled%2041.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>当取set的iterator时，取到的其实是rb_tree的const_iterator。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2042.png"
-        data-srcset="/images/STL/Untitled%2042.png, /images/STL/Untitled%2042.png 1.5x, /images/STL/Untitled%2042.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2042.png"
-        title="/images/STL/Untitled%2042.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2042.png" srcset="/images/STL/Untitled%2042.png, /images/STL/Untitled%2042.png 1.5x, /images/STL/Untitled%2042.png 2x" sizes="auto" data-title="/images/STL/Untitled%2042.png" data-alt="/images/STL/Untitled%2042.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>所以set也是adapter。 set和multiset的区别仅仅是insert函数调用的不同。</p>
 <h2 id="map--和-multimap">map  和 multimap</h2>
 <p>map与set区别在于map的daata与key并不相同。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2043.png"
-        data-srcset="/images/STL/Untitled%2043.png, /images/STL/Untitled%2043.png 1.5x, /images/STL/Untitled%2043.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2043.png"
-        title="/images/STL/Untitled%2043.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2043.png" srcset="/images/STL/Untitled%2043.png, /images/STL/Untitled%2043.png 1.5x, /images/STL/Untitled%2043.png 2x" sizes="auto" data-title="/images/STL/Untitled%2043.png" data-alt="/images/STL/Untitled%2043.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>map应该做到无法改变key，但是可以改变data。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2044.png"
-        data-srcset="/images/STL/Untitled%2044.png, /images/STL/Untitled%2044.png 1.5x, /images/STL/Untitled%2044.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2044.png"
-        title="/images/STL/Untitled%2044.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2044.png" srcset="/images/STL/Untitled%2044.png, /images/STL/Untitled%2044.png 1.5x, /images/STL/Untitled%2044.png 2x" sizes="auto" data-title="/images/STL/Untitled%2044.png" data-alt="/images/STL/Untitled%2044.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>留意这里的Key被const所修饰，因此不能被修改。这里的keyofvalue则是selectfirst。这也是显而易见的。</p>
 <p>而对于multimap而言，这样的操作是非法的。</p>
 <div class="highlight"><div class="chroma">
@@ -845,33 +605,12 @@
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>对于map的[]重载，当key不存在时，会使用默认值创建这个元素。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2045.png"
-        data-srcset="/images/STL/Untitled%2045.png, /images/STL/Untitled%2045.png 1.5x, /images/STL/Untitled%2045.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2045.png"
-        title="/images/STL/Untitled%2045.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2045.png" srcset="/images/STL/Untitled%2045.png, /images/STL/Untitled%2045.png 1.5x, /images/STL/Untitled%2045.png 2x" sizes="auto" data-title="/images/STL/Untitled%2045.png" data-alt="/images/STL/Untitled%2045.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>除此之外，安插key的位置是由lower_bound函数实现的。</p>
 <h2 id="hashtable">hashtable</h2>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2046.png"
-        data-srcset="/images/STL/Untitled%2046.png, /images/STL/Untitled%2046.png 1.5x, /images/STL/Untitled%2046.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2046.png"
-        title="/images/STL/Untitled%2046.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2046.png" srcset="/images/STL/Untitled%2046.png, /images/STL/Untitled%2046.png 1.5x, /images/STL/Untitled%2046.png 2x" sizes="auto" data-title="/images/STL/Untitled%2046.png" data-alt="/images/STL/Untitled%2046.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>有一个约定俗成的经验规则：当元素个数达到数组长度，rehashing。数组的长度变为两倍。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2047.png"
-        data-srcset="/images/STL/Untitled%2047.png, /images/STL/Untitled%2047.png 1.5x, /images/STL/Untitled%2047.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2047.png"
-        title="/images/STL/Untitled%2047.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2047.png" srcset="/images/STL/Untitled%2047.png, /images/STL/Untitled%2047.png 1.5x, /images/STL/Untitled%2047.png 2x" sizes="auto" data-title="/images/STL/Untitled%2047.png" data-alt="/images/STL/Untitled%2047.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>设计特点：</p>
 <ul>
 <li>Hashfunction 可以建立一个元素到一个数值的映射。</li>
@@ -881,134 +620,43 @@
 <li>iterator 的设计就是两个指针。</li>
 </ul>
 <p>hashtable的使用：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2048.png"
-        data-srcset="/images/STL/Untitled%2048.png, /images/STL/Untitled%2048.png 1.5x, /images/STL/Untitled%2048.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2048.png"
-        title="/images/STL/Untitled%2048.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2048.png" srcset="/images/STL/Untitled%2048.png, /images/STL/Untitled%2048.png 1.5x, /images/STL/Untitled%2048.png 2x" sizes="auto" data-title="/images/STL/Untitled%2048.png" data-alt="/images/STL/Untitled%2048.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>unordered類的容器底層都是紅黑樹。</p>
 <h1 id="算法-algorithm">算法 Algorithm</h1>
 <p>从语言层面来说，只有算法是函数模板，其他都是类模板。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2049.png"
-        data-srcset="/images/STL/Untitled%2049.png, /images/STL/Untitled%2049.png 1.5x, /images/STL/Untitled%2049.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2049.png"
-        title="/images/STL/Untitled%2049.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2049.png" srcset="/images/STL/Untitled%2049.png, /images/STL/Untitled%2049.png 1.5x, /images/STL/Untitled%2049.png 2x" sizes="auto" data-title="/images/STL/Untitled%2049.png" data-alt="/images/STL/Untitled%2049.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>算法借iterator来获取机制来执行。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2050.png"
-        data-srcset="/images/STL/Untitled%2050.png, /images/STL/Untitled%2050.png 1.5x, /images/STL/Untitled%2050.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2050.png"
-        title="/images/STL/Untitled%2050.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2050.png" srcset="/images/STL/Untitled%2050.png, /images/STL/Untitled%2050.png 1.5x, /images/STL/Untitled%2050.png 2x" sizes="auto" data-title="/images/STL/Untitled%2050.png" data-alt="/images/STL/Untitled%2050.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>各个容器的iterator tag：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2051.png"
-        data-srcset="/images/STL/Untitled%2051.png, /images/STL/Untitled%2051.png 1.5x, /images/STL/Untitled%2051.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2051.png"
-        title="/images/STL/Untitled%2051.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2051.png" srcset="/images/STL/Untitled%2051.png, /images/STL/Untitled%2051.png 1.5x, /images/STL/Untitled%2051.png 2x" sizes="auto" data-title="/images/STL/Untitled%2051.png" data-alt="/images/STL/Untitled%2051.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <h2 id="iterator_category-对算法的影响">iterator_category 对算法的影响</h2>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2052.png"
-        data-srcset="/images/STL/Untitled%2052.png, /images/STL/Untitled%2052.png 1.5x, /images/STL/Untitled%2052.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2052.png"
-        title="/images/STL/Untitled%2052.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2052.png" srcset="/images/STL/Untitled%2052.png, /images/STL/Untitled%2052.png 1.5x, /images/STL/Untitled%2052.png 2x" sizes="auto" data-title="/images/STL/Untitled%2052.png" data-alt="/images/STL/Untitled%2052.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>可以看到<code>distance()</code>函数针对不同的迭代器做了不一样的特化。</p>
 <p>iterators的继承关系，会使得子类的继承迭代器调用到父类的算法。</p>
 <p><code>copy()</code>对迭代器的优化：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2053.png"
-        data-srcset="/images/STL/Untitled%2053.png, /images/STL/Untitled%2053.png 1.5x, /images/STL/Untitled%2053.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2053.png"
-        title="/images/STL/Untitled%2053.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2053.png" srcset="/images/STL/Untitled%2053.png, /images/STL/Untitled%2053.png 1.5x, /images/STL/Untitled%2053.png 2x" sizes="auto" data-title="/images/STL/Untitled%2053.png" data-alt="/images/STL/Untitled%2053.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>这里的<strong>type萃取机</strong>回答这个type是否具有拷贝赋值特性。默认的构造函数是不重要的（trivial）。</p>
 <p>注意算法中的函数参数仅仅只是模板，不一定一定要指定的iterator。仅仅是暗示需要什么迭代器。</p>
 <h2 id="算法实现剖析">算法实现剖析</h2>
 <p>accumulate 累计算法</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2054.png"
-        data-srcset="/images/STL/Untitled%2054.png, /images/STL/Untitled%2054.png 1.5x, /images/STL/Untitled%2054.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2054.png"
-        title="/images/STL/Untitled%2054.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2054.png" srcset="/images/STL/Untitled%2054.png, /images/STL/Untitled%2054.png 1.5x, /images/STL/Untitled%2054.png 2x" sizes="auto" data-title="/images/STL/Untitled%2054.png" data-alt="/images/STL/Untitled%2054.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>注意C中的数组也要遵循前闭后开区间规则。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2055.png"
-        data-srcset="/images/STL/Untitled%2055.png, /images/STL/Untitled%2055.png 1.5x, /images/STL/Untitled%2055.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2055.png"
-        title="/images/STL/Untitled%2055.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2055.png" srcset="/images/STL/Untitled%2055.png, /images/STL/Untitled%2055.png 1.5x, /images/STL/Untitled%2055.png 2x" sizes="auto" data-title="/images/STL/Untitled%2055.png" data-alt="/images/STL/Untitled%2055.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>for_each:</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2056.png"
-        data-srcset="/images/STL/Untitled%2056.png, /images/STL/Untitled%2056.png 1.5x, /images/STL/Untitled%2056.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2056.png"
-        title="/images/STL/Untitled%2056.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2056.png" srcset="/images/STL/Untitled%2056.png, /images/STL/Untitled%2056.png 1.5x, /images/STL/Untitled%2056.png 2x" sizes="auto" data-title="/images/STL/Untitled%2056.png" data-alt="/images/STL/Untitled%2056.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>replace:</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2057.png"
-        data-srcset="/images/STL/Untitled%2057.png, /images/STL/Untitled%2057.png 1.5x, /images/STL/Untitled%2057.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2057.png"
-        title="/images/STL/Untitled%2057.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2057.png" srcset="/images/STL/Untitled%2057.png, /images/STL/Untitled%2057.png 1.5x, /images/STL/Untitled%2057.png 2x" sizes="auto" data-title="/images/STL/Untitled%2057.png" data-alt="/images/STL/Untitled%2057.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>count:</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2058.png"
-        data-srcset="/images/STL/Untitled%2058.png, /images/STL/Untitled%2058.png 1.5x, /images/STL/Untitled%2058.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2058.png"
-        title="/images/STL/Untitled%2058.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2058.png" srcset="/images/STL/Untitled%2058.png, /images/STL/Untitled%2058.png 1.5x, /images/STL/Untitled%2058.png 2x" sizes="auto" data-title="/images/STL/Untitled%2058.png" data-alt="/images/STL/Untitled%2058.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>关联式容器自带count函数。</p>
 <p>关于这里返回值为什么要加typename：</p>
-<p><a href="https://www.cnblogs.com/youxin/archive/2012/06/13/2547302.html" target="_blank" rel="noopener noreffer">C++ typename 用法 - youxin - 博客园</a></p>
+<p><a href="https://www.cnblogs.com/youxin/archive/2012/06/13/2547302.html"target="_blank" rel="external nofollow noopener noreferrer">C++ typename 用法 - youxin - 博客园</a></p>
 <p>find 也类似于count。</p>
 <p>sort：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2059.png"
-        data-srcset="/images/STL/Untitled%2059.png, /images/STL/Untitled%2059.png 1.5x, /images/STL/Untitled%2059.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2059.png"
-        title="/images/STL/Untitled%2059.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2059.png" srcset="/images/STL/Untitled%2059.png, /images/STL/Untitled%2059.png 1.5x, /images/STL/Untitled%2059.png 2x" sizes="auto" data-title="/images/STL/Untitled%2059.png" data-alt="/images/STL/Untitled%2059.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>这里<code>myvec.rbegin() myvec.rend()</code> 是反向迭代器。还有<code>cbegin()</code>和<code>cend()</code>为常量迭代器。</p>
 <p>binary_search:</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2060.png"
-        data-srcset="/images/STL/Untitled%2060.png, /images/STL/Untitled%2060.png 1.5x, /images/STL/Untitled%2060.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2060.png"
-        title="/images/STL/Untitled%2060.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2060.png" srcset="/images/STL/Untitled%2060.png, /images/STL/Untitled%2060.png 1.5x, /images/STL/Untitled%2060.png 2x" sizes="auto" data-title="/images/STL/Untitled%2060.png" data-alt="/images/STL/Untitled%2060.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <ul>
 <li><code>lower_bound()</code> 不改变排序的情况下能插入target的最低点。</li>
 <li><code>upper_bound()</code> 不改变排序能插入target的最高点。</li>
@@ -1017,75 +665,26 @@
 <h1 id="仿函数-functors">仿函数 functors</h1>
 <p>STL中最简单的部件。最容易自己写的部分。皆是function like class。</p>
 <p>二元：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2061.png"
-        data-srcset="/images/STL/Untitled%2061.png, /images/STL/Untitled%2061.png 1.5x, /images/STL/Untitled%2061.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2061.png"
-        title="/images/STL/Untitled%2061.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2061.png" srcset="/images/STL/Untitled%2061.png, /images/STL/Untitled%2061.png 1.5x, /images/STL/Untitled%2061.png 2x" sizes="auto" data-title="/images/STL/Untitled%2061.png" data-alt="/images/STL/Untitled%2061.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>二元函数继承<code>binary_function&lt;T1, T2, Result&gt;</code> 后即可使用。</p>
 <p>一元：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2062.png"
-        data-srcset="/images/STL/Untitled%2062.png, /images/STL/Untitled%2062.png 1.5x, /images/STL/Untitled%2062.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2062.png"
-        title="/images/STL/Untitled%2062.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2062.png" srcset="/images/STL/Untitled%2062.png, /images/STL/Untitled%2062.png 1.5x, /images/STL/Untitled%2062.png 2x" sizes="auto" data-title="/images/STL/Untitled%2062.png" data-alt="/images/STL/Untitled%2062.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>注意这些函数非标准库一部分。类似的，继承自<code>unary_function&lt;Arg,Result&gt;</code> 。不继承的话也可以运行，但是不继承会带来问题。</p>
 <h2 id="functors的可适配条件">functors的可适配条件</h2>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2063.png"
-        data-srcset="/images/STL/Untitled%2063.png, /images/STL/Untitled%2063.png 1.5x, /images/STL/Untitled%2063.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2063.png"
-        title="/images/STL/Untitled%2063.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2063.png" srcset="/images/STL/Untitled%2063.png, /images/STL/Untitled%2063.png 1.5x, /images/STL/Untitled%2063.png 2x" sizes="auto" data-title="/images/STL/Untitled%2063.png" data-alt="/images/STL/Untitled%2063.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>有了三个typedef，才能回答Function Adapter的问题：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2064.png"
-        data-srcset="/images/STL/Untitled%2064.png, /images/STL/Untitled%2064.png 1.5x, /images/STL/Untitled%2064.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2064.png"
-        title="/images/STL/Untitled%2064.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2064.png" srcset="/images/STL/Untitled%2064.png, /images/STL/Untitled%2064.png 1.5x, /images/STL/Untitled%2064.png 2x" sizes="auto" data-title="/images/STL/Untitled%2064.png" data-alt="/images/STL/Untitled%2064.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <h1 id="适配器-adapter">适配器 Adapter</h1>
 <p>是设计模式之中的一个。存在很多Adapter。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2065.png"
-        data-srcset="/images/STL/Untitled%2065.png, /images/STL/Untitled%2065.png 1.5x, /images/STL/Untitled%2065.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2065.png"
-        title="/images/STL/Untitled%2065.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2065.png" srcset="/images/STL/Untitled%2065.png, /images/STL/Untitled%2065.png 1.5x, /images/STL/Untitled%2065.png 2x" sizes="auto" data-title="/images/STL/Untitled%2065.png" data-alt="/images/STL/Untitled%2065.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>有容器适配器、迭代器适配器和仿函数适配器，都是使用组合的方式而非继承。</p>
 <p>如stack和queue都是deque的<strong>容器适配器</strong>，它们内含一个deque。</p>
 <h2 id="函数适配器">函数适配器</h2>
 <h3 id="bind2ndc11中被弃用">bind2nd(c++11中被弃用）</h3>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2066.png"
-        data-srcset="/images/STL/Untitled%2066.png, /images/STL/Untitled%2066.png 1.5x, /images/STL/Untitled%2066.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2066.png"
-        title="/images/STL/Untitled%2066.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2066.png" srcset="/images/STL/Untitled%2066.png, /images/STL/Untitled%2066.png 1.5x, /images/STL/Untitled%2066.png 2x" sizes="auto" data-title="/images/STL/Untitled%2066.png" data-alt="/images/STL/Untitled%2066.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>没有not1函数时，这里计算有多少个元素小于40.</p>
 <p>bind2nd起到了把第二个参数绑定为40的作用。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2067.png"
-        data-srcset="/images/STL/Untitled%2067.png, /images/STL/Untitled%2067.png 1.5x, /images/STL/Untitled%2067.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2067.png"
-        title="/images/STL/Untitled%2067.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2067.png" srcset="/images/STL/Untitled%2067.png, /images/STL/Untitled%2067.png 1.5x, /images/STL/Untitled%2067.png 2x" sizes="auto" data-title="/images/STL/Untitled%2067.png" data-alt="/images/STL/Untitled%2067.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>实际上创建了一个对象，这个对象的数据成员value记录第二个参数的值，op记录函数对象，（）重载时直接调用把value传进去用作第二个参数。</p>
 <p>注意这里bind2nd函数（左上角）返回的是一个临时对象，而非函数调用的结果。</p>
 <p>辅助函数起到了自动推导Operation的作用：</p>
@@ -1102,51 +701,23 @@
 <pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Operation</span><span class="p">,</span> <span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kr">inline</span> <span class="n">binder2nd</span><span class="o">&lt;</span><span class="n">Operation</span><span class="o">&gt;</span> <span class="n">bind2nd</span><span class="p">(</span><span class="k">const</span> <span class="n">Operation</span><span class="o">&amp;</span> <span class="n">op</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">typedef</span> <span class="k">typename</span> <span class="n">Operation</span><span class="o">::</span><span class="n">second_argument_type</span> <span class="n">arg2_type</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">binder2nd</span><span class="o">&lt;</span><span class="n">Operation</span><span class="o">&gt;</span><span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="n">arg2_type</span><span class="p">(</span><span class="n">x</span><span class="p">));</span><span class="c1">//temp object
+</span></span><span class="line"><span class="cl">        <span class="k">typedef</span> <span class="k">typename</span> <span class="n">Operation</span><span class="o">::</span><span class="n">second_argument_type</span> <span class="n">arg2_type</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">binder2nd</span><span class="o">&lt;</span><span class="n">Operation</span><span class="o">&gt;</span><span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="n">arg2_type</span><span class="p">(</span><span class="n">x</span><span class="p">));</span><span class="c1">//temp object
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>typedef 类型 arg2_type是为了确保第二个参数不错误。如输入double时，会直接转换为int。<strong>这里其实作为function的可适配条件（adaptable）。</strong></p>
 <p>而本身bind2nd继承自unary_function，作为一元函数。</p>
 <p><strong>新型的适配器bind:</strong></p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2068.png"
-        data-srcset="/images/STL/Untitled%2068.png, /images/STL/Untitled%2068.png 1.5x, /images/STL/Untitled%2068.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2068.png"
-        title="/images/STL/Untitled%2068.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2068.png" srcset="/images/STL/Untitled%2068.png, /images/STL/Untitled%2068.png 1.5x, /images/STL/Untitled%2068.png 2x" sizes="auto" data-title="/images/STL/Untitled%2068.png" data-alt="/images/STL/Untitled%2068.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>在新版本中被bind淘汰。bind的实现机制比较复杂。</p>
 <h3 id="not1">not1</h3>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2066.png"
-        data-srcset="/images/STL/Untitled%2066.png, /images/STL/Untitled%2066.png 1.5x, /images/STL/Untitled%2066.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2066.png"
-        title="/images/STL/Untitled%2066.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2066.png" srcset="/images/STL/Untitled%2066.png, /images/STL/Untitled%2066.png 1.5x, /images/STL/Untitled%2066.png 2x" sizes="auto" data-title="/images/STL/Untitled%2066.png" data-alt="/images/STL/Untitled%2066.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>not1函数在这里是否定的意思。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2069.png"
-        data-srcset="/images/STL/Untitled%2069.png, /images/STL/Untitled%2069.png 1.5x, /images/STL/Untitled%2069.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2069.png"
-        title="/images/STL/Untitled%2069.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2069.png" srcset="/images/STL/Untitled%2069.png, /images/STL/Untitled%2069.png 1.5x, /images/STL/Untitled%2069.png 2x" sizes="auto" data-title="/images/STL/Untitled%2069.png" data-alt="/images/STL/Untitled%2069.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>虽然只是一个取否操作，但是为了adaptable的性质，需要做出一些工作。</p>
 <h3 id="bind-新型适配器">bind 新型适配器</h3>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2070.png"
-        data-srcset="/images/STL/Untitled%2070.png, /images/STL/Untitled%2070.png 1.5x, /images/STL/Untitled%2070.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2070.png"
-        title="/images/STL/Untitled%2070.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2070.png" srcset="/images/STL/Untitled%2070.png, /images/STL/Untitled%2070.png 1.5x, /images/STL/Untitled%2070.png 2x" sizes="auto" data-title="/images/STL/Untitled%2070.png" data-alt="/images/STL/Untitled%2070.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>使用方法：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1163,10 +734,10 @@
 <pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;functional&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="o">::</span><span class="n">placeholders</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
-</span></span><span class="line"><span class="cl">	<span class="k">auto</span> <span class="n">myfun</span> <span class="o">=</span> <span class="n">bind</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">	<span class="n">myfun</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">	<span class="k">auto</span> <span class="n">myfun1</span> <span class="o">=</span> <span class="n">bind</span><span class="p">(</span><span class="n">fun2</span><span class="p">,</span> <span class="n">_1</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span><span class="c1">//占位符
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="n">myfun1</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">myfun</span> <span class="o">=</span> <span class="n">bind</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">myfun</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">myfun1</span> <span class="o">=</span> <span class="n">bind</span><span class="p">(</span><span class="n">fun2</span><span class="p">,</span> <span class="n">_1</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span><span class="c1">//占位符
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="n">myfun1</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -1191,43 +762,15 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>绑定member data也类似。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2071.png"
-        data-srcset="/images/STL/Untitled%2071.png, /images/STL/Untitled%2071.png 1.5x, /images/STL/Untitled%2071.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2071.png"
-        title="/images/STL/Untitled%2071.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2071.png" srcset="/images/STL/Untitled%2071.png, /images/STL/Untitled%2071.png 1.5x, /images/STL/Untitled%2071.png 2x" sizes="auto" data-title="/images/STL/Untitled%2071.png" data-alt="/images/STL/Untitled%2071.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <h2 id="迭代器适配器">迭代器适配器</h2>
 <h3 id="reverse-iterator">reverse iterator</h3>
 <p><code>rbegin()</code> 和 <code>rend()</code></p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2072.png"
-        data-srcset="/images/STL/Untitled%2072.png, /images/STL/Untitled%2072.png 1.5x, /images/STL/Untitled%2072.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2072.png"
-        title="/images/STL/Untitled%2072.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2072.png" srcset="/images/STL/Untitled%2072.png, /images/STL/Untitled%2072.png 1.5x, /images/STL/Untitled%2072.png 2x" sizes="auto" data-title="/images/STL/Untitled%2072.png" data-alt="/images/STL/Untitled%2072.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>可以看做从尾往头的一个迭代器。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2073.png"
-        data-srcset="/images/STL/Untitled%2073.png, /images/STL/Untitled%2073.png 1.5x, /images/STL/Untitled%2073.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2073.png"
-        title="/images/STL/Untitled%2073.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2073.png" srcset="/images/STL/Untitled%2073.png, /images/STL/Untitled%2073.png 1.5x, /images/STL/Untitled%2073.png 2x" sizes="auto" data-title="/images/STL/Untitled%2073.png" data-alt="/images/STL/Untitled%2073.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>操作符重载也要做相应的变化。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2074.png"
-        data-srcset="/images/STL/Untitled%2074.png, /images/STL/Untitled%2074.png 1.5x, /images/STL/Untitled%2074.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2074.png"
-        title="/images/STL/Untitled%2074.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2074.png" srcset="/images/STL/Untitled%2074.png, /images/STL/Untitled%2074.png 1.5x, /images/STL/Untitled%2074.png 2x" sizes="auto" data-title="/images/STL/Untitled%2074.png" data-alt="/images/STL/Untitled%2074.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>留意对逆向取值其实就是对正向退一位取值。</p>
 <h3 id="inserter">inserter</h3>
 <p>insert会自己创建空间，插入到容器中。</p>
@@ -1242,190 +785,88 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>实现的方式为把=操作符重载：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2075.png"
-        data-srcset="/images/STL/Untitled%2075.png, /images/STL/Untitled%2075.png 1.5x, /images/STL/Untitled%2075.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2075.png"
-        title="/images/STL/Untitled%2075.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2075.png" srcset="/images/STL/Untitled%2075.png, /images/STL/Untitled%2075.png 1.5x, /images/STL/Untitled%2075.png 2x" sizes="auto" data-title="/images/STL/Untitled%2075.png" data-alt="/images/STL/Untitled%2075.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <h2 id="未知分类的iterator">未知分类的iterator</h2>
 <h3 id="ostream_iterator">ostream_iterator</h3>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2076.png"
-        data-srcset="/images/STL/Untitled%2076.png, /images/STL/Untitled%2076.png 1.5x, /images/STL/Untitled%2076.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2076.png"
-        title="/images/STL/Untitled%2076.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2076.png" srcset="/images/STL/Untitled%2076.png, /images/STL/Untitled%2076.png 1.5x, /images/STL/Untitled%2076.png 2x" sizes="auto" data-title="/images/STL/Untitled%2076.png" data-alt="/images/STL/Untitled%2076.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>把元素copy到ostream这个容器里面，相当于直接输出。这里的逗号作为分隔符。同样是使用操作符重载来实现。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2077.png"
-        data-srcset="/images/STL/Untitled%2077.png, /images/STL/Untitled%2077.png 1.5x, /images/STL/Untitled%2077.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2077.png"
-        title="/images/STL/Untitled%2077.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2077.png" srcset="/images/STL/Untitled%2077.png, /images/STL/Untitled%2077.png 1.5x, /images/STL/Untitled%2077.png 2x" sizes="auto" data-title="/images/STL/Untitled%2077.png" data-alt="/images/STL/Untitled%2077.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <h3 id="istream_iterator">istream_iterator</h3>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2078.png"
-        data-srcset="/images/STL/Untitled%2078.png, /images/STL/Untitled%2078.png 1.5x, /images/STL/Untitled%2078.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2078.png"
-        title="/images/STL/Untitled%2078.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2078.png" srcset="/images/STL/Untitled%2078.png, /images/STL/Untitled%2078.png 1.5x, /images/STL/Untitled%2078.png 2x" sizes="auto" data-title="/images/STL/Untitled%2078.png" data-alt="/images/STL/Untitled%2078.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>与ostream_iterator雷同，注意的是构造时就会开始读入参数。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2079.png"
-        data-srcset="/images/STL/Untitled%2079.png, /images/STL/Untitled%2079.png 1.5x, /images/STL/Untitled%2079.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2079.png"
-        title="/images/STL/Untitled%2079.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2079.png" srcset="/images/STL/Untitled%2079.png, /images/STL/Untitled%2079.png 1.5x, /images/STL/Untitled%2079.png 2x" sizes="auto" data-title="/images/STL/Untitled%2079.png" data-alt="/images/STL/Untitled%2079.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>一切设计都符合逻辑。</p>
 <h1 id="stl之外">STL之外</h1>
 <h2 id="万用的hash-function">万用的Hash Function</h2>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2080.png"
-        data-srcset="/images/STL/Untitled%2080.png, /images/STL/Untitled%2080.png 1.5x, /images/STL/Untitled%2080.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2080.png"
-        title="/images/STL/Untitled%2080.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2080.png" srcset="/images/STL/Untitled%2080.png, /images/STL/Untitled%2080.png 1.5x, /images/STL/Untitled%2080.png 2x" sizes="auto" data-title="/images/STL/Untitled%2080.png" data-alt="/images/STL/Untitled%2080.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>可以设计为类或者单纯的函数。最先想到的是直接把数据成员的hash值加起来:</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2081.png"
-        data-srcset="/images/STL/Untitled%2081.png, /images/STL/Untitled%2081.png 1.5x, /images/STL/Untitled%2081.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2081.png"
-        title="/images/STL/Untitled%2081.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2081.png" srcset="/images/STL/Untitled%2081.png, /images/STL/Untitled%2081.png 1.5x, /images/STL/Untitled%2081.png 2x" sizes="auto" data-title="/images/STL/Untitled%2081.png" data-alt="/images/STL/Untitled%2081.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>但是碰撞会非常多。TR1：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2082.png"
-        data-srcset="/images/STL/Untitled%2082.png, /images/STL/Untitled%2082.png 1.5x, /images/STL/Untitled%2082.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2082.png"
-        title="/images/STL/Untitled%2082.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2082.png" srcset="/images/STL/Untitled%2082.png, /images/STL/Untitled%2082.png 1.5x, /images/STL/Untitled%2082.png 2x" sizes="auto" data-title="/images/STL/Untitled%2082.png" data-alt="/images/STL/Untitled%2082.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>使用variadic templates，结合seed和combine函数。</p>
 <p>或者以偏特化的形式自己扩充STL：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2083.png"
-        data-srcset="/images/STL/Untitled%2083.png, /images/STL/Untitled%2083.png 1.5x, /images/STL/Untitled%2083.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2083.png"
-        title="/images/STL/Untitled%2083.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2083.png" srcset="/images/STL/Untitled%2083.png, /images/STL/Untitled%2083.png 1.5x, /images/STL/Untitled%2083.png 2x" sizes="auto" data-title="/images/STL/Untitled%2083.png" data-alt="/images/STL/Untitled%2083.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <h2 id="tuple">tuple</h2>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2084.png"
-        data-srcset="/images/STL/Untitled%2084.png, /images/STL/Untitled%2084.png 1.5x, /images/STL/Untitled%2084.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2084.png"
-        title="/images/STL/Untitled%2084.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2084.png" srcset="/images/STL/Untitled%2084.png, /images/STL/Untitled%2084.png 1.5x, /images/STL/Untitled%2084.png 2x" sizes="auto" data-title="/images/STL/Untitled%2084.png" data-alt="/images/STL/Untitled%2084.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>实际上是一个镶嵌自己的类，以组合的形式保留数据。</p>
 <h2 id="type-traits">type traits</h2>
-<p><a href="https://zh.cppreference.com/w/cpp/header/type_traits" target="_blank" rel="noopener noreffer">https://zh.cppreference.com/w/cpp/header/type_traits</a></p>
+<p><a href="https://zh.cppreference.com/w/cpp/header/type_traits"target="_blank" rel="external nofollow noopener noreferrer">https://zh.cppreference.com/w/cpp/header/type_traits</a></p>
 <p>回答对于某个类型而言，构造函数等等是否重要。</p>
 <p>C++11中添加了更多的回答,且自动完成。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2085.png"
-        data-srcset="/images/STL/Untitled%2085.png, /images/STL/Untitled%2085.png 1.5x, /images/STL/Untitled%2085.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2085.png"
-        title="/images/STL/Untitled%2085.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2085.png" srcset="/images/STL/Untitled%2085.png, /images/STL/Untitled%2085.png 1.5x, /images/STL/Untitled%2085.png 2x" sizes="auto" data-title="/images/STL/Untitled%2085.png" data-alt="/images/STL/Untitled%2085.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>是否为多态：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2086.png"
-        data-srcset="/images/STL/Untitled%2086.png, /images/STL/Untitled%2086.png 1.5x, /images/STL/Untitled%2086.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2086.png"
-        title="/images/STL/Untitled%2086.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2086.png" srcset="/images/STL/Untitled%2086.png, /images/STL/Untitled%2086.png 1.5x, /images/STL/Untitled%2086.png 2x" sizes="auto" data-title="/images/STL/Untitled%2086.png" data-alt="/images/STL/Untitled%2086.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>实现<code>is_void</code>：</p>
 <p>利用特化去掉const和volatile，最后特化到void，如果是void就返回true。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2087.png"
-        data-srcset="/images/STL/Untitled%2087.png, /images/STL/Untitled%2087.png 1.5x, /images/STL/Untitled%2087.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2087.png"
-        title="/images/STL/Untitled%2087.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2087.png" srcset="/images/STL/Untitled%2087.png, /images/STL/Untitled%2087.png 1.5x, /images/STL/Untitled%2087.png 2x" sizes="auto" data-title="/images/STL/Untitled%2087.png" data-alt="/images/STL/Untitled%2087.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>is_integral也类似：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2088.png"
-        data-srcset="/images/STL/Untitled%2088.png, /images/STL/Untitled%2088.png 1.5x, /images/STL/Untitled%2088.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2088.png"
-        title="/images/STL/Untitled%2088.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2088.png" srcset="/images/STL/Untitled%2088.png, /images/STL/Untitled%2088.png 1.5x, /images/STL/Untitled%2088.png 2x" sizes="auto" data-title="/images/STL/Untitled%2088.png" data-alt="/images/STL/Untitled%2088.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <h2 id="cout">cout</h2>
 <p>cout是一个对象。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/STL/Untitled%2089.png"
-        data-srcset="/images/STL/Untitled%2089.png, /images/STL/Untitled%2089.png 1.5x, /images/STL/Untitled%2089.png 2x"
-        data-sizes="auto"
-        alt="/images/STL/Untitled%2089.png"
-        title="/images/STL/Untitled%2089.png" /></p>
+<p><img loading="lazy" src="/images/STL/Untitled%2089.png" srcset="/images/STL/Untitled%2089.png, /images/STL/Untitled%2089.png 1.5x, /images/STL/Untitled%2089.png 2x" sizes="auto" data-title="/images/STL/Untitled%2089.png" data-alt="/images/STL/Untitled%2089.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>它继承自ostream。对一系列类型做了操作符重载。</p>
 </div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2021-01-23</span>
-            </div>
-            <div class="post-info-license"></div>
-        </div>
-        <div class="post-info-line">
-            <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7/index.md" target="_blank">阅读原始文档</a>
-                        </span></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://hongwei7.online/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7/" data-title="STL-源码剖析（侯捷）" data-hashtags="Coding,STL,C&#43;&#43;"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://hongwei7.online/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7/" data-hashtag="Coding"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://hongwei7.online/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7/" data-title="STL-源码剖析（侯捷）" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://hongwei7.online/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7/" data-title="STL-源码剖析（侯捷）"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://hongwei7.online/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7/" data-title="STL-源码剖析（侯捷）" data-image="https://hongwei7.online/images/STL/Untitled.png"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://hongwei7.online/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7/" data-title="STL-源码剖析（侯捷）" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://hongwei7.online/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7/" data-title="STL-源码剖析（侯捷）" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://hongwei7.online/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7/" data-title="STL-源码剖析（侯捷）"><i class="fab fa-evernote fa-fw"></i></a></span>
-            </div>
-        </div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title=2021-01-23&#32;00:00:00>更新于 2021-01-23&nbsp;</span>
+      </div><div class="post-info-license">
+          <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span>
+        </div></div>
+    <div class="post-info-line">
+      <div class="post-info-md"><span><a href="/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
+      <div class="post-info-share">
+        <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://hongwei7.online/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7/" data-title="STL-源码剖析（侯捷）" data-hashtags="Coding,STL,C&#43;&#43;"><i class="fa-brands fa-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://hongwei7.online/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7/" data-hashtag="Coding"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://hongwei7.online/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7/" data-title="STL-源码剖析（侯捷）" data-web><i class="fa-brands fa-whatsapp fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://hongwei7.online/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7/" data-title="STL-源码剖析（侯捷）"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://hongwei7.online/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7/" data-title="STL-源码剖析（侯捷）" data-image="/images/STL/Untitled.png"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://hongwei7.online/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7/" data-title="STL-源码剖析（侯捷）" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://hongwei7.online/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7/" data-title="STL-源码剖析（侯捷）" data-description=""><i class="fa-brands fa-blogger fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://hongwei7.online/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7/" data-title="STL-源码剖析（侯捷）"><i class="fa-brands fa-evernote fa-fw" aria-hidden="true"></i></a>
+  </span>
+      </div>
     </div>
+  </div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/coding/">Coding</a>,&nbsp;<a href="/tags/stl/">STL</a>,&nbsp;<a href="/tags/c&#43;&#43;/">C&#43;&#43;</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
-        </section>
-    </div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/coding/' class="post-tag">Coding</a><a href='/tags/stl/' class="post-tag">STL</a><a href='/tags/c&#43;&#43;/' class="post-tag">C&#43;&#43;</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div>
 
-    <div class="post-nav"><a href="/%E5%89%91%E6%8C%87offer/" class="prev" rel="prev" title="刷题-剑指Offer"><i class="fas fa-angle-left fa-fw"></i>刷题-剑指Offer</a>
-            <a href="/%E4%B8%80%E4%BA%9B%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="next" rel="next" title="一些简单的设计模式">一些简单的设计模式<i class="fas fa-angle-right fa-fw"></i></a></div>
+  <div class="post-nav"><a href="/%E5%89%91%E6%8C%87offer/" class="post-nav-item" rel="prev" title="刷题-剑指Offer"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>刷题-剑指Offer</a>
+      <a href="/%E4%B8%80%E4%BA%9B%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-nav-item" rel="next" title="一些简单的设计模式">一些简单的设计模式<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
-<div id="comments"></div></article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/hongwei7" target="_blank">hongwei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
-        </div>
-    </footer></div>
-
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
-            </a>
-        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":300},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+<div id="comments"></div></article></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.111.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.2.18-RC"><img class="fixit-icon" src="/fixit.min.svg" alt="FixIt logo" />&nbsp;FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2020 - 2023</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/hongwei7"target="_blank" rel="external nofollow noopener noreferrer">hongwei</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div><div class="footer-line statistics"></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div><div class="fixed-button view-comments d-none" role="button" aria-label="查看评论"><i class="fa-solid fa-comment fa-fw" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">FixIt 主题在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/lunr/lunr.min.js" defer></script><script src="/lib/lunr/lunr.stemmer.support.min.js" defer></script><script src="/lib/lunr/lunr.zh.min.js" defer></script><script src="/lib/twemoji/twemoji.min.js" defer></script><script src="/lib/lightgallery/lightgallery.min.js" defer></script><script src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js" defer></script><script src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":300},"comment":{"enable":true,"expired":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script src="/js/theme.min.js" defer></script></body>
 </html>

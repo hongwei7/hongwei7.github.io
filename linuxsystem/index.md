@@ -115,19 +115,20 @@ set follow-fork-mod parent
 重点execl和execlp。
 
 - execlp：（list path）加载一个进程，借助环境变量
-
-    ```c
-    execlp("ls", "ls", "-l", "-a", NULL);
-    //第二个参数相当于argv[0] 一般可能不使用
-    ```
+  
+  ```c
+  execlp("ls", "ls", "-l", "-a", NULL);
+  //第二个参数相当于argv[0] 一般可能不使用
+  ```
 
 - execl：通过路径+程序名来加载。
-
-    ```c
-    execl("/bin/ls", "ls", "-l", "-a", NULL);
-    ```
+  
+  ```c
+  execl("/bin/ls", "ls", "-l", "-a", NULL);
+  ```
 
 - execle:借助环境变量表
+
 - execv：不含argv[0]，但是参数先要包装成字符数组。
 
 ## 保存 ps 结果到 out
@@ -149,8 +150,8 @@ int ps()
         }
         dup2(fd, STDOUT_FILENO); //把out文件的描述符复制到std::out
         int res = execlp("ps", "ps", "aux", NULL);
-				if(res == -1)perror("exec error:");
-				exit(1);
+                if(res == -1)perror("exec error:");
+                exit(1);
         close(fd);
         return 0;
 }
@@ -282,9 +283,9 @@ int pipeTest(){
 - addr：映射区的首地址 ，内核自动指定（直接传NULL)
 - length：映射区大小（文件大小）
 - prot：映射区的权限
-    - PROT_READ
-    - PROT_WRITE
-    - PROT_READ | PROTWRITE
+  - PROT_READ
+  - PROT_WRITE
+  - PROT_READ | PROTWRITE
 - flags：标志位参数
 
 返回创建映射区的首地址。失败时返回MAP_FIALED。                                                                                                                                                                                                                                                                                                                                                      
@@ -305,32 +306,32 @@ int pipeTest(){
 #include<unistd.h>
 
 int mmapTest(){
-	char* p = NULL;
-	int fd = open("text", O_RDWR | O_CREAT, 0644);
-	if(fd < 0){
-		perror("open fail:");
-		exit(1);
-	}
-	int len = 10; //size
-	if( ftruncate(fd, len) == -1){
-		perror("ftruncate"); //拓展文件
-		exit(1);
-	}
-	p = mmap(NULL, len, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+    char* p = NULL;
+    int fd = open("text", O_RDWR | O_CREAT, 0644);
+    if(fd < 0){
+        perror("open fail:");
+        exit(1);
+    }
+    int len = 10; //size
+    if( ftruncate(fd, len) == -1){
+        perror("ftruncate"); //拓展文件
+        exit(1);
+    }
+    p = mmap(NULL, len, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
        if(p == MAP_FAILED){
-	       perror("MAP FAILED");
-	       exit(1);
+           perror("MAP FAILED");
+           exit(1);
        }       
        strcpy(p, "abc"); //write to mmap
        int res = close(fd);
-	if(res == -1){
-       		perror("close fail");
-		exit(1);
+    if(res == -1){
+               perror("close fail");
+        exit(1);
        }
        res = munmap(p, len);
        if(res == -1){
-       		perror("unmap fail");
-		exit(1);
+               perror("unmap fail");
+        exit(1);
        }
        return 0;
 }
@@ -455,19 +456,19 @@ strace binfile
 产生方法：
 
 - 按键
-    - Ctrl + c ： 2）SIGINT（终止） Interrupt
-    - Ctrl + z： 20）SIGTSTOP（终端程序暂停） Stop
-    - Ctrl + \： 3）SIGQUIT（退出） Quit
+  - Ctrl + c ： 2）SIGINT（终止） Interrupt
+  - Ctrl + z： 20）SIGTSTOP（终端程序暂停） Stop
+  - Ctrl + \： 3）SIGQUIT（退出） Quit
 - 系统调用
 - 软件
 - 硬件异常
-    - /0  (8)SIGFPE（浮点数例外）
-    - 非法访问内存 (11)SIGSEGV(段错误）
-    - 总线错误 （7）SIGBUS
+  - /0  (8)SIGFPE（浮点数例外）
+  - 非法访问内存 (11)SIGSEGV(段错误）
+  - 总线错误 （7）SIGBUS
 - 命令调用
-    - killl  `kill -19 pid` 发送19信号
-    - alarm
-    - setitimer，
+  - killl  `kill -19 pid` 发送19信号
+  - alarm
+  - setitimer，
 
 ### kill 函数
 
@@ -611,33 +612,33 @@ sa_flags 0时为默认。
 #include <signal.h>
 
 void catchSignal(int signo){
-	;
+    ;
 }
 
 int mySleep(unsigned int seconds){
-	struct sigaction act, oldact;
-	act.sa_handler = catchSignal;
-	sigemptyset(&act.sa_mask);
-	act.sa_flags = 0;
+    struct sigaction act, oldact;
+    act.sa_handler = catchSignal;
+    sigemptyset(&act.sa_mask);
+    act.sa_flags = 0;
 
-	int ret = sigaction(SIGALRM, &act, &oldact);
-	if(ret == -1){
-		perror("sigaction");
-		exit(1);
-	}
-	alarm(seconds);
-	ret = pause();
-	if(ret == -1 && errno == EINTR){
-		printf("signal caught!\n");
-	}
+    int ret = sigaction(SIGALRM, &act, &oldact);
+    if(ret == -1){
+        perror("sigaction");
+        exit(1);
+    }
+    alarm(seconds);
+    ret = pause();
+    if(ret == -1 && errno == EINTR){
+        printf("signal caught!\n");
+    }
 
-	ret = alarm(0);
-	sigaction(SIGALRM, &oldact, NULL);
-	return ret;
+    ret = alarm(0);
+    sigaction(SIGALRM, &oldact, NULL);
+    return ret;
 }
 
 int main(){
-	while(1)mySleep(1);
+    while(1)mySleep(1);
 }
 ```
 
@@ -678,35 +679,35 @@ int main(){
 #include <stdlib.h>
 
 int n = 0, flag = 0;  //定义两个全局变量（注意了）
- 
+
 void sys_err(char *str)
 {
     perror(str);
     exit(1);
 }
- 
+
 void do_sig_child(int num)  //子进程的用户处理函数
 {
     printf("I am child  %d\t%d\n", getpid(), n);
     n += 2;
     flag = 1;  //对全局变量的修改
 }
- 
+
 void do_sig_parent(int num)   //父进程的用户处理函数
 {
     printf("I am parent %d\t%d\n", getpid(), n);
     n += 2;
     flag = 1;  //对全局变量的修改
 }
- 
+
 int main(void)
 {
     pid_t pid;
     struct sigaction act;
- 
+
     if ((pid = fork()) < 0)
         sys_err("fork");
- 
+
     else if (pid > 0) {
         n = 1;          //父进程从1开始数
         sleep(1);       //父进程睡眠1s确保在父进程向子进程发信号之前，子进程完成了对信号的注册
@@ -714,9 +715,9 @@ int main(void)
         sigemptyset(&act.sa_mask);
         act.sa_flags = 0;
         sigaction(SIGUSR2, &act, NULL);             //注册自己的信号捕捉函数，父进程使用SIGUSR2信号
- 
+
         do_sig_parent(0);   //父进程先进行数数，从1开始
- 
+
         while(1) {
             /* wait for signal */;
            if (flag == 1) {                         //父进程数数完成
@@ -724,14 +725,14 @@ int main(void)
                 flag = 0;                        //标志已经给子进程发送完信号
             }
         }
- 
+
     } else if (pid == 0){
         n = 2;      //子进程从2开始数
         act.sa_handler = do_sig_child;
         sigemptyset(&act.sa_mask);
         act.sa_flags = 0;
         sigaction(SIGUSR1, &act, NULL);
- 
+
         while(1) {
             /* wait for signal */;
             if (flag == 1) {
@@ -740,7 +741,7 @@ int main(void)
             }
         }
     }
- 
+
     return 0;
 }
 ```
@@ -763,9 +764,9 @@ int main(void)
 - 信号捕捉函数应该设计为可重入函数。
 - 信号处理程序可以调用的可重入函数可以参阅man 7 signal.
 - 没有在以上列表中的函数大多是不可重入的。
-    - 静态数据结构
-    - 调用了malloc和free
-    - 是标准的IO函数
+  - 静态数据结构
+  - 调用了malloc和free
+  - 是标准的IO函数
 
 ## SIGCHLD回收子进程
 
@@ -867,14 +868,19 @@ Daemon进程，是Linux中的后台服务进程，通常独立于控制终端且
 ### 创建方式
 
 - 创建子进程，父进程退出 fork
-- 在子进程中创建新会话 setsid
-- 设置当前目录为根目录（防止被卸载） chdir
-- 重设文件权限掩码 umask函数（防止继承的文件创建屏蔽字拒绝某些权限）
-- 关闭文件描述符（不要浪费系统资源）
 
+- 在子进程中创建新会话 setsid
+
+- 设置当前目录为根目录（防止被卸载） chdir
+
+- 重设文件权限掩码 umask函数（防止继承的文件创建屏蔽字拒绝某些权限）
+
+- 关闭文件描述符（不要浪费系统资源）
+  
     通常重定向到/dev/null   dup2()
 
 - 开始守护核心工作
+
 - 守护进程退出模型（很少用到）
 
 ```c
@@ -887,36 +893,36 @@ Daemon进程，是Linux中的后台服务进程，通常独立于控制终端且
 
 int main()
 {
-	pid_t pid, spid;
+    pid_t pid, spid;
 
-	pid = fork();
-	if(pid == 0) //child
-	{
-		spid = setsid();
-		int ret = chdir("/home/hongwei");
-		if(ret == -1){
-			perror("chdir");
-			exit(1);
-		}
-		umask(0002);
-		
-		close(STDIN_FILENO);
-		int fd = open("/dev/null", O_RDWR);
-		if(fd < 0){
-			perror("open");
-			exit(1);
-		}
-		dup2(fd, STDOUT_FILENO);
-		dup2(fd, STDERR_FILENO);
-		while(1){
-			sleep(1);	
-		}
-		
-	}
-	else if(pid > 0){
-		return 0;
-	}
-	return 0;
+    pid = fork();
+    if(pid == 0) //child
+    {
+        spid = setsid();
+        int ret = chdir("/home/hongwei");
+        if(ret == -1){
+            perror("chdir");
+            exit(1);
+        }
+        umask(0002);
+
+        close(STDIN_FILENO);
+        int fd = open("/dev/null", O_RDWR);
+        if(fd < 0){
+            perror("open");
+            exit(1);
+        }
+        dup2(fd, STDOUT_FILENO);
+        dup2(fd, STDERR_FILENO);
+        while(1){
+            sleep(1);    
+        }
+
+    }
+    else if(pid > 0){
+        return 0;
+    }
+    return 0;
 }
 ```
 
@@ -1166,7 +1172,7 @@ pthread_cond_wait函数有三个功能：
 
 - 阻塞等待一个条件变量满足。
 - 释放已经掌握的互斥锁。
-    - 以上两个为原子操作
+  - 以上两个为原子操作
 - 当被唤醒，解除阻塞并重新申请获取互斥锁。
 
 使用pthread_cond_signal唤醒一个线程。pthead_cond_boardcast唤醒所有线程。
@@ -1208,65 +1214,65 @@ pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t has_product = PTHREAD_COND_INITIALIZER;
 
 struct msg{
-	int num;
-	struct msg *next;
+    int num;
+    struct msg *next;
 };
 
 struct msg *head = NULL, *mp = NULL, *mc = NULL;
 
 void* producer(void* arg){
-	while(1){
-		mp = malloc(sizeof(struct msg));
-		mp -> num = rand() % 400 + 1;
-		printf("=>produced %d\n", mp -> num);
-		
-		pthread_mutex_lock(&mutex);
-		mp -> next = head;
-		head = mp;
-		pthread_mutex_unlock(&mutex);
-		int ret = pthread_cond_signal(&has_product);
-		if(ret != 0){
-			printf("signal failed\n");
-			pthread_exit(NULL);
-		}
-		sleep(rand() % 3);
-	}
-	return NULL;
+    while(1){
+        mp = malloc(sizeof(struct msg));
+        mp -> num = rand() % 400 + 1;
+        printf("=>produced %d\n", mp -> num);
+
+        pthread_mutex_lock(&mutex);
+        mp -> next = head;
+        head = mp;
+        pthread_mutex_unlock(&mutex);
+        int ret = pthread_cond_signal(&has_product);
+        if(ret != 0){
+            printf("signal failed\n");
+            pthread_exit(NULL);
+        }
+        sleep(rand() % 3);
+    }
+    return NULL;
 }
 
 void* consumer(void* arg){
-	while(1){
-		pthread_mutex_lock(&mutex);
-		while(head == NULL){
-			pthread_cond_wait(&has_product, &mutex);
-		}
-		mc = head;
-		head = mc -> next;
-		pthread_mutex_unlock(&mutex);
-		printf("=>consumed: %d\n", mc->num);
-		free(mc);
-		mc = NULL;
-		sleep(rand() % 2);
-	}
-	return NULL;
+    while(1){
+        pthread_mutex_lock(&mutex);
+        while(head == NULL){
+            pthread_cond_wait(&has_product, &mutex);
+        }
+        mc = head;
+        head = mc -> next;
+        pthread_mutex_unlock(&mutex);
+        printf("=>consumed: %d\n", mc->num);
+        free(mc);
+        mc = NULL;
+        sleep(rand() % 2);
+    }
+    return NULL;
 }
 
 int main()
 {
-	pthread_t ptid, ctid;
-	int ret = pthread_create(&ptid, NULL, producer, NULL);
-	if(ret != 0){
-		printf("create error\n");
-		exit(1);
-	}
-	ret = pthread_create(&ctid, NULL, consumer, NULL);
-	if(ret != 0){
-		printf("create error\n");
-		exit(1);
-	}
+    pthread_t ptid, ctid;
+    int ret = pthread_create(&ptid, NULL, producer, NULL);
+    if(ret != 0){
+        printf("create error\n");
+        exit(1);
+    }
+    ret = pthread_create(&ctid, NULL, consumer, NULL);
+    if(ret != 0){
+        printf("create error\n");
+        exit(1);
+    }
 
-	pthread_join(ptid, NULL);
-	pthread_join(ctid, NULL);
+    pthread_join(ptid, NULL);
+    pthread_join(ctid, NULL);
 
 }
 ```
@@ -1474,3 +1480,9 @@ int main(int argc, char *argv[])
 ```
 
 多线程间不可以用文件锁，因为文件描述符共享。
+
+---
+
+> 作者: [hongwei](https://github.com/hongwei7)  
+> URL: https://hongwei7.online/linuxsystem/  
+

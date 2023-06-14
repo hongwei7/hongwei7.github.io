@@ -174,3 +174,9 @@ int main()
 
 可以把`sem_post()`看成下放允许，而`sem_wait()`看成是等待允许。
 
+
+---
+
+> 作者: [hongwei](https://github.com/hongwei7)  
+> URL: https://hongwei7.online/ipc%E4%B8%AD%E7%9A%84%E4%BF%A1%E5%8F%B7%E9%87%8F%E6%8E%A2%E7%A9%B6/  
+

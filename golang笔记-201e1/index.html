@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>Golang学习笔记记录 - hongwei 的博客</title><meta name="Description" content="欢迎来到hongwei7的个人博客"><meta property="og:title" content="Golang学习笔记记录" />
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Golang学习笔记记录 - hongwei 的博客</title><meta name="author" content="hongwei">
+<meta name="author-link" content="https://github.com/hongwei7">
+<meta name="description" content="Go（又称Golang）是Google开发的一种静态强类型、编译型、并发型，并具有垃圾回收功能的编程语言。" /><meta name="keywords" content='Go' /><meta itemprop="name" content="Golang学习笔记记录">
+<meta itemprop="description" content="Go（又称Golang）是Google开发的一种静态强类型、编译型、并发型，并具有垃圾回收功能的编程语言。"><meta itemprop="datePublished" content="2022-04-01T11:22:05+08:00" />
+<meta itemprop="dateModified" content="2022-04-01T11:22:05+08:00" />
+<meta itemprop="wordCount" content="5226"><meta itemprop="image" content="https://hongwei7.online/logo.png"/>
+<meta itemprop="keywords" content="Go," /><meta property="og:title" content="Golang学习笔记记录" />
 <meta property="og:description" content="Go（又称Golang）是Google开发的一种静态强类型、编译型、并发型，并具有垃圾回收功能的编程语言。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://hongwei7.online/golang%E7%AC%94%E8%AE%B0-201e1/" /><meta property="og:image" content="https://hongwei7.online/logo.png"/><meta property="article:section" content="posts" />
@@ -17,113 +23,189 @@
 <meta name="twitter:title" content="Golang学习笔记记录"/>
 <meta name="twitter:description" content="Go（又称Golang）是Google开发的一种静态强类型、编译型、并发型，并具有垃圾回收功能的编程语言。"/>
 <meta name="application-name" content="hongwei&#39;s Blog">
-<meta name="apple-mobile-web-app-title" content="hongwei&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://hongwei7.online/golang%E7%AC%94%E8%AE%B0-201e1/" /><link rel="prev" href="https://hongwei7.online/mitlab2bc/" /><link rel="next" href="https://hongwei7.online/%E7%90%86%E8%A7%A3%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90-7a26c/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "Golang学习笔记记录",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/hongwei7.online\/golang%E7%AC%94%E8%AE%B0-201e1\/"
-        },"genre": "posts","keywords": "Go","wordcount":  5226 ,
-        "url": "https:\/\/hongwei7.online\/golang%E7%AC%94%E8%AE%B0-201e1\/","datePublished": "2022-04-01T11:22:05+08:00","dateModified": "2022-04-01T11:22:05+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
-            "@type": "Organization",
-            "name": ""},"author": {
-                "@type": "Person",
-                "name": "hongwei"
-            },"description": ""
-    }
-    </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<meta name="apple-mobile-web-app-title" content="hongwei&#39;s Blog"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://hongwei7.online/golang%E7%AC%94%E8%AE%B0-201e1/" /><link rel="prev" href="https://hongwei7.online/mitlab2bc/" /><link rel="next" href="https://hongwei7.online/%E7%90%86%E8%A7%A3%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90-7a26c/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Golang学习笔记记录",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/hongwei7.online\/golang%E7%AC%94%E8%AE%B0-201e1\/"
+    },"genre": "posts","keywords": "Go","wordcount":  5226 ,
+    "url": "https:\/\/hongwei7.online\/golang%E7%AC%94%E8%AE%B0-201e1\/","datePublished": "2022-04-01T11:22:05+08:00","dateModified": "2022-04-01T11:22:05+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "hongwei"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="hongwei 的博客"><span class="header-title-text">hongwei&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              >所有文章</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              >标签</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              >分类</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/documentation/"
+                
+                
+              >文档</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/about/"
+                
+                
+              >关于</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="https://github.com/dillonzq/LoveIt"
+                title="GitHub"
+                rel="noopener noreferrer" target="_blank"
+              ><i class='fab fa-github fa-fw'></i> </a></li><li class="menu-item delimiter"></li><li class="menu-item language">
+            <span role="button" aria-label="选择语言" title="选择语言">简体中文<i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden="true"></i>
+            </span>
+            <ul class="sub-menu"><li class="menu-item">没有更多翻译</li></ul>
+          </li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="hongwei 的博客">hongwei&#39;s Blog</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
-                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/golang%E7%AC%94%E8%AE%B0-201e1/" selected>简体中文</option></select>
-                    </a><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
-                </a>
-            </div>
-        </div>
+      <div class="header-title">
+        <a href="/" title="hongwei 的博客"><span class="header-title-text">hongwei&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/" title="hongwei 的博客">hongwei&#39;s Blog</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/categories/documentation/" title="">文档</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/golang%E7%AC%94%E8%AE%B0-201e1/" selected>简体中文</option></select>
-                </a></div>
-    </div>
-</header>
-<div class="search-dropdown desktop">
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                >所有文章</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                >标签</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                >分类</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/documentation/"
+                  
+                  
+                >文档</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/about/"
+                  
+                  
+                >关于</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="https://github.com/dillonzq/LoveIt"
+                  title="GitHub"
+                  rel="noopener noreferrer" target="_blank"
+                ><i class='fab fa-github fa-fw'></i> </a></li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li><li class="menu-item language">
+            <span role="button" aria-label="选择语言" title="选择语言">简体中文<i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden="true"></i>
+            </span>
+            <select class="language-select" onchange="location = this.value;"><option disabled>没有更多翻译</option></select>
+          </li></ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
     <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
+  </div>
+  <div class="search-dropdown mobile">
     <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">Golang学习笔记记录</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/hongwei7" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>hongwei</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-04-01">2022-04-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5226 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 11 分钟&nbsp;</div>
-        </div><div class="featured-image"><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://hongwei7.online/images/Golang%e7%ac%94%e8%ae%b0%20201e1/Untitled%204.png"
-        data-srcset="https://hongwei7.online/images/Golang%e7%ac%94%e8%ae%b0%20201e1/Untitled%204.png, https://hongwei7.online/images/Golang%e7%ac%94%e8%ae%b0%20201e1/Untitled%204.png 1.5x, https://hongwei7.online/images/Golang%e7%ac%94%e8%ae%b0%20201e1/Untitled%204.png 2x"
-        data-sizes="auto"
-        alt="https://hongwei7.online/images/Golang笔记%20201e1/Untitled%204.png"
-        title="https://hongwei7.online/images/Golang笔记%20201e1/Untitled%204.png" /></div><div class="details toc" id="toc-static"  kept="true">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  </div><main class="container" data-page-style="normal"><aside class="toc" id="toc-auto"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside>
+
+  <aside class="aside-custom">
+    </aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX">
+        <span>Golang学习笔记记录</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/hongwei7" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+    hongwei</a></span></div>
+      <div class="post-meta-line"><span title=2022-04-01&#32;11:22:05><i class="fa-regular fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-04-01">2022-04-01</time></span>&nbsp;<span><i class="fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i> 约 5226 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw" aria-hidden="true"></i> 预计阅读 11 分钟</span>&nbsp;</div>
+    </div><div class="featured-image"><img loading="lazy" src="/images/Golang%e7%ac%94%e8%ae%b0%20201e1/Untitled%204.png" srcset="/images/Golang%e7%ac%94%e8%ae%b0%20201e1/Untitled%204.png, /images/Golang%e7%ac%94%e8%ae%b0%20201e1/Untitled%204.png 1.5x, /images/Golang%e7%ac%94%e8%ae%b0%20201e1/Untitled%204.png 2x" sizes="auto" data-title="/images/Golang笔记%20201e1/Untitled%204.png" data-alt="/images/Golang笔记%20201e1/Untitled%204.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></div><div class="details toc" id="toc-static" data-kept="true">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#基础">基础</a>
       <ul>
@@ -152,7 +234,7 @@
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h1 id="golang笔记">Golang笔记</h1>
+      </div><div class="content" id="content"><h1 id="golang笔记">Golang笔记</h1>
 <h2 id="基础">基础</h2>
 <h3 id="基本语法">基本语法</h3>
 <ul>
@@ -310,7 +392,7 @@
 <p>优点：</p>
 <ul>
 <li>可以在一定程度上避免硬编码，提供灵活性和通用性。</li>
-<li>可以作为一个<a href="https://zh.wikipedia.org/wiki/%E7%AC%AC%E4%B8%80%E9%A1%9E%E7%89%A9%E4%BB%B6" target="_blank" rel="noopener noreffer">第一类对象</a>发现并修改源代码的结构（如代码块、类、方法、协议等）。</li>
+<li>可以作为一个<a href="https://zh.wikipedia.org/wiki/%E7%AC%AC%E4%B8%80%E9%A1%9E%E7%89%A9%E4%BB%B6"target="_blank" rel="external nofollow noopener noreferrer">第一类对象</a>发现并修改源代码的结构（如代码块、类、方法、协议等）。</li>
 <li>可以在运行时像对待源代码语句一样动态解析字符串中可执行的代码（类似JavaScript的eval()函数），进而可将跟class或function匹配的字符串转换成class或function的调用或引用。</li>
 <li>可以创建一个新的语言字节码解释器来给编程结构一个新的意义或用途。</li>
 </ul>
@@ -379,7 +461,7 @@
 <p>若传入的是值类型，那么传输的是值；若传入的是引用类型，那么传输的是引用（指针）。</p>
 <p>从已关闭的 channel 读取消息永远不会阻塞，并且会返回一个为 false 的值，用以判断该 channel 是否已关闭（x,ok := &lt;- ch）</p>
 <p>万能的 channel 使用公式：</p>
-<p><a href="https://golang.iswbm.com/c04/c04_10.html" target="_blank" rel="noopener noreffer">4.10 学习 Go 协程：万能的通道模型(公式) - Go编程时光 1.0.0 documentation</a></p>
+<p><a href="https://golang.iswbm.com/c04/c04_10.html"target="_blank" rel="external nofollow noopener noreferrer">4.10 学习 Go 协程：万能的通道模型(公式) - Go编程时光 1.0.0 documentation</a></p>
 <h3 id="context">Context</h3>
 <p>实际上 Context 是一个接口：</p>
 <div class="highlight"><div class="chroma">
@@ -432,14 +514,7 @@
 <h2 id="进阶">进阶</h2>
 <h3 id="goroutine-的生成调度">goroutine 的生成调度</h3>
 <p>golang 的 goroutine 使用的调度方式是 MPG 模型。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled.png"
-        data-srcset="https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled.png, https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled.png 1.5x, https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled.png 2x"
-        data-sizes="auto"
-        alt="https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled.png"
-        title="Untitled" /></p>
+<p><img loading="lazy" src="/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled.png" srcset="/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled.png, /images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled.png 1.5x, /images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled.png 2x" sizes="auto" data-title="Untitled" data-alt="Untitled" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>一个M对应一个系统内核线程，一个P对应一个上下文，一个上下文连接一个或多个 G goroutine。蓝色的 G 代表运行中。</p>
 <p>当一个 Goroutine 创建被创建时，Goroutine 对象被压入 Processor 的本地队列或者 Go 运行时 全局 Goroutine 队列。
 Processor 唤醒一个 Machine，如果 Machine 的 waiting 队列没有等待被 唤醒的 Machine， 则创建一个（只要不超过 Machine 的最大值，10000），Processor 获取到 Machine 后，与 此 Machine 绑定，并执行此 Goroutine。</p>
@@ -562,7 +637,7 @@ Processor 唤醒一个 Machine，如果 Machine 的 waiting 队列没有等待�
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">		<span class="c1">// 创建一个容量和长度均为6的slice
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">        <span class="c1">// 创建一个容量和长度均为6的slice
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">slice1</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">5</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="mi">33</span><span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 对slices1进行切片，长度为2容量为4
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">slice2</span> <span class="o">:=</span> <span class="nx">slice1</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
@@ -599,7 +674,7 @@ Processor 唤醒一个 Machine，如果 Machine 的 waiting 队列没有等待�
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">		<span class="c1">// 创建一个容量和长度均为6的slice
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">        <span class="c1">// 创建一个容量和长度均为6的slice
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">slice1</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">5</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="mi">33</span><span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 对slices1进行切片，长度为2容量为3
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">slice2</span> <span class="o">:=</span> <span class="nx">slice1</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
@@ -642,7 +717,7 @@ Processor 唤醒一个 Machine，如果 Machine 的 waiting 队列没有等待�
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">	<span class="c1">// 创建一个容量和长度均为6的slice
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">    <span class="c1">// 创建一个容量和长度均为6的slice
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">slice1</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">5</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="mi">33</span><span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 对slices1进行切片，长度为2容量为3
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">slice2</span> <span class="o">:=</span> <span class="nx">slice1</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
@@ -681,53 +756,25 @@ Processor 唤醒一个 Machine，如果 Machine 的 waiting 队列没有等待�
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">fib3</span><span class="p">(</span><span class="nx">x</span> <span class="kt">int</span><span class="p">)</span> <span class="kd">func</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
-</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="kd">func</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="p">=</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">a</span><span class="o">+</span><span class="nx">b</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">x</span><span class="o">++</span>
-</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">a</span><span class="o">+</span><span class="nx">x</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kd">func</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="p">=</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">a</span><span class="o">+</span><span class="nx">b</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">x</span><span class="o">++</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">a</span><span class="o">+</span><span class="nx">x</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%201.png"
-        data-srcset="https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%201.png, https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%201.png 1.5x, https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%201.png 2x"
-        data-sizes="auto"
-        alt="https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%201.png"
-        title="Untitled" /></p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%202.png"
-        data-srcset="https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%202.png, https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%202.png 1.5x, https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%202.png 2x"
-        data-sizes="auto"
-        alt="https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%202.png"
-        title="Untitled" /></p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%203.png"
-        data-srcset="https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%203.png, https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%203.png 1.5x, https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%203.png 2x"
-        data-sizes="auto"
-        alt="https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%203.png"
-        title="Untitled" /></p>
+</div><p><img loading="lazy" src="/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%201.png" srcset="/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%201.png, /images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%201.png 1.5x, /images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%201.png 2x" sizes="auto" data-title="Untitled" data-alt="Untitled" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<p><img loading="lazy" src="/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%202.png" srcset="/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%202.png, /images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%202.png 1.5x, /images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%202.png 2x" sizes="auto" data-title="Untitled" data-alt="Untitled" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<p><img loading="lazy" src="/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%203.png" srcset="/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%203.png, /images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%203.png 1.5x, /images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%203.png 2x" sizes="auto" data-title="Untitled" data-alt="Untitled" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p><strong>所有引用局部变量，Golang在生成汇编是帮我们在堆上创建该变量的一个拷贝，并把该变量地址和函数闭包组成一个结构体，并把该结构体传出来作为返回值。</strong></p>
 <h3 id="垃圾回收">垃圾回收</h3>
-<p><a href="https://draveness.me/golang/docs/part3-runtime/ch07-memory/golang-garbage-collector/" target="_blank" rel="noopener noreffer">Go 语言垃圾收集器的实现原理</a></p>
+<p><a href="https://draveness.me/golang/docs/part3-runtime/ch07-memory/golang-garbage-collector/"target="_blank" rel="external nofollow noopener noreferrer">Go 语言垃圾收集器的实现原理</a></p>
 <h3 id="标记清除法">标记清除法</h3>
 <p>内存空间中包含多个对象，从根对象开始依次遍历子对象（标记过程），没有被遍历到的对象便为垃圾（随后在清除阶段清理）。</p>
 <p>清理后的对象空间用链表结构串联起来（可以添加cookie或者标志位来实现）。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%204.png"
-        data-srcset="https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%204.png, https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%204.png 1.5x, https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%204.png 2x"
-        data-sizes="auto"
-        alt="https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%204.png"
-        title="Untitled" /></p>
+<p><img loading="lazy" src="/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%204.png" srcset="/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%204.png, /images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%204.png 1.5x, /images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%204.png 2x" sizes="auto" data-title="Untitled" data-alt="Untitled" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>问题：用户程序在标记清除的过程中不能执行（长时间的 STW ）。</p>
 <h3 id="三色抽象">三色抽象</h3>
 <p>三色标记法可以缩短STW时间。</p>
@@ -749,14 +796,7 @@ Processor 唤醒一个 Machine，如果 Machine 的 waiting 队列没有等待�
 </li>
 <li>
 <p>重复以上两个步骤不存在灰色。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%205.png"
-        data-srcset="https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%205.png, https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%205.png 1.5x, https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%205.png 2x"
-        data-sizes="auto"
-        alt="https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%205.png"
-        title="Untitled" /></p>
+<p><img loading="lazy" src="/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%205.png" srcset="/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%205.png, /images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%205.png 1.5x, /images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%205.png 2x" sizes="auto" data-title="Untitled" data-alt="Untitled" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 </li>
 </ul>
 <p>当三色的标记清除的标记阶段结束之后，应用程序的堆中就不存在任何的灰色对象，我们只能看到黑色的存活对象以及白色的垃圾对象，垃圾收集器可以回收这些白色的垃圾。</p>
@@ -771,27 +811,13 @@ Processor 唤醒一个 Machine，如果 Machine 的 waiting 队列没有等待�
 <li>强三色不变性：黑色对象不会指向白色对象。</li>
 <li>弱三色不变性：黑色对象指向的白色对象必须包含一条从灰色对象经由多个白色对象的可达路径。（垃圾收集器无法从某个灰色对象出发，经过几个连续的白色对象访问白色的 C 和 D 两个对象）</li>
 </ul>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%206.png"
-        data-srcset="https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%206.png, https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%206.png 1.5x, https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%206.png 2x"
-        data-sizes="auto"
-        alt="https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%206.png"
-        title="Untitled" /></p>
+<p><img loading="lazy" src="/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%206.png" srcset="/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%206.png, /images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%206.png 1.5x, /images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%206.png 2x" sizes="auto" data-title="Untitled" data-alt="Untitled" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>编程语言往往都会采用写屏障保证三色不变性。Go 语言中使用的两种写屏障技术，分别是 Dijkstra 提出的插入写屏障和 Yuasa 提出的删除写屏障。</p>
 <h3 id="插入写屏障">插入写屏障</h3>
 <p>写屏障相当于一个钩子方法。</p>
 <p>在执行 <code>*slot = ptr</code> 时，若 <code>ptr</code> 指向的对象为白色， 则标记其为灰色。</p>
 <p>例如：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%207.png"
-        data-srcset="https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%207.png, https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%207.png 1.5x, https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%207.png 2x"
-        data-sizes="auto"
-        alt="https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%207.png"
-        title="Untitled" /></p>
+<p><img loading="lazy" src="/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%207.png" srcset="/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%207.png, /images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%207.png 1.5x, /images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%207.png 2x" sizes="auto" data-title="Untitled" data-alt="Untitled" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <ol>
 <li>垃圾收集器将根对象指向 A 对象标记成黑色并将 A 对象指向的对象 B 标记成灰色；</li>
 <li>用户程序修改 A 对象的指针，将原本指向 B 对象的指针指向 C 对象，这时触发写屏障将 C 对象标记成灰色；</li>
@@ -806,14 +832,7 @@ Processor 唤醒一个 Machine，如果 Machine 的 waiting 队列没有等待�
 <h3 id="删除写屏障">删除写屏障</h3>
 <p>删除写屏障会保证开启写屏障时，堆上所有对象的可达，因此也被叫做快照垃圾收集。</p>
 <p>在老对象的引用被删除时，将白色的老对象涂成灰色，这样就保证了弱三色不变性。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%208.png"
-        data-srcset="https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%208.png, https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%208.png 1.5x, https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%208.png 2x"
-        data-sizes="auto"
-        alt="https://hongwei7.online/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%208.png"
-        title="Untitled" /></p>
+<p><img loading="lazy" src="/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%208.png" srcset="/images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%208.png, /images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%208.png 1.5x, /images/Golang%E7%AC%94%E8%AE%B0%20201e1/Untitled%208.png 2x" sizes="auto" data-title="Untitled" data-alt="Untitled" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <ol>
 <li>垃圾收集器将根对象指向 A 对象标记成黑色并将 A 对象指向的对象 B 标记成灰色；</li>
 <li>用户程序将 A 对象原本指向 B 的指针指向 C，触发删除写屏障，但是因为 B 对象已经是灰色的，所以不做改变；</li>
@@ -822,44 +841,47 @@ Processor 唤醒一个 Machine，如果 Machine 的 waiting 队列没有等待�
 </ol>
 <p>Yuasa 删除写屏障通过对 C 对象的着色，保证了 C 对象和下游的 D 对象能够在这一次垃圾收集的循环中存活，避免发生悬挂指针以保证用户程序的正确性。</p>
 </div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2022-04-01</span>
-            </div>
-            <div class="post-info-license"></div>
-        </div>
-        <div class="post-info-line">
-            <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/golang%E7%AC%94%E8%AE%B0-201e1/index.md" target="_blank">阅读原始文档</a>
-                        </span></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://hongwei7.online/golang%E7%AC%94%E8%AE%B0-201e1/" data-title="Golang学习笔记记录" data-hashtags="Go"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://hongwei7.online/golang%E7%AC%94%E8%AE%B0-201e1/" data-hashtag="Go"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://hongwei7.online/golang%E7%AC%94%E8%AE%B0-201e1/" data-title="Golang学习笔记记录" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://hongwei7.online/golang%E7%AC%94%E8%AE%B0-201e1/" data-title="Golang学习笔记记录"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://hongwei7.online/golang%E7%AC%94%E8%AE%B0-201e1/" data-title="Golang学习笔记记录" data-image="https://hongwei7.online/images/Golang笔记%20201e1/Untitled%204.png"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://hongwei7.online/golang%E7%AC%94%E8%AE%B0-201e1/" data-title="Golang学习笔记记录" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://hongwei7.online/golang%E7%AC%94%E8%AE%B0-201e1/" data-title="Golang学习笔记记录" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://hongwei7.online/golang%E7%AC%94%E8%AE%B0-201e1/" data-title="Golang学习笔记记录"><i class="fab fa-evernote fa-fw"></i></a></span>
-            </div>
-        </div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title=2022-04-01&#32;11:22:05>更新于 2022-04-01&nbsp;</span>
+      </div><div class="post-info-license">
+          <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span>
+        </div></div>
+    <div class="post-info-line">
+      <div class="post-info-md"><span><a href="/golang%E7%AC%94%E8%AE%B0-201e1/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
+      <div class="post-info-share">
+        <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://hongwei7.online/golang%E7%AC%94%E8%AE%B0-201e1/" data-title="Golang学习笔记记录" data-hashtags="Go"><i class="fa-brands fa-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://hongwei7.online/golang%E7%AC%94%E8%AE%B0-201e1/" data-hashtag="Go"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://hongwei7.online/golang%E7%AC%94%E8%AE%B0-201e1/" data-title="Golang学习笔记记录" data-web><i class="fa-brands fa-whatsapp fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://hongwei7.online/golang%E7%AC%94%E8%AE%B0-201e1/" data-title="Golang学习笔记记录"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://hongwei7.online/golang%E7%AC%94%E8%AE%B0-201e1/" data-title="Golang学习笔记记录" data-image="/images/Golang笔记%20201e1/Untitled%204.png"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://hongwei7.online/golang%E7%AC%94%E8%AE%B0-201e1/" data-title="Golang学习笔记记录" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://hongwei7.online/golang%E7%AC%94%E8%AE%B0-201e1/" data-title="Golang学习笔记记录" data-description=""><i class="fa-brands fa-blogger fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://hongwei7.online/golang%E7%AC%94%E8%AE%B0-201e1/" data-title="Golang学习笔记记录"><i class="fa-brands fa-evernote fa-fw" aria-hidden="true"></i></a>
+  </span>
+      </div>
     </div>
+  </div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/go/">Go</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
-        </section>
-    </div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/go/' class="post-tag">Go</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div>
 
-    <div class="post-nav"><a href="/mitlab2bc/" class="prev" rel="prev" title="MIT-6.824-Lab2BC-Raft-LogReplication-Persistence"><i class="fas fa-angle-left fa-fw"></i>MIT-6.824-Lab2BC-Raft-LogReplication-Persistence</a>
-            <a href="/%E7%90%86%E8%A7%A3%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90-7a26c/" class="next" rel="next" title="理解平摊分析">理解平摊分析<i class="fas fa-angle-right fa-fw"></i></a></div>
+  <div class="post-nav"><a href="/mitlab2bc/" class="post-nav-item" rel="prev" title="MIT-6.824-Lab2BC-Raft-LogReplication-Persistence"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>MIT-6.824-Lab2BC-Raft-LogReplication-Persistence</a>
+      <a href="/%E7%90%86%E8%A7%A3%E5%B9%B3%E6%91%8A%E5%88%86%E6%9E%90-7a26c/" class="post-nav-item" rel="next" title="理解平摊分析">理解平摊分析<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
-<div id="comments"></div></article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/hongwei7" target="_blank">hongwei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
-        </div>
-    </footer></div>
-
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
-            </a>
-        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":300},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+<div id="comments"></div></article></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.111.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.2.18-RC"><img class="fixit-icon" src="/fixit.min.svg" alt="FixIt logo" />&nbsp;FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2020 - 2023</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/hongwei7"target="_blank" rel="external nofollow noopener noreferrer">hongwei</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div><div class="footer-line statistics"></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div><div class="fixed-button view-comments d-none" role="button" aria-label="查看评论"><i class="fa-solid fa-comment fa-fw" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">FixIt 主题在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/lunr/lunr.min.js" defer></script><script src="/lib/lunr/lunr.stemmer.support.min.js" defer></script><script src="/lib/lunr/lunr.zh.min.js" defer></script><script src="/lib/twemoji/twemoji.min.js" defer></script><script src="/lib/lightgallery/lightgallery.min.js" defer></script><script src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js" defer></script><script src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":300},"comment":{"enable":true,"expired":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script src="/js/theme.min.js" defer></script></body>
 </html>

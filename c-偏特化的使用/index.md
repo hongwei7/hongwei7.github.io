@@ -69,3 +69,9 @@ int main() {
 //函数不能偏特化，可以通过函数重载实现偏特化的目的
 ```
 
+
+---
+
+> 作者: [hongwei](https://github.com/hongwei7)  
+> URL: https://hongwei7.online/c-%E5%81%8F%E7%89%B9%E5%8C%96%E7%9A%84%E4%BD%BF%E7%94%A8/  
+

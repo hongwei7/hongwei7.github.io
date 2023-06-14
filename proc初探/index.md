@@ -72,3 +72,9 @@ proc是一个系统文件目录,存放着记录当前运行状态的文件.<!-- 
 - vmstat  取得虚拟内存统计信息
 - zoneinfo Zone的管理调度（虚拟内存相关）
 
+
+---
+
+> 作者: [hongwei](https://github.com/hongwei7)  
+> URL: https://hongwei7.online/proc%E5%88%9D%E6%8E%A2/  
+

@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>刷题-剑指Offer - hongwei 的博客</title><meta name="Description" content="欢迎来到hongwei7的个人博客"><meta property="og:title" content="刷题-剑指Offer" />
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>刷题-剑指Offer - hongwei 的博客</title><meta name="author" content="hongwei">
+<meta name="author-link" content="https://github.com/hongwei7">
+<meta name="description" content="剑指Offer刷题记录📝。" /><meta name="keywords" content='Coding, LeetCode' /><meta itemprop="name" content="刷题-剑指Offer">
+<meta itemprop="description" content="剑指Offer刷题记录📝。"><meta itemprop="datePublished" content="2021-01-08T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-01-08T00:00:00+00:00" />
+<meta itemprop="wordCount" content="16215"><meta itemprop="image" content="https://hongwei7.online/logo.png"/>
+<meta itemprop="keywords" content="Coding,LeetCode," /><meta property="og:title" content="刷题-剑指Offer" />
 <meta property="og:description" content="剑指Offer刷题记录📝。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://hongwei7.online/%E5%89%91%E6%8C%87offer/" /><meta property="og:image" content="https://hongwei7.online/logo.png"/><meta property="article:section" content="posts" />
@@ -17,106 +23,189 @@
 <meta name="twitter:title" content="刷题-剑指Offer"/>
 <meta name="twitter:description" content="剑指Offer刷题记录📝。"/>
 <meta name="application-name" content="hongwei&#39;s Blog">
-<meta name="apple-mobile-web-app-title" content="hongwei&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://hongwei7.online/%E5%89%91%E6%8C%87offer/" /><link rel="prev" href="https://hongwei7.online/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-lfs%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE/" /><link rel="next" href="https://hongwei7.online/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "刷题-剑指Offer",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/hongwei7.online\/%E5%89%91%E6%8C%87offer\/"
-        },"genre": "posts","keywords": "Coding, LeetCode","wordcount":  16215 ,
-        "url": "https:\/\/hongwei7.online\/%E5%89%91%E6%8C%87offer\/","datePublished": "2021-01-08T00:00:00+00:00","dateModified": "2021-01-08T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
-            "@type": "Organization",
-            "name": ""},"author": {
-                "@type": "Person",
-                "name": "hongwei"
-            },"description": ""
-    }
-    </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<meta name="apple-mobile-web-app-title" content="hongwei&#39;s Blog"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://hongwei7.online/%E5%89%91%E6%8C%87offer/" /><link rel="prev" href="https://hongwei7.online/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-lfs%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE/" /><link rel="next" href="https://hongwei7.online/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "刷题-剑指Offer",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/hongwei7.online\/%E5%89%91%E6%8C%87offer\/"
+    },"genre": "posts","keywords": "Coding, LeetCode","wordcount":  16215 ,
+    "url": "https:\/\/hongwei7.online\/%E5%89%91%E6%8C%87offer\/","datePublished": "2021-01-08T00:00:00+00:00","dateModified": "2021-01-08T00:00:00+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "hongwei"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="hongwei 的博客"><span class="header-title-text">hongwei&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              >所有文章</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              >标签</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              >分类</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/documentation/"
+                
+                
+              >文档</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/about/"
+                
+                
+              >关于</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="https://github.com/dillonzq/LoveIt"
+                title="GitHub"
+                rel="noopener noreferrer" target="_blank"
+              ><i class='fab fa-github fa-fw'></i> </a></li><li class="menu-item delimiter"></li><li class="menu-item language">
+            <span role="button" aria-label="选择语言" title="选择语言">简体中文<i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden="true"></i>
+            </span>
+            <ul class="sub-menu"><li class="menu-item">没有更多翻译</li></ul>
+          </li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="hongwei 的博客">hongwei&#39;s Blog</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
-                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/%E5%89%91%E6%8C%87offer/" selected>简体中文</option></select>
-                    </a><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
-                </a>
-            </div>
-        </div>
+      <div class="header-title">
+        <a href="/" title="hongwei 的博客"><span class="header-title-text">hongwei&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/" title="hongwei 的博客">hongwei&#39;s Blog</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/categories/documentation/" title="">文档</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/%E5%89%91%E6%8C%87offer/" selected>简体中文</option></select>
-                </a></div>
-    </div>
-</header>
-<div class="search-dropdown desktop">
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                >所有文章</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                >标签</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                >分类</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/documentation/"
+                  
+                  
+                >文档</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/about/"
+                  
+                  
+                >关于</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="https://github.com/dillonzq/LoveIt"
+                  title="GitHub"
+                  rel="noopener noreferrer" target="_blank"
+                ><i class='fab fa-github fa-fw'></i> </a></li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li><li class="menu-item language">
+            <span role="button" aria-label="选择语言" title="选择语言">简体中文<i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden="true"></i>
+            </span>
+            <select class="language-select" onchange="location = this.value;"><option disabled>没有更多翻译</option></select>
+          </li></ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
     <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
+  </div>
+  <div class="search-dropdown mobile">
     <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">刷题-剑指Offer</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/hongwei7" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>hongwei</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-01-08">2021-01-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 16215 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 33 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="true">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  </div><main class="container" data-page-style="normal"><aside class="toc" id="toc-auto"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside>
+
+  <aside class="aside-custom">
+    </aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX">
+        <span>刷题-剑指Offer</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/hongwei7" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+    hongwei</a></span></div>
+      <div class="post-meta-line"><span title=2021-01-08&#32;00:00:00><i class="fa-regular fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-01-08">2021-01-08</time></span>&nbsp;<span><i class="fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i> 约 16215 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw" aria-hidden="true"></i> 预计阅读 33 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="true">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li>
       <ul>
@@ -209,10 +298,10 @@
     <li><a href="#68-ii二叉树的最近共同祖先">68-II.二叉树的最近共同祖先</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h3 id="刷题地址">刷题地址</h3>
-<p><a href="https://leetcode-cn.com/problemset/lcof/" target="_blank" rel="noopener noreffer">题库 - 力扣 (LeetCode)</a></p>
+      </div><div class="content" id="content"><h3 id="刷题地址">刷题地址</h3>
+<p><a href="https://leetcode-cn.com/problemset/lcof/"target="_blank" rel="external nofollow noopener noreferrer">题库 - 力扣 (LeetCode)</a></p>
 <h3 id="题解地址">题解地址</h3>
-<p><a href="https://github.com/CyC2018/CS-Notes/blob/master/notes/%e5%89%91%e6%8c%87%20Offer%20%e9%a2%98%e8%a7%a3%20-%20%e7%9b%ae%e5%bd%95.md" target="_blank" rel="noopener noreffer">CyC2018/CS-Notes</a></p>
+<p><a href="https://github.com/CyC2018/CS-Notes/blob/master/notes/%e5%89%91%e6%8c%87%20Offer%20%e9%a2%98%e8%a7%a3%20-%20%e7%9b%ae%e5%bd%95.md"target="_blank" rel="external nofollow noopener noreferrer">CyC2018/CS-Notes</a></p>
 <hr>
 <h2 id="3数组中重复的数字">3.数组中重复的数字</h2>
 <p>把值为 i 的数值交换到 index 为 i 的位置上。（即实现了一个 hash）</p>
@@ -1030,14 +1119,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>另外有位运算方法，如</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/Offer/0FA4CBBA-A351-42B6-B257-AF21A82D8F80.jpeg"
-        data-srcset="/images/Offer/0FA4CBBA-A351-42B6-B257-AF21A82D8F80.jpeg, /images/Offer/0FA4CBBA-A351-42B6-B257-AF21A82D8F80.jpeg 1.5x, /images/Offer/0FA4CBBA-A351-42B6-B257-AF21A82D8F80.jpeg 2x"
-        data-sizes="auto"
-        alt="/images/Offer/0FA4CBBA-A351-42B6-B257-AF21A82D8F80.jpeg"
-        title="/images/Offer/0FA4CBBA-A351-42B6-B257-AF21A82D8F80.jpeg" /></p>
+<p><img loading="lazy" src="/images/Offer/0FA4CBBA-A351-42B6-B257-AF21A82D8F80.jpeg" srcset="/images/Offer/0FA4CBBA-A351-42B6-B257-AF21A82D8F80.jpeg, /images/Offer/0FA4CBBA-A351-42B6-B257-AF21A82D8F80.jpeg 1.5x, /images/Offer/0FA4CBBA-A351-42B6-B257-AF21A82D8F80.jpeg 2x" sizes="auto" data-title="/images/Offer/0FA4CBBA-A351-42B6-B257-AF21A82D8F80.jpeg" data-alt="/images/Offer/0FA4CBBA-A351-42B6-B257-AF21A82D8F80.jpeg" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1156,67 +1238,60 @@
 <pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">	<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">res</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">printNumbers</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="n">string</span> <span class="nf">number</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="sc">&#39;0&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">9</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="c1">//从高位到低位进行全排列
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="n">number</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="sc">&#39;0&#39;</span><span class="p">;</span><span class="c1">//首字符赋初值
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="n">permutationNumbers</span><span class="p">(</span><span class="n">number</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span><span class="c1">//设置下一位
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">res</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//对数字全排列
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">void</span> <span class="nf">permutationNumbers</span><span class="p">(</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">number</span><span class="p">,</span> <span class="kt">int</span> <span class="n">length</span><span class="p">,</span> <span class="kt">int</span> <span class="n">index</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">==</span> <span class="n">length</span><span class="p">)</span> <span class="p">{</span><span class="c1">//递归边界
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="n">saveNumber</span><span class="p">(</span><span class="n">number</span><span class="p">);</span><span class="c1">//存储结果
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="k">return</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="k">else</span>
-</span></span><span class="line"><span class="cl">		<span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">9</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">			<span class="p">{</span>
-</span></span><span class="line"><span class="cl">				<span class="n">number</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;0&#39;</span> <span class="o">+</span> <span class="n">i</span><span class="p">;</span><span class="c1">//设置第index位的字符
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="n">permutationNumbers</span><span class="p">(</span><span class="n">number</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">			<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//存储结果
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//只能存储前导非0的排列
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">void</span> <span class="nf">saveNumber</span><span class="p">(</span><span class="n">string</span> <span class="n">number</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="kt">bool</span> <span class="n">isBegin0</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="n">string</span> <span class="n">tempStr</span> <span class="o">=</span> <span class="s">&#34;&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="n">string</span><span class="o">::</span><span class="n">iterator</span> <span class="n">it</span> <span class="o">=</span> <span class="n">number</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">		<span class="k">while</span> <span class="p">(</span><span class="n">it</span> <span class="o">!=</span> <span class="n">number</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
-</span></span><span class="line"><span class="cl">		<span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="p">(</span><span class="n">isBegin0</span> <span class="o">&amp;&amp;</span> <span class="o">*</span><span class="n">it</span> <span class="o">!=</span> <span class="sc">&#39;0&#39;</span><span class="p">)</span> <span class="n">isBegin0</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">isBegin0</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">				<span class="n">tempStr</span> <span class="o">+=</span> <span class="o">*</span><span class="n">it</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">			<span class="p">}</span>
-</span></span><span class="line"><span class="cl">			<span class="n">it</span><span class="o">++</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="c1">//从高位到低位全排列，要注意首字符为0时，tempStr为空，不能执行stoi
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">if</span> <span class="p">(</span><span class="n">tempStr</span> <span class="o">!=</span> <span class="s">&#34;&#34;</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="kt">int</span> <span class="n">tempNum</span> <span class="o">=</span> <span class="n">stoi</span><span class="p">(</span><span class="n">tempStr</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">			<span class="n">res</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">tempNum</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">res</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">printNumbers</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">string</span> <span class="nf">number</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="sc">&#39;0&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">9</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//从高位到低位进行全排列
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">number</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="sc">&#39;0&#39;</span><span class="p">;</span><span class="c1">//首字符赋初值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">permutationNumbers</span><span class="p">(</span><span class="n">number</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span><span class="c1">//设置下一位
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//对数字全排列
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="nf">permutationNumbers</span><span class="p">(</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">number</span><span class="p">,</span> <span class="kt">int</span> <span class="n">length</span><span class="p">,</span> <span class="kt">int</span> <span class="n">index</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">==</span> <span class="n">length</span><span class="p">)</span> <span class="p">{</span><span class="c1">//递归边界
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">saveNumber</span><span class="p">(</span><span class="n">number</span><span class="p">);</span><span class="c1">//存储结果
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">9</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">number</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;0&#39;</span> <span class="o">+</span> <span class="n">i</span><span class="p">;</span><span class="c1">//设置第index位的字符
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="n">permutationNumbers</span><span class="p">(</span><span class="n">number</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//存储结果
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//只能存储前导非0的排列
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="nf">saveNumber</span><span class="p">(</span><span class="n">string</span> <span class="n">number</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bool</span> <span class="n">isBegin0</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">string</span> <span class="n">tempStr</span> <span class="o">=</span> <span class="s">&#34;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">string</span><span class="o">::</span><span class="n">iterator</span> <span class="n">it</span> <span class="o">=</span> <span class="n">number</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="p">(</span><span class="n">it</span> <span class="o">!=</span> <span class="n">number</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">isBegin0</span> <span class="o">&amp;&amp;</span> <span class="o">*</span><span class="n">it</span> <span class="o">!=</span> <span class="sc">&#39;0&#39;</span><span class="p">)</span> <span class="n">isBegin0</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">isBegin0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">tempStr</span> <span class="o">+=</span> <span class="o">*</span><span class="n">it</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">it</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//从高位到低位全排列，要注意首字符为0时，tempStr为空，不能执行stoi
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="n">tempStr</span> <span class="o">!=</span> <span class="s">&#34;&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">tempNum</span> <span class="o">=</span> <span class="n">stoi</span><span class="p">(</span><span class="n">tempStr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">res</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">tempNum</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><hr>
 <h2 id="181-在-o1-时间内删除链表节点">18.1 在 O(1) 时间内删除链表节点</h2>
 <p>假设已经知道要删除链表节点的地址，可以直接将该节点下一节点的值复制过来，再连接下下节点，最后删除下一个节点即可。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/Offer/3E7FF5AA-44FD-4CE4-8C64-2534212665FA.png"
-        data-srcset="/images/Offer/3E7FF5AA-44FD-4CE4-8C64-2534212665FA.png, /images/Offer/3E7FF5AA-44FD-4CE4-8C64-2534212665FA.png 1.5x, /images/Offer/3E7FF5AA-44FD-4CE4-8C64-2534212665FA.png 2x"
-        data-sizes="auto"
-        alt="/images/Offer/3E7FF5AA-44FD-4CE4-8C64-2534212665FA.png"
-        title="/images/Offer/3E7FF5AA-44FD-4CE4-8C64-2534212665FA.png" /></p>
+<p><img loading="lazy" src="/images/Offer/3E7FF5AA-44FD-4CE4-8C64-2534212665FA.png" srcset="/images/Offer/3E7FF5AA-44FD-4CE4-8C64-2534212665FA.png, /images/Offer/3E7FF5AA-44FD-4CE4-8C64-2534212665FA.png 1.5x, /images/Offer/3E7FF5AA-44FD-4CE4-8C64-2534212665FA.png 2x" sizes="auto" data-title="/images/Offer/3E7FF5AA-44FD-4CE4-8C64-2534212665FA.png" data-alt="/images/Offer/3E7FF5AA-44FD-4CE4-8C64-2534212665FA.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <h3 id="特性">特性</h3>
 <ul>
 <li>当要删除的为最后一个节点，则需要换回顺序查找。</li>
@@ -1277,7 +1352,7 @@
 </span></span><span class="line"><span class="cl">        <span class="n">ListNode</span><span class="o">*</span> <span class="n">pNext</span> <span class="o">=</span> <span class="n">pToBeDeleted</span><span class="o">-&gt;</span><span class="n">m_pNext</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">pToBeDeleted</span><span class="o">-&gt;</span><span class="n">m_nValue</span> <span class="o">=</span> <span class="n">pNext</span><span class="o">-&gt;</span><span class="n">m_nValue</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">pToBeDeleted</span><span class="o">-&gt;</span><span class="n">m_pNext</span> <span class="o">=</span> <span class="n">pNext</span><span class="o">-&gt;</span><span class="n">m_pNext</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="k">delete</span> <span class="n">pNext</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">pNext</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
@@ -1296,7 +1371,7 @@
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="n">pNode</span> <span class="o">=</span> <span class="n">pNode</span><span class="o">-&gt;</span><span class="n">m_pNext</span><span class="p">;</span>            
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="n">pNode</span><span class="o">-&gt;</span><span class="n">m_pNext</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="k">delete</span> <span class="n">pToBeDeleted</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">pToBeDeleted</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
@@ -1443,14 +1518,7 @@
 </div><hr>
 <h2 id="20表示数值的字符串">20.表示数值的字符串</h2>
 <p>有限状态自动机：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/Offer/957F41AF-905C-41B0-874A-AA470805DAF2.png"
-        data-srcset="/images/Offer/957F41AF-905C-41B0-874A-AA470805DAF2.png, /images/Offer/957F41AF-905C-41B0-874A-AA470805DAF2.png 1.5x, /images/Offer/957F41AF-905C-41B0-874A-AA470805DAF2.png 2x"
-        data-sizes="auto"
-        alt="/images/Offer/957F41AF-905C-41B0-874A-AA470805DAF2.png"
-        title="/images/Offer/957F41AF-905C-41B0-874A-AA470805DAF2.png" /></p>
+<p><img loading="lazy" src="/images/Offer/957F41AF-905C-41B0-874A-AA470805DAF2.png" srcset="/images/Offer/957F41AF-905C-41B0-874A-AA470805DAF2.png, /images/Offer/957F41AF-905C-41B0-874A-AA470805DAF2.png 1.5x, /images/Offer/957F41AF-905C-41B0-874A-AA470805DAF2.png 2x" sizes="auto" data-title="/images/Offer/957F41AF-905C-41B0-874A-AA470805DAF2.png" data-alt="/images/Offer/957F41AF-905C-41B0-874A-AA470805DAF2.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>翻译成代码</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1795,14 +1863,7 @@
 </div><hr>
 <h2 id="23-链表中环的入口结点">23. 链表中环的入口结点</h2>
 <p>双指针法。fast 指针是 slow 指针速度的两倍。假设环入口节点为 y1，相遇所在节点为 z1。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/Offer/Untitled.png"
-        data-srcset="/images/Offer/Untitled.png, /images/Offer/Untitled.png 1.5x, /images/Offer/Untitled.png 2x"
-        data-sizes="auto"
-        alt="/images/Offer/Untitled.png"
-        title="/images/Offer/Untitled.png" /></p>
+<p><img loading="lazy" src="/images/Offer/Untitled.png" srcset="/images/Offer/Untitled.png, /images/Offer/Untitled.png 1.5x, /images/Offer/Untitled.png 2x" sizes="auto" data-title="/images/Offer/Untitled.png" data-alt="/images/Offer/Untitled.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>第一次相遇，此时 fast 走过$x+Ny+(N-1)z$。slow 走过$x+y$。同时又有$2(x+y)=x+Ny+(N-1)z$.解得$x=(N-2)y+(N-1)z=(N-2)C+z$.</p>
 <p>这个等式左边是从起点x1 到环入口节点 y1 的长度，而右边是在圆环中走过 (N-2) 圈，再从相遇点 z1 再走过长度为 z 的长度。此时我们可以发现如果<strong>让两个指针同时从起点 x1 和相遇点 z1 开始，每次只走过一个距离</strong>，那么最后他们会在环入口节点相遇。</p>
 <p>即 slow 走过:</p>
@@ -1993,14 +2054,7 @@
 </div><hr>
 <h2 id="26树的子结构">26.树的子结构</h2>
 <p>判断一棵树是否为另一棵树的一部分。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/Offer/2021-01-13_4.59.00.png"
-        data-srcset="/images/Offer/2021-01-13_4.59.00.png, /images/Offer/2021-01-13_4.59.00.png 1.5x, /images/Offer/2021-01-13_4.59.00.png 2x"
-        data-sizes="auto"
-        alt="/images/Offer/2021-01-13_4.59.00.png"
-        title="/images/Offer/2021-01-13_4.59.00.png" /></p>
+<p><img loading="lazy" src="/images/Offer/2021-01-13_4.59.00.png" srcset="/images/Offer/2021-01-13_4.59.00.png, /images/Offer/2021-01-13_4.59.00.png 1.5x, /images/Offer/2021-01-13_4.59.00.png 2x" sizes="auto" data-title="/images/Offer/2021-01-13_4.59.00.png" data-alt="/images/Offer/2021-01-13_4.59.00.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>使用两个树的遍历函数解决：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -2217,32 +2271,32 @@
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">spiralOrder</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span> <span class="n">matrix</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">res</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">      
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">m</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">size</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">min</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span> <span class="o">++</span><span class="n">k</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">k</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="o">-</span> <span class="n">k</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">                <span class="n">res</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">]);</span>
 </span></span><span class="line"><span class="cl">            <span class="p">}</span>
-</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m</span> <span class="o">-</span> <span class="n">k</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">                <span class="n">res</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">n</span> <span class="o">-</span> <span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]);</span>
 </span></span><span class="line"><span class="cl">            <span class="p">}</span>
-</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&gt;=</span> <span class="n">min</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span><span class="k">return</span> <span class="n">res</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="n">k</span> <span class="o">-</span> <span class="mi">2</span><span class="p">;</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="n">k</span><span class="p">;</span> <span class="o">--</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">                <span class="n">res</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="n">m</span> <span class="o">-</span> <span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]);</span>
 </span></span><span class="line"><span class="cl">            <span class="p">}</span>
-</span></span><span class="line"><span class="cl">                        
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">m</span> <span class="o">-</span> <span class="n">k</span> <span class="o">-</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">k</span><span class="p">;</span> <span class="o">--</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">                <span class="n">res</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]);</span>
 </span></span><span class="line"><span class="cl">            <span class="p">}</span>    
-</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
@@ -2298,14 +2352,14 @@
 </span></span><span class="line"><span class="cl">    <span class="n">MinStack</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">push</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">sortedData</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">||</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">sortedData</span><span class="p">.</span><span class="n">top</span><span class="p">()){</span>
 </span></span><span class="line"><span class="cl">            <span class="n">sortedData</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="n">data</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">pop</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
 </span></span><span class="line"><span class="cl">            <span class="k">return</span><span class="p">;</span>
@@ -2317,12 +2371,12 @@
 </span></span><span class="line"><span class="cl">            <span class="n">data</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="nf">top</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">data</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span><span class="k">return</span> <span class="n">data</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="nf">min</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">data</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="k">return</span> <span class="n">sortedData</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
@@ -2368,7 +2422,7 @@
 </span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">pPopped</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">pushed</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">            <span class="n">s</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">pushed</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-</span></span><span class="line"><span class="cl">						<span class="c1">//注意防止 pPopped 越界
+</span></span><span class="line"><span class="cl">                        <span class="c1">//注意防止 pPopped 越界
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">s</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">pPopped</span> <span class="o">&lt;</span> <span class="n">popped</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&amp;&amp;</span><span class="n">s</span><span class="p">.</span><span class="n">top</span><span class="p">()</span> <span class="o">==</span> <span class="n">popped</span><span class="p">[</span><span class="n">pPopped</span><span class="p">]){</span>
 </span></span><span class="line"><span class="cl">                <span class="n">s</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">                <span class="n">pPopped</span><span class="o">++</span><span class="p">;</span>
@@ -3317,7 +3371,7 @@
 </span></span><span class="line"><span class="cl">            <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="nf">findMedian</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">m</span><span class="o">+</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span><span class="k">return</span> <span class="mf">0.0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">((</span><span class="n">m</span><span class="o">+</span><span class="n">n</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span><span class="k">return</span> <span class="p">(</span><span class="o">-</span><span class="n">big</span><span class="p">.</span><span class="n">top</span><span class="p">()</span> <span class="o">+</span> <span class="n">small</span><span class="p">.</span><span class="n">top</span><span class="p">())</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">;</span>
@@ -3424,7 +3478,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span><span class="o">**</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><a href="https://leetcode.com/problems/number-of-digit-one/discuss/64381/4&#43;-lines-O%28log-n%29-C&#43;&#43;JavaPython" target="_blank" rel="noopener noreffer">4+ lines, O(log n), C++/Java/Python - LeetCode Discuss</a></p>
+</div><p><a href="https://leetcode.com/problems/number-of-digit-one/discuss/64381/4&#43;-lines-O%28log-n%29-C&#43;&#43;JavaPython"target="_blank" rel="external nofollow noopener noreferrer">4+ lines, O(log n), C++/Java/Python - LeetCode Discuss</a></p>
 <hr>
 <h2 id="44数字序列中的某一位数字">44.数字序列中的某一位数字</h2>
 <p>一位数，两位数，三位数，四位数对应的个数是10, 90, 900, 9000</p>
@@ -3483,7 +3537,7 @@
 </span></span><span class="line"><span class="cl">            <span class="cm">/*如果index大于n，结束*/</span>
 </span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">temp</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">                <span class="k">break</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">            <span class="n">index</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">            <span class="n">lev</span> <span class="o">*=</span> <span class="mi">10</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">            <span class="o">++</span><span class="n">bit</span><span class="p">;</span>
@@ -3578,7 +3632,7 @@
 </span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">            <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;1&#39;</span> <span class="o">||</span> <span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;2&#39;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="sc">&#39;5&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">							<span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="o">?</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span><span class="o">:</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                            <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="o">?</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span><span class="o">:</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
@@ -3616,7 +3670,7 @@
 </span></span><span class="line"><span class="cl">            <span class="n">dp2</span> <span class="o">+=</span> <span class="n">dp1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;1&#39;</span> 
 </span></span><span class="line"><span class="cl">               <span class="o">||</span> <span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;2&#39;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="sc">&#39;5&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">						<span class="n">dp2</span> <span class="o">+=</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span><span class="o">?</span> <span class="nl">dp0</span><span class="p">:</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">dp2</span> <span class="o">+=</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span><span class="o">?</span> <span class="nl">dp0</span><span class="p">:</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">            <span class="n">dp0</span> <span class="o">=</span> <span class="n">dp1</span><span class="p">,</span> <span class="n">dp1</span> <span class="o">=</span> <span class="n">dp2</span><span class="p">,</span> <span class="n">dp2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">dp1</span><span class="p">;</span>
@@ -3698,7 +3752,7 @@
 </span></span><span class="line"><span class="cl">                <span class="o">**</span><span class="n">l</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="n">r</span><span class="p">]]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">//忽略以前发生的冲突**
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="p">}</span>
 </span></span><span class="line"><span class="cl">            <span class="n">m</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="n">r</span><span class="p">]]</span> <span class="o">=</span> <span class="n">r</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">						<span class="n">r</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">r</span><span class="o">++</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">            <span class="n">ret</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="n">l</span><span class="p">,</span> <span class="n">ret</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
@@ -3747,7 +3801,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="o">**</span><span class="nf">if</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">dp</span><span class="p">[</span><span class="n">i2</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span><span class="n">i2</span><span class="o">++</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">dp</span><span class="p">[</span><span class="n">i3</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span><span class="n">i3</span><span class="o">++</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">dp</span><span class="p">[</span><span class="n">i5</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span><span class="p">)</span><span class="n">i5</span><span class="o">++</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">						<span class="c1">//注意这里不能重复计算路径 如2x3 vs 3x2**
+</span></span><span class="line"><span class="cl">                        <span class="c1">//注意这里不能重复计算路径 如2x3 vs 3x2**
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
@@ -3777,7 +3831,7 @@
 </span></span><span class="line"><span class="cl">        <span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">m</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="nl">item</span><span class="p">:</span> <span class="n">s</span><span class="p">)</span><span class="n">m</span><span class="p">[</span><span class="n">item</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="nl">item</span><span class="p">:</span> <span class="n">s</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">					<span class="k">if</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span><span class="k">return</span> <span class="n">item</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">if</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span><span class="k">return</span> <span class="n">item</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
@@ -4018,7 +4072,7 @@
 </span></span><span class="line"><span class="cl">            <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">left</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> 
-</span></span><span class="line"><span class="cl">								<span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">==</span> <span class="n">target</span> <span class="o">?</span> <span class="nl">left</span> <span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                                <span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">==</span> <span class="n">target</span> <span class="o">?</span> <span class="nl">left</span> <span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -4245,7 +4299,7 @@
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">maxDepth</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span><span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">max</span><span class="p">(</span><span class="n">maxDepth</span><span class="p">(</span><span class="n">root</span> <span class="o">-&gt;</span> <span class="n">left</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> 
-</span></span><span class="line"><span class="cl">										<span class="n">maxDepth</span><span class="p">(</span><span class="n">root</span> <span class="o">-&gt;</span> <span class="n">right</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                                        <span class="n">maxDepth</span><span class="p">(</span><span class="n">root</span> <span class="o">-&gt;</span> <span class="n">right</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span></code></pre></td></tr></table>
@@ -4392,7 +4446,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>利用异或交换律+二分</p>
-<p><a href="https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-lcof/solution/shi-yao-zhe-ti-huan-ke-yi-yong-er-fen-cha-zhao-bi-/" target="_blank" rel="noopener noreffer">力扣</a></p>
+<p><a href="https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-lcof/solution/shi-yao-zhe-ti-huan-ke-yi-yong-er-fen-cha-zhao-bi-/"target="_blank" rel="external nofollow noopener noreferrer">力扣</a></p>
 <p>异或：</p>
 <ol>
 <li>交换律：a ^ b ^ c &lt;=&gt; a ^ c ^ b</li>
@@ -4481,7 +4535,7 @@
 <li>sort 也很简单</li>
 <li>位运算法</li>
 </ul>
-<p><a href="https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-ii-lcof/solution/zi-jie-ti-ku-jian-56-ii-zhong-deng-shu-z-qbp1/" target="_blank" rel="noopener noreffer">力扣</a></p>
+<p><a href="https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-ii-lcof/solution/zi-jie-ti-ku-jian-56-ii-zhong-deng-shu-z-qbp1/"target="_blank" rel="external nofollow noopener noreferrer">力扣</a></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -4556,7 +4610,7 @@
 <li>双指针法：</li>
 </ul>
 <p>正确性证明：</p>
-<p><a href="https://leetcode-cn.com/problems/he-wei-sde-liang-ge-shu-zi-lcof/solution/mian-shi-ti-57-he-wei-s-de-liang-ge-shu-zi-shuang-/" target="_blank" rel="noopener noreffer">力扣</a></p>
+<p><a href="https://leetcode-cn.com/problems/he-wei-sde-liang-ge-shu-zi-lcof/solution/mian-shi-ti-57-he-wei-s-de-liang-ge-shu-zi-shuang-/"target="_blank" rel="external nofollow noopener noreferrer">力扣</a></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -4619,7 +4673,7 @@
 </span></span><span class="line"><span class="cl">        <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">result</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">target</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">((</span><span class="n">target</span> <span class="o">/</span> <span class="n">i</span> <span class="o">-</span> <span class="n">i</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">target</span> <span class="o">-</span> <span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span> <span class="o">%</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">)</span> 
-</span></span><span class="line"><span class="cl">								<span class="o">||</span> <span class="p">(</span><span class="n">target</span> <span class="o">/</span> <span class="n">i</span> <span class="o">-</span> <span class="n">i</span> <span class="o">/</span> <span class="mi">2</span><span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">target</span> <span class="o">%</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>  <span class="p">){</span>
+</span></span><span class="line"><span class="cl">                                <span class="o">||</span> <span class="p">(</span><span class="n">target</span> <span class="o">/</span> <span class="n">i</span> <span class="o">-</span> <span class="n">i</span> <span class="o">/</span> <span class="mi">2</span><span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">target</span> <span class="o">%</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>  <span class="p">){</span>
 </span></span><span class="line"><span class="cl">                <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">temp</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">                <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="p">(</span><span class="n">target</span> <span class="o">/</span> <span class="n">i</span><span class="p">)</span> <span class="o">-</span> <span class="n">i</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">);</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="n">target</span> <span class="o">/</span> <span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="n">i</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">){</span>
 </span></span><span class="line"><span class="cl">                    <span class="n">temp</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">j</span><span class="p">);</span>
@@ -4807,7 +4861,7 @@
 </div><hr>
 <h2 id="59-i滑动窗口的最大值">59-I.滑动窗口的最大值</h2>
 <p>窗口对应的数据结构为 双端队列 ，本题使用 <strong>单调双向队列</strong> 即可解决以上问题。</p>
-<p><a href="https://leetcode-cn.com/problems/hua-dong-chuang-kou-de-zui-da-zhi-lcof/solution/yi-ge-shi-pin-kan-dong-dan-diao-dui-lie-1dq85/" target="_blank" rel="noopener noreffer">力扣</a></p>
+<p><a href="https://leetcode-cn.com/problems/hua-dong-chuang-kou-de-zui-da-zhi-lcof/solution/yi-ge-shi-pin-kan-dong-dan-diao-dui-lie-1dq85/"target="_blank" rel="external nofollow noopener noreferrer">力扣</a></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -4905,19 +4959,19 @@
 </span></span><span class="line"><span class="cl">    <span class="n">MaxQueue</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="nf">max_value</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span><span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">maxQueue</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">push_back</span><span class="p">(</span><span class="kt">int</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">maxQueue</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">maxQueue</span><span class="p">.</span><span class="n">front</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">value</span><span class="p">)</span><span class="n">maxQueue</span><span class="p">.</span><span class="n">pop_front</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">maxQueue</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">maxQueue</span><span class="p">.</span><span class="n">back</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">value</span><span class="p">)</span><span class="n">maxQueue</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">        <span class="n">data</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="n">maxQueue</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="nf">pop_front</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span><span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">val</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
@@ -5096,7 +5150,7 @@
 <p>用$f(N,M)$代表 N 个人报数，报到 M 时去掉那个人， 最终胜利者的坐标。递推公式为</p>
 </blockquote>
 <p>$$f(N,M)=(f(N-1,M)+M)%N$$</p>
-<p><a href="https://blog.csdn.net/u011500062/article/details/72855826" target="_blank" rel="noopener noreffer">约瑟夫环&ndash;公式法（递推公式）_再难也要坚持-CSDN博客_约瑟夫环公式</a></p>
+<p><a href="https://blog.csdn.net/u011500062/article/details/72855826"target="_blank" rel="external nofollow noopener noreferrer">约瑟夫环&ndash;公式法（递推公式）_再难也要坚持-CSDN博客_约瑟夫环公式</a></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -5357,14 +5411,7 @@
 </div>
 </div><hr>
 <h2 id="66构建乘积数组">66.构建乘积数组</h2>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/Offer/Untitled%201.png"
-        data-srcset="/images/Offer/Untitled%201.png, /images/Offer/Untitled%201.png 1.5x, /images/Offer/Untitled%201.png 2x"
-        data-sizes="auto"
-        alt="/images/Offer/Untitled%201.png"
-        title="/images/Offer/Untitled%201.png" /></p>
+<p><img loading="lazy" src="/images/Offer/Untitled%201.png" srcset="/images/Offer/Untitled%201.png, /images/Offer/Untitled%201.png 1.5x, /images/Offer/Untitled%201.png 2x" sizes="auto" data-title="/images/Offer/Untitled%201.png" data-alt="/images/Offer/Untitled%201.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>一次遍历就可以完成。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -5499,9 +5546,9 @@
 </span></span><span class="line"><span class="cl">    <span class="n">TreeNode</span><span class="o">*</span> <span class="n">lowestCommonAncestor</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">,</span> <span class="n">TreeNode</span><span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">TreeNode</span><span class="o">*</span> <span class="n">q</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span><span class="k">return</span> <span class="k">nullptr</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">p</span> <span class="o">-&gt;</span> <span class="n">val</span> <span class="o">&lt;</span> <span class="n">root</span> <span class="o">-&gt;</span> <span class="n">val</span> <span class="o">&amp;&amp;</span> <span class="n">q</span> <span class="o">-&gt;</span> <span class="n">val</span> <span class="o">&lt;</span> <span class="n">root</span> <span class="o">-&gt;</span> <span class="n">val</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">						<span class="k">return</span> <span class="n">lowestCommonAncestor</span><span class="p">(</span><span class="n">root</span> <span class="o">-&gt;</span> <span class="n">left</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">return</span> <span class="n">lowestCommonAncestor</span><span class="p">(</span><span class="n">root</span> <span class="o">-&gt;</span> <span class="n">left</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="nf">if</span><span class="p">(</span><span class="n">p</span> <span class="o">-&gt;</span> <span class="n">val</span> <span class="o">&gt;</span> <span class="n">root</span> <span class="o">-&gt;</span> <span class="n">val</span> <span class="o">&amp;&amp;</span> <span class="n">q</span> <span class="o">-&gt;</span> <span class="n">val</span> <span class="o">&gt;</span> <span class="n">root</span> <span class="o">-&gt;</span> <span class="n">val</span><span class="p">)</span> 
-</span></span><span class="line"><span class="cl">						<span class="k">return</span> <span class="n">lowestCommonAncestor</span><span class="p">(</span><span class="n">root</span> <span class="o">-&gt;</span> <span class="n">right</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">return</span> <span class="n">lowestCommonAncestor</span><span class="p">(</span><span class="n">root</span> <span class="o">-&gt;</span> <span class="n">right</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="k">return</span> <span class="n">root</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
@@ -5539,44 +5586,47 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2021-01-08</span>
-            </div>
-            <div class="post-info-license"></div>
-        </div>
-        <div class="post-info-line">
-            <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/%E5%89%91%E6%8C%87offer/index.md" target="_blank">阅读原始文档</a>
-                        </span></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://hongwei7.online/%E5%89%91%E6%8C%87offer/" data-title="刷题-剑指Offer" data-hashtags="Coding,LeetCode"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://hongwei7.online/%E5%89%91%E6%8C%87offer/" data-hashtag="Coding"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://hongwei7.online/%E5%89%91%E6%8C%87offer/" data-title="刷题-剑指Offer" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://hongwei7.online/%E5%89%91%E6%8C%87offer/" data-title="刷题-剑指Offer"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://hongwei7.online/%E5%89%91%E6%8C%87offer/" data-title="刷题-剑指Offer"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://hongwei7.online/%E5%89%91%E6%8C%87offer/" data-title="刷题-剑指Offer" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://hongwei7.online/%E5%89%91%E6%8C%87offer/" data-title="刷题-剑指Offer" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://hongwei7.online/%E5%89%91%E6%8C%87offer/" data-title="刷题-剑指Offer"><i class="fab fa-evernote fa-fw"></i></a></span>
-            </div>
-        </div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title=2021-01-08&#32;00:00:00>更新于 2021-01-08&nbsp;</span>
+      </div><div class="post-info-license">
+          <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span>
+        </div></div>
+    <div class="post-info-line">
+      <div class="post-info-md"><span><a href="/%E5%89%91%E6%8C%87offer/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
+      <div class="post-info-share">
+        <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://hongwei7.online/%E5%89%91%E6%8C%87offer/" data-title="刷题-剑指Offer" data-hashtags="Coding,LeetCode"><i class="fa-brands fa-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://hongwei7.online/%E5%89%91%E6%8C%87offer/" data-hashtag="Coding"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://hongwei7.online/%E5%89%91%E6%8C%87offer/" data-title="刷题-剑指Offer" data-web><i class="fa-brands fa-whatsapp fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://hongwei7.online/%E5%89%91%E6%8C%87offer/" data-title="刷题-剑指Offer"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://hongwei7.online/%E5%89%91%E6%8C%87offer/" data-title="刷题-剑指Offer"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://hongwei7.online/%E5%89%91%E6%8C%87offer/" data-title="刷题-剑指Offer" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://hongwei7.online/%E5%89%91%E6%8C%87offer/" data-title="刷题-剑指Offer" data-description=""><i class="fa-brands fa-blogger fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://hongwei7.online/%E5%89%91%E6%8C%87offer/" data-title="刷题-剑指Offer"><i class="fa-brands fa-evernote fa-fw" aria-hidden="true"></i></a>
+  </span>
+      </div>
     </div>
+  </div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/coding/">Coding</a>,&nbsp;<a href="/tags/leetcode/">LeetCode</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
-        </section>
-    </div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/coding/' class="post-tag">Coding</a><a href='/tags/leetcode/' class="post-tag">LeetCode</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div>
 
-    <div class="post-nav"><a href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-lfs%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE/" class="prev" rel="prev" title="制作自己的 LFS 项目（操作系统课设）"><i class="fas fa-angle-left fa-fw"></i>制作自己的 LFS 项目（操作系统课设）</a>
-            <a href="/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7/" class="next" rel="next" title="STL-源码剖析（侯捷）">STL-源码剖析（侯捷）<i class="fas fa-angle-right fa-fw"></i></a></div>
+  <div class="post-nav"><a href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-lfs%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE/" class="post-nav-item" rel="prev" title="制作自己的 LFS 项目（操作系统课设）"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>制作自己的 LFS 项目（操作系统课设）</a>
+      <a href="/stl-%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90%E4%BE%AF%E6%8D%B7/" class="post-nav-item" rel="next" title="STL-源码剖析（侯捷）">STL-源码剖析（侯捷）<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
-<div id="comments"></div></article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/hongwei7" target="_blank">hongwei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
-        </div>
-    </footer></div>
-
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
-            </a>
-        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":300},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+<div id="comments"></div></article></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.111.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.2.18-RC"><img class="fixit-icon" src="/fixit.min.svg" alt="FixIt logo" />&nbsp;FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2020 - 2023</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/hongwei7"target="_blank" rel="external nofollow noopener noreferrer">hongwei</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div><div class="footer-line statistics"></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div><div class="fixed-button view-comments d-none" role="button" aria-label="查看评论"><i class="fa-solid fa-comment fa-fw" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">FixIt 主题在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/lunr/lunr.min.js" defer></script><script src="/lib/lunr/lunr.stemmer.support.min.js" defer></script><script src="/lib/lunr/lunr.zh.min.js" defer></script><script src="/lib/twemoji/twemoji.min.js" defer></script><script src="/lib/lightgallery/lightgallery.min.js" defer></script><script src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js" defer></script><script src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":300},"comment":{"enable":true,"expired":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script src="/js/theme.min.js" defer></script></body>
 </html>

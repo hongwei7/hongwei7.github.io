@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>MySQL 原理总结 - hongwei 的博客</title><meta name="Description" content="欢迎来到hongwei7的个人博客"><meta property="og:title" content="MySQL 原理总结" />
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>MySQL 原理总结 - hongwei 的博客</title><meta name="author" content="hongwei">
+<meta name="author-link" content="https://github.com/hongwei7">
+<meta name="description" content="阅读高性能 MySQL 的笔记。" /><meta name="keywords" content='SQL' /><meta itemprop="name" content="MySQL 原理总结">
+<meta itemprop="description" content="阅读高性能 MySQL 的笔记。"><meta itemprop="datePublished" content="2021-03-30T19:23:48+00:00" />
+<meta itemprop="dateModified" content="2021-03-30T19:23:48+00:00" />
+<meta itemprop="wordCount" content="3639"><meta itemprop="image" content="https://hongwei7.online/logo.png"/>
+<meta itemprop="keywords" content="SQL," /><meta property="og:title" content="MySQL 原理总结" />
 <meta property="og:description" content="阅读高性能 MySQL 的笔记。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://hongwei7.online/mysql%E5%8E%9F%E7%90%86/" /><meta property="og:image" content="https://hongwei7.online/logo.png"/><meta property="article:section" content="posts" />
@@ -17,106 +23,189 @@
 <meta name="twitter:title" content="MySQL 原理总结"/>
 <meta name="twitter:description" content="阅读高性能 MySQL 的笔记。"/>
 <meta name="application-name" content="hongwei&#39;s Blog">
-<meta name="apple-mobile-web-app-title" content="hongwei&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://hongwei7.online/mysql%E5%8E%9F%E7%90%86/" /><link rel="prev" href="https://hongwei7.online/linuxsystem/" /><link rel="next" href="https://hongwei7.online/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "MySQL 原理总结",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/hongwei7.online\/mysql%E5%8E%9F%E7%90%86\/"
-        },"genre": "posts","keywords": "SQL","wordcount":  3639 ,
-        "url": "https:\/\/hongwei7.online\/mysql%E5%8E%9F%E7%90%86\/","datePublished": "2021-03-30T19:23:48+00:00","dateModified": "2021-03-30T19:23:48+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
-            "@type": "Organization",
-            "name": ""},"author": {
-                "@type": "Person",
-                "name": "hongwei"
-            },"description": ""
-    }
-    </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<meta name="apple-mobile-web-app-title" content="hongwei&#39;s Blog"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://hongwei7.online/mysql%E5%8E%9F%E7%90%86/" /><link rel="prev" href="https://hongwei7.online/linuxsystem/" /><link rel="next" href="https://hongwei7.online/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "MySQL 原理总结",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/hongwei7.online\/mysql%E5%8E%9F%E7%90%86\/"
+    },"genre": "posts","keywords": "SQL","wordcount":  3639 ,
+    "url": "https:\/\/hongwei7.online\/mysql%E5%8E%9F%E7%90%86\/","datePublished": "2021-03-30T19:23:48+00:00","dateModified": "2021-03-30T19:23:48+00:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "hongwei"
+      },"description": ""
+  }
+  </script></head>
+  <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage?.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('data-theme', 'dark');</script><div class="wrapper"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="hongwei 的博客"><span class="header-title-text">hongwei&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/posts/"
+                
+                
+              >所有文章</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/tags/"
+                
+                
+              >标签</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/"
+                
+                
+              >分类</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/categories/documentation/"
+                
+                
+              >文档</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="/about/"
+                
+                
+              >关于</a></li><li class="menu-item">
+              <a
+                class="menu-link"
+                href="https://github.com/dillonzq/LoveIt"
+                title="GitHub"
+                rel="noopener noreferrer" target="_blank"
+              ><i class='fab fa-github fa-fw'></i> </a></li><li class="menu-item delimiter"></li><li class="menu-item language">
+            <span role="button" aria-label="选择语言" title="选择语言">简体中文<i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden="true"></i>
+            </span>
+            <ul class="sub-menu"><li class="menu-item">没有更多翻译</li></ul>
+          </li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="hongwei 的博客">hongwei&#39;s Blog</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/categories/documentation/"> 文档 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
-                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/mysql%E5%8E%9F%E7%90%86/" selected>简体中文</option></select>
-                    </a><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
-                </a>
-            </div>
-        </div>
+      <div class="header-title">
+        <a href="/" title="hongwei 的博客"><span class="header-title-text">hongwei&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/" title="hongwei 的博客">hongwei&#39;s Blog</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search fa-fw" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle fa-fw" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/categories/documentation/" title="">文档</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/dillonzq/LoveIt" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/mysql%E5%8E%9F%E7%90%86/" selected>简体中文</option></select>
-                </a></div>
-    </div>
-</header>
-<div class="search-dropdown desktop">
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/posts/"
+                  
+                  
+                >所有文章</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/tags/"
+                  
+                  
+                >标签</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/"
+                  
+                  
+                >分类</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/categories/documentation/"
+                  
+                  
+                >文档</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="/about/"
+                  
+                  
+                >关于</a></li><li
+              class="menu-item"
+            ><a
+                  class="menu-link"
+                  href="https://github.com/dillonzq/LoveIt"
+                  title="GitHub"
+                  rel="noopener noreferrer" target="_blank"
+                ><i class='fab fa-github fa-fw'></i> </a></li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li><li class="menu-item language">
+            <span role="button" aria-label="选择语言" title="选择语言">简体中文<i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden="true"></i>
+            </span>
+            <select class="language-select" onchange="location = this.value;"><option disabled>没有更多翻译</option></select>
+          </li></ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
     <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
+  </div>
+  <div class="search-dropdown mobile">
     <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">MySQL 原理总结</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/hongwei7" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>hongwei</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-03-30">2021-03-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3639 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  kept="true">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  </div><main class="container" data-page-style="normal"><aside class="toc" id="toc-auto"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside>
+
+  <aside class="aside-custom">
+    </aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX">
+        <span>MySQL 原理总结</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/hongwei7" title="作者"target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+    hongwei</a></span></div>
+      <div class="post-meta-line"><span title=2021-03-30&#32;19:23:48><i class="fa-regular fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-03-30">2021-03-30</time></span>&nbsp;<span><i class="fa-solid fa-pencil-alt fa-fw" aria-hidden="true"></i> 约 3639 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw" aria-hidden="true"></i> 预计阅读 8 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="true">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#事务及实现原理">事务及实现原理</a>
       <ul>
@@ -178,9 +267,9 @@
     <li><a href="#覆盖索引">覆盖索引</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>这里主要讨论 InoDB 下的 MySQL。</p>
+      </div><div class="content" id="content"><p>这里主要讨论 InoDB 下的 MySQL。</p>
 <h2 id="事务及实现原理">事务及实现原理</h2>
-<p><a href="https://leetcode-cn.com/circle/article/i1zsBI/" target="_blank" rel="noopener noreffer">参考文章</a></p>
+<p><a href="https://leetcode-cn.com/circle/article/i1zsBI/"target="_blank" rel="external nofollow noopener noreferrer">参考文章</a></p>
 <h3 id="四大特性">四大特性</h3>
 <ul>
 <li>原子性</li>
@@ -239,35 +328,14 @@
 </ul>
 <h1 id="innodb">Innodb</h1>
 <h2 id="实现架构">实现架构</h2>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/MySQL/DB81A0E2-0CDB-4B8E-A833-2DEA2EE22BDF.jpeg"
-        data-srcset="/images/MySQL/DB81A0E2-0CDB-4B8E-A833-2DEA2EE22BDF.jpeg, /images/MySQL/DB81A0E2-0CDB-4B8E-A833-2DEA2EE22BDF.jpeg 1.5x, /images/MySQL/DB81A0E2-0CDB-4B8E-A833-2DEA2EE22BDF.jpeg 2x"
-        data-sizes="auto"
-        alt="/images/MySQL/DB81A0E2-0CDB-4B8E-A833-2DEA2EE22BDF.jpeg"
-        title="/images/MySQL/DB81A0E2-0CDB-4B8E-A833-2DEA2EE22BDF.jpeg" /></p>
+<p><img loading="lazy" src="/images/MySQL/DB81A0E2-0CDB-4B8E-A833-2DEA2EE22BDF.jpeg" srcset="/images/MySQL/DB81A0E2-0CDB-4B8E-A833-2DEA2EE22BDF.jpeg, /images/MySQL/DB81A0E2-0CDB-4B8E-A833-2DEA2EE22BDF.jpeg 1.5x, /images/MySQL/DB81A0E2-0CDB-4B8E-A833-2DEA2EE22BDF.jpeg 2x" sizes="auto" data-title="/images/MySQL/DB81A0E2-0CDB-4B8E-A833-2DEA2EE22BDF.jpeg" data-alt="/images/MySQL/DB81A0E2-0CDB-4B8E-A833-2DEA2EE22BDF.jpeg" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>Master线程主要负责把脏数据同步到硬盘，保持数据的一致性。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/MySQL/C4F8BE7F-201D-4266-A1D6-C42E9161DED1.jpeg"
-        data-srcset="/images/MySQL/C4F8BE7F-201D-4266-A1D6-C42E9161DED1.jpeg, /images/MySQL/C4F8BE7F-201D-4266-A1D6-C42E9161DED1.jpeg 1.5x, /images/MySQL/C4F8BE7F-201D-4266-A1D6-C42E9161DED1.jpeg 2x"
-        data-sizes="auto"
-        alt="/images/MySQL/C4F8BE7F-201D-4266-A1D6-C42E9161DED1.jpeg"
-        title="/images/MySQL/C4F8BE7F-201D-4266-A1D6-C42E9161DED1.jpeg" /></p>
+<p><img loading="lazy" src="/images/MySQL/C4F8BE7F-201D-4266-A1D6-C42E9161DED1.jpeg" srcset="/images/MySQL/C4F8BE7F-201D-4266-A1D6-C42E9161DED1.jpeg, /images/MySQL/C4F8BE7F-201D-4266-A1D6-C42E9161DED1.jpeg 1.5x, /images/MySQL/C4F8BE7F-201D-4266-A1D6-C42E9161DED1.jpeg 2x" sizes="auto" data-title="/images/MySQL/C4F8BE7F-201D-4266-A1D6-C42E9161DED1.jpeg" data-alt="/images/MySQL/C4F8BE7F-201D-4266-A1D6-C42E9161DED1.jpeg" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>IO线程主要负责io的回调，read、write、insert buffer、logIO。</p>
 <p>Purge线程负责回收过期的redo log。</p>
 <p>Page Cleaner负责把对脏页的操作从主线程中分离开来，提高效率。</p>
 <h2 id="内存数据对象">内存数据对象</h2>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/MySQL/9F82ED4C-86FE-4595-B7A0-498800F01723.jpeg"
-        data-srcset="/images/MySQL/9F82ED4C-86FE-4595-B7A0-498800F01723.jpeg, /images/MySQL/9F82ED4C-86FE-4595-B7A0-498800F01723.jpeg 1.5x, /images/MySQL/9F82ED4C-86FE-4595-B7A0-498800F01723.jpeg 2x"
-        data-sizes="auto"
-        alt="/images/MySQL/9F82ED4C-86FE-4595-B7A0-498800F01723.jpeg"
-        title="/images/MySQL/9F82ED4C-86FE-4595-B7A0-498800F01723.jpeg" /></p>
+<p><img loading="lazy" src="/images/MySQL/9F82ED4C-86FE-4595-B7A0-498800F01723.jpeg" srcset="/images/MySQL/9F82ED4C-86FE-4595-B7A0-498800F01723.jpeg, /images/MySQL/9F82ED4C-86FE-4595-B7A0-498800F01723.jpeg 1.5x, /images/MySQL/9F82ED4C-86FE-4595-B7A0-498800F01723.jpeg 2x" sizes="auto" data-title="/images/MySQL/9F82ED4C-86FE-4595-B7A0-498800F01723.jpeg" data-alt="/images/MySQL/9F82ED4C-86FE-4595-B7A0-498800F01723.jpeg" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>使用LRU算法来缓冲，提高性能。</p>
 <h2 id="checkpoint技术">Checkpoint技术</h2>
 <p>为了防止数据丢失，事务数据库都采用write ahead log，先写log再写。符合持久化的要求。</p>
@@ -288,23 +356,9 @@
 <h3 id="insert-buffer">insert buffer</h3>
 <p>把多索引的随机访问化为一次性的顺序访问，对机械硬盘性能的影响巨大。</p>
 <h3 id="两次写">两次写</h3>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/MySQL/407BFFE4-9834-4404-9E6F-F95329F76F8F.jpeg"
-        data-srcset="/images/MySQL/407BFFE4-9834-4404-9E6F-F95329F76F8F.jpeg, /images/MySQL/407BFFE4-9834-4404-9E6F-F95329F76F8F.jpeg 1.5x, /images/MySQL/407BFFE4-9834-4404-9E6F-F95329F76F8F.jpeg 2x"
-        data-sizes="auto"
-        alt="/images/MySQL/407BFFE4-9834-4404-9E6F-F95329F76F8F.jpeg"
-        title="/images/MySQL/407BFFE4-9834-4404-9E6F-F95329F76F8F.jpeg" /></p>
+<p><img loading="lazy" src="/images/MySQL/407BFFE4-9834-4404-9E6F-F95329F76F8F.jpeg" srcset="/images/MySQL/407BFFE4-9834-4404-9E6F-F95329F76F8F.jpeg, /images/MySQL/407BFFE4-9834-4404-9E6F-F95329F76F8F.jpeg 1.5x, /images/MySQL/407BFFE4-9834-4404-9E6F-F95329F76F8F.jpeg 2x" sizes="auto" data-title="/images/MySQL/407BFFE4-9834-4404-9E6F-F95329F76F8F.jpeg" data-alt="/images/MySQL/407BFFE4-9834-4404-9E6F-F95329F76F8F.jpeg" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>写时先把脏页复制到dubble write buffer，然后修改完后写到共享表，马上调用fsync同步到硬盘。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/MySQL/F9E2ACCE-E25C-4D7F-9D41-E5EB8829042F.jpeg"
-        data-srcset="/images/MySQL/F9E2ACCE-E25C-4D7F-9D41-E5EB8829042F.jpeg, /images/MySQL/F9E2ACCE-E25C-4D7F-9D41-E5EB8829042F.jpeg 1.5x, /images/MySQL/F9E2ACCE-E25C-4D7F-9D41-E5EB8829042F.jpeg 2x"
-        data-sizes="auto"
-        alt="/images/MySQL/F9E2ACCE-E25C-4D7F-9D41-E5EB8829042F.jpeg"
-        title="/images/MySQL/F9E2ACCE-E25C-4D7F-9D41-E5EB8829042F.jpeg" /></p>
+<p><img loading="lazy" src="/images/MySQL/F9E2ACCE-E25C-4D7F-9D41-E5EB8829042F.jpeg" srcset="/images/MySQL/F9E2ACCE-E25C-4D7F-9D41-E5EB8829042F.jpeg, /images/MySQL/F9E2ACCE-E25C-4D7F-9D41-E5EB8829042F.jpeg 1.5x, /images/MySQL/F9E2ACCE-E25C-4D7F-9D41-E5EB8829042F.jpeg 2x" sizes="auto" data-title="/images/MySQL/F9E2ACCE-E25C-4D7F-9D41-E5EB8829042F.jpeg" data-alt="/images/MySQL/F9E2ACCE-E25C-4D7F-9D41-E5EB8829042F.jpeg" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <h2 id="自适应哈希-ahi">自适应哈希 AHI</h2>
 <p>innodb会自动对能提高性能的列建立哈希索引。</p>
 <p>要求：对页的访问模式应该是一样的。</p>
@@ -312,14 +366,7 @@
 <h2 id="异步io">异步IO</h2>
 <p>区别于同步IO。</p>
 <h2 id="刷新邻近页">刷新邻近页</h2>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/MySQL/5B152068-37BB-4548-B60C-0F1A7EFAD4CF.jpeg"
-        data-srcset="/images/MySQL/5B152068-37BB-4548-B60C-0F1A7EFAD4CF.jpeg, /images/MySQL/5B152068-37BB-4548-B60C-0F1A7EFAD4CF.jpeg 1.5x, /images/MySQL/5B152068-37BB-4548-B60C-0F1A7EFAD4CF.jpeg 2x"
-        data-sizes="auto"
-        alt="/images/MySQL/5B152068-37BB-4548-B60C-0F1A7EFAD4CF.jpeg"
-        title="/images/MySQL/5B152068-37BB-4548-B60C-0F1A7EFAD4CF.jpeg" /></p>
+<p><img loading="lazy" src="/images/MySQL/5B152068-37BB-4548-B60C-0F1A7EFAD4CF.jpeg" srcset="/images/MySQL/5B152068-37BB-4548-B60C-0F1A7EFAD4CF.jpeg, /images/MySQL/5B152068-37BB-4548-B60C-0F1A7EFAD4CF.jpeg 1.5x, /images/MySQL/5B152068-37BB-4548-B60C-0F1A7EFAD4CF.jpeg 2x" sizes="auto" data-title="/images/MySQL/5B152068-37BB-4548-B60C-0F1A7EFAD4CF.jpeg" data-alt="/images/MySQL/5B152068-37BB-4548-B60C-0F1A7EFAD4CF.jpeg" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <h2 id="支持的索引">支持的索引</h2>
 <ul>
 <li>
@@ -358,19 +405,12 @@
 <p>对于外键值的插入或更新，首先需要查询父表中的记录，即SELECT 父表.但是对于父表的SELECT 操作，不是使用一致性非锁定读的方式，因为这样会发生数据不一致的问题。因此这时使用的是 SELECT &hellip;.
 LOCK IN SHARE MODE 方式，即主动对父表加一个S锁，如果这时父表上已经这样加X锁，子表上的操作会被阻塞。</p>
 <h2 id="聚簇索引">聚簇索引</h2>
-<p><a href="https://cloud.tencent.com/developer/article/1541265" target="_blank" rel="noopener noreffer">聚簇索引与非聚簇索引（也叫二级索引）&ndash;最清楚的一篇讲解</a></p>
+<p><a href="https://cloud.tencent.com/developer/article/1541265"target="_blank" rel="external nofollow noopener noreferrer">聚簇索引与非聚簇索引（也叫二级索引）&ndash;最清楚的一篇讲解</a></p>
 <h2 id="联合索引的技巧">联合索引的技巧</h2>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/MySQL/8C8829E1-7576-4718-A8B7-E7DD765750C0.png"
-        data-srcset="/images/MySQL/8C8829E1-7576-4718-A8B7-E7DD765750C0.png, /images/MySQL/8C8829E1-7576-4718-A8B7-E7DD765750C0.png 1.5x, /images/MySQL/8C8829E1-7576-4718-A8B7-E7DD765750C0.png 2x"
-        data-sizes="auto"
-        alt="/images/MySQL/8C8829E1-7576-4718-A8B7-E7DD765750C0.png"
-        title="/images/MySQL/8C8829E1-7576-4718-A8B7-E7DD765750C0.png" /></p>
-<p><a href="https://blog.csdn.net/u013568373/article/details/93891531" target="_blank" rel="noopener noreffer">联合索引的最左前缀匹配原则介绍_To be a great coder-CSDN博客_最左前缀匹配原则</a></p>
+<p><img loading="lazy" src="/images/MySQL/8C8829E1-7576-4718-A8B7-E7DD765750C0.png" srcset="/images/MySQL/8C8829E1-7576-4718-A8B7-E7DD765750C0.png, /images/MySQL/8C8829E1-7576-4718-A8B7-E7DD765750C0.png 1.5x, /images/MySQL/8C8829E1-7576-4718-A8B7-E7DD765750C0.png 2x" sizes="auto" data-title="/images/MySQL/8C8829E1-7576-4718-A8B7-E7DD765750C0.png" data-alt="/images/MySQL/8C8829E1-7576-4718-A8B7-E7DD765750C0.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<p><a href="https://blog.csdn.net/u013568373/article/details/93891531"target="_blank" rel="external nofollow noopener noreferrer">联合索引的最左前缀匹配原则介绍_To be a great coder-CSDN博客_最左前缀匹配原则</a></p>
 <h2 id="幻读问题">幻读问题</h2>
-<p><a href="https://time.geekbang.org/column/article/75173" target="_blank" rel="noopener noreffer">20 | 幻读是什么，幻读有什么问题？-极客时间</a></p>
+<p><a href="https://time.geekbang.org/column/article/75173"target="_blank" rel="external nofollow noopener noreferrer">20 | 幻读是什么，幻读有什么问题？-极客时间</a></p>
 <p>间隙锁在可重复读隔离级别下才有效。</p>
 <p>产生幻读的原因是，行锁只能锁住行，但是新插入记录这个动作，要更新的是记录之间的“间隙”。因此，为了解决幻读问题，InnoDB 只好引入新的锁，也就是间隙锁 (Gap Lock)。</p>
 <p>这样，当你执行 select * from t where d=5 for update 的时候，就不止是给数据库中已有的 6 个记录加上了行锁，还同时加了 7 个间隙锁。这样就确保了无法再插入新的记录。</p>
@@ -379,14 +419,7 @@ LOCK IN SHARE MODE 方式，即主动对父表加一个S锁，如果这时父表
 <p>注意间隙锁之间可能会引起死锁。</p>
 <h1 id="mysql-概述">MySQL 概述</h1>
 <h2 id="逻辑架构">逻辑架构</h2>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/MySQL/Untitled.png"
-        data-srcset="/images/MySQL/Untitled.png, /images/MySQL/Untitled.png 1.5x, /images/MySQL/Untitled.png 2x"
-        data-sizes="auto"
-        alt="/images/MySQL/Untitled.png"
-        title="/images/MySQL/Untitled.png" /></p>
+<p><img loading="lazy" src="/images/MySQL/Untitled.png" srcset="/images/MySQL/Untitled.png, /images/MySQL/Untitled.png 1.5x, /images/MySQL/Untitled.png 2x" sizes="auto" data-title="/images/MySQL/Untitled.png" data-alt="/images/MySQL/Untitled.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <h2 id="隔离级别">隔离级别</h2>
 <ol>
 <li>
@@ -423,14 +456,7 @@ LOCK IN SHARE MODE 方式，即主动对父表加一个S锁，如果这时父表
 <p>保证了同个事务的多个实例在运行时看到的都是一致的数据视图。</p>
 <p>实现 MVCC 的方式有乐观并发控制、悲观并发控制。</p>
 <p>InnoDB 通过给每行数据增加两个隐含值来实现 MVCC，行的创建时间和过期时间。当 可重复读时：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/MySQL/Untitled%201.png"
-        data-srcset="/images/MySQL/Untitled%201.png, /images/MySQL/Untitled%201.png 1.5x, /images/MySQL/Untitled%201.png 2x"
-        data-sizes="auto"
-        alt="/images/MySQL/Untitled%201.png"
-        title="/images/MySQL/Untitled%201.png" /></p>
+<p><img loading="lazy" src="/images/MySQL/Untitled%201.png" srcset="/images/MySQL/Untitled%201.png, /images/MySQL/Untitled%201.png 1.5x, /images/MySQL/Untitled%201.png 2x" sizes="auto" data-title="/images/MySQL/Untitled%201.png" data-alt="/images/MySQL/Untitled%201.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>这样的话大多数读操作都不需要加锁。MVCC 仅存在于可重复读和读提交两个隔离级别。</p>
 <h1 id="数据引擎">数据引擎</h1>
 <h2 id="myisam">MyISAM</h2>
@@ -457,51 +483,16 @@ LOCK IN SHARE MODE 方式，即主动对父表加一个S锁，如果这时父表
 </ul>
 <h1 id="索引">索引</h1>
 <h2 id="b索引">B+索引</h2>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/MySQL/Untitled%202.png"
-        data-srcset="/images/MySQL/Untitled%202.png, /images/MySQL/Untitled%202.png 1.5x, /images/MySQL/Untitled%202.png 2x"
-        data-sizes="auto"
-        alt="/images/MySQL/Untitled%202.png"
-        title="/images/MySQL/Untitled%202.png" /></p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/MySQL/Untitled%203.png"
-        data-srcset="/images/MySQL/Untitled%203.png, /images/MySQL/Untitled%203.png 1.5x, /images/MySQL/Untitled%203.png 2x"
-        data-sizes="auto"
-        alt="/images/MySQL/Untitled%203.png"
-        title="/images/MySQL/Untitled%203.png" /></p>
+<p><img loading="lazy" src="/images/MySQL/Untitled%202.png" srcset="/images/MySQL/Untitled%202.png, /images/MySQL/Untitled%202.png 1.5x, /images/MySQL/Untitled%202.png 2x" sizes="auto" data-title="/images/MySQL/Untitled%202.png" data-alt="/images/MySQL/Untitled%202.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
+<p><img loading="lazy" src="/images/MySQL/Untitled%203.png" srcset="/images/MySQL/Untitled%203.png, /images/MySQL/Untitled%203.png 1.5x, /images/MySQL/Untitled%203.png 2x" sizes="auto" data-title="/images/MySQL/Untitled%203.png" data-alt="/images/MySQL/Untitled%203.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <h2 id="b索引的局限">B+索引的局限</h2>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/MySQL/Untitled%204.png"
-        data-srcset="/images/MySQL/Untitled%204.png, /images/MySQL/Untitled%204.png 1.5x, /images/MySQL/Untitled%204.png 2x"
-        data-sizes="auto"
-        alt="/images/MySQL/Untitled%204.png"
-        title="/images/MySQL/Untitled%204.png" /></p>
+<p><img loading="lazy" src="/images/MySQL/Untitled%204.png" srcset="/images/MySQL/Untitled%204.png, /images/MySQL/Untitled%204.png 1.5x, /images/MySQL/Untitled%204.png 2x" sizes="auto" data-title="/images/MySQL/Untitled%204.png" data-alt="/images/MySQL/Untitled%204.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <h2 id="哈希索引">哈希索引</h2>
 <p>只有 Memory 支持显式的哈希索引。</p>
 <p>其具有很多局限性：</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/MySQL/Untitled%205.png"
-        data-srcset="/images/MySQL/Untitled%205.png, /images/MySQL/Untitled%205.png 1.5x, /images/MySQL/Untitled%205.png 2x"
-        data-sizes="auto"
-        alt="/images/MySQL/Untitled%205.png"
-        title="/images/MySQL/Untitled%205.png" /></p>
+<p><img loading="lazy" src="/images/MySQL/Untitled%205.png" srcset="/images/MySQL/Untitled%205.png, /images/MySQL/Untitled%205.png 1.5x, /images/MySQL/Untitled%205.png 2x" sizes="auto" data-title="/images/MySQL/Untitled%205.png" data-alt="/images/MySQL/Untitled%205.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>在 InnoDB 中，有自适应哈希索引，当其注意到一些 索引值被频繁访问时，会在 B+数 的顶端为这些值建立内存中的哈希索引。但是过程是全自动的。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/MySQL/Untitled%206.png"
-        data-srcset="/images/MySQL/Untitled%206.png, /images/MySQL/Untitled%206.png 1.5x, /images/MySQL/Untitled%206.png 2x"
-        data-sizes="auto"
-        alt="/images/MySQL/Untitled%206.png"
-        title="/images/MySQL/Untitled%206.png" /></p>
+<p><img loading="lazy" src="/images/MySQL/Untitled%206.png" srcset="/images/MySQL/Untitled%206.png, /images/MySQL/Untitled%206.png 1.5x, /images/MySQL/Untitled%206.png 2x" sizes="auto" data-title="/images/MySQL/Untitled%206.png" data-alt="/images/MySQL/Untitled%206.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <h2 id="全文索引">全文索引</h2>
 <p>是 MyISAM 的特殊索引，无最左适配的局限性。</p>
 <h2 id="前缀索引">前缀索引</h2>
@@ -509,72 +500,54 @@ LOCK IN SHARE MODE 方式，即主动对父表加一个S锁，如果这时父表
 <h2 id="聚簇索引聚集索引">聚簇索引（聚集索引）</h2>
 <p>聚簇索引是在 B+索引的基础上，叶子节点存放实际数据。</p>
 <p>B+索引的末端存放的是聚簇索引的 key。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/MySQL/Untitled%207.png"
-        data-srcset="/images/MySQL/Untitled%207.png, /images/MySQL/Untitled%207.png 1.5x, /images/MySQL/Untitled%207.png 2x"
-        data-sizes="auto"
-        alt="/images/MySQL/Untitled%207.png"
-        title="/images/MySQL/Untitled%207.png" /></p>
+<p><img loading="lazy" src="/images/MySQL/Untitled%207.png" srcset="/images/MySQL/Untitled%207.png, /images/MySQL/Untitled%207.png 1.5x, /images/MySQL/Untitled%207.png 2x" sizes="auto" data-title="/images/MySQL/Untitled%207.png" data-alt="/images/MySQL/Untitled%207.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <p>第二索引需要先索引找到聚簇索引的 key，然后再去聚簇索引搜索一次。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/MySQL/Untitled%208.png"
-        data-srcset="/images/MySQL/Untitled%208.png, /images/MySQL/Untitled%208.png 1.5x, /images/MySQL/Untitled%208.png 2x"
-        data-sizes="auto"
-        alt="/images/MySQL/Untitled%208.png"
-        title="/images/MySQL/Untitled%208.png" /></p>
+<p><img loading="lazy" src="/images/MySQL/Untitled%208.png" srcset="/images/MySQL/Untitled%208.png, /images/MySQL/Untitled%208.png 1.5x, /images/MySQL/Untitled%208.png 2x" sizes="auto" data-title="/images/MySQL/Untitled%208.png" data-alt="/images/MySQL/Untitled%208.png" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 <h2 id="覆盖索引">覆盖索引</h2>
 <p>包含所有需要查询的数据列的索引称为覆盖索引。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/MySQL/C2115178-1F5C-4E5D-B7EA-03F98F10BF3C.jpeg"
-        data-srcset="/images/MySQL/C2115178-1F5C-4E5D-B7EA-03F98F10BF3C.jpeg, /images/MySQL/C2115178-1F5C-4E5D-B7EA-03F98F10BF3C.jpeg 1.5x, /images/MySQL/C2115178-1F5C-4E5D-B7EA-03F98F10BF3C.jpeg 2x"
-        data-sizes="auto"
-        alt="/images/MySQL/C2115178-1F5C-4E5D-B7EA-03F98F10BF3C.jpeg"
-        title="/images/MySQL/C2115178-1F5C-4E5D-B7EA-03F98F10BF3C.jpeg" /></p>
+<p><img loading="lazy" src="/images/MySQL/C2115178-1F5C-4E5D-B7EA-03F98F10BF3C.jpeg" srcset="/images/MySQL/C2115178-1F5C-4E5D-B7EA-03F98F10BF3C.jpeg, /images/MySQL/C2115178-1F5C-4E5D-B7EA-03F98F10BF3C.jpeg 1.5x, /images/MySQL/C2115178-1F5C-4E5D-B7EA-03F98F10BF3C.jpeg 2x" sizes="auto" data-title="/images/MySQL/C2115178-1F5C-4E5D-B7EA-03F98F10BF3C.jpeg" data-alt="/images/MySQL/C2115178-1F5C-4E5D-B7EA-03F98F10BF3C.jpeg" style="background: url(/svg/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;this.alt=this.dataset.alt;for(const a of ['style','data-title','data-alt','onerror','onload']){this.removeAttribute(a);}"/></p>
 </div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2021-03-30</span>
-            </div>
-            <div class="post-info-license"></div>
-        </div>
-        <div class="post-info-line">
-            <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/mysql%E5%8E%9F%E7%90%86/index.md" target="_blank">阅读原始文档</a>
-                        </span></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://hongwei7.online/mysql%E5%8E%9F%E7%90%86/" data-title="MySQL 原理总结" data-hashtags="SQL"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://hongwei7.online/mysql%E5%8E%9F%E7%90%86/" data-hashtag="SQL"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://hongwei7.online/mysql%E5%8E%9F%E7%90%86/" data-title="MySQL 原理总结" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://hongwei7.online/mysql%E5%8E%9F%E7%90%86/" data-title="MySQL 原理总结"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://hongwei7.online/mysql%E5%8E%9F%E7%90%86/" data-title="MySQL 原理总结"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://hongwei7.online/mysql%E5%8E%9F%E7%90%86/" data-title="MySQL 原理总结" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://hongwei7.online/mysql%E5%8E%9F%E7%90%86/" data-title="MySQL 原理总结" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://hongwei7.online/mysql%E5%8E%9F%E7%90%86/" data-title="MySQL 原理总结"><i class="fab fa-evernote fa-fw"></i></a></span>
-            </div>
-        </div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title=2021-03-30&#32;19:23:48>更新于 2021-03-30&nbsp;</span>
+      </div><div class="post-info-license">
+          <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span>
+        </div></div>
+    <div class="post-info-line">
+      <div class="post-info-md"><span><a href="/mysql%E5%8E%9F%E7%90%86/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
+      <div class="post-info-share">
+        <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://hongwei7.online/mysql%E5%8E%9F%E7%90%86/" data-title="MySQL 原理总结" data-hashtags="SQL"><i class="fa-brands fa-twitter fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://hongwei7.online/mysql%E5%8E%9F%E7%90%86/" data-hashtag="SQL"><i class="fa-brands fa-facebook-square fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://hongwei7.online/mysql%E5%8E%9F%E7%90%86/" data-title="MySQL 原理总结" data-web><i class="fa-brands fa-whatsapp fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://hongwei7.online/mysql%E5%8E%9F%E7%90%86/" data-title="MySQL 原理总结"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://hongwei7.online/mysql%E5%8E%9F%E7%90%86/" data-title="MySQL 原理总结"><i class="fa-brands fa-weibo fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://hongwei7.online/mysql%E5%8E%9F%E7%90%86/" data-title="MySQL 原理总结" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://hongwei7.online/mysql%E5%8E%9F%E7%90%86/" data-title="MySQL 原理总结" data-description=""><i class="fa-brands fa-blogger fa-fw" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://hongwei7.online/mysql%E5%8E%9F%E7%90%86/" data-title="MySQL 原理总结"><i class="fa-brands fa-evernote fa-fw" aria-hidden="true"></i></a>
+  </span>
+      </div>
     </div>
+  </div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/sql/">SQL</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
-        </section>
-    </div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href='/tags/sql/' class="post-tag">SQL</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div>
 
-    <div class="post-nav"><a href="/linuxsystem/" class="prev" rel="prev" title="Linux 系统编程"><i class="fas fa-angle-left fa-fw"></i>Linux 系统编程</a>
-            <a href="/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/" class="next" rel="next" title="数据链路层复习">数据链路层复习<i class="fas fa-angle-right fa-fw"></i></a></div>
+  <div class="post-nav"><a href="/linuxsystem/" class="post-nav-item" rel="prev" title="Linux 系统编程"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>Linux 系统编程</a>
+      <a href="/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/" class="post-nav-item" rel="next" title="数据链路层复习">数据链路层复习<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
-<div id="comments"></div></article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/hongwei7" target="_blank">hongwei</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
-        </div>
-    </footer></div>
-
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
-            </a>
-        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":300},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+<div id="comments"></div></article></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.111.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.2.18-RC"><img class="fixit-icon" src="/fixit.min.svg" alt="FixIt logo" />&nbsp;FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2020 - 2023</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/hongwei7"target="_blank" rel="external nofollow noopener noreferrer">hongwei</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div><div class="footer-line statistics"></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric d-none">0%</span>
+        </div><div class="fixed-button view-comments d-none" role="button" aria-label="查看评论"><i class="fa-solid fa-comment fa-fw" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">FixIt 主题在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/lunr/lunr.min.js" defer></script><script src="/lib/lunr/lunr.stemmer.support.min.js" defer></script><script src="/lib/lunr/lunr.zh.min.js" defer></script><script src="/lib/twemoji/twemoji.min.js" defer></script><script src="/lib/lightgallery/lightgallery.min.js" defer></script><script src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js" defer></script><script src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":300},"comment":{"enable":true,"expired":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script src="/js/theme.min.js" defer></script></body>
 </html>

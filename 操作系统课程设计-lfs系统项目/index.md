@@ -186,3 +186,9 @@ quit
 此处参考了https://blog.csdn.net/u012333520/article/details/50563462
 
 最后成功编译`qt-4.1.0`.虽然是比较旧的版本,但是作为课设的编译工具也够用了. 最后利用 qt 完成了一个进程管理器和一个计算器。
+
+---
+
+> 作者: [hongwei](https://github.com/hongwei7)  
+> URL: https://hongwei7.online/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1-lfs%E7%B3%BB%E7%BB%9F%E9%A1%B9%E7%9B%AE/  
+
