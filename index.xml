@@ -4,9 +4,82 @@
     <link>https://hongwei7.online/</link>
     <description>欢迎来到hongwei7的个人博客</description>
     <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1216869567@qq.com (hongwei)</managingEditor>
-      <webMaster>1216869567@qq.com (hongwei)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 15 Jun 2023 01:47:43 &#43;0800</lastBuildDate>
+      <webMaster>1216869567@qq.com (hongwei)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 03 Jul 2023 01:06:59 &#43;0800</lastBuildDate>
       <atom:link href="https://hongwei7.online/index.xml" rel="self" type="application/rss+xml" />
     <item>
+  <title>用golang写gee(day7)</title>
+  <link>https://hongwei7.online/%E7%94%A8golang%E5%86%99geeday7/</link>
+  <pubDate>Mon, 03 Jul 2023 01:06:59 &#43;0800</pubDate>
+  <author>hongwei</author>
+  <guid>https://hongwei7.online/%E7%94%A8golang%E5%86%99geeday7/</guid>
+  <description><![CDATA[<div class="featured-image">
+        <img src="/images/gin.png" referrerpolicy="no-referrer">
+      </div><p>在 Go 中 panic 会导致程序被中止，但是在退出前，会先处理完当前协程上已经 defer 的任务，执行完成后再退出。效果类似于 java 语言的 <code>try...catch</code>。defer 的任务执行完成之后，panic 还会继续被抛出，导致程序非正常结束。</p>
+<p>Go 语言还提供了 recover 函数，可以避免因为 panic 发生而导致整个程序终止，recover 函数只在 defer 中生效。</p>]]></description>
+</item>
+<item>
+  <title>用golang写gee(day6)</title>
+  <link>https://hongwei7.online/%E7%94%A8golang%E5%86%99geeday6/</link>
+  <pubDate>Fri, 30 Jun 2023 01:06:59 &#43;0800</pubDate>
+  <author>hongwei</author>
+  <guid>https://hongwei7.online/%E7%94%A8golang%E5%86%99geeday6/</guid>
+  <description><![CDATA[<div class="featured-image">
+        <img src="/images/gin.png" referrerpolicy="no-referrer">
+      </div><p>利用<code>http</code>包的<code>http.FileServer</code>，结合动态路由来实现<code>Static</code>方法，随意访问任意路径下的文件。</p>]]></description>
+</item>
+<item>
+  <title>用golang写gee(day5)</title>
+  <link>https://hongwei7.online/%E7%94%A8golang%E5%86%99geeday5/</link>
+  <pubDate>Fri, 23 Jun 2023 21:58:21 &#43;0800</pubDate>
+  <author>hongwei</author>
+  <guid>https://hongwei7.online/%E7%94%A8golang%E5%86%99geeday5/</guid>
+  <description><![CDATA[<div class="featured-image">
+        <img src="/images/gin.png" referrerpolicy="no-referrer">
+      </div><p>项目地址：<a href="https://geektutu.com/post/gee-day5.html"target="_blank" rel="external nofollow noopener noreferrer">https://geektutu.com/post/gee-day5.html</a></p>]]></description>
+</item>
+<item>
+  <title>用golang写gee(day4)</title>
+  <link>https://hongwei7.online/%E7%94%A8golang%E5%86%99geeday4/</link>
+  <pubDate>Tue, 20 Jun 2023 02:17:21 &#43;0800</pubDate>
+  <author>hongwei</author>
+  <guid>https://hongwei7.online/%E7%94%A8golang%E5%86%99geeday4/</guid>
+  <description><![CDATA[<div class="featured-image">
+        <img src="/images/gin.png" referrerpolicy="no-referrer">
+      </div>项目地址：https://geektutu.com/post/gee-day4.html 目标 这次要完成http的分组功能，简而言之，就是对于]]></description>
+</item>
+<item>
+  <title>用golang写gee(day3)</title>
+  <link>https://hongwei7.online/%E7%94%A8golang%E5%86%99geeday3/</link>
+  <pubDate>Mon, 19 Jun 2023 00:46:21 &#43;0800</pubDate>
+  <author>hongwei</author>
+  <guid>https://hongwei7.online/%E7%94%A8golang%E5%86%99geeday3/</guid>
+  <description><![CDATA[<div class="featured-image">
+        <img src="/images/gin.png" referrerpolicy="no-referrer">
+      </div><p>项目地址：<a href="https://geektutu.com/post/gee-day3.html"target="_blank" rel="external nofollow noopener noreferrer">https://geektutu.com/post/gee-day3.html</a></p>
+<h3 id="目标">目标</h3>
+<p>day3的任务是，实现<code>http</code>的动态路由，即访问路径带有<code>:name</code>的资源时，可以顺利匹配；访问路径带有<code>*</code>的资源时，直接匹配后面所有资源。</p>]]></description>
+</item>
+<item>
+  <title>SPLAY伸展树</title>
+  <link>https://hongwei7.online/splay%E4%BC%B8%E5%B1%95%E6%A0%91/</link>
+  <pubDate>Sun, 18 Jun 2023 04:49:13 &#43;0800</pubDate>
+  <author>map[avatar:&lt;nil&gt; email:&lt;nil&gt; link:&lt;nil&gt; name:&lt;nil&gt;]</author>
+  <guid>https://hongwei7.online/splay%E4%BC%B8%E5%B1%95%E6%A0%91/</guid>
+  <description><![CDATA[<div class="featured-image">
+        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20230203100633/Zig-rotation.png" referrerpolicy="no-referrer">
+      </div><p>SplayTree伸展树用于毕业设计之中，它本身是一种常见的数据结构算法。</p>]]></description>
+</item>
+<item>
+  <title>用golang写gee(day2)</title>
+  <link>https://hongwei7.online/%E7%94%A8golang%E5%86%99geeday2/</link>
+  <pubDate>Sun, 18 Jun 2023 03:49:21 &#43;0800</pubDate>
+  <author>hongwei</author>
+  <guid>https://hongwei7.online/%E7%94%A8golang%E5%86%99geeday2/</guid>
+  <description><![CDATA[<div class="featured-image">
+        <img src="/images/gin.png" referrerpolicy="no-referrer">
+      </div>项目地址：https://geektutu.com/post/gee-day2.html 目标 今天的目的是，进一步把engine抽象成rout]]></description>
+</item>
+<item>
   <title>用golang写gee(day1)</title>
   <link>https://hongwei7.online/%E7%94%A8golang%E5%86%99geeday1/</link>
   <pubDate>Thu, 15 Jun 2023 01:47:43 &#43;0800</pubDate>
@@ -35,76 +108,6 @@
   <description><![CDATA[<div class="featured-image">
         <img src="https://tse1-mm.cn.bing.net/th/id/OIP-C.tSrZz_I2ToRj9-3lG17vewHaD9?pid=ImgDet&amp;rs=1" referrerpolicy="no-referrer">
       </div>Amortized Analysis，是对算法复杂度的另一种分析。它的基本概念是，给定一连串操作，大部分的操作是非常廉价的，有极少的操作可能非常昂贵，因此一个标准的最坏分析可能过于消极了。因此，其基本理念在于，当昂贵的操作特别少的时候，他们的成本可能会均摊到所有的操作上。]]></description>
-</item>
-<item>
-  <title>Golang学习笔记记录</title>
-  <link>https://hongwei7.online/golang%E7%AC%94%E8%AE%B0-201e1/</link>
-  <pubDate>Fri, 01 Apr 2022 11:22:05 &#43;0800</pubDate>
-  <author>hongwei</author>
-  <guid>https://hongwei7.online/golang%E7%AC%94%E8%AE%B0-201e1/</guid>
-  <description><![CDATA[<div class="featured-image">
-        <img src="/images/Golang%e7%ac%94%e8%ae%b0%20201e1/Untitled%204.png" referrerpolicy="no-referrer">
-      </div>Go（又称Golang）是Google开发的一种静态强类型、编译型、并发型，并具有垃圾回收功能的编程语言。]]></description>
-</item>
-<item>
-  <title>MIT-6.824-Lab2BC-Raft-LogReplication-Persistence</title>
-  <link>https://hongwei7.online/mitlab2bc/</link>
-  <pubDate>Tue, 15 Jun 2021 00:43:41 &#43;0800</pubDate>
-  <author>hongwei</author>
-  <guid>https://hongwei7.online/mitlab2bc/</guid>
-  <description><![CDATA[<div class="featured-image">
-        <img src="/images/raft/raft.png" referrerpolicy="no-referrer">
-      </div>这次实验主要实现Log的一致性和持久性。主要是Debug的过程中会遇到非常多的问题。这里对遇到的问题做一下回顾。]]></description>
-</item>
-<item>
-  <title>MIT-6.824-Lab2A-Raft-LeaderElection</title>
-  <link>https://hongwei7.online/mit-6.824-lab2a-raft-leaderelection/</link>
-  <pubDate>Tue, 08 Jun 2021 06:22:02 &#43;0800</pubDate>
-  <author>hongwei</author>
-  <guid>https://hongwei7.online/mit-6.824-lab2a-raft-leaderelection/</guid>
-  <description><![CDATA[<div class="featured-image">
-        <img src="/images/LeaderElection.png" referrerpolicy="no-referrer">
-      </div>这次的作业主要是要实现 LeaderElection 的部分，难度不大，但是一些实现的细节可能会影响后续的实验。]]></description>
-</item>
-<item>
-  <title>MIT-6.824-Lab1-MapReduce 实验</title>
-  <link>https://hongwei7.online/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C/</link>
-  <pubDate>Wed, 02 Jun 2021 06:22:02 &#43;0800</pubDate>
-  <author>hongwei</author>
-  <guid>https://hongwei7.online/mit-6.824-lab1-mapreduce-%E5%AE%9E%E9%AA%8C/</guid>
-  <description><![CDATA[<div class="featured-image">
-        <img src="/images/mapreduce.png" referrerpolicy="no-referrer">
-      </div>这次实验的目的是自己完成一个 MapReduce 的分布式实现。对我来说最大的困难在于语言的不熟悉，这里主要使用的是 Go 语言。由于这是我第一次接触 Go，有很多实现细节其实可以做的更好一些.]]></description>
-</item>
-<item>
-  <title>GFS文件系统</title>
-  <link>https://hongwei7.online/gfs/</link>
-  <pubDate>Thu, 27 May 2021 11:22:05 &#43;0800</pubDate>
-  <author>hongwei</author>
-  <guid>https://hongwei7.online/gfs/</guid>
-  <description><![CDATA[<div class="featured-image">
-        <img src="/images/GFS/Untitled%204.png" referrerpolicy="no-referrer">
-      </div>GFS 是 Google 在 2010 年提出的分布式文件存储系统。]]></description>
-</item>
-<item>
-  <title>Linux下线程中栈变量和堆变量的共享性</title>
-  <link>https://hongwei7.online/linux%E4%B8%8B%E7%BA%BF%E7%A8%8B%E4%B8%AD%E6%A0%88%E5%8F%98%E9%87%8F%E5%92%8C%E5%A0%86%E5%8F%98%E9%87%8F%E7%9A%84%E5%85%B1%E4%BA%AB%E6%80%A7/</link>
-  <pubDate>Sat, 22 May 2021 15:40:05 &#43;0800</pubDate>
-  <author>hongwei</author>
-  <guid>https://hongwei7.online/linux%E4%B8%8B%E7%BA%BF%E7%A8%8B%E4%B8%AD%E6%A0%88%E5%8F%98%E9%87%8F%E5%92%8C%E5%A0%86%E5%8F%98%E9%87%8F%E7%9A%84%E5%85%B1%E4%BA%AB%E6%80%A7/</guid>
-  <description><![CDATA[<div class="featured-image">
-        <img src="/images/threadsMemory.jpeg" referrerpolicy="no-referrer">
-      </div>在 CSAPP 中，说到在操作系统的线程概念模型中，每个线程有独立的栈，而线程之间不能访问其他栈的变量。但是在实现中有所区别，本文来做一个小小的实验。]]></description>
-</item>
-<item>
-  <title>在构造函数和析构函数中调用虚函数会如何</title>
-  <link>https://hongwei7.online/%E5%9C%A8%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%92%8C%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0%E4%B8%AD%E8%B0%83%E7%94%A8%E8%99%9A%E5%87%BD%E6%95%B0%E4%BC%9A%E5%A6%82%E4%BD%95/</link>
-  <pubDate>Mon, 17 May 2021 20:22:05 &#43;0800</pubDate>
-  <author>hongwei</author>
-  <guid>https://hongwei7.online/%E5%9C%A8%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%92%8C%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0%E4%B8%AD%E8%B0%83%E7%94%A8%E8%99%9A%E5%87%BD%E6%95%B0%E4%BC%9A%E5%A6%82%E4%BD%95/</guid>
-  <description><![CDATA[<div class="featured-image">
-        <img src="/images/effective.jpg" referrerpolicy="no-referrer">
-      </div>在《Effective C++》中，作者提到绝对不要在构造函数和析构函数中调用虚函数。简单分析虚机制在构造函数和析构函数下的情况。]]></description>
 </item>
 </channel>
 </rss>
